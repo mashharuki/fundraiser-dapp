@@ -4,13 +4,19 @@ import FundraiserFactoryContract from "./contracts/FundraiserFactory.json";
 import getWeb3 from "./getWeb3";
 import "./App.css";
 // コンポーネントを読み込む
-import NewFundraiser from "./NewFundraiser";
+import NewFundraiser from './NewFundraiser';
 import Home from "./Home";
+// material-ui関連をインポートする。
+import { makeStyles } from '@material-ui/core/styles';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
 
 // コンポーネントを用意する。
 const App = () => {
   // ステート変数を用意する。　
   const [state, setState] = useState({ web3: null, accounts: null, contract: null  });
+  const classes = useStyles();
 
   // useeffect関数
   useEffect (() => {
@@ -41,21 +47,26 @@ const App = () => {
     const { accounts, contract } = state;
   };
 
+  // スタイルを使うための定数
+  const useStyles = makeStyles (theme => ({
+    root: {
+      flexGrow: 1
+    }
+  }));
+
   return (
     <Router>
-      <div>
-        <nav>
-          <ul>
-            <li>
+      <div className={classes.root}>
+        <AppBar position="static" color="default">
+          <Toolbar>
+            <Typography variant="h6" color="inherit">
               <NavLink to="/">Home</NavLink>
-            </li>
-            <li>
-              <NavLink to="/new">New</NavLink>
-            </li>
-          </ul>
-        </nav>
+            </Typography>
+            <NavLink to="/new">New</NavLink>
+          </Toolbar>
+        </AppBar>
         <Route path="/" exact component={Home} />
-        <Route path="/new" exact component={NewFundraiser} />
+        <Route path="/new/" exact component={NewFundraiser} />
       </div>
     </Router>
   );
