@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Route, NavLink } from "react-router-dom";
 import FundraiserFactoryContract from "./contracts/FundraiserFactory.json";
 import getWeb3 from "./getWeb3";
 import "./App.css";
+// コンポーネントを読み込む
+import NewFundraiser from "./NewFundraiser";
+import Home from "./Home";
 
 // コンポーネントを用意する。
 const App = () => {
@@ -38,9 +42,22 @@ const App = () => {
   };
 
   return (
-    <div>
-      <h1>Fundraiser</h1>
-    </div>
+    <Router>
+      <div>
+        <nav>
+          <ul>
+            <li>
+              <NavLink to="/">Home</NavLink>
+            </li>
+            <li>
+              <NavLink to="/new">New</NavLink>
+            </li>
+          </ul>
+        </nav>
+        <Route path="/" exact component={Home} />
+        <Route path="/new" exact component={NewFundraiser} />
+      </div>
+    </Router>
   );
 }
 
