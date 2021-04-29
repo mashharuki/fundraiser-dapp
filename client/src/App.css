@@ -37,3 +37,13 @@ body {
   color: black;
   text-decoration: none;
 }
+
+.MuiTextField-root {
+  display: block !important;
+
+}
+
+.MuiInputBase-root {
+  width: 300px !important;
+  margin-left: 3px;
+}
