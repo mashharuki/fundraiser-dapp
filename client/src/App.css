@@ -75,3 +75,16 @@ body {
   text-decoration: none;
 }
 
+.receipt-container {
+  text-align: center;
+}
+
+.receipt-header {
+  border-bottom: 1px solid gray;
+}
+
+.receipt-info {
+  display: flex;
+  padding: 50px;
+  justify-content: space-between;
+}

@@ -6,6 +6,7 @@ import "./App.css";
 // コンポーネントを読み込む
 import NewFundraiser from './NewFundraiser';
 import Home from "./Home";
+import Receipts from './Receipts';
 // material-ui関連をインポートする。
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -22,7 +23,7 @@ const App = () => {
       flexGrow: 1
     }
   }));
-  
+
   const classes = useStyles();
 
   // useeffect関数
@@ -67,6 +68,7 @@ const App = () => {
         </AppBar>
         <Route path="/" exact component={Home} />
         <Route path="/new/" exact component={NewFundraiser} />
+        <Route path="/receipts" component={Receipts} />
       </div>
     </Router>
   );
