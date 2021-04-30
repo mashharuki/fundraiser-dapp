@@ -16,6 +16,13 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+// フォーム関連のコンポーネントを読み込む
+import FilledInput from '@material-ui/core/FilledInput';
+import FormControl from '@material-ui/core/FormControl';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
 
 // スタイルを使うための定数
 const useStyles = makeStyles (theme => ({
@@ -31,6 +38,21 @@ const useStyles = makeStyles (theme => ({
     },
     input: {
         display: 'none',
+    },
+    container: {
+        display: 'flex',
+        flexWrap: 'wrap',
+    },
+    formControl: {
+        margin: theme.spacing(1),
+        display: 'table-cell'
+    },
+    paper: {
+        position: 'absolute',
+        width: 400,
+        backgroundColor: theme.palette.background.paper,
+        boxShadow: 'none',
+        padding: 4,
     },
 }));
 
@@ -51,6 +73,7 @@ const FundraiserCard = (props) => {
     const [ contract, setContract] = useState(null);
     const [ accounts, setAccounts ] = useState(null);
     const [ open, setOpen ] = useState(false);
+    const [ donationAmount, setDonationAmount ] = useState(null);
 
     // useEffect関数
     useEffect (() => {
@@ -78,7 +101,7 @@ const FundraiserCard = (props) => {
             // アカウントをセットする。
             setAccounts (accounts);
 
-            // 各コントラクトに関する情報を取得する。
+            // 各コントラクトに関する情報を取得する。(インスタンスのゲッターメソッドを呼び出して取得する。)
             const name = await instance.methods.name().call();
             const description = await instance.methods.description().call();
             const totalDonations = await instance.methods.totalDonations().call();
@@ -108,6 +131,20 @@ const FundraiserCard = (props) => {
         setOpen(false);
     };
 
+    // submitFunds関数(寄付をブロックチェーンに送信するための関数)
+    const submitFunds = async() => {
+        // 寄付額をweiに変換する
+        const donation = web3.eth.toWei(donationAmount);
+        // donate()関数を呼び出す。
+        await contract.methods.donate().send({
+            from: accounts[0],
+            value: donation,
+            gas: 650000
+        });
+        // ダイアログを閉じる。
+        setOpen(false);
+    }
+
     return (
         <div className="fundraiser-card-content">
             <Dialog opne={open} onClose={handleClose} aria-labelledby="form-dialog-title">
@@ -120,6 +157,14 @@ const FundraiserCard = (props) => {
                         <p>
                             {description}
                         </p>
+                        <FormControl className={classes.formControl}>
+                            $
+                            <Input id="component-simple" value={donationAmount} onChange={ (e) => setDonationAmount(e.target.value)} placeholder="0.00" />
+                        </FormControl>
+                        <p></p>
+                        <Button onClick={submitFunds} variant="contained" color="primary">
+                            Donate
+                        </Button>
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
@@ -138,6 +183,9 @@ const FundraiserCard = (props) => {
                         <Typography variant="body2" color="textSecondary" component="p">
                             <p>
                                 {description}
+                            </p>
+                            <p>
+                                Total Donations: ${totalDonations}
                             </p>
                         </Typography>
                     </CardContent>
