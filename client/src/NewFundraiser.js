@@ -30,6 +30,7 @@ const NewFundraiser = () => {
     const [ custodian, setCustodian ] = useState(null);
     const [ contract, setContract] = useState(null);
     const [ accounts, setAccounts ] = useState(null);
+    const [ web3, setWeb3 ] = useState(null)
     const classes = useStyles();
 
     // handleSubmit関数
