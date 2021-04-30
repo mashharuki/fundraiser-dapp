@@ -4,7 +4,6 @@ import FundraiserFactoryContract from './contracts/FundraiserFactory.json';
 import Web3 from "web3";
 import FundraiserCard from './FundraiserCard';
 
-
 // コンポーネントを用意する。
 const Home = () => {
     // ステート変数を用意
@@ -18,7 +17,7 @@ const Home = () => {
 
     // displayFundraisers関数
     const displayFundraisers = () => {
-        return this.state.funds.map((fundraiser) => {
+        return funds.map((fundraiser) => {
             return (
                 <FundraiserCard fundraiser={fundraiser} key={fundraiser}/>
             );

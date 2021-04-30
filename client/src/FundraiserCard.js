@@ -9,6 +9,13 @@ import Typography from '@material-ui/core/Typography';
 import Web3 from 'web3';
 import FundraiserContract from './contracts/Fundraiser.json';
 import detectEthereumProvider from '@metamask/detect-provider';
+import Button from '@material-ui/core/Button';
+// ダイアログ関連おモジュールを読み込む
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 // スタイルを使うための定数
 const useStyles = makeStyles (theme => ({
@@ -18,6 +25,12 @@ const useStyles = makeStyles (theme => ({
     },
     media: {
         height: 140,
+    },
+    button: {
+        margin: theme.spacing(1),
+    },
+    input: {
+        display: 'none',
     },
 }));
 
@@ -37,6 +50,7 @@ const FundraiserCard = (props) => {
     const [ donationCount, setDonationCount ] = useState(null);
     const [ contract, setContract] = useState(null);
     const [ accounts, setAccounts ] = useState(null);
+    const [ open, setOpen ] = useState(false);
 
     // useEffect関数
     useEffect (() => {
@@ -82,9 +96,39 @@ const FundraiserCard = (props) => {
         }
     }
 
+    // handleOpen関数
+    const handleOpen = () => {
+        // trueにして開く。
+        setOpen(true);
+    };
+
+    // handleClose関数
+    const handleClose = () => {
+        // falseにして閉じる。
+        setOpen(false);
+    };
+
     return (
         <div className="fundraiser-card-content">
-            <Card className={classes.card}>
+            <Dialog opne={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+                <DialogTitle id="form-dialog-title">
+                    Donate to {fundName}
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        <img src={imageURL} width='200px' height='130px' />
+                        <p>
+                            {description}
+                        </p>
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleClose} color="primary">
+                        Cancel
+                    </Button>
+                </DialogActions>
+            </Dialog>
+            <Card className={classes.card} onClick={handleOpen}>
                 <CardActionArea>
                     <CardMedia className={classes.media} image={imageURL} title="Fundraiser Image" />
                     <CardContent>
@@ -98,6 +142,11 @@ const FundraiserCard = (props) => {
                         </Typography>
                     </CardContent>
                 </CardActionArea>
+                <CardActions>
+                    <Button onClick={handleOpen} variant="contained" className={classes.button}>
+                        View More
+                    </Button>
+                </CardActions>
             </Card>
         </div>
     );
