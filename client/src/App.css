@@ -58,3 +58,7 @@ body {
   height: 250px;
   margin: 20px;
 }
+
+.donation-input-container {
+  display: flex;
+}

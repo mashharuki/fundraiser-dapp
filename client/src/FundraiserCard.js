@@ -23,6 +23,8 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
+// cryptocompareを読み込む
+const cc = require('cryptocompare');
 
 // スタイルを使うための定数
 const useStyles = makeStyles (theme => ({
@@ -74,6 +76,9 @@ const FundraiserCard = (props) => {
     const [ accounts, setAccounts ] = useState(null);
     const [ open, setOpen ] = useState(false);
     const [ donationAmount, setDonationAmount ] = useState(null);
+    const [ exchangeRate, setExchangeRate ] = useState(null);
+    //ETH変換用変数
+    const ethAmount =  donationAmount / exchangeRate || 0;
 
     // useEffect関数
     useEffect (() => {
@@ -111,8 +116,15 @@ const FundraiserCard = (props) => {
             setFundName(name);
             setDescription(description);
             setImageURL(imageURL);
-            setTotalDonations(totalDonations);
             setURL(url);
+            // 現在の為替レートを取得する。
+            const exchangeRate = await cc.price('ETH', ['USD']);
+            setExchangeRate(exchangeRate);
+            // 金額と通貨を渡す。
+            const eth = web3.utils.fromWei(totalDonations, 'ether');
+            const dollarDonationAmount = exchangeRate.USD * eth;
+            // 合計寄付額のステート変数をセットする。
+            setTotalDonations(dollarDonationAmount);
         } catch (error) {
             alert(`Failed to load web3, accounts, or contract. Check console for details.`,);
             console.error(error);
@@ -133,8 +145,9 @@ const FundraiserCard = (props) => {
 
     // submitFunds関数(寄付をブロックチェーンに送信するための関数)
     const submitFunds = async() => {
+        const ethtotal = donationAmount / exchangeRate;
         // 寄付額をweiに変換する
-        const donation = web3.eth.toWei(donationAmount);
+        const donation = web3.eth.toWei(ethtotal.toString());
         // donate()関数を呼び出す。
         await contract.methods.donate().send({
             from: accounts[0],
@@ -161,7 +174,7 @@ const FundraiserCard = (props) => {
                             $
                             <Input id="component-simple" value={donationAmount} onChange={ (e) => setDonationAmount(e.target.value)} placeholder="0.00" />
                         </FormControl>
-                        <p></p>
+                        <p>ETH: {ethAmount}</p>
                         <Button onClick={submitFunds} variant="contained" color="primary">
                             Donate
                         </Button>
