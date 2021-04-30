@@ -7,7 +7,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import Web3 from 'web3';
-import FundraiserFactoryContract from './contracts/FundraiserFactory.json';
+import FundraiserContract from './contracts/Fundraiser.json';
 import detectEthereumProvider from '@metamask/detect-provider';
 
 // スタイルを使うための定数
@@ -28,7 +28,7 @@ const FundraiserCard = (props) => {
     // ステート変数を用意する。
     const [ web3, setWeb3 ] = useState(null);
     const [ url, setURL ] = useState(null);
-    const [ description, setFundraiserDescription ] = useState(null);
+    const [ description, setDescription ] = useState(null);
     const [ imageURL, setImageURL ] = useState(null);
     const [ fundName, setFundName ] = useState(null);
     const [ totalDonations, setTotalDonations ] = useState(null);
@@ -38,8 +38,47 @@ const FundraiserCard = (props) => {
 
     // useEffect関数
     useEffect (() => {
+        // fundraiserが存在する時のみinit関数を実行する。
+        if (fundraiser) {
+            init (fundraiser);
+        }
+    }, [fundraiser]);
 
-    }, []);
+    // init関数
+    const init = async (fundraiser) => {
+        try {
+            // Web3が使えるように設定する。
+            const fund = fundraiser;
+            const provider = await detectEthereumProvider();
+            const web3 = new Web3(provider);
+            const networkId = await web3.eth.net.getId();
+            const deployedNetwork = FundraiserContract.networks[networkId];
+            const accounts = await web3.eth.getAccounts();
+            const instance = new web3.eth.Contract(FundraiserContract.abi, fund);
+            // Web3をセットする。
+            setWeb3 (web3);
+            // コントラクトをセットする。
+            setContract (instance);
+            // アカウントをセットする。
+            setAccounts (accounts);
+
+            // 各コントラクトに関する情報を取得する。
+            const name = await instance.methods.name().call();
+            const description = await instance.methods.description().call();
+            const totalDonations = await instance.methods.totalDonations().call();
+            const imageURL = await instance.methods.imageURL().call();
+            const url = await instance.methods.url().call();
+            // ステート変数にセットする。
+            setFundName(name);
+            setDescription(description);
+            setImageURL(imageURL);
+            setTotalDonations(totalDonations);
+            setURL(url);
+        } catch (error) {
+            alert(`Failed to load web3, accounts, or contract. Check console for details.`,);
+            console.error(error);
+        }
+    }
 
     return (
         <div className="fundraiser-card-content">

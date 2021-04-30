@@ -49,11 +49,11 @@ const Home = () => {
         }
     }
 
-    return {
+    return (
         <div className="main-container">
             {displayFundraisers()}
         </div>
-    };
+    );
 };
 
 export default Home;
