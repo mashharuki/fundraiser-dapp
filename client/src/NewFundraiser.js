@@ -48,15 +48,15 @@ const NewFundraiser = () => {
             // Web3が使えるように設定する。
             const web3 = await getWeb3();
             const networkId = await web3.eth.net.getId();
-            const deployedNetwork = FactoryContract.networks[networkId];
+            const deployedNetwork = FundraiserFactoryContract.networks[networkId];
             const accounts = await web3.eth.getAccounts();
-            const instance = new web3.eth.Contract(FactoryContract.abi, deployedNetwork && deployedNetwork.address,);
+            const instance = new web3.eth.Contract(FundraiserFactoryContract.abi, deployedNetwork && deployedNetwork.address,);
             // Web3を設定する。
-            setWeb3(web3)
+            setWeb3(web3);
             // コントラクトをセットする。
-            setContract(instance)
+            setContract(instance);
             // アカウントをセットする。
-            setAccounts(accounts)
+            setAccounts(accounts);
         } catch (error) {
             alert(`Failed to load web3, accounts, or contract. Check console for details.`,);
             console.error(error);
