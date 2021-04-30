@@ -23,6 +23,8 @@ const useStyles = makeStyles (theme => ({
 
 // FundraiserCard関数
 const FundraiserCard = (props) => {
+    // 変数を定義する。
+    const { fundraiser } = props; 
     // スタイル用のクラス
     const classes = useStyles();
     // ステート変数を用意する。
@@ -32,7 +34,7 @@ const FundraiserCard = (props) => {
     const [ imageURL, setImageURL ] = useState(null);
     const [ fundName, setFundName ] = useState(null);
     const [ totalDonations, setTotalDonations ] = useState(null);
-    const [ donationDount, setDonationCount ] = useState(null);
+    const [ donationCount, setDonationCount ] = useState(null);
     const [ contract, setContract] = useState(null);
     const [ accounts, setAccounts ] = useState(null);
 
