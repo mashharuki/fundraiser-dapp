@@ -42,8 +42,8 @@ const handleSubmit = async () => {
 };
 
 // コンポーネントを用意する。
-const init = async() => {
-    useEffect (() => {
+useEffect (() => {
+    const init = async() => {
         try {
             // Web3が使えるように設定する。
             const web3 = await getWeb3();
@@ -61,8 +61,9 @@ const init = async() => {
             alert(`Failed to load web3, accounts, or contract. Check console for details.`,);
             console.error(error);
         }
-        init();
-    }, []);
+    }
+    init();
+}, []);
 
     return (
         <div className="create-fundraiser-container">
