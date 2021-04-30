@@ -31,39 +31,38 @@ const NewFundraiser = () => {
     const [ contract, setContract] = useState(null);
     const [ accounts, setAccounts ] = useState(null);
     const classes = useStyles();
-}
 
-// handleSubmit関数
-const handleSubmit = async () => {
-    // コントラクトのcreateFundraiserを呼び出す。
-    await contract.methods.createFundraiser(name, url, imageURL, description, beneficiary).send({ from: accounts[0] });
-    // アラートを出す。
-    alert('Successfully created fundraiser')
-};
+    // handleSubmit関数
+    const handleSubmit = async () => {
+        // コントラクトのcreateFundraiserを呼び出す。
+        await contract.methods.createFundraiser(name, url, imageURL, description, beneficiary).send({ from: accounts[0] });
+        // アラートを出す。
+        alert('Successfully created fundraiser')
+    };
 
-// コンポーネントを用意する。
-useEffect (() => {
-    const init = async() => {
-        try {
-            // Web3が使えるように設定する。
-            const web3 = await getWeb3();
-            const networkId = await web3.eth.net.getId();
-            const deployedNetwork = FundraiserFactoryContract.networks[networkId];
-            const accounts = await web3.eth.getAccounts();
-            const instance = new web3.eth.Contract(FundraiserFactoryContract.abi, deployedNetwork && deployedNetwork.address,);
-            // Web3を設定する。
-            setWeb3(web3);
-            // コントラクトをセットする。
-            setContract(instance);
-            // アカウントをセットする。
-            setAccounts(accounts);
-        } catch (error) {
-            alert(`Failed to load web3, accounts, or contract. Check console for details.`,);
-            console.error(error);
+    // コンポーネントを用意する。
+    useEffect (() => {
+        const init = async() => {
+            try {
+                // Web3が使えるように設定する。
+                const web3 = await getWeb3();
+                const networkId = await web3.eth.net.getId();
+                const deployedNetwork = FundraiserFactoryContract.networks[networkId];
+                const accounts = await web3.eth.getAccounts();
+                const instance = new web3.eth.Contract(FundraiserFactoryContract.abi, deployedNetwork && deployedNetwork.address,);
+                // Web3を設定する。
+                setWeb3(web3);
+                // コントラクトをセットする。
+                setContract(instance);
+                // アカウントをセットする。
+                setAccounts(accounts);
+            } catch (error) {
+                alert(`Failed to load web3, accounts, or contract. Check console for details.`,);
+                console.error(error);
+            }
         }
-    }
-    init();
-}, []);
+        init();
+    }, []);
 
     return (
         <div className="create-fundraiser-container">
