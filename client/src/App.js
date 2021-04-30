@@ -16,6 +16,13 @@ import Typography from '@material-ui/core/Typography';
 const App = () => {
   // ステート変数を用意する。　
   const [state, setState] = useState({ web3: null, accounts: null, contract: null  });
+  // スタイルを使うための定数
+  const useStyles = makeStyles (theme => ({
+    root: {
+      flexGrow: 1
+    }
+  }));
+  
   const classes = useStyles();
 
   // useeffect関数
@@ -46,13 +53,6 @@ const App = () => {
   const runExample = async() => {
     const { accounts, contract } = state;
   };
-
-  // スタイルを使うための定数
-  const useStyles = makeStyles (theme => ({
-    root: {
-      flexGrow: 1
-    }
-  }));
 
   return (
     <Router>
