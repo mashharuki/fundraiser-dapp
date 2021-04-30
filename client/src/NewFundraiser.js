@@ -42,7 +42,7 @@ const handleSubmit = async () => {
 };
 
 // コンポーネントを用意する。
-const NewFundraiser = () => {
+const init = async() => {
     useEffect (() => {
         try {
             // Web3が使えるように設定する。
@@ -61,6 +61,7 @@ const NewFundraiser = () => {
             alert(`Failed to load web3, accounts, or contract. Check console for details.`,);
             console.error(error);
         }
+        init();
     }, []);
 
     return (
