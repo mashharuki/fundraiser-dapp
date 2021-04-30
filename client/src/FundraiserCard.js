@@ -23,6 +23,7 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
+import { Link } from 'react-router-dom';
 // cryptocompareを読み込む
 const cc = require('cryptocompare');
 
@@ -77,6 +78,7 @@ const FundraiserCard = (props) => {
     const [ open, setOpen ] = useState(false);
     const [ donationAmount, setDonationAmount ] = useState(null);
     const [ exchangeRate, setExchangeRate ] = useState(null);
+    const [ userDonations, setUserDonations ] = useState(null);
     //ETH変換用変数
     const ethAmount =  donationAmount / exchangeRate || 0;
 
@@ -125,6 +127,11 @@ const FundraiserCard = (props) => {
             const dollarDonationAmount = exchangeRate.USD * eth;
             // 合計寄付額のステート変数をセットする。
             setTotalDonations(dollarDonationAmount);
+            // myDonations関数を呼び出す。
+            const userDonations = instance.methods.myDonations().call({ from: accounts[0] });
+            console.log(userDonations);
+            // ステート変数に設定する。
+            setUserDonations(userDonations);
         } catch (error) {
             alert(`Failed to load web3, accounts, or contract. Check console for details.`,);
             console.error(error);
@@ -158,6 +165,43 @@ const FundraiserCard = (props) => {
         setOpen(false);
     }
 
+    // ユーザーが行った寄付を全て表示する関数
+    const renderDonationsList = () => {
+        var donations = userDonations;
+        // nullの場合には、エラーを回避する。
+        if (donations === null) {
+            return null;
+        }
+
+        // 寄付件数を取得する。
+        const totalDonations = donations.values.length;
+        let donationList = [];
+        var i;
+        // 寄付ごとに領収書を作成する。
+        for (i = 0; i < totalDonations; i++) {
+            const ethAmount = web3.utils.fromWei(donations.values[i]);
+            const userDonation = exchangeRate * ethAmount;
+            const donationDate = donations.dates[i];
+            // リストに追加する。
+            donationList.push({ donationAmount: userDonation.toFixed(2), date: donationDate });
+        }
+
+        return donationList.map((donation) => {
+            return (
+                <div className="donation-list">
+                    <p>
+                        ${donation.donationAmount}
+                    </p>
+                    <Button variant="contained" color="primary">
+                        <Link className="donation-receipt-link" to={{ pathname: '/receipts', state: { fund: fundName, donation: donation.donationAmount, date: donation.date } }}>
+                            Request Receipt
+                        </Link>
+                    </Button>
+                </div>
+            );    
+        });
+    }
+
     return (
         <div className="fundraiser-card-content">
             <Dialog opne={open} onClose={handleClose} aria-labelledby="form-dialog-title">
@@ -178,6 +222,12 @@ const FundraiserCard = (props) => {
                         <Button onClick={submitFunds} variant="contained" color="primary">
                             Donate
                         </Button>
+                        <div>
+                            <h3>
+                                My donations
+                            </h3>
+                            {renderDonationsList()}
+                        </div>
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
