@@ -79,6 +79,8 @@ const FundraiserCard = (props) => {
     const [ donationAmount, setDonationAmount ] = useState(null);
     const [ exchangeRate, setExchangeRate ] = useState(null);
     const [ userDonations, setUserDonations ] = useState(null);
+    const [ isOwner, setIsOwner ] = useState(false);
+    const [ beneficiary, setNewBeneficiary ] = useState(null);
     //ETH変換用変数
     const ethAmount =  donationAmount / exchangeRate || 0;
 
@@ -132,11 +134,24 @@ const FundraiserCard = (props) => {
             console.log(userDonations);
             // ステート変数に設定する。
             setUserDonations(userDonations);
-        } catch (error) {
+            // accounts[0]にアクセスする。
+            const isUser = accounts[0];
+            // owner()関数を呼び出す
+            const isOwner = await instance.methods.owner().call();
+            // 所有者かどうかをチェックする。
+            if (isOwner === accounts[0]) {
+                setIsOwner(true);
+            }
+         } catch (error) {
             alert(`Failed to load web3, accounts, or contract. Check console for details.`,);
             console.error(error);
         }
     }
+
+    // アカウントが切り替わったら画面を更新する。
+    window.ethereum.on('accountsChanged', function (accounts) {
+        window.location.reload()
+      })
 
     // handleOpen関数
     const handleOpen = () => {
@@ -162,6 +177,23 @@ const FundraiserCard = (props) => {
             gas: 650000
         });
         // ダイアログを閉じる。
+        setOpen(false);
+    }
+
+    // 資金を引き出すための関数
+    const withdrawalFunds = async () => {
+        // withdraw関数を呼び出す。
+        await contract.methods.withdraw().send({ from: accounts[0] });
+        alert('Funds Withdrawn!');
+        setOpen(false);
+    }
+
+    // コントラクトを呼び出して受取人を変更する関数
+    const setBeneficiary = async() => {
+        // 受取人変更する関数を呼び出す。
+        await contract.methods.setBeneficiary(beneficiary).send({ from: accounts[0] });
+        // アラートを出す。
+        alert(`Fundraiser Beneficiary Changed`);
         setOpen(false);
     }
 
@@ -228,12 +260,28 @@ const FundraiserCard = (props) => {
                             </h3>
                             {renderDonationsList()}
                         </div>
+                        { isOwner &&
+                            <div>
+                                <FormControl className={classes.formControl}>
+                                    Beneficiary:
+                                    <Input value={beneficiary} onChange={ (e) => setNewBeneficiary(e.target.values) } placeholder="Set Beneficiary" />
+                                </FormControl>
+                                <Button variant="contained" style={{ marginTop: 20 }} color="primary" onClick={setBeneficiary} >
+                                    Set Beneficiary
+                                </Button>
+                            </div>
+                        }
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose} color="primary">
                         Cancel
                     </Button>
+                    { isOwner &&
+                        <Button variant="contained" color="primary" onClick={withdrawalFunds}>
+                            Withdrawal
+                        </Button>
+                    }
                 </DialogActions>
             </Dialog>
             <Card className={classes.card} onClick={handleOpen}>
