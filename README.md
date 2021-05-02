@@ -35,4 +35,5 @@ npm run start
 
 http:localhost:3000/ にアクセスすると最初のページが表示されている。  
 
-buildしたい場合は、次のコマンドを打つこと！ npm run build 
+buildしたい場合は、次のコマンドを打つこと！  
+npm run build 
