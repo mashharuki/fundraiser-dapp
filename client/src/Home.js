@@ -7,10 +7,10 @@ import FundraiserCard from './FundraiserCard';
 // コンポーネントを用意する。
 const Home = () => {
     // ステート変数を用意
+    const [ funds, setFunds ] = useState ([]);
     const [ contract, setContract ] = useState (null);
     const [ accounts, setAccounts ] = useState (null);
-    const [ funds, setFunds ] = useState ([]);
-
+    
     useEffect (() => {
         init();
     }, []);
@@ -30,7 +30,7 @@ const Home = () => {
             // アカウントをセットする。
             setAccounts (accounts);
             // コントラクトのfundraisers()関数を呼び出す。
-            const funds = instance.methods.fundraisers(10, 0).call();
+            const funds = await instance.methods.fundraisers(10, 0).call();
             console.log(funds);
             // ステート変数に設定
             setFunds (funds);
