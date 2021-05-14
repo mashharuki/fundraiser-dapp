@@ -31,6 +31,7 @@ const Home = () => {
             setAccounts (accounts);
             // コントラクトのfundraisers()関数を呼び出す。
             const funds = instance.methods.fundraisers(10, 0).call();
+            console.log(funds);
             // ステート変数に設定
             setFunds (funds);
         } catch (error) {
@@ -43,7 +44,7 @@ const Home = () => {
     const displayFundraisers = () => {
         return funds.map( (fundraiser) => {
             return (
-                <FundraiserCard fundraiser={fundraiser}/>
+                <FundraiserCard fundraiser={fundraiser} key={fundraiser}/>
             );
         });
     }
