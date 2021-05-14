@@ -15,15 +15,6 @@ const Home = () => {
         init();
     }, []);
 
-    // displayFundraisers関数
-    const displayFundraisers = () => {
-        return funds.map((fundraiser) => {
-            return (
-                <FundraiserCard fundraiser={fundraiser} key={fundraiser}/>
-            );
-        });
-    }
-
     // init関数
     const init = async() => {
         try {
@@ -46,6 +37,15 @@ const Home = () => {
             alert(`Failed to load web3, accounts, or contract. Check console for details.`,);
             console.error(error);
         }
+    }
+
+    // displayFundraisers関数
+    const displayFundraisers = () => {
+        return funds.map((fundraiser) => {
+            return (
+                <FundraiserCard fundraiser={fundraiser} key={fundraiser}/>
+            );
+        });
     }
 
     return (
