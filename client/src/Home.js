@@ -41,7 +41,7 @@ const Home = () => {
 
     // displayFundraisers関数
     const displayFundraisers = () => {
-        return funds.map((fundraiser) => {
+        return funds.map( (fundraiser) => {
             return (
                 <FundraiserCard fundraiser={fundraiser} key={fundraiser}/>
             );
