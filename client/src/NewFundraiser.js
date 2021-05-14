@@ -33,14 +33,6 @@ const NewFundraiser = () => {
     const [ web3, setWeb3 ] = useState(null)
     const classes = useStyles();
 
-    // handleSubmit関数
-    const handleSubmit = async () => {
-        // コントラクトのcreateFundraiserを呼び出す。
-        await contract.methods.createFundraiser(name, url, imageURL, description, beneficiary).send({ from: accounts[0] });
-        // アラートを出す。
-        alert('Successfully created fundraiser')
-    };
-
     // コンポーネントを用意する。
     useEffect (() => {
         const init = async() => {
@@ -62,7 +54,16 @@ const NewFundraiser = () => {
                 console.error(error);
             }
         }
+        init();
     }, []);
+
+    // handleSubmit関数
+    const handleSubmit = async () => {
+        // コントラクトのcreateFundraiserを呼び出す。
+        await contract.methods.createFundraiser(name, url, imageURL, description, beneficiary).send({ from: accounts[0] });
+        // アラートを出す。
+        alert('Successfully created fundraiser')
+    };
 
     return (
         <div className="create-fundraiser-container">
