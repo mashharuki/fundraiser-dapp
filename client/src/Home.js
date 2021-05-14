@@ -43,7 +43,7 @@ const Home = () => {
     const displayFundraisers = () => {
         return funds.map( (fundraiser) => {
             return (
-                <FundraiserCard fundraiser={fundraiser} key={fundraiser}/>
+                <FundraiserCard fundraiser={fundraiser}/>
             );
         });
     }
