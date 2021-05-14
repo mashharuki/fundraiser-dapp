@@ -22,14 +22,8 @@ const useStyles = makeStyles (theme => ({
 
 // ステート変数を用意する。
 const NewFundraiser = () => {
-    const [ name, setFundraiserName ] = useState(null);
-    const [ url, setFundraiserWebsite ] = useState(null);
-    const [ description, setFundraiserDescription ] = useState(null);
-    const [ imageURL, setImage ] = useState(null);
-    const [ beneficiary, setAddress ] = useState(null);
-    const [ custodian, setCustodian ] = useState(null);
-    const [ contract, setContract] = useState(null);
-    const [ accounts, setAccounts ] = useState(null);
+    const [labelWidth, setLabelWidth] = React.useState(0);
+    const labelRef = React.useRef(null);
     const [ web3, setWeb3 ] = useState(null)
     const classes = useStyles();
 
@@ -56,6 +50,15 @@ const NewFundraiser = () => {
         }
         init();
     }, []);
+
+    const [ name, setFundraiserName ] = useState(null);
+    const [ url, setFundraiserWebsite ] = useState(null);
+    const [ description, setFundraiserDescription ] = useState(null);
+    const [ imageURL, setImage ] = useState(null);
+    const [ beneficiary, setAddress ] = useState(null);
+    const [ custodian, setCustodian ] = useState(null);
+    const [ contract, setContract] = useState(null);
+    const [ accounts, setAccounts ] = useState(null);
 
     // handleSubmit関数
     const handleSubmit = async () => {
