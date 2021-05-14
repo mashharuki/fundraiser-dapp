@@ -62,7 +62,6 @@ const NewFundraiser = () => {
                 console.error(error);
             }
         }
-        init();
     }, []);
 
     return (
