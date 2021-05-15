@@ -4,6 +4,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import getWeb3 from './getWeb3';
 import FundraiserFactoryContract from './contracts/FundraiserFactory.json';
+import Web3 from 'web3'
 
 // useStyles関数
 const useStyles = makeStyles (theme => ({
@@ -26,6 +27,14 @@ const NewFundraiser = () => {
     const labelRef = React.useRef(null);
     const [ web3, setWeb3 ] = useState(null)
     const classes = useStyles();
+    const [ name, setFundraiserName ] = useState(null);
+    const [ url, setFundraiserWebsite ] = useState(null);
+    const [ description, setFundraiserDescription ] = useState(null);
+    const [ imageURL, setImage ] = useState(null);
+    const [ beneficiary, setAddress ] = useState(null);
+    const [ custodian, setCustodian ] = useState(null);
+    const [ contract, setContract] = useState(null);
+    const [ accounts, setAccounts ] = useState(null);
 
     // コンポーネントを用意する。
     useEffect (() => {
@@ -51,15 +60,6 @@ const NewFundraiser = () => {
         }
         init();
     }, []);
-
-    const [ name, setFundraiserName ] = useState(null);
-    const [ url, setFundraiserWebsite ] = useState(null);
-    const [ description, setFundraiserDescription ] = useState(null);
-    const [ imageURL, setImage ] = useState(null);
-    const [ beneficiary, setAddress ] = useState(null);
-    const [ custodian, setCustodian ] = useState(null);
-    const [ contract, setContract] = useState(null);
-    const [ accounts, setAccounts ] = useState(null);
 
     // handleSubmit関数
     const handleSubmit = async () => {
