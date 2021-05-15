@@ -38,32 +38,33 @@ const NewFundraiser = () => {
 
     // コンポーネントを用意する。
     useEffect (() => {
-        const init = async() => {
-            try {
-                // Web3が使えるように設定する。
-                const web3 = await getWeb3();
-                const networkId = await web3.eth.net.getId();
-                const deployedNetwork = FundraiserFactoryContract.networks[networkId];
-                const accounts = await web3.eth.getAccounts();
-                const instance = new web3.eth.Contract(FundraiserFactoryContract.abi, deployedNetwork && deployedNetwork.address,);
-                // Web3を設定する。
-                setWeb3(web3);
-                // コントラクトをセットする。
-                setContract(instance);
-                // アカウントをセットする。
-                setAccounts(accounts);
-                alert(instance)
-            } catch (error) {
-                alert(`Failed to load web3, accounts, or contract. Check console for details.`,);
-                console.error(error);
-            }
-        }
         init();
     }, []);
 
+    const init = async() => {
+        try {
+            // Web3が使えるように設定する。
+            const web3 = await getWeb3();
+            const networkId = await web3.eth.net.getId();
+            const deployedNetwork = FundraiserFactoryContract.networks[networkId];
+            const accounts = await web3.eth.getAccounts();
+            const instance = new web3.eth.Contract(FundraiserFactoryContract.abi, deployedNetwork && deployedNetwork.address,);
+            // Web3を設定する。
+            setWeb3(web3);
+            // コントラクトをセットする。
+            setContract(instance);
+            // アカウントをセットする。
+            setAccounts(accounts);
+            alert(instance)
+        } catch (error) {
+            alert(`Failed to load web3, accounts, or contract. Check console for details.`,);
+            console.error(error);
+        }
+    }
+
     // handleSubmit関数
     const handleSubmit = async () => {
-        alert(contract)
+        alert(contract);
         // コントラクトのcreateFundraiserを呼び出す。
         await contract.methods.createFundraiser(name, url, imageURL, description, beneficiary).send({ from: accounts[0] });
         // アラートを出す。
