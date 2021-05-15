@@ -44,7 +44,8 @@ const NewFundraiser = () => {
     const init = async() => {
         try {
             // Web3が使えるように設定する。
-            const web3 = await getWeb3();
+            const provider = await detectEthereumProvider();
+            const web3 = new Web3(provider);
             const networkId = await web3.eth.net.getId();
             const deployedNetwork = FundraiserFactoryContract.networks[networkId];
             const accounts = await web3.eth.getAccounts();
