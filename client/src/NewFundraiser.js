@@ -63,6 +63,7 @@ const NewFundraiser = () => {
 
     // handleSubmit関数
     const handleSubmit = async () => {
+        alert(contract)
         // コントラクトのcreateFundraiserを呼び出す。
         await contract.methods.createFundraiser(name, url, imageURL, description, beneficiary).send({ from: accounts[0] });
         // アラートを出す。
