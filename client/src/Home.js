@@ -31,9 +31,6 @@ const Home = () => {
             setAccounts (accounts);
             // コントラクトのfundraisers()関数を呼び出す。
             const funds = await instance.methods.fundraisers(10, 0).call();
-            console.log(funds);
-            alert(funds)
-            alert(instance)
             // ステート変数に設定
             setFunds (funds);
         } catch (error) {
