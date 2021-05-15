@@ -203,10 +203,10 @@ const FundraiserCard = (props) => {
         // nullの場合には、エラーを回避する。
         if (donations === null) {
             return null;
-        }
+        };
 
         // 寄付件数を取得する。
-        const totalDonations = donations.values.length;
+        const totalDonations = donations.length;
         let donationList = [];
         var i;
         // 寄付ごとに領収書を作成する。
