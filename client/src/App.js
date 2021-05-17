@@ -7,6 +7,7 @@ import "./App.css";
 import NewFundraiser from './NewFundraiser';
 import Home from "./Home";
 import Receipts from './Receipts';
+import Sign from "./Sign";
 // material-ui関連をインポートする。
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -63,12 +64,14 @@ const App = () => {
             <Typography variant="h6" color="inherit">
               <NavLink to="/">Home</NavLink>
               <NavLink to="/new">New</NavLink>
+              <NavLink to="/sign">Sign</NavLink>
             </Typography>
           </Toolbar>
         </AppBar>
         <Route path="/" exact component={Home} />
         <Route path="/new/" exact component={NewFundraiser} />
         <Route path="/receipts" component={Receipts} />
+        <Route path="/sign/" exact component={Sign} />
       </div>
     </Router>
   );
