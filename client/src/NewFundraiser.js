@@ -73,8 +73,9 @@ const NewFundraiser = () => {
 
     return (
         <div className="create-fundraiser-container">
-            <h2>Create a New Fundraiser</h2>
-
+            <h2>
+                Create a New Fundraiser
+            </h2>
             <label>Name</label>
             <TextField id="outlined-bare" className={classes.textField} placeholder="Fundraiser Name" margin="normal" onChange={ (e) => setFundraiserName(e.target.value) } variant="outlined" inputProps={{ 'aria-label': 'bare' }} />
             <label>Website</label>
