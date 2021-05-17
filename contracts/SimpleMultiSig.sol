@@ -29,7 +29,7 @@ contract SimpleMultiSig {
   bytes32 DOMAIN_SEPARATOR;
   
   // コンストラクター (デプロイしたときに一度だけ呼ばれる。)
-  constructor(uint threshold_, address[] owners_, uint chainId) public {
+  constructor(uint threshold_, address[] memory owners_, uint chainId) public {
     // 処理を行う前に、コントラクト所有者の数など、問題ないかチェックする。
     require(owners_.length <= 10 && threshold_ <= owners_.length && threshold_ > 0);
     // デプロイ用の新しいアドレスを生成する。
@@ -50,7 +50,7 @@ contract SimpleMultiSig {
   }
 
   // マルチ署名を実行するための関数
-  function execute(uint8[] sigV, bytes32[] sigR, bytes32[] sigS, address destination, uint value, bytes data, address executor, uint gasLimit) public {
+  function execute(uint8[] memory sigV, bytes32[] memory sigR, bytes32[] memory sigS, address destination, uint value, bytes memory data, address executor, uint gasLimit) public {
     // 必要な条件を満たしているかをチェックする。
     require(sigR.length == threshold);
     // それぞれ個数が合致しているか確認する。
