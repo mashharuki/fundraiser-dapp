@@ -33,6 +33,8 @@ const Sign = () => {
     const [ nonce, setNonce ] = useState(null);
     const [ executor, setExecutor ] = useState(null);
     const [ gasLimit, setGasLimit ] = useState(null);
+    const [ contract, setContract] = useState(null);
+    const [ accounts, setAccounts ] = useState(null);
     const [sigR] = useState([]);
     const [sigS] = useState([]);
     const [sigV] = useState([]);
