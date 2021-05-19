@@ -72,7 +72,7 @@ const NewFundraiser = () => {
     };
 
     return (
-        <div className="create-fundraiser-container">
+        <div className="main-container">
             <h2>
                 Create a New Fundraiser
             </h2>

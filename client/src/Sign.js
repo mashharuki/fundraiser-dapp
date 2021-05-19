@@ -35,9 +35,9 @@ const Sign = () => {
     const [ gasLimit, setGasLimit ] = useState(null);
     const [ contract, setContract] = useState(null);
     const [ accounts, setAccounts ] = useState(null);
-    const [sigR] = useState([]);
-    const [sigS] = useState([]);
-    const [sigV] = useState([]);
+    const [sigR, setSigR ] = useState([]);
+    const [sigS, setSigS ] = useState([]);
+    const [sigV, setSigV ] = useState([]);
 
     // コンポーネントを用意する。
     useEffect (() => {
@@ -98,19 +98,19 @@ const Sign = () => {
                 Sign Page
             </h2>
             <label>Wallet address</label>
-            <TextField id="outlined-bare" className={classes.textField} placeholder="Fundraiser Name" margin="normal" onChange={ (e) => setWalletAddress(e.target.value) } variant="outlined" inputProps={{ 'aria-label': 'bare' }} />
+            <TextField id="outlined-bare" className={classes.textField} placeholder="Wallet address" margin="normal" onChange={ (e) => setWalletAddress(e.target.value) } variant="outlined" inputProps={{ 'aria-label': 'bare' }} />
             <label>Destination</label>
-            <TextField id="outlined-bare" className={classes.textField} placeholder="Fundraiser Website" margin="normal" onChange={ (e) => setDestination(e.target.value) } variant="outlined" inputProps={{ 'aria-label': 'bare' }} />
+            <TextField id="outlined-bare" className={classes.textField} placeholder="Destination" margin="normal" onChange={ (e) => setDestination(e.target.value) } variant="outlined" inputProps={{ 'aria-label': 'bare' }} />
             <label>Value</label>
-            <TextField id="outlined-bare" className={classes.textField} placeholder="Fundraiser Description" margin="normal" onChange={ (e) => setValue(e.target.value) } variant="outlined" inputProps={{ 'aria-label': 'bare' }} />
+            <TextField id="outlined-bare" className={classes.textField} placeholder="Value" margin="normal" onChange={ (e) => setValue(e.target.value) } variant="outlined" inputProps={{ 'aria-label': 'bare' }} />
             <label>Data</label>
-            <TextField id="outlined-bare" className={classes.textField} placeholder="Fundraiser Image" margin="normal" onChange={ (e) => setData(e.target.value) } variant="outlined" inputProps={{ 'aria-label': 'bare' }} />
+            <TextField id="outlined-bare" className={classes.textField} placeholder="Data" margin="normal" onChange={ (e) => setData(e.target.value) } variant="outlined" inputProps={{ 'aria-label': 'bare' }} />
             <label>Nonce</label>
-            <TextField id="outlined-bare" className={classes.textField} placeholder="Fundraiser Address" margin="normal" onChange={ (e) => setNonce(e.target.value) } variant="outlined" inputProps={{ 'aria-label': 'bare' }} />
+            <TextField id="outlined-bare" className={classes.textField} placeholder="Nonce" margin="normal" onChange={ (e) => setNonce(e.target.value) } variant="outlined" inputProps={{ 'aria-label': 'bare' }} />
             <label>Executor</label>
-            <TextField id="outlined-bare" className={classes.textField} placeholder="Fundraiser Custodian" margin="normal" onChange={ (e) => setExecutor(e.target.value) } variant="outlined" inputProps={{ 'aria-label': 'bare' }} />
+            <TextField id="outlined-bare" className={classes.textField} placeholder="Executor" margin="normal" onChange={ (e) => setExecutor(e.target.value) } variant="outlined" inputProps={{ 'aria-label': 'bare' }} />
             <label>GasLimit</label>
-            <TextField id="outlined-bare" className={classes.textField} placeholder="Fundraiser Custodian" margin="normal" onChange={ (e) => setGasLimit(e.target.value) } variant="outlined" inputProps={{ 'aria-label': 'bare' }} />
+            <TextField id="outlined-bare" className={classes.textField} placeholder="GasLimit" margin="normal" onChange={ (e) => setGasLimit(e.target.value) } variant="outlined" inputProps={{ 'aria-label': 'bare' }} />
             
             <Button onClick={handleSign} variant="contained" className={classes.button}>
                 Sign execute
