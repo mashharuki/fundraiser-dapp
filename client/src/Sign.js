@@ -91,7 +91,7 @@ const Sign = () => {
             name: "Simple MultiSig",
             version: "1",
             chainId: parseInt(web3.version.network, 10),
-            verifyingContract: walletAddresss,
+            verifyingContract: walletAddress,
             salt: salt
         };
         // メッセージ
