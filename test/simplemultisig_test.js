@@ -311,6 +311,8 @@ contract('SimpleMultiSig', function(accounts) {
         // 0xac6d4b13220cd81f3630b7714f7e205494acc0823fb07a63bb40e65f669cbb9e
         // It should give the address:
         // 0x01BF9878a7099b2203838f3a8E7652Ad7B127A26
+        // value (5ether)
+        // 50000000000000000000000
         //
         // Make sure you are on Mainnet with the above account
         // Load the HTML page located at
