@@ -124,8 +124,8 @@ const Sign = () => {
             }, 
             function(err, result) {
                 // エラーであればコンソールにその旨表示して終了
-                if (err || result.error) {
-                    return console.error(result);
+                if (err) {
+                    return console.error(err);
                 }
                 // 署名データを作成する。
                 const signature = parseSignature(result.result.substring(2));
