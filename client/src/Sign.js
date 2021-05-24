@@ -104,7 +104,7 @@ const Sign = () => {
             gasLimit: parseInt(gasLimit, 10),
         };
         // 上記で設定した値をJSON形式のデータに変換する。
-        const data = JSON.stringify({
+        const signedData = JSON.stringify({
             types: {
                 EIP712Domain: domain,
                 MultiSigTransaction: multiSigTx
@@ -119,7 +119,7 @@ const Sign = () => {
         web3.currentProvider.sendAsync(
             {
                 method: "eth_signTypedData_v3",
-                params: [signer, data],
+                params: [signer, signedData],
                 from: signer
             }, 
             function(err, result) {
