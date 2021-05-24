@@ -131,6 +131,14 @@ const Sign = () => {
                 const signature = parseSignature(result.result.substring(2));
                 // 解析した署名内容を出力する。
                 document.getElementById("signedData").value = "r: " + signature.r + "\ns: " + signature.s + "\nv: " + signature.v;
+                // アラートで署名の3要素を表示する。
+                alert('r' + signature.r);
+                alert('s' + signature.s);
+                alert('v' + signature.v);
+                // セットする。
+                setSigR(signature.r);
+                setSigS(signature.s);
+                setSigV(signature.v);
             }
         );
         // コントラクトのexecuteを呼び出す。
