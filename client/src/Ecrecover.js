@@ -171,4 +171,4 @@ const Ecrecover = () => {
 }
 
 // Signコンポーネントを外部に公開しました。
-export default Sign;
+export default Ecrecover;
