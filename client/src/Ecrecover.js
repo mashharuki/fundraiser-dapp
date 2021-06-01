@@ -69,82 +69,14 @@ const Ecrecover = () => {
 
     // handleSign関数(署名実行)
     const handleSign = async () => {
-        // 定数をドメインを設定する。
-        const domain = [
-            { name: "name", type: "string" },
-            { name: "version", type: "string" },
-            { name: "chainId", type: "uint256" },
-            { name: "verifyingContract", type: "address" },
-            { name: " salt", type: "bytes32" }
-        ];
-        // 定数マルチシグトランザクションを設定する。
-        const multiSigTx = [
-            { name: "destination", type: "address" },
-            { name: "value", type: "uint256" },
-            { name: "data", type: "bytes" },
-            { name: "nonce", type: "uint256" },
-            { name: "executor", type: "address" },
-            { name: "gasLimit", type: "uint256" }
-        ];
-  
-        const domainData = {
-            name: "Simple MultiSig",
-            version: "1",
-            chainId: parseInt(web3.version.network, 10),
-            verifyingContract: walletAddress,
-            salt: salt
-        };
-        // メッセージ
-        var message = {
-            destination: destination,
-            value: value,
-            data: data,
-            nonce: parseInt(nonce, 10),
-            executor: executor,
-            gasLimit: parseInt(gasLimit, 10),
-        };
-        // 上記で設定した値をJSON形式のデータに変換する。
-        const signedData = JSON.stringify({
-            types: {
-                EIP712Domain: domain,
-                MultiSigTransaction: multiSigTx
-            },
-            domain: domainData,
-            primaryType: "MultiSigTransaction",
-            message: message
-        });
-        //　署名者を取得する。
-        const signer = accounts[0];
-        // sendAsync関数を実行する。
-        web3.currentProvider.sendAsync(
-            {
-                method: "eth_signTypedData_v3",
-                params: [signer, signedData],
-                from: signer
-            }, 
-            function(err, result) {
-                // エラーであればコンソールにその旨表示して終了
-                if (err) {
-                    return console.error(err);
-                }
-                // 署名データを作成する。
-                const signature = parseSignature(result.result.substring(2));
-                // 解析した署名内容を出力する。
-                document.getElementById("signedData").value = "r: " + signature.r + "\ns: " + signature.s + "\nv: " + signature.v;
-                // セットする。
-                setSigR(signature.r);
-                setSigS(signature.s);
-                setSigV(signature.v);
-            }
-        );
-        // アラートで署名の3要素を表示する。
+        // 必要なデータをセットする。
         alert('r' + sigR);
         alert('s' + sigS);
         alert('v' + sigV);
         // コントラクトのexecuteを呼び出す。
         //await contract.methods.execute(sigV, sigR, sigS, destination, value, data, executor, gasLimit).send({ from: accounts[0] });
         // アラートを出す。
-        alert('Successfully signed data')
+        alert('Successfully ecrecovered data')
     }
 
     // 戻り値
@@ -154,7 +86,7 @@ const Ecrecover = () => {
                 Ecrecover Page
             </h2>
             <label>SigR</label>
-            <TextField id="outlined-bare" className={classes.textField} placeholder="SigR" margin="normal" onChange={ (e) => setWSigR(e.target.value) } variant="outlined" inputProps={{ 'aria-label': 'bare' }} />
+            <TextField id="outlined-bare" className={classes.textField} placeholder="SigR" margin="normal" onChange={ (e) => setSigR(e.target.value) } variant="outlined" inputProps={{ 'aria-label': 'bare' }} />
             <label>SigS</label>
             <TextField id="outlined-bare" className={classes.textField} placeholder="SigS" margin="normal" onChange={ (e) => setSigS(e.target.value) } variant="outlined" inputProps={{ 'aria-label': 'bare' }} />
             <label>SigV</label>
