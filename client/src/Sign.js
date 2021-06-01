@@ -128,6 +128,7 @@ const Sign = () => {
                     return console.error(err);
                 }
                 // 署名データを作成する。
+                const signature2 = result.result.substring(2);
                 const signature = parseSignature(result.result.substring(2));
                 // 解析した署名内容を出力する。
                 document.getElementById("signedData").value = "r: " + signature.r + "\ns: " + signature.s + "\nv: " + signature.v;
@@ -138,6 +139,7 @@ const Sign = () => {
             }
         );
         // アラートで署名の3要素を表示する。
+        alert('r' + signedData);
         alert('r' + sigR);
         alert('s' + sigS);
         alert('v' + sigV);
