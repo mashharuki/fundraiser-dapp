@@ -139,7 +139,8 @@ const Sign = () => {
             }
         );
         // アラートで署名の3要素を表示する。
-        alert('r' + signedData);
+        alert(signature2 );
+        alert(signedData);
         alert('r' + sigR);
         alert('s' + sigS);
         alert('v' + sigV);
