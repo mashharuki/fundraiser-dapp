@@ -114,7 +114,7 @@ const Sign = () => {
             message: message
         });
         //　署名者を取得する。
-        const signer = accounts[0];
+        const signer = web3.eth.accounts[0];
         // sendAsync関数を実行する。
         web3.currentProvider.sendAsync(
             {
@@ -124,9 +124,12 @@ const Sign = () => {
             }, 
             function(err, result) {
                 // エラーであればコンソールにその旨表示して終了
-                if (err) {
-                    return console.error(err);
+                if (err) return console.dir(err)
+                if (result.error) {
+                    alert(result.error.message)
                 }
+                if (result.error) return console.error('ERROR', result)
+                console.log('TYPED SIGNED:' + JSON.stringify(result.result))
                 // 署名データを作成する。
                 const signature = parseSignature(result.result.substring(2));
                 alert(signature);
