@@ -114,7 +114,7 @@ const Sign = () => {
             message: message
         });
         //　署名者を取得する。
-        const signer = web3.eth.accounts[0];
+        const signer = accounts[0];
         // sendAsync関数を実行する。
         web3.currentProvider.sendAsync(
             {
