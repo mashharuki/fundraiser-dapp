@@ -114,22 +114,26 @@ const Sign = () => {
             message: message
         });
         //　署名者を取得する。
-        const signer = accounts[0];
+        var from = accounts[0];
+        // メソッドとパラメーターを設定する。
+        var method = "eth_signTypedData_v3";
+        var params = [signer, signedData];
+
         // sendAsync関数を実行する。
         web3.currentProvider.sendAsync(
             {
-                method: "eth_signTypedData_v3",
-                params: [signer, signedData],
-                from: signer,
+                method,
+                params,
+                from,
             }, 
             function(err, result) {
                 // エラーであればコンソールにその旨表示して終了
                 if (err) return console.dir(err)
                 if (result.error) {
-                    alert(result.error.message)
+                    alert(result.error.message);
                 }
                 if (result.error) return console.error('ERROR', result)
-                console.log('TYPED SIGNED:' + JSON.stringify(result.result))
+                console.log('TYPED SIGNED:' + JSON.stringify(result.result));
                 // 署名データを作成する。
                 const signature = parseSignature(result.result.substring(2));
                 alert(signature);
@@ -175,7 +179,7 @@ const Sign = () => {
                 Sign Page
             </h2>
             <label>Wallet address</label>
-            <TextField id="outlined-bare" className={classes.textField} placeholder="Wallet address" margin="normal" onChange={ (e) => setWalletAddress(e.target.value) } variant="outlined" inputProps={{ 'aria-label': 'bare' }} />
+            <TextField id="outlined-bare" className={classes.textField} placeholder="Wallet address" margin="normal" onChange={ (e) => setWalletAddress(e.target.value) } variant="outlined" inputProps={{ 'aria-label': 'bare' }} value="" />
             <label>Destination</label>
             <TextField id="outlined-bare" className={classes.textField} placeholder="Destination" margin="normal" onChange={ (e) => setDestination(e.target.value) } variant="outlined" inputProps={{ 'aria-label': 'bare' }} />
             <label>Value</label>
