@@ -120,7 +120,7 @@ const Sign = () => {
             {
                 method: "eth_signTypedData_v3",
                 params: [signer, signedData],
-                from: signer
+                from: signer,
             }, 
             function(err, result) {
                 // エラーであればコンソールにその旨表示して終了
