@@ -9,10 +9,11 @@ MetaMaskとWeb3.js、スマートコントラクトとReact.jsから構築され
 solcのバージョン情報等については、truffle-config.jsを参照ください。
 
 ## clientフォルダ直下で実行するコマンド
-npm i  
-
-npm install @openzeppelin/contracts 
-npm install --save react-router-dom
+   npm i   
+   npm install -g mocha  
+   npm install -g chai   
+   npm install @openzeppelin/contracts  
+   npm install --save react-router-dom  
 
 ## テストコードを実行するコマンド(fundraiser-dappフォルダ直下で実行する)
 
