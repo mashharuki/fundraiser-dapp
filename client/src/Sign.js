@@ -69,6 +69,8 @@ const Sign = () => {
 
     // handleSign関数(署名実行)
     const handleSign = async () => {
+        // プロバイダーから署名者の情報を取得する。
+        const signer = web3.getSigner();
         // 定数をドメインを設定する。
         const domain = [
             { name: "name", type: "string" },
