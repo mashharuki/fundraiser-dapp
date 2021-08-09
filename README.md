@@ -11,7 +11,7 @@ solcのバージョン情報等については、truffle-config.jsを参照く�
 ## clientフォルダ直下で実行するコマンド
 npm i  
 
-npm install openzeppelin-solidity --save  
+npm install @openzeppelin/contracts 
 npm install --save react-router-dom
 
 ## テストコードを実行するコマンド(fundraiser-dappフォルダ直下で実行する)
