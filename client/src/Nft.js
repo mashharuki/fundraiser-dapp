@@ -62,20 +62,16 @@ const Nft = () => {
      * 「NFTデプロイ」ボタンを押した時の処理
      */
     const buttonDeploy = async() => {
-        // プロバイダーから署名者の情報を取得する。
-        const signer = provider.getSigner();
-        // コントラクト用のファクトリーを生成
-        const factory = new ethers.ContractFactory(abi,bytecode,signer);
         // コントラクトをデプロイする。
-        const contract = await factory.deploy();
+        const contract2 = await contract.deploy();
         // deployしたアドレスを取得する。
-        address = contract.address;
+        address = contract2.address;
         // addressをセットする。
         setAddress(address);
-        alert(contract);
+        alert(contract2);
         alert("コントラクトアドレス：", address);
         // ネットワーク情報を取得する。
-        const net = await signer.provider.getNetwork();
+        const net = NFTContract.networks[networkId];
         // rinkebyだった場合出力する。
         if( net.chainId == 4) {
             alert("https://rinkeby.etherscan.io/tx/" + contract.deployTransaction.hash);
@@ -86,10 +82,8 @@ const Nft = () => {
      * 「NFT名取得」ボタンを押した時の処理
      */
     const buttonGetName = async() => {
-        // コントラクト用のファクトリーを生成
-        const contract = new ethers.Contract(address, abi, provider);
         // NFT名とアドレスを出力する。
-        alert("NFT名：", await contract.name());
+        alert("NFT名：", instance.name());
         alert("コントラクトアドレス：", address);
     }
   
@@ -98,15 +92,13 @@ const Nft = () => {
      */
     const buttonMint = async() => {
         // プロバイダーから署名者の情報を取得する。
-        const signer = provider.getSigner();
-        // コントラクト用の変数を生成する。
-        const contract = new ethers.Contract(address, abi, provider);
+        const signer = accounts;
         // NFTコントラクトのmint関数を実行する。
         const { hash } = await contract.connect(signer).mint(signer.getAddress());
         alert(contract);
         alert("コントラクトアドレス：", address);
         // ネットワーク情報を取得する。
-        const net = await signer.provider.getNetwork();
+        const net = NFTContract.networks[networkId];
         // rinkebyだった場合出力する。
         if( net.chainId == 4) {
             alert("https://rinkeby.etherscan.io/tx/" + hash);
@@ -117,8 +109,6 @@ const Nft = () => {
      * 「NFT総供給量」ボタンを押した時の処理
      */
     const buttonSupply = async() => {
-        // コントラクト用の変数を生成する。
-        const contract = new ethers.Contract(address, abi, provider);
         // アドレスを出力する。
         alert("コントラクトアドレス：", address);
         // totalSupply関数を呼び出す。
