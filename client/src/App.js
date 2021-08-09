@@ -3,12 +3,13 @@ import { BrowserRouter as Router, Route, NavLink } from "react-router-dom";
 import FundraiserFactoryContract from "./contracts/FundraiserFactory.json";
 import getWeb3 from "./getWeb3";
 import "./App.css";
-// コンポーネントを読み込む
+// 各ページ用のコンポーネントを読み込む
 import NewFundraiser from './NewFundraiser';
 import Home from "./Home";
 import Receipts from './Receipts';
 import Sign from "./Sign";
 import Ecrecover from "./Ecrecover";
+import Nft from "./Nft";
 // material-ui関連をインポートする。
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -67,6 +68,7 @@ const App = () => {
               <NavLink to="/new">New</NavLink>
               <NavLink to="/sign">Sign</NavLink>
               <NavLink to="/ecrecover">Ecrecover</NavLink>
+              <NavLink to="/nft">Nft</NavLink>
             </Typography>
           </Toolbar>
         </AppBar>
@@ -75,6 +77,7 @@ const App = () => {
         <Route path="/receipts" component={Receipts} />
         <Route path="/sign/" component={Sign} />
         <Route path="/ecrecover/" component={Ecrecover} />
+        <Route path="/nft/" component={Nft} />
       </div>
     </Router>
   );
