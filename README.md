@@ -25,8 +25,8 @@ truffle test
    (client/contracts/ 配下に「コントラクト名.json」ができていれば成功。) 
 
 ## コントラクトのコンパイルとデプロイ用のコマンド(Rinkebyの場合)
-   truffle compile --network rinkeby
-   truffle migrate --network rinkeby
+   truffle compile --network rinkeby  
+   truffle migrate --network rinkeby  
    (client/contracts/ 配下に「コントラクト名.json」ができていれば成功。) 
 
 ## 事前にやっておくこと
