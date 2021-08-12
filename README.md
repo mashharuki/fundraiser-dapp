@@ -63,4 +63,8 @@ npm run build
 
 <a href="https://www.trufflesuite.com/boxes">truffleの公式ページ</a>
 
+<a href="https://hardhat.org/">hardhatの公式ページ</a>
+
 <a href="https://www.rinkeby.io/#faucet">Rinkeby Faucet</a>
+
+<a href="https://wallet.gnosis.pm/#/wallets">マルチシグウォレットのデモページ</a>

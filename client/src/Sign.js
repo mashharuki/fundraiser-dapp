@@ -178,7 +178,7 @@ const Sign = () => {
     return (
         <div className="main-container">
             <h2>
-                Sign Page
+                署名実行画面
             </h2>
             <label>Wallet address</label>
             <TextField id="outlined-bare" className={classes.textField} placeholder="Wallet address" margin="normal" onChange={ (e) => setWalletAddress(e.target.value) } variant="outlined" inputProps={{ 'aria-label': 'bare' }} value="" />

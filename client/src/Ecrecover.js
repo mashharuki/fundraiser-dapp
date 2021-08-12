@@ -83,7 +83,7 @@ const Ecrecover = () => {
     return (
         <div className="main-container">
             <h2>
-                Ecrecover Page
+                署名実行アドレス復元画面
             </h2>
             <label>SigR</label>
             <TextField id="outlined-bare" className={classes.textField} placeholder="SigR" margin="normal" onChange={ (e) => setSigR(e.target.value) } variant="outlined" inputProps={{ 'aria-label': 'bare' }} />

@@ -24,7 +24,11 @@ const App = () => {
   const useStyles = makeStyles (theme => ({
     root: {
       flexGrow: 1
-    }
+    },
+    navLink: {
+      marginLeft: theme.spacing(1),
+      marginRight: theme.spacing(1),
+    },
   }));
 
   const classes = useStyles();
@@ -64,11 +68,11 @@ const App = () => {
         <AppBar position="static" color="default">
           <Toolbar>
             <Typography variant="h6" color="inherit">
-              <NavLink to="/">Home</NavLink>
-              <NavLink to="/new">New</NavLink>
-              <NavLink to="/sign">Sign</NavLink>
-              <NavLink to="/ecrecover">Ecrecover</NavLink>
-              <NavLink to="/nft">Nft</NavLink>
+              <NavLink className={classes.navLink} to="/">Home</NavLink>
+              <NavLink className={classes.navLink} to="/new">New</NavLink>
+              <NavLink className={classes.navLink} to="/sign">Sign</NavLink>
+              <NavLink className={classes.navLink} to="/ecrecover">Ecrecover</NavLink>
+              <NavLink className={classes.navLink} to="/nft">Nft</NavLink>
             </Typography>
           </Toolbar>
         </AppBar>
