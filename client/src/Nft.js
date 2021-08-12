@@ -30,6 +30,7 @@ const Nft = () => {
     const [ contract, setContract ] = useState (null);
     const [ accounts, setAccounts ] = useState (null);
     const [ address, setAddress ] = useState (null);
+    const [ netID, setNetID ] = useState (null);
     // スタイル用のクラス
     const classes = useStyles();
 
@@ -52,6 +53,8 @@ const Nft = () => {
             setContract (instance);
             // アカウントをセットする。
             setAccounts (accounts);
+            // ネットワークIDをセットする。
+            setNetID(networkId);
         } catch (error) {
             alert(`Failed to load web3, accounts, or contract. Check console for details.`,);
             console.error(error);
@@ -71,7 +74,7 @@ const Nft = () => {
         alert(contract2);
         alert("コントラクトアドレス：", address);
         // ネットワーク情報を取得する。
-        const net = NFTContract.networks[networkId];
+        const net = NFTContract.networks[netID];
         // rinkebyだった場合出力する。
         if( net.chainId == 4) {
             alert("https://rinkeby.etherscan.io/tx/" + contract.deployTransaction.hash);
@@ -83,7 +86,7 @@ const Nft = () => {
      */
     const buttonGetName = async() => {
         // NFT名とアドレスを出力する。
-        alert("NFT名：", instance.name());
+        alert("NFT名：", contract.name());
         alert("コントラクトアドレス：", address);
     }
   
@@ -98,7 +101,7 @@ const Nft = () => {
         alert(contract);
         alert("コントラクトアドレス：", address);
         // ネットワーク情報を取得する。
-        const net = NFTContract.networks[networkId];
+        const net = NFTContract.networks[netID];
         // rinkebyだった場合出力する。
         if( net.chainId == 4) {
             alert("https://rinkeby.etherscan.io/tx/" + hash);
