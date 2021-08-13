@@ -86,7 +86,9 @@ const Nft = () => {
      */
     const buttonGetName = async() => {
         // NFT名とアドレスを出力する。
-        alert("NFT名：", contract.name());
+        alert("NFT名：", await contract.name());
+        alert("シンボル名：", await contract.symbol());
+        alert("URI：", await contract.baseURI());
         alert("コントラクトアドレス：", address);
     }
   
@@ -97,7 +99,7 @@ const Nft = () => {
         // プロバイダーから署名者の情報を取得する。
         const signer = accounts;
         // NFTコントラクトのmint関数を実行する。
-        const { hash } = await contract.connect(signer).mint(signer.getAddress());
+        const { hash } = await contract.mint(signer.getAddress());
         alert(contract);
         alert("コントラクトアドレス：", address);
         // ネットワーク情報を取得する。
@@ -113,7 +115,7 @@ const Nft = () => {
      */
     const buttonSupply = async() => {
         // アドレスを出力する。
-        alert("コントラクトアドレス：", address);
+        alert("コントラクトアドレス：", contract.address);
         // totalSupply関数を呼び出す。
         alert("総供給量：", await contract.totalSupply());
     }
