@@ -89,7 +89,7 @@ const Nft = () => {
         alert("NFT名：", await contract.name());
         alert("シンボル名：", await contract.symbol());
         alert("URI：", await contract.baseURI());
-        alert("コントラクトアドレス：", address);
+        alert("コントラクトアドレス：", contract.address);
     }
   
     /**
