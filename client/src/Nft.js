@@ -65,14 +65,16 @@ const Nft = () => {
      * 「NFTデプロイ」ボタンを押した時の処理
      */
     const buttonDeploy = async() => {
+        // NFTコントラクトの情報を読み取る
+        const NFT = await ethers.getContractFactory("NFTContract");
         // コントラクトをデプロイする。
-        const contract2 = await contract.deploy();
+        const contract2 = await NFT.deploy();
         // deployしたアドレスを取得する。
         address = contract2.address;
         // addressをセットする。
-        setAddress(address);
+        setAddress(contract2.address);
         alert(contract2);
-        alert("コントラクトアドレス：", address);
+        alert("コントラクトアドレス：", contract2.address);
         // ネットワーク情報を取得する。
         const net = NFTContract.networks[netID];
         // rinkebyだった場合出力する。
@@ -101,7 +103,7 @@ const Nft = () => {
         // NFTコントラクトのmint関数を実行する。
         const { hash } = await contract.mint(signer.getAddress());
         alert(contract);
-        alert("コントラクトアドレス：", address);
+        alert("コントラクトアドレス：", contract.address);
         // ネットワーク情報を取得する。
         const net = NFTContract.networks[netID];
         // rinkebyだった場合出力する。
