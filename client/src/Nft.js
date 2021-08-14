@@ -99,9 +99,9 @@ const Nft = () => {
      */
     const buttonMint = async() => {
         // プロバイダーから署名者の情報を取得する。
-        const signer = accounts;
+        const signer = accounts[0];
         // NFTコントラクトのmint関数を実行する。
-        const { hash } = await contract.mint(signer.getAddress());
+        const { hash } = await contract.mint(signer);
         alert(contract);
         alert("コントラクトアドレス：", contract.address);
         // ネットワーク情報を取得する。
