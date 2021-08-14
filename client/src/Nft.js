@@ -54,7 +54,7 @@ const Nft = () => {
             setWeb3(web3);
             // コントラクトをセットする。
             setContract (instance);
-            alert(instance.address);
+            alert(await instance.method().name().call());
             alert(contract);
             // アカウントをセットする。
             setAccounts(accounts);
@@ -73,7 +73,7 @@ const Nft = () => {
         // NFTコントラクトの情報を読み取る
         const NFT = await ethers.getContractFactory("NFTContract");
         // コントラクトをデプロイする。
-        const contract2 = await NFT.deploy();
+        const contract2 = await NFT.deploy().send({ from: accounts[0] });
         // deployしたアドレスを取得する。
         address = contract2.address;
         // addressをセットする。
@@ -107,7 +107,7 @@ const Nft = () => {
         const signer = accounts[0];
         alert(signer);
         // NFTコントラクトのmint関数を実行する。
-        const { hash } = await contract.mint(signer);
+        const { hash } = await contract.mint(signer).send({ from: accounts[0] });
         alert(contract);
         alert("コントラクトアドレス：", contract.address);
         // ネットワーク情報を取得する。
@@ -125,7 +125,7 @@ const Nft = () => {
         // アドレスを出力する。
         alert("コントラクトアドレス：", contract.address);
         // totalSupply関数を呼び出す。
-        alert("総供給量：", await contract.totalSupply());
+        alert("総供給量：", await contract.totalSupply().call());
     }
   
     // 戻り値を設定する。
