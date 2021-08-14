@@ -26,7 +26,7 @@ const useStyles = makeStyles (theme => ({
 const NewFundraiser = () => {
     const [labelWidth, setLabelWidth] = React.useState(0);
     const labelRef = React.useRef(null);
-    const [ web3, setWeb3 ] = useState(null)
+    const [ web3, setWeb3 ] = useState(null);
     const classes = useStyles();
     const [ name, setFundraiserName ] = useState(null);
     const [ url, setFundraiserWebsite ] = useState(null);

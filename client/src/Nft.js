@@ -27,10 +27,11 @@ const useStyles = makeStyles (theme => ({
 // Nftコンポーネントを用意する。
 const Nft = () => {
     // ステート変数を用意
-    const [ contract, setContract ] = useState ([]);
+    const [ contract, setContract ] = useState (null);
     const [ accounts, setAccounts ] = useState (null);
     const [ address, setAddress ] = useState (null);
     const [ netID, setNetID ] = useState (null);
+    const [ web3, setWeb3 ] = useState(null);
     // スタイル用のクラス
     const classes = useStyles();
 
@@ -49,11 +50,13 @@ const Nft = () => {
             const deployedNetwork = NFTContract.networks[networkId];
             const accounts = await web3.eth.getAccounts();
             const instance = new web3.eth.Contract(NFTContract.abi, deployedNetwork && deployedNetwork.address,);
+            // Web3を設定する。
+            setWeb3(web3);
             // コントラクトをセットする。
             setContract (instance);
             alert(contract);
             // アカウントをセットする。
-            setAccounts (accounts);
+            setAccounts(accounts);
             // ネットワークIDをセットする。
             setNetID(networkId);
         } catch (error) {
@@ -89,9 +92,9 @@ const Nft = () => {
      */
     const buttonGetName = async() => {
         // NFT名とアドレスを出力する。
-        alert("NFT名：", await contract.name());
-        alert("シンボル名：", await contract.symbol());
-        alert("URI：", await contract.baseURI());
+        alert("NFT名：", await contract.method().name().call());
+        alert("シンボル名：", await contract.method().symbol().call());
+        alert("URI：", await contract.method().baseURI().call());
         alert("コントラクトアドレス：", contract.address);
     }
   
