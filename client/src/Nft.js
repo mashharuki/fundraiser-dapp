@@ -51,7 +51,7 @@ const Nft = () => {
             const instance = new web3.eth.Contract(NFTContract.abi, deployedNetwork && deployedNetwork.address,);
             // コントラクトをセットする。
             setContract (instance);
-            alert(contract);
+            alert(instance);
             // アカウントをセットする。
             setAccounts (accounts);
             // ネットワークIDをセットする。
