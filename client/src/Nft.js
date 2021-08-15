@@ -99,11 +99,9 @@ const Nft = () => {
         // 名前とシンボル名を取得する。
         var name = await instance.methods.name().call();
         var symbol = await instance.methods.symbol().call();
-        var baseurl = await instance.methods._baseURI().call();
         // NFT名とアドレスを出力する。
         alert("NFT名：", name);
         alert("シンボル名：", symbol);
-        alert("URI：", baseurl);
     }
   
     /**
@@ -112,7 +110,6 @@ const Nft = () => {
     const buttonMint = async() => {
         // プロバイダーから署名者の情報を取得する。
         const signer = accounts[0];
-        alert(signer);
         // コントラクト
         const networkId = await web3.eth.net.getId();
         const deployedNetwork = NFTContract.networks[networkId];
@@ -132,10 +129,14 @@ const Nft = () => {
      * 「NFT総供給量」ボタンを押した時の処理
      */
     const buttonSupply = async() => {
-        // アドレスを出力する。
-        alert("コントラクトアドレス：", contract.address);
+        // コントラクト
+        const networkId = await web3.eth.net.getId();
+        const deployedNetwork = NFTContract.networks[networkId];
+        const instance = new web3.eth.Contract(NFTContract.abi, deployedNetwork && deployedNetwork.address,);
+        // 総供給量を取得する。
+        var totalSupply = await contract.methods.totalSupply().call();
         // totalSupply関数を呼び出す。
-        alert("総供給量：", await contract.totalSupply().call());
+        alert("総供給量：", totalSupply);
     }
   
     // 戻り値を設定する。
