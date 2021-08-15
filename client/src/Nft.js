@@ -55,7 +55,6 @@ const Nft = () => {
             // コントラクトをセットする。
             setContract(instance);
             alert(instance.methods.name().call());
-            alert(instance.name);
             alert(contract);
             // アカウントをセットする。
             setAccounts(accounts);
@@ -98,10 +97,9 @@ const Nft = () => {
         const deployedNetwork = NFTContract.networks[networkId];
         const instance = new web3.eth.Contract(NFTContract.abi, deployedNetwork && deployedNetwork.address,);
         // NFT名とアドレスを出力する。
-        alert("NFT名：", await instance.name());
-        alert("シンボル名：", await instance.symbol());
-        alert("URI：", await instance.baseURI());
-        alert("コントラクトアドレス：", instance.address);
+        alert("NFT名：", await instance.methods.name().call());
+        alert("シンボル名：", await instance.methods.symbol().call());
+        alert("URI：", await instance.methods.baseURI().call());
     }
   
     /**
