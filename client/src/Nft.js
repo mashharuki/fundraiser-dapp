@@ -125,7 +125,7 @@ const Nft = () => {
     }
   
     /**
-     * 「NFT総供給量」ボタンを押した時の処理
+     * 「NFT総供給量取得」ボタンを押した時の処理
      */
     const buttonSupply = async() => {
         // コントラクト
@@ -133,9 +133,23 @@ const Nft = () => {
         const deployedNetwork = NFTContract.networks[networkId];
         const instance = new web3.eth.Contract(NFTContract.abi, deployedNetwork && deployedNetwork.address,);
         // 総供給量を取得する。
-        var totalSupply = await contract.methods.totalSupply().call();
+        var totalSupply = await instance.methods.totalSupply().call();
         // totalSupply関数を呼び出す。
         alert("総供給量：", totalSupply);
+    }
+
+    /**
+     * 「NFT数取得」ボタンを押した時の処理
+     */
+    const buttonBalanceOf = async() => {
+        // コントラクト
+        const networkId = await web3.eth.net.getId();
+        const deployedNetwork = NFTContract.networks[networkId];
+        const instance = new web3.eth.Contract(NFTContract.abi, deployedNetwork && deployedNetwork.address,);
+        // 接続中のアカウントに紐づくNFT数を取得する
+        var balanceOf = await instance.methods.balanceOf(accounts[0]).call();
+        // totalSupply関数を呼び出す。
+        alert("NFT数：", balanceOf);
     }
   
     // 戻り値を設定する。
@@ -145,7 +159,8 @@ const Nft = () => {
             <Button onClick={buttonDeploy} variant="contained" color="primary" className={classes.button}>NFTデプロイ</Button><br/>
             <Button onClick={buttonGetName} variant="contained" color="primary" className={classes.button}>NFT名取得</Button><br/>
             <Button onClick={buttonMint} variant="contained" color="primary" className={classes.button}>NFT発行</Button><br/>
-            <Button onClick={buttonSupply} variant="contained" color="primary" className={classes.button}>NFT総供給量</Button>
+            <Button onClick={buttonBalanceOf} variant="contained" color="primary" className={classes.button}>NFT数取得</Button><br/>
+            <Button onClick={buttonSupply} variant="contained" color="primary" className={classes.button}>NFT総供給量取得</Button>
         </div>
     );
 }
