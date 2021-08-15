@@ -116,7 +116,6 @@ const Nft = () => {
         const instance = new web3.eth.Contract(NFTContract.abi, deployedNetwork && deployedNetwork.address,);
         // NFTコントラクトのmint関数を実行する。
         const { hash } = await instance.methods.mint(signer).send({ from: accounts[0] });
-        alert(instance);
         // ネットワーク情報を取得する。
         const net = NFTContract.networks[netID];
         // rinkebyだった場合出力する。
