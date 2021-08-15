@@ -57,6 +57,8 @@ const Nft = () => {
             // コントラクトをセットする。
             setContract(instance);
             alert(instance.methods.name().call());
+            console.log(instance);
+            console.log(instance.methods.name().call());
             alert(contract);
             // アカウントをセットする。
             setAccounts(accounts);
