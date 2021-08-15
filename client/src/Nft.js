@@ -96,10 +96,14 @@ const Nft = () => {
         const networkId = await web3.eth.net.getId();
         const deployedNetwork = NFTContract.networks[networkId];
         const instance = new web3.eth.Contract(NFTContract.abi, deployedNetwork && deployedNetwork.address,);
+        // 名前とシンボル名を取得する。
+        var name = await instance.methods.name().call();
+        var symbol = await instance.methods.symbol().call();
+        var baseurl = await instance.methods._baseURI().call();
         // NFT名とアドレスを出力する。
-        alert("NFT名：", await instance.methods.name().call());
-        alert("シンボル名：", await instance.methods.symbol().call());
-        alert("URI：", await instance.methods.baseURI().call());
+        alert("NFT名：", name);
+        alert("シンボル名：", symbol);
+        alert("URI：", baseurl);
     }
   
     /**
