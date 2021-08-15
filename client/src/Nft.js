@@ -113,10 +113,13 @@ const Nft = () => {
         // プロバイダーから署名者の情報を取得する。
         const signer = accounts[0];
         alert(signer);
+        // コントラクト
+        const networkId = await web3.eth.net.getId();
+        const deployedNetwork = NFTContract.networks[networkId];
+        const instance = new web3.eth.Contract(NFTContract.abi, deployedNetwork && deployedNetwork.address,);
         // NFTコントラクトのmint関数を実行する。
-        const { hash } = await contract.mint(signer).send({ from: accounts[0] });
-        alert(contract);
-        alert("コントラクトアドレス：", contract.address);
+        const { hash } = await instance.mint(signer).send({ from: accounts[0] });
+        alert(instance);
         // ネットワーク情報を取得する。
         const net = NFTContract.networks[netID];
         // rinkebyだった場合出力する。
