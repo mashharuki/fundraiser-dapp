@@ -23,7 +23,7 @@ contract METoken is StandardToken {
     /**
      * コンストラクター
      */
-    function METoken() public {
+    constructor () public {
         // 初期供給量
         totalSupply_ = _initial_supply;
         // 残高を設定

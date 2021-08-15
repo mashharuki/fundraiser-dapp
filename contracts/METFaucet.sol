@@ -16,7 +16,7 @@ contract METFaucet {
     /**
      * コンストラクター
      */
-    function METFaucet (address _METoken, address _METOwner) public {
+    constructor (address _METoken, address _METOwner) public {
         // 提供されたアドレスをMETokenとして初期化する。
         METoken = StandardToken(_METoken);
         METOwner = _METOwner;
@@ -24,7 +24,7 @@ contract METFaucet {
 
     /**
      * 引き出し関数
-     * @withdrawamount 引き出し額
+     * withdrawamount 引き出し額
      */
     function withdraw(uint withdraw_amount) public {
         // 引き出し金額を10METに制限する。
