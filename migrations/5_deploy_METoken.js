@@ -2,6 +2,7 @@
  * METokenとMETFaucetコントラクトをデプロイするためのJsファイル
  */
 
+
 // コントラクトを読み込む
 var METoken = artifacts.require("METoken");
 var METFaucet = artifacts.require("METFaucet");
@@ -12,6 +13,7 @@ var owner = web3.eth.accounts[0];
  * コントラクトをデプロイするための関数
  * @param {*} deployer 
  */
+/*
 module.exports = function (deployer) {
     // 最初にMETokenをデプロイする。
     deployer.deploy(METoken, {from: owner}).then(function() {
@@ -19,3 +21,4 @@ module.exports = function (deployer) {
         deployer.deploy(METFaucet, METoken.address, owner);
     });
 }
+*/

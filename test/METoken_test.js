@@ -10,6 +10,8 @@ const METFaucetContract = artifacts.require("METFaucet");
 /**
  * デプロイ関連のテストコード
  */ 
+
+/*
 contract ("METoken & METFaucet Factory: deployment", () => {
     // デプロイ済みかチェックする。
     it ("has been deployde", async () => {
@@ -19,3 +21,4 @@ contract ("METoken & METFaucet Factory: deployment", () => {
         assert(METFaucetFactory, "METFaucet factory was not deployed");
     });
 });
+*/
