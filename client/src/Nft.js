@@ -93,6 +93,8 @@ const Nft = () => {
      */
     const buttonGetName = async() => {
         // コントラクト
+        const networkId = await web3.eth.net.getId();
+        const deployedNetwork = NFTContract.networks[networkId];
         const instance = new web3.eth.Contract(NFTContract.abi, deployedNetwork && deployedNetwork.address,);
         // NFT名とアドレスを出力する。
         alert("NFT名：", await instance.name());
