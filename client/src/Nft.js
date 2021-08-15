@@ -54,7 +54,7 @@ const Nft = () => {
             setWeb3(web3);
             // コントラクトをセットする。
             setContract(instance);
-            alert(instance.methods.name().call());
+            alert(instance.options.jsonInterface);
             alert(contract);
             // アカウントをセットする。
             setAccounts(accounts);
