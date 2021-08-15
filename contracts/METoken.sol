@@ -1,8 +1,9 @@
 /**
  * 独自コイン「MET」を発行するためのコントラクト
  */
+ 
 pragma solidity >= 0.4.21;
-
+// openzeppelinのトークンsolidityファイルを読み込む
 import 'openzeppelin-solidity/contracts/token/ERC20/StandardToken.sol';
 
 /**
