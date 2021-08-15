@@ -32,6 +32,7 @@ const Nft = () => {
     const [ address, setAddress ] = useState (null);
     const [ netID, setNetID ] = useState (null);
     const [ web3, setWeb3 ] = useState(null);
+    const [ tokenId , setTokenId] = useState(null);
     // スタイル用のクラス
     const classes = useStyles();
 
@@ -151,6 +152,19 @@ const Nft = () => {
         // totalSupply関数を呼び出す。
         alert("NFT数：", balanceOf);
     }
+
+    /**
+     *  「所有者確認」ボタンを押した時の処理
+     */
+    const buttonOwnerOf = async() => {
+        // コントラクト
+        const networkId = await web3.eth.net.getId();
+        const deployedNetwork = NFTContract.networks[networkId];
+        const instance = new web3.eth.Contract(NFTContract.abi, deployedNetwork && deployedNetwork.address,);
+        // 所有者アドレスを取得する。
+        const ownerAddress = await instance.methods.ownerOf(tokenId).call();
+        alert("所有者アドレス：", ownerAddress);
+    }
   
     // 戻り値を設定する。
     return (
@@ -161,6 +175,8 @@ const Nft = () => {
             <Button onClick={buttonMint} variant="contained" color="primary" className={classes.button}>NFT発行</Button><br/>
             <Button onClick={buttonBalanceOf} variant="contained" color="primary" className={classes.button}>NFT数取得</Button><br/>
             <Button onClick={buttonSupply} variant="contained" color="primary" className={classes.button}>NFT総供給量取得</Button>
+            <TextField id="outlined-bare" className={classes.textField} placeholder="TokenId" margin="normal" onChange={ (e) => setTokenId(e.target.value) } variant="outlined" inputProps={{ 'aria-label': 'bare' }} />
+            <Button onClick={buttonOwnerOf} variant="contained" color="primary" className={classes.button}>所有者確認</Button>
         </div>
     );
 }
