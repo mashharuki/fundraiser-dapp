@@ -97,8 +97,8 @@ const Nft = () => {
         const deployedNetwork = NFTContract.networks[networkId];
         const instance = new web3.eth.Contract(NFTContract.abi, deployedNetwork && deployedNetwork.address,);
         // 名前とシンボル名を取得する。
-        var name = await instance.methods.name().call();
-        var symbol = await instance.methods.symbol().call();
+        const name = await instance.methods.name().call();
+        const symbol = await instance.methods.symbol().call();
         // NFT名とアドレスを出力する。
         alert("NFT名：", name);
         alert("シンボル名：", symbol);
@@ -115,7 +115,7 @@ const Nft = () => {
         const deployedNetwork = NFTContract.networks[networkId];
         const instance = new web3.eth.Contract(NFTContract.abi, deployedNetwork && deployedNetwork.address,);
         // NFTコントラクトのmint関数を実行する。
-        const { hash } = await instance.methods.mint(signer).send({ from: accounts[0] });
+        const { hash } = await instance.methods.mint(signer).send({ from: signer });
         // ネットワーク情報を取得する。
         const net = NFTContract.networks[netID];
         // rinkebyだった場合出力する。
@@ -133,7 +133,7 @@ const Nft = () => {
         const deployedNetwork = NFTContract.networks[networkId];
         const instance = new web3.eth.Contract(NFTContract.abi, deployedNetwork && deployedNetwork.address,);
         // 総供給量を取得する。
-        var totalSupply = await instance.methods.totalSupply().call();
+        const totalSupply = await instance.methods.totalSupply().call();
         // totalSupply関数を呼び出す。
         alert("総供給量：", totalSupply);
     }
@@ -147,7 +147,7 @@ const Nft = () => {
         const deployedNetwork = NFTContract.networks[networkId];
         const instance = new web3.eth.Contract(NFTContract.abi, deployedNetwork && deployedNetwork.address,);
         // 接続中のアカウントに紐づくNFT数を取得する
-        var balanceOf = await instance.methods.balanceOf(accounts[0]).call();
+        const balanceOf = await instance.methods.balanceOf(accounts[0]).call();
         // totalSupply関数を呼び出す。
         alert("NFT数：", balanceOf);
     }
