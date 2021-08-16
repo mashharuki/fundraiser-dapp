@@ -102,5 +102,5 @@ const Ecrecover = () => {
     );
 }
 
-// Signコンポーネントを外部に公開しました。
+// Ecrecoverコンポーネントを外部に公開しました。
 export default Ecrecover;

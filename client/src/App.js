@@ -70,6 +70,7 @@ const App = () => {
             <Typography variant="h6" color="inherit">
               <NavLink className={classes.navLink} to="/">Home</NavLink>
               <NavLink className={classes.navLink} to="/new">New</NavLink>
+              <NavLink className={classes.navLink} to="/createMultiSigWallet">CreateMultiSigWallet</NavLink>
               <NavLink className={classes.navLink} to="/sign">Sign</NavLink>
               <NavLink className={classes.navLink} to="/ecrecover">Ecrecover</NavLink>
               <NavLink className={classes.navLink} to="/nft">Nft</NavLink>
@@ -78,6 +79,7 @@ const App = () => {
         </AppBar>
         <Route path="/" exact component={Home} />
         <Route path="/new/" component={NewFundraiser} />
+        <Route path="/createMultiSigWallet" component={NewFundraiser} />
         <Route path="/receipts" component={Receipts} />
         <Route path="/sign/" component={Sign} />
         <Route path="/ecrecover/" component={Ecrecover} />
