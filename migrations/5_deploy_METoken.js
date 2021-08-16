@@ -4,10 +4,10 @@
 
 
 // コントラクトを読み込む
-var METoken = artifacts.require("METoken");
-var METFaucet = artifacts.require("METFaucet");
+//var METoken = artifacts.require("METoken");
+//var METFaucet = artifacts.require("METFaucet");
 // アカウント情報を読み取る
-var owner = web3.eth.accounts[0];
+//var owner = web3.eth.accounts[0];
 
 /**
  * コントラクトをデプロイするための関数
