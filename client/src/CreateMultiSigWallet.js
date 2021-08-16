@@ -89,6 +89,16 @@ const CreateMultiSigWallet = () => {
         }
     };
 
+    /**
+     * Owneraddressesをセットするための関数
+     */
+    const setOwnerAddresses = async (e) => {
+        // 配列にアドレスを追加する。
+        owners.push(e.target.value);
+        // ステート変数を更新する。
+        setOwners(owners);
+    }
+
     // 戻り値
     return (
         <div className="main-container">
@@ -98,7 +108,7 @@ const CreateMultiSigWallet = () => {
             <label>Threshold</label>
             <TextField id="outlined-bare" className={classes.textField} placeholder="Threshold" margin="normal" onChange={ (e) => setThreshold(e.target.value) } variant="outlined" inputProps={{ 'aria-label': 'bare' }} />
             <label>Owners's addresses</label>
-            <TextField id="outlined-bare" className={classes.textField} placeholder="Owners's addresses" margin="normal" onChange={ (e) => setOwners(e.target.value) } variant="outlined" inputProps={{ 'aria-label': 'bare' }} />
+            <TextField id="outlined-bare" className={classes.textField} placeholder="Owners's addresses" margin="normal" onChange={ setOwnerAddresses } variant="outlined" inputProps={{ 'aria-label': 'bare' }} />
             
             <Button onClick={handleSubmit} variant="contained" className={classes.button}>
                 create! 
