@@ -80,7 +80,7 @@ const CreateMultiSigWallet = () => {
     const handleSubmit = async () => {
         try {
             // コントラクトのcreateMultiSig関数を呼び出す。
-            await contract.methods.CreateMultiSigWallet(threshold, owners, networkId).send({ from: accounts[0] });
+            await contract.methods.createMultiSig(threshold, owners, networkId).send({ from: accounts[0] });
             // アラートを出す。
             alert('Successfully created MultiSigWallet');
         } catch (error) {
