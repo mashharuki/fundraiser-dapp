@@ -27,4 +27,11 @@ contract MultiSigFactory {
         // イベントの発行
         emit MultiSigCreated(simpleMultiSig, threshold_, owners_, chainId);
     }
+
+    /**
+     * 作成済みマルチシグウォレット数を取得する関数
+     */
+    function multiSigWalletsCount () public view returns (uint256) {
+        return _simpleMultiSigs.length;
+    }
 }
