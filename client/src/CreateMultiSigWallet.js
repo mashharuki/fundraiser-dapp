@@ -83,7 +83,7 @@ const CreateMultiSigWallet = () => {
             await contract.methods.CreateMultiSigWallet(threshold, owners, networkId).send({ from: accounts[0] });
             // アラートを出す。
             alert('Successfully created MultiSigWallet');
-        } catch (erro) {
+        } catch (error) {
             alert(`Failed to create MultiSigWallet.`,);
             console.error(error);
         }
@@ -107,5 +107,5 @@ const CreateMultiSigWallet = () => {
     );
 }
 
-// CreateMultiSigWalletコンポーネントを外部に公開しました。
+// CreateMultiSigWalletコンポーネントを外部に公開します。
 export default CreateMultiSigWallet;
