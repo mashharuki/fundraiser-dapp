@@ -3,9 +3,9 @@
  */
 
 // METokenコントラクトを読み込んでインスタンス化する。
-const METokenContract = artifacts.require("METoken");
+// const METokenContract = artifacts.require("METoken");
 // METFaucetコントラクトを読み込んでインスタンス化する。
-const METFaucetContract = artifacts.require("METFaucet");
+// const METFaucetContract = artifacts.require("METFaucet");
 
 /**
  * デプロイ関連のテストコード

@@ -10,6 +10,7 @@ import Receipts from './Receipts';
 import Sign from "./Sign";
 import Ecrecover from "./Ecrecover";
 import Nft from "./Nft";
+import CreateMultiSigWallet from "./CreateMultiSigWallet";
 // material-ui関連をインポートする。
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -79,7 +80,7 @@ const App = () => {
         </AppBar>
         <Route path="/" exact component={Home} />
         <Route path="/new/" component={NewFundraiser} />
-        <Route path="/createMultiSigWallet" component={NewFundraiser} />
+        <Route path="/createMultiSigWallet" component={CreateMultiSigWallet} />
         <Route path="/receipts" component={Receipts} />
         <Route path="/sign/" component={Sign} />
         <Route path="/ecrecover/" component={Ecrecover} />
