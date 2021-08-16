@@ -92,12 +92,13 @@ const CreateMultiSigWallet = () => {
     /**
      * Owneraddressesをセットするための関数
      */
-    const setOwnerAddresses = async (e) => {
+    const setOwnerAddresses =  ((e) => {
         // 配列にアドレスを追加する。
         owners.push(e.target.value);
+        alert(owners);
         // ステート変数を更新する。
         setOwners(owners);
-    }
+    });
 
     // 戻り値
     return (
