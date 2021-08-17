@@ -22,7 +22,7 @@ solcのバージョン情報等については、truffle-config.jsを参照く�
    contracts: スマートコントラクト(バックエンド側)のディレクトリ  
    develop: 実装途中のファイルを格納するディレクトリ  
    migrations: デプロイ用のJsファイルを格納するディレクトリ  
-   node_modules: npmによってインストールするモジュール群を格納するディレクトリ
+   node_modules: npmによってインストールするモジュール群を格納するディレクトリ  
    test: スマートコントラクトのテストコードを格納するディレクトリ  
    truffle-config: truffle用の設定ファイル  
 
