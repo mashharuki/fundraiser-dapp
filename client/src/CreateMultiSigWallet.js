@@ -113,6 +113,13 @@ const CreateMultiSigWallet = () => {
             <Button onClick={addAddress} variant="contained" color="info" className={classes.button}> + </Button>
             <label>Owners's addresses</label>
             <TextField id="outlined-bare" className={classes.textField} placeholder="Owners's addresses" margin="normal" onChange={ (e) => setOwner(e.target.value) } variant="outlined" inputProps={{ 'aria-label': 'bare' }} />
+            {(
+                () => { if(owners.length >= 1) {
+                    return (
+                        <p>Current Owners's address</p>
+                    );
+                }}
+            )}
             {owners.map((ownerAddress, index) => {
                 return (
                     <div key={index}>
