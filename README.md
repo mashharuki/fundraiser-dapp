@@ -92,3 +92,9 @@ npm run build
 <a href="https://www.rinkeby.io/#faucet">Rinkeby Faucet</a>
 
 <a href="https://wallet.gnosis.pm/#/wallets">マルチシグウォレットのデモページ</a>
+
+<a href="https://remix.ethereum.org/">REMIX IDE</a>
+
+<a href="https://www.myetherwallet.com/">myEthWallet</a>
+
+<a href="https://docs.openzeppelin.com/contracts/4.x/api/token/erc721">OpenZeppelin Docs</a>
