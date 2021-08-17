@@ -116,10 +116,10 @@ const CreateMultiSigWallet = () => {
             {owners.map((ownerAddress, index) => {
                 return (
                     <div key={index}>
-                        <input type='text' value={ownerAddress} name='owneraddress'/>
+                        <input type='text' value={ownerAddress} name='owneraddress' disabled="disabled"/>
                     </div>
                 );
-            })};
+            })}
             <Button onClick={handleSubmit} variant="contained" className={classes.button}>create!</Button>
         </div>
     );
