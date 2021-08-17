@@ -37,6 +37,7 @@ const CreateMultiSigWallet = () => {
     const [ web3, setWeb3 ] = useState(null);
     const [ networkId, setNetworkId ] = useState(null);
     const [ threshold, setThreshold ] = useState(null);
+    const [ owner, setOwner ] = useState(null);
     const [ owners, setOwners ] = useState([]);
     const [ contract, setContract] = useState(null);
     const [ accounts, setAccounts ] = useState(null);
@@ -90,15 +91,16 @@ const CreateMultiSigWallet = () => {
     };
 
     /**
-     * Owneraddressesをセットするための関数
+     * +ボタンが押された時の処理
      */
-    const setOwnerAddresses =  ((e) => {
+    const addAddress = async () => {
         // 配列にアドレスを追加する。
-        owners.push(e.target.value);
+        owners.push(owner);
         alert(owners);
         // ステート変数を更新する。
         setOwners(owners);
-    });
+        setOwner('');
+    };
 
     // 戻り値
     return (
@@ -108,12 +110,17 @@ const CreateMultiSigWallet = () => {
             </h2>
             <label>Threshold</label>
             <TextField id="outlined-bare" className={classes.textField} placeholder="Threshold" margin="normal" onChange={ (e) => setThreshold(e.target.value) } variant="outlined" inputProps={{ 'aria-label': 'bare' }} />
+            <Button onClick={addAddress} variant="contained" color="info" className={classes.button}> + </Button>
             <label>Owners's addresses</label>
-            <TextField id="outlined-bare" className={classes.textField} placeholder="Owners's addresses" margin="normal" onChange={ setOwnerAddresses } variant="outlined" inputProps={{ 'aria-label': 'bare' }} />
-            
-            <Button onClick={handleSubmit} variant="contained" className={classes.button}>
-                create! 
-            </Button>
+            <TextField id="outlined-bare" className={classes.textField} placeholder="Owners's addresses" margin="normal" onChange={ (e) => setOwner(e.target.value) } variant="outlined" inputProps={{ 'aria-label': 'bare' }} />
+            {owners.map((ownerAddress, index) => {
+                return (
+                    <div key={index}>
+                        <input type='text' value={ownerAddress} name='owneraddress'/>
+                    </div>
+                );
+            })};
+            <Button onClick={handleSubmit} variant="contained" className={classes.button}>create!</Button>
         </div>
     );
 }
