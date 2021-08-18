@@ -1,11 +1,11 @@
 /**
- * NFTコントラクトデプロイ用JSファイル
+ * NFTFactoryコントラクトデプロイ用JSファイル
  */ 
 
-// NFTコントラクトを読み込んでインスタンス化する。
-const NFTContract = artifacts.require("NFT");
+// NFTFactoryコントラクトを読み込んでインスタンス化する。
+const NFTFactoryContract = artifacts.require("NFTFactory");
 
 module.exports = function (deployer) {
     // コントラクトをデプロイする。
-    deployer.deploy (NFTContract);
+    deployer.deploy (NFTFactoryContract);
 }
