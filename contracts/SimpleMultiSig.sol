@@ -1,7 +1,9 @@
 // コンパイラーバージョンを指定
 pragma solidity >0.4.23;
 
-// solidityによるシンプルなマルチシグコードコントラクト
+/**
+ * solidityによるシンプルなマルチシグコントラクト
+ */
 contract SimpleMultiSig {
  
   // EIP712は、データ署名の標準
@@ -17,6 +19,8 @@ contract SimpleMultiSig {
   // ハッシュ値生成用のソルト
   bytes32 constant SALT = 0x251543af6a222378665a76fe38dbceae4871a070b7fdaf5c6c30cf758dc33cc0;
 
+  // ウォレット名
+  string public walletName;
   // ナンス
   uint public nonce;
   // しきい値(要求署名回数)
@@ -32,7 +36,7 @@ contract SimpleMultiSig {
    * コンストラクター (デプロイしたときに一度だけ呼ばれる。)
    * マルチシグウォレットを作成する。
    */
-  constructor (uint threshold_, address[] memory owners_, uint chainId) public {
+  constructor (string memory walletName_ ,uint threshold_, address[] memory owners_, uint chainId) public {
     // 処理を行う前に、コントラクト所有者の数など、問題ないかチェックする。
     require(owners_.length <= 10 && threshold_ <= owners_.length && threshold_ > 0);
     // デプロイ用の新しいアドレスを生成する。
@@ -46,6 +50,8 @@ contract SimpleMultiSig {
       // lastAddの値を更新する。
       lastAdd = owners_[i];
     }
+    // それぞれ値をセットする。
+    walletName = walletName_;
     ownersArr = owners_;
     threshold = threshold_;
     // EIP712のためのハッシュ値を生成する。
@@ -53,7 +59,16 @@ contract SimpleMultiSig {
   }
 
   /**
-   * マルチ署名を実行するための関数
+   * ウォレットの名前を取得するための関数
+   */
+   function getWalletName () public returns (string memory name){
+      // ウォレット名を返す。
+      name = walletName;
+      return name;
+   }
+
+  /**
+   * デジタル署名を付与した公開鍵を取得するための関数
    */
   function execute(uint8[] memory sigV, bytes32[] memory sigR, bytes32[] memory sigS, address destination, uint value, bytes memory data, address executor, uint gasLimit) public {
     // 必要な条件を満たしているかをチェックする。
