@@ -145,16 +145,16 @@ const Sign = () => {
                 setSigR(signature.r);
                 setSigS(signature.s);
                 setSigV(signature.v);
+                // アラートで署名の3要素を表示する。
+                alert('r' + sigR);
+                alert('s' + sigS);
+                alert('v' + sigV);
+                // アラートを出す。
+                alert('Successfully signed data');
             }
         );
-        // アラートで署名の3要素を表示する。
-        alert('r' + sigR);
-        alert('s' + sigS);
-        alert('v' + sigV);
         // コントラクトのexecuteを呼び出す。
         //await contract.methods.execute(sigV, sigR, sigS, destination, value, data, executor, gasLimit).send({ from: accounts[0] });
-        // アラートを出す。
-        alert('Successfully signed data')
     }
 
     // 署名内容を解析するための関数
