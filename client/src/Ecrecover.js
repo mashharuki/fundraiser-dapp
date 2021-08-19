@@ -69,12 +69,16 @@ const Ecrecover = () => {
 
     // handleSign関数(署名実行)
     const handleSign = async () => {
+        // コントラクト
+        const networkId = await web3.eth.net.getId();
+        const deployedNetwork = SimpleMultiSigContract.networks[networkId];
+        const instance = new web3.eth.Contract(SimpleMultiSigContract.abi, deployedNetwork && deployedNetwork.address,);
         // 必要なデータをセットする。
         alert('r' + sigR);
         alert('s' + sigS);
         alert('v' + sigV);
         // コントラクトのexecuteを呼び出す。
-        //await contract.methods.execute(sigV, sigR, sigS, destination, value, data, executor, gasLimit).send({ from: accounts[0] });
+        await instance.methods.execute(sigV, sigR, sigS, destination, value, data, executor, gasLimit).send({ from: accounts[0] });
         // アラートを出す。
         alert('Successfully ecrecovered data')
     }
