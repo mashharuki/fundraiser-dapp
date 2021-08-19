@@ -81,7 +81,7 @@ const Nft = () => {
         const deployedNetwork = NFTFactoryContract.networks[networkId];
         const instance = new web3.eth.Contract(NFTFactoryContract.abi, deployedNetwork && deployedNetwork.address,);
         // コントラクトをデプロイする。
-        await instance.createNFT(name, symbol, url).send({ from: accounts[0] });
+        await instance.methods.createNFT(name, symbol, url).send({ from: accounts[0] });
         alert("コントラクトアドレス：");
         // ネットワーク情報を取得する。
         const net = NFTFactoryContract.networks[netID];
