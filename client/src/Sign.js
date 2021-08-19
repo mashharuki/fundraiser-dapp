@@ -181,7 +181,7 @@ const Sign = () => {
                 署名実行画面
             </h2>
             <label>Wallet address</label>
-            <TextField id="outlined-bare" className={classes.textField} placeholder="Wallet address" margin="normal" onChange={ (e) => setWalletAddress(e.target.value) } variant="outlined" inputProps={{ 'aria-label': 'bare' }} value="" />
+            <TextField id="outlined-bare" className={classes.textField} placeholder="Wallet address" margin="normal" onChange={ (e) => setWalletAddress(e.target.value) } variant="outlined" inputProps={{ 'aria-label': 'bare' }} />
             <label>Destination</label>
             <TextField id="outlined-bare" className={classes.textField} placeholder="Destination" margin="normal" onChange={ (e) => setDestination(e.target.value) } variant="outlined" inputProps={{ 'aria-label': 'bare' }} />
             <label>Value</label>
