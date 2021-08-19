@@ -4,9 +4,8 @@
 
 // 必要なモジュールをインポートする。
 import './App.css';
-import { ethers } from "ethers";
 import React, { useState, useEffect } from "react";
-import NFTContract from './contracts/NFT.json';
+import NFTFactoryContract from './contracts/NFTFactory.json';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -28,6 +27,9 @@ const useStyles = makeStyles (theme => ({
 // Nftコンポーネントを用意する。
 const Nft = () => {
     // ステート変数を用意
+    const [ name, setName ] = useState (null);
+    const [ symbol, setSymbol ] = useState (null);
+    const [ url, setUrl ] = useState (null);
     const [ contract, setContract ] = useState (null);
     const [ accounts, setAccounts ] = useState (null);
     const [ address, setAddress ] = useState (null);
@@ -37,29 +39,29 @@ const Nft = () => {
     // スタイル用のクラス
     const classes = useStyles();
 
-    // useEffect関数
+    /**
+     * useEffect関数 
+     */ 
     useEffect (() => {
         init();
     }, []);
 
-    // init関数
+    /**
+     * init関数
+     */
     const init = async() => {
         try {
             // Web3が使えるように設定する。
             const provider = await detectEthereumProvider();
             const web3 = new Web3(provider);
             const networkId = await web3.eth.net.getId();
-            const deployedNetwork = NFTContract.networks[networkId];
+            const deployedNetwork = NFTFactoryContract.networks[networkId];
             const accounts = await web3.eth.getAccounts();
-            const instance = new web3.eth.Contract(NFTContract.abi, deployedNetwork && deployedNetwork.address,);
+            const instance = new web3.eth.Contract(NFTFactoryContract.abi, deployedNetwork && deployedNetwork.address,);
             // Web3を設定する。
             setWeb3(web3);
             // コントラクトをセットする。
             setContract(instance);
-            alert(instance.methods.name().call());
-            console.log(instance);
-            console.log(instance.methods.name().call());
-            alert(contract);
             // アカウントをセットする。
             setAccounts(accounts);
             // ネットワークIDをセットする。
@@ -75,17 +77,14 @@ const Nft = () => {
      */
     const buttonDeploy = async() => {
         // NFTコントラクトの情報を読み取る
-        const NFT = await ethers.getContractFactory("NFTContract");
+        const networkId = await web3.eth.net.getId();
+        const deployedNetwork = NFTFactoryContract.networks[networkId];
+        const instance = new web3.eth.Contract(NFTFactoryContract.abi, deployedNetwork && deployedNetwork.address,);
         // コントラクトをデプロイする。
-        const contract2 = await NFT.deploy().send({ from: accounts[0] });
-        // deployしたアドレスを取得する。
-        address = contract2.address;
-        // addressをセットする。
-        setAddress(contract2.address);
-        alert(contract2);
-        alert("コントラクトアドレス：", contract2.address);
+        await instance.createNFT(name, symbol, url).send({ from: accounts[0] });
+        alert("コントラクトアドレス：");
         // ネットワーク情報を取得する。
-        const net = NFTContract.networks[netID];
+        const net = NFTFactoryContract.networks[netID];
         // rinkebyだった場合出力する。
         if( net.chainId == 4) {
             alert("https://rinkeby.etherscan.io/tx/" + contract.deployTransaction.hash);
@@ -98,8 +97,8 @@ const Nft = () => {
     const buttonGetName = async() => {
         // コントラクト
         const networkId = await web3.eth.net.getId();
-        const deployedNetwork = NFTContract.networks[networkId];
-        const instance = new web3.eth.Contract(NFTContract.abi, deployedNetwork && deployedNetwork.address,);
+        const deployedNetwork = NFTFactoryContract.networks[networkId];
+        const instance = new web3.eth.Contract(NFTFactoryContract.abi, deployedNetwork && deployedNetwork.address,);
         // 名前とシンボル名を取得する。
         const name = await instance.methods.name().call();
         const symbol = await instance.methods.symbol().call();
@@ -116,12 +115,12 @@ const Nft = () => {
         const signer = accounts[0];
         // コントラクト
         const networkId = await web3.eth.net.getId();
-        const deployedNetwork = NFTContract.networks[networkId];
-        const instance = new web3.eth.Contract(NFTContract.abi, deployedNetwork && deployedNetwork.address,);
+        const deployedNetwork = NFTFactoryContract.networks[networkId];
+        const instance = new web3.eth.Contract(NFTFactoryContract.abi, deployedNetwork && deployedNetwork.address,);
         // NFTコントラクトのmint関数を実行する。
         const { hash } = await instance.methods.mint(signer).send({ from: signer });
         // ネットワーク情報を取得する。
-        const net = NFTContract.networks[netID];
+        const net = NFTFactoryContract.networks[netID];
         // rinkebyだった場合出力する。
         if( net.chainId == 4) {
             alert("https://rinkeby.etherscan.io/tx/" + hash);
@@ -134,8 +133,8 @@ const Nft = () => {
     const buttonSupply = async() => {
         // コントラクト
         const networkId = await web3.eth.net.getId();
-        const deployedNetwork = NFTContract.networks[networkId];
-        const instance = new web3.eth.Contract(NFTContract.abi, deployedNetwork && deployedNetwork.address,);
+        const deployedNetwork = NFTFactoryContract.networks[networkId];
+        const instance = new web3.eth.Contract(NFTFactoryContract.abi, deployedNetwork && deployedNetwork.address,);
         // 総供給量を取得する。
         const totalSupply = await instance.methods.totalSupply().call();
         // totalSupply関数を呼び出す。
@@ -148,8 +147,8 @@ const Nft = () => {
     const buttonBalanceOf = async() => {
         // コントラクト
         const networkId = await web3.eth.net.getId();
-        const deployedNetwork = NFTContract.networks[networkId];
-        const instance = new web3.eth.Contract(NFTContract.abi, deployedNetwork && deployedNetwork.address,);
+        const deployedNetwork = NFTFactoryContract.networks[networkId];
+        const instance = new web3.eth.Contract(NFTFactoryContract.abi, deployedNetwork && deployedNetwork.address,);
         // 接続中のアカウントに紐づくNFT数を取得する
         const balanceOf = await instance.methods.balanceOf(accounts[0]).call();
         // totalSupply関数を呼び出す。
@@ -162,8 +161,8 @@ const Nft = () => {
     const buttonOwnerOf = async() => {
         // コントラクト
         const networkId = await web3.eth.net.getId();
-        const deployedNetwork = NFTContract.networks[networkId];
-        const instance = new web3.eth.Contract(NFTContract.abi, deployedNetwork && deployedNetwork.address,);
+        const deployedNetwork = NFTFactoryContract.networks[networkId];
+        const instance = new web3.eth.Contract(NFTFactoryContract.abi, deployedNetwork && deployedNetwork.address,);
         // 所有者アドレスを取得する。
         const ownerAddress = await instance.methods.ownerOf(tokenId).call();
         alert("所有者アドレス：", ownerAddress);
@@ -173,6 +172,9 @@ const Nft = () => {
     return (
         <div className="main-container">
             <p>NFT用トップページ</p>
+            <TextField id="outlined-bare" className={classes.textField} placeholder="NFT Name" margin="normal" onChange={ (e) => setName(e.target.value) } variant="outlined" inputProps={{ 'aria-label': 'bare' }} />
+            <TextField id="outlined-bare" className={classes.textField} placeholder="NFT Symbol" margin="normal" onChange={ (e) => setSymbol(e.target.value) } variant="outlined" inputProps={{ 'aria-label': 'bare' }} />
+            <TextField id="outlined-bare" className={classes.textField} placeholder="NFT URL" margin="normal" onChange={ (e) => setUrl(e.target.value) } variant="outlined" inputProps={{ 'aria-label': 'bare' }} />
             <Button onClick={buttonDeploy} variant="contained" color="primary" className={classes.button}>NFTデプロイ</Button><br/>
             <Button onClick={buttonGetName} variant="contained" color="primary" className={classes.button}>NFT名取得</Button><br/>
             <Button onClick={buttonMint} variant="contained" color="primary" className={classes.button}>NFT発行</Button><br/>
