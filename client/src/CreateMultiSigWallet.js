@@ -41,6 +41,7 @@ const CreateMultiSigWallet = () => {
     const [ owners, setOwners ] = useState([]);
     const [ contract, setContract] = useState(null);
     const [ accounts, setAccounts ] = useState(null);
+    const [ walletName, setWalletName ] = useState(null);
     // スタイルクラス用の変数を定義する。
     const classes = useStyles();
 
@@ -108,6 +109,8 @@ const CreateMultiSigWallet = () => {
             <h2>
                 Create a New MutiSigWallet
             </h2>
+            <label>Wallet Name</label>
+            <TextField id="outlined-bare" className={classes.textField} placeholder="Wallet Name" margin="normal" onChange={ (e) => setWalletName(e.target.value) } variant="outlined" inputProps={{ 'aria-label': 'bare' }} />
             <label>Threshold</label>
             <TextField id="outlined-bare" className={classes.textField} placeholder="Threshold" margin="normal" onChange={ (e) => setThreshold(e.target.value) } variant="outlined" inputProps={{ 'aria-label': 'bare' }} />
             <Button onClick={addAddress} variant="contained" color="info" className={classes.button}> + </Button>
