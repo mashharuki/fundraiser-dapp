@@ -23,6 +23,8 @@ contract ("MultiSigFactory: deployment", () => {
 contract ("MultiSigFactory: create MultiSigWallet", (accounts) => {
     // mutliSigFactoryコントラクト
     let mutliSigFactory;
+    // マルチシグウォレットの名前
+    const walletName = "testWallet";
     // 閾値
     const threshold = 2;
     // 所有者アドレス用の配列
@@ -41,7 +43,7 @@ contract ("MultiSigFactory: create MultiSigWallet", (accounts) => {
         // 現在の数を取得する。
         const currentmultiSigWalletsCount = await mutliSigFactory.multiSigWalletsCount();
         // マルチシグウォレットを作成する。
-        await mutliSigFactory.createMultiSig(threshold, owners, chainId);
+        await mutliSigFactory.createMultiSig(walletName, threshold, owners, chainId);
         // 作成後の数を取得する。
         const newmultiSigWalletsCount = await mutliSigFactory.multiSigWalletsCount();
         // 1つしかマルチシグウォレットが作成されていないことをチェックする。
