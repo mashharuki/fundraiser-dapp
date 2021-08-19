@@ -87,7 +87,7 @@ const Nft = () => {
         const net = NFTFactoryContract.networks[netID];
         // rinkebyだった場合出力する。
         if( net.chainId == 4) {
-            alert("https://rinkeby.etherscan.io/tx/" + contract.deployTransaction.hash);
+            alert("https://rinkeby.etherscan.io/tx/" + instance.deployTransaction.hash);
         }
     } 
   
