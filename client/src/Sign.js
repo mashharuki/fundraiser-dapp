@@ -90,14 +90,14 @@ const Sign = () => {
         ];
   
         const domainData = {
-            name: "Simple MultiSig",
+            name: "MultiSignature",
             version: "1",
             chainId: parseInt(web3.version.network, 10),
             verifyingContract: walletAddress,
             salt: salt
         };
         // メッセージ
-        var message = {
+        const message = {
             destination: destination,
             value: value,
             data: data,
@@ -120,13 +120,11 @@ const Sign = () => {
          * sendAsync関数を実行する。
          * methodには、eth_signTypedData_v3を指定する。
          */
-        web3.currentProvider.sendAsync(
-            {
+        web3.currentProvider.sendAsync({
                 method: "eth_signTypedData_v3",
                 params: [signer, signedData],
-                from: signer
-            }, 
-            function(err, result) {
+                from: signer,
+            }, function(err, result) {
                 // エラーであればコンソールにその旨表示して終了
                 if (err) return console.dir(err)
                 if (result.error) {
