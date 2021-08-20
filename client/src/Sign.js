@@ -68,52 +68,51 @@ const Sign = () => {
     }
 
     // handleSign関数(署名実行)
-    const handleSign = async () => {
+    const handleSign = () => {
         // プロバイダーから署名者の情報を取得する。
         const signer = accounts[0];
-        // 定数をドメインを設定する。
-        const domain = [
-            { name: "name", type: "string" },
-            { name: "version", type: "string" },
-            { name: "chainId", type: "uint256" },
-            { name: "verifyingContract", type: "address" },
-            { name: " salt", type: "bytes32" }
-        ];
-        // 定数マルチシグトランザクションを設定する。
-        const multiSigTx = [
-            { name: "destination", type: "address" },
-            { name: "value", type: "uint256" },
-            { name: "data", type: "bytes" },
-            { name: "nonce", type: "uint256" },
-            { name: "executor", type: "address" },
-            { name: "gasLimit", type: "uint256" }
-        ];
-  
-        const domainData = {
-            name: "MultiSignature",
-            version: "1",
-            chainId: parseInt(web3.version.network, 10),
-            verifyingContract: walletAddress,
-            salt: salt
-        };
-        // メッセージ
-        const message = {
-            destination: destination,
-            value: value,
-            data: data,
-            nonce: parseInt(nonce, 10),
-            executor: executor,
-            gasLimit: parseInt(gasLimit, 10),
-        };
-        // 上記で設定した値をJSON形式のデータに変換する。
+        
+        /**
+         * 署名に必要なデータをJSON形式のデータに変換する。
+         *   1. types { MultiSigTransaction, MultiSigTransaction}
+         *   2. domain
+         *   3. primaryType
+         *   4. message
+         */
         const signedData = JSON.stringify({
             types: {
-                EIP712Domain: domain,
-                MultiSigTransaction: multiSigTx
+                EIP712Domain: [
+                    { name: "name", type: "string" },
+                    { name: "version", type: "string" },
+                    { name: "chainId", type: "uint256" },
+                    { name: "verifyingContract", type: "address" },
+                    { name: "salt", type: "bytes32" },
+                ],
+                MultiSigTransaction: [
+                    { name: "destination", type: "address" },
+                    { name: "value", type: "uint256" },
+                    { name: "data", type: "bytes" },
+                    { name: "nonce", type: "uint256" },
+                    { name: "executor", type: "address" },
+                    { name: "gasLimit", type: "uint256" }
+                ],
             },
-            domain: domainData,
+            domain: {
+                name: "MultiSignature",
+                version: "2",
+                chainId: parseInt(web3.version.network, 10),
+                verifyingContract: walletAddress,
+                salt: salt
+            },
             primaryType: "MultiSigTransaction",
-            message: message
+            message: {
+                destination: destination,
+                value: value,
+                data: data,
+                nonce: parseInt(nonce, 10),
+                executor: executor,
+                gasLimit: parseInt(gasLimit, 10),
+            },
         });
         
         /**
@@ -124,6 +123,8 @@ const Sign = () => {
                 method: "eth_signTypedData_v3",
                 params: [signer, signedData],
                 from: signer,
+                jsonrpc: '2.0',
+                id: new Date().getTime,
             }, function(err, result) {
                 // エラーであればコンソールにその旨表示して終了
                 if (err) return console.dir(err)
