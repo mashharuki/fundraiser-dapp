@@ -291,7 +291,7 @@ const FundraiserCard = (props) => {
                         <Typography gutterBottom variant="h5" component="h2">
                             {fundName}
                         </Typography>
-                        <Typography variant="body2" color="textSecondary" component="p">
+                        <Typography variant="body2" color="textSecondary" component="div">
                             <p>
                                 {description}
                             </p>
