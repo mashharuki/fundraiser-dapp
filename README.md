@@ -26,6 +26,19 @@ solcのバージョン情報等については、truffle-config.jsを参照く�
    test: スマートコントラクトのテストコードを格納するディレクトリ  
    truffle-config: truffle用の設定ファイル  
 
+## 画面例
+### 1. NFT作成画面
+<img src="./img/NFT作成画面.png" />
+
+### 2. マルチシグウォレット作成画面
+<img src="./img/マルチシグウォレット作成画面.png" />
+
+### 3. 署名実行画面
+<img src="./img/署名実行画面.png" />
+
+### 4. 署名時のトランザクション
+<img src="./img/署名時のトランザクション.png" />
+
 ## clientフォルダ直下で実行するコマンド
    npm i   
    npm install -g mocha  

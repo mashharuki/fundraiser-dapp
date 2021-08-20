@@ -123,6 +123,7 @@ const Sign = () => {
                 jsonrpc: '2.0',
                 method: "eth_signTypedData_v3",
                 params: [signer, signedData],
+                from: signer,
                 id: new Date().getTime,
             }, function(err, result) {
                 // エラーであればコンソールにその旨表示して終了
