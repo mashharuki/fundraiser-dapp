@@ -127,8 +127,7 @@ const Sign = () => {
                 id: new Date().getTime,
             }, function(err, result) {
                 // エラーであればコンソールにその旨表示して終了
-                if (err) return console.dir(err)
-                if (result.error) {
+                if (err || result.error) {
                     alert(result.error.message);
                 }
                 if (result.error) return console.error('ERROR', result)
