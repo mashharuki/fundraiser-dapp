@@ -120,10 +120,9 @@ const Sign = () => {
          * methodには、eth_signTypedData_v3を指定する。
          */
         web3.currentProvider.sendAsync({
+                jsonrpc: '2.0',
                 method: "eth_signTypedData_v3",
                 params: [signer, signedData],
-                from: signer,
-                jsonrpc: '2.0',
                 id: new Date().getTime,
             }, function(err, result) {
                 // エラーであればコンソールにその旨表示して終了
