@@ -119,7 +119,7 @@ const Sign = () => {
          * sendAsync関数を実行する。
          * methodには、eth_signTypedData_v3を指定する。
          */
-        web3.currentProvider.sendAsync({
+         web3.eth.sendTransaction({
                 jsonrpc: '2.0',
                 method: "eth_signTypedData_v3",
                 params: [signer, signedData],
