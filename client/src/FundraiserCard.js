@@ -236,7 +236,7 @@ const FundraiserCard = (props) => {
 
     return (
         <div className="fundraiser-card-content">
-            <Dialog opne={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+            <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
                 <DialogTitle id="form-dialog-title">
                     Donate to {fundName}
                 </DialogTitle>
