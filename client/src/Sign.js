@@ -115,18 +115,16 @@ const Sign = () => {
             primaryType: "MultiSigTransaction",
             message: message
         });
-        //　署名者を取得する。
-        var from = accounts[0];
-        // メソッドとパラメーターを設定する。
-        var method = "eth_signTypedData_v3";
-        var params = [signer, signedData];
-
-        // sendAsync関数を実行する。
+        
+        /**
+         * sendAsync関数を実行する。
+         * methodには、eth_signTypedData_v3を指定する。
+         */
         web3.currentProvider.sendAsync(
             {
-                method,
-                params,
-                from,
+                method: "eth_signTypedData_v3",
+                params: [signer, signedData],
+                from: signer
             }, 
             function(err, result) {
                 // エラーであればコンソールにその旨表示して終了
