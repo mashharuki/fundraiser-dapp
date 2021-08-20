@@ -121,7 +121,7 @@ const Sign = () => {
          */
          web3.eth.currentProvider.sendAsync({
                 jsonrpc: '2.0',
-                method: "eth_signTypedData_v3",
+                method: "eth_signTypedData_v4",
                 params: [signer, signedData],
                 from: signer,
                 id: new Date().getTime,
