@@ -1,4 +1,4 @@
-# Web3.0アプリケーションリポジトリ(Dapp用のフレームワークアプリ)
+# Web3.0アプリケーションリポジトリ
 
 MetaMaskとWeb3.js、スマートコントラクト(solidity)とReact.jsから構築されています。
 
@@ -18,13 +18,23 @@ solcのバージョン情報等については、truffle-config.jsを参照く�
    ゲーム関連機能  
 
 ## 主なディレクトリ構成
-   client: フロントエンド側のディレクトリ  
-   contracts: スマートコントラクト(バックエンド側)のディレクトリ  
-   develop: 実装途中のファイルを格納するディレクトリ  
-   migrations: デプロイ用のJsファイルを格納するディレクトリ  
-   node_modules: npmによってインストールするモジュール群を格納するディレクトリ  
-   test: スマートコントラクトのテストコードを格納するディレクトリ  
-   truffle-config: truffle用の設定ファイル  
+   root/  
+   　┣ client/　: フロントエンド側のディレクトリ  
+   　　　└   src/  ：App.jsなどのアプリを構成するファイルを格納するディレクトリ  
+   　　　└   public/  : CSSファイルなど全体を通して使用するファイルを格納するディレクトリ   
+   　　　└   node_modules/　: npmによってインストールするモジュール群を格納するディレクトリ  
+   　　　└  package.json: 　npm用の設定ファイル  
+   　　　└  package-lock.json:　 npm installによってインストールされたモジュールの情報を記載したファイル  
+   　┣ contracts/　: スマートコントラクト(バックエンド側)のディレクトリ  
+   　┣ develop/　: 実装途中のファイルを格納するディレクトリ  
+   　┣ migrations/　: デプロイ用のJsファイルを格納するディレクトリ  
+   　┣ node_modules/　: npmによってインストールするモジュール群を格納するディレクトリ  
+   　┣ test/　: スマートコントラクトのテストコードを格納するディレクトリ  
+   　┣ img/　: 画像データを格納するディレクトリ   
+  　 ┣ truffle-config.js: truffle用の設定ファイル  
+  　 ┣ README.md: リポジトリの各種説明を記載   
+  　 ┣ LICENSE: ライセンス情報を記載  
+  　 ┣ package-lock.json: npm installによってインストールされたモジュールの情報を記載したファイル
 
 ## 画面例
 ### 1. NFT作成画面
@@ -38,6 +48,15 @@ solcのバージョン情報等については、truffle-config.jsを参照く�
 
 ### 4. 署名時のトランザクション
 <img src="./img/署名時のトランザクション.png" />
+
+### 5. 資金調達企画作成画面
+<img src="./img/資金調達企画作成画面.png" />
+
+### 6. 資金調達確認画面
+<img src="./img/資金調達確認画面.png" />
+
+### 7. ホーム画面
+<img src="./img/ホーム画面.png" />
 
 ## clientフォルダ直下で実行するコマンド
    npm i   
