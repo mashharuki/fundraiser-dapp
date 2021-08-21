@@ -126,10 +126,10 @@ const FundraiserCard = (props) => {
                                             .then(prices => {
                                                 console.log(prices);
                                             }).catch(console.error);
-            setExchangeRate(exchangeRate);
             // 金額と通貨を渡す。
             const eth = web3.utils.fromWei(totalDonations);
             const dollarDonationAmount = exchangeRate.USD * eth;
+            setExchangeRate(exchangeRate);
             // 合計寄付額のステート変数をセットする。
             setTotalDonations(dollarDonationAmount);
             // myDonations関数を呼び出す。
@@ -290,7 +290,7 @@ const FundraiserCard = (props) => {
             </Dialog>
             <Card className={classes.card} onClick={handleOpen}>
                 <CardActionArea>
-                    <CardMedia className={classes.media} image={imageURL} title="Fundraiser Image" />
+                    <CardMedia className={classes.media} image={imageURL} title="Fundraiser Image" component="img"/>
                     <CardContent>
                         <Typography gutterBottom variant="h5" component="h2">
                             {fundName}
