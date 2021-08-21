@@ -168,6 +168,8 @@ const FundraiserCard = (props) => {
     // submitFunds関数(寄付をブロックチェーンに送信するための関数)
     const submitFunds = async() => {
         const ethTotal = donationAmount / exchangeRate;
+        alert(exchangeRate);
+        alert(ethTotal);
         // 寄付額をweiに変換する
         const donation = web3.utils.toWei(ethTotal.toString, 'ether');
         // donate()関数を呼び出す。
