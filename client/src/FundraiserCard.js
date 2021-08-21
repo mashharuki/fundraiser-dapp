@@ -129,9 +129,8 @@ const FundraiserCard = (props) => {
                                             }).catch(console.error);
             // 金額と通貨を渡す。
             const eth = web3.utils.fromWei(totalDonations);
-            alert(exchangeRate.USD);
             alert("eth:", eth);
-            const dollarDonationAmount = exchangeRate.USD * eth;
+            const dollarDonationAmount = exchangeRate * eth;
             // 合計寄付額のステート変数をセットする。
             setTotalDonations(dollarDonationAmount);
             // myDonations関数を呼び出す。
