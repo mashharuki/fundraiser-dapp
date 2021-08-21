@@ -290,7 +290,7 @@ const FundraiserCard = (props) => {
             </Dialog>
             <Card className={classes.card} onClick={handleOpen}>
                 <CardActionArea>
-                    <CardMedia className={classes.media} image={imageURL} title="Fundraiser Image" component="img"/>
+                    <CardMedia className={classes.media} image={imageURL} title="Fundraiser Image"/>
                     <CardContent>
                         <Typography gutterBottom variant="h5" component="h2">
                             {fundName}
