@@ -82,7 +82,7 @@ const FundraiserCard = (props) => {
     const [ isOwner, setIsOwner ] = useState(false);
     const [ beneficiary, setNewBeneficiary ] = useState(null);
     //ETH変換用変数
-    const ethAmount =  donationAmount / exchangeRate || 0;
+    const ethAmount =  (donationAmount / exchangeRate || 0).toFixed(4);
 
     // useEffect関数
     useEffect (() => {
@@ -167,9 +167,9 @@ const FundraiserCard = (props) => {
 
     // submitFunds関数(寄付をブロックチェーンに送信するための関数)
     const submitFunds = async() => {
-        const ethtotal = donationAmount / exchangeRate;
+        const ethTotal = donationAmount / exchangeRate;
         // 寄付額をweiに変換する
-        const donation = web3.utils.toWei(ethtotal.toString());
+        const donation = web3.utils.toWei(ethTotal.toString());
         // donate()関数を呼び出す。
         await contract.methods.donate().send({
             from: accounts[0],
@@ -206,7 +206,7 @@ const FundraiserCard = (props) => {
         };
 
         // 寄付件数を取得する。
-        const totalDonations = donations.length;
+        const totalDonations = donations.values.length;
         let donationList = [];
         var i;
         // 寄付ごとに領収書を作成する。
@@ -247,8 +247,7 @@ const FundraiserCard = (props) => {
                             {description}
                         </p>
                         <FormControl className={classes.formControl}>
-                            $
-                            <Input id="component-simple" value={donationAmount} onChange={ (e) => setDonationAmount(e.target.value)} placeholder="0.00" />
+                            $<Input id="component-simple" value={donationAmount} onChange={ (e) => setDonationAmount(e.target.value)} placeholder="0.00" />
                         </FormControl>
                         <p>ETH: {ethAmount}</p>
                         <Button onClick={submitFunds} variant="contained" color="primary">
