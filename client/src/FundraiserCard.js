@@ -130,6 +130,7 @@ const FundraiserCard = (props) => {
             // 金額と通貨を渡す。
             const eth = web3.utils.fromWei(totalDonations);
             alert("eth:", eth);
+            alert("exchangeRate:", exchangeRate);
             const dollarDonationAmount = exchangeRate * eth;
             // 合計寄付額のステート変数をセットする。
             setTotalDonations(dollarDonationAmount);
@@ -172,10 +173,8 @@ const FundraiserCard = (props) => {
     // submitFunds関数(寄付をブロックチェーンに送信するための関数)
     const submitFunds = async() => {
         const ethTotal = donationAmount / exchangeRate;
-        alert(exchangeRate);
-        alert(ethTotal);
         // 寄付額をweiに変換する
-        const donation = web3.utils.toWei(ethTotal.toString(), 'ether');
+        const donation = web3.utils.toWei(ethTotal.toString());
         // donate()関数を呼び出す。
         await contract.methods.donate().send({
             from: accounts[0],
