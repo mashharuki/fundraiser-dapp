@@ -4,18 +4,18 @@ MetaMaskとWeb3.js、スマートコントラクト(solidity)とReact.jsから�
 
 土台部分については、下記コマンドにより生成
 
- truffle unbox react
+ `truffle unbox react`
  
 solcのバージョン情報等については、truffle-config.jsを参照ください。
 
 ## 実装機能
-   資金調達関連機能： ほぼ実装済み(一部バグあり)  
-   NFT関連機能： 発行機能のみ実装ずみ(他はバグがあるので今後修正)  
-   マルチシグ関連機能： マルチシグウォレット生成＆署名機能実装済み  
+   1. 資金調達関連機能： ほぼ実装済み(一部バグあり)  
+   2. NFT関連機能： 発行機能のみ実装ずみ(他はバグがあるので今後修正)  
+   3. マルチシグ関連機能： マルチシグウォレット生成＆署名機能実装済み  
 
 ## 今後実装予定機能
-   ERC020規格のトークン発行関連機能  
-   ゲーム関連機能  
+   1. ERC020規格のトークン発行関連機能  
+   2. ゲーム関連機能  
 
 ## 主なディレクトリ構成
    root/  
@@ -31,10 +31,10 @@ solcのバージョン情報等については、truffle-config.jsを参照く�
    　┣ node_modules/　: npmによってインストールするモジュール群を格納するディレクトリ  
    　┣ test/　: スマートコントラクトのテストコードを格納するディレクトリ  
    　┣ img/　: 画像データを格納するディレクトリ   
-  　 ┣ truffle-config.js: truffle用の設定ファイル  
-  　 ┣ README.md: リポジトリの各種説明を記載   
-  　 ┣ LICENSE: ライセンス情報を記載  
-  　 ┣ package-lock.json: npm installによってインストールされたモジュールの情報を記載したファイル
+  　┣ truffle-config.js: truffle用の設定ファイル  
+  　┣ README.md: リポジトリの各種説明を記載   
+  　┣ LICENSE: ライセンス情報を記載  
+  　┣ package-lock.json: npm installによってインストールされたモジュールの情報を記載したファイル
 
 ## 画面例
 ### 1. NFT作成画面
@@ -58,25 +58,27 @@ solcのバージョン情報等については、truffle-config.jsを参照く�
 ### 7. ホーム画面
 <img src="./img/ホーム画面.png" />
 
+***
+
 ## clientフォルダ直下で実行するコマンド
-   npm i   
-   npm install -g mocha  
-   npm install -g chai   
-   npm install @openzeppelin/contracts  
-   npm install --save react-router-dom  
+   `npm i`  
+   `npm install -g mocha`  
+   `npm install -g chai`   
+   `npm install @openzeppelin/contracts`  
+   `npm install --save react-router-dom`  
 
 ## テストコードを実行するコマンド(fundraiser-dappフォルダ直下で実行する)
 
-truffle test
+`truffle test`
 
 ## コントラクトのコンパイルとデプロイ用のコマンド(ローカルチェーンの場合)
-   truffle compile  
-   truffle migrate  
+   `truffle compile`  
+   `truffle migrate`  
    (client/contracts/ 配下に「コントラクト名.json」ができていれば成功。) 
 
 ## コントラクトのコンパイルとデプロイ用のコマンド(Rinkebyの場合)
-   truffle compile --network rinkeby  
-   truffle migrate --network rinkeby  
+   `truffle compile --network rinkeby`  
+   `truffle migrate --network rinkeby`  
    (client/contracts/ 配下に「コントラクト名.json」ができていれば成功。) 
 
 ## 事前にやっておくこと
@@ -92,12 +94,12 @@ truffle test
 
 準備ができたら、clientフォルダで下記コマンドを実行する。
 
-npm run start  
+`npm run start`  
 
 http:localhost:3000/ にアクセスすると最初のページが表示されている。  
 
 buildしたい場合は、次のコマンドを打つこと！  
-npm run build 
+`npm run build` 
 
 ### 参考書籍&参考ページ
 

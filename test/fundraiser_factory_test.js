@@ -54,7 +54,9 @@ contract ("FundraiserFactory: createfundraiser", (accounts) => {
 
 // Fundraiserコントラクトインスタンスページング作成用テストコード
 contract ("FundraiserFactory: fundraisers", (accounts) => {
-    // インスタンス生成関数
+    /**
+     * テスト用のインスタンス生成関数
+     */
     async function createFundraiserFactory (fundraiserCount, accounts) {
         // インスタンス初期化
         const factory = await FundraiserFactoryContract.new();
@@ -78,7 +80,9 @@ contract ("FundraiserFactory: fundraisers", (accounts) => {
         }
     }
 
-    // 空のコレクションでページングするテストコード
+    /**
+     * 空のコレクションが作成できるかチェックする。
+     */
     describe ("when fundraisers collection is empty", () => {
         it ("returns an empty collection", async () => {
             // インスタンス生成
@@ -116,7 +120,9 @@ contract ("FundraiserFactory: fundraisers", (accounts) => {
         });
     });
 
-    // オフセットについてのテストコード
+    /**
+     * offについてのテストコード
+     */
     describe ("varying offset", async () => {
         // テスト前の設定
         beforeEach (async () => {
@@ -139,7 +145,9 @@ contract ("FundraiserFactory: fundraisers", (accounts) => {
         });
     });
 
-    // 境界値についてのテストコード
+    /**
+     * 境界値についてのテストコード
+     */
     describe ("boundary conditions", async () => {
         // インスタンス用の変数
         let factory;
