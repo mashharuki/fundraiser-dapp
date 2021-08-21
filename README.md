@@ -74,6 +74,8 @@ solcのバージョン情報等については、truffle-config.jsを参照く�
 ## コントラクトのコンパイルとデプロイ用のコマンド(ローカルチェーンの場合)
    `truffle compile`  
    `truffle migrate`  
+   なお、マイグレーションしたいファイルを指定する場合は下記のように打ち込む  
+   `truffle migrate --f 2 --to 3`  
    (client/contracts/ 配下に「コントラクト名.json」ができていれば成功。) 
 
 ## コントラクトのコンパイルとデプロイ用のコマンド(Rinkebyの場合)
