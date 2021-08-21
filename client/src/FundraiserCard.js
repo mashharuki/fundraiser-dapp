@@ -169,7 +169,7 @@ const FundraiserCard = (props) => {
     const submitFunds = async() => {
         const ethtotal = donationAmount / exchangeRate;
         // 寄付額をweiに変換する
-        const donation = web3.eth.toWei(ethtotal.toString());
+        const donation = web3.utils.toWei(ethtotal.toString());
         // donate()関数を呼び出す。
         await contract.methods.donate().send({
             from: accounts[0],
