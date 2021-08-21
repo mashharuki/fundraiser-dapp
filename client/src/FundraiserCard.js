@@ -122,7 +122,10 @@ const FundraiserCard = (props) => {
             setImageURL(imageURL);
             setURL(url);
             // 現在の為替レートを取得する。
-            const exchangeRate = await cc.price('ETH', ['USD']);
+            const exchangeRate = await cc.price('ETH', ['USD'])
+                                            .then(prices => {
+                                                console.log(prices);
+                                            }).catch(console.error);
             setExchangeRate(exchangeRate);
             // 金額と通貨を渡す。
             const eth = web3.utils.fromWei(totalDonations, 'ether');
