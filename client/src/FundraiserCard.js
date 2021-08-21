@@ -292,7 +292,7 @@ const FundraiserCard = (props) => {
             </Dialog>
             <Card className={classes.card} onClick={handleOpen}>
                 <CardActionArea>
-                    {imageUrl ? (
+                    {imageURL ? (
                         <CardMedia className={classes.media} image={imageURL} title="Fundraiser Image"/>
                         ) : (<></>) 
                     };
