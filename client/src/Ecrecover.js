@@ -92,9 +92,9 @@ const Ecrecover = () => {
             <label>SigR</label>
             <TextField id="outlined-bare" className={classes.textField} placeholder="SigR" margin="normal" onChange={ (e) => setSigR(e.target.value) } variant="outlined" inputProps={{ 'aria-label': 'bare' }} />
             <label>SigS</label>
-            <TextField id="outlined-bare" className={classes.textField} placeholder="SigS" margin="normal" onChange={ (e) => setSigS(e.target.value) } variant="outlined" inputProps={{ 'aria-label': 'bare' }} />
+            <TextField id="outlined-bare2" className={classes.textField} placeholder="SigS" margin="normal" onChange={ (e) => setSigS(e.target.value) } variant="outlined" inputProps={{ 'aria-label': 'bare' }} />
             <label>SigV</label>
-            <TextField id="outlined-bare" className={classes.textField} placeholder="SigV" margin="normal" onChange={ (e) => setSigV(e.target.value) } variant="outlined" inputProps={{ 'aria-label': 'bare' }} />
+            <TextField id="outlined-bare3" className={classes.textField} placeholder="SigV" margin="normal" onChange={ (e) => setSigV(e.target.value) } variant="outlined" inputProps={{ 'aria-label': 'bare' }} />
            
             <Button onClick={handleSign} variant="contained" className={classes.button}>
                 ecrecover
