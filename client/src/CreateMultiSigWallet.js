@@ -80,9 +80,14 @@ const CreateMultiSigWallet = () => {
      *  handleSubmit関数
      */
     const handleSubmit = async () => {
+        // コントラクト
+        const networkId = await web3.eth.net.getId();
+        const deployedNetwork = MultiSigFactoryContract.networks[networkId];
+        const instance = new web3.eth.Contract(MultiSigFactoryContract.abi, deployedNetwork && deployedNetwork.address,);
+
         try {
             // コントラクトのcreateMultiSig関数を呼び出す。
-            await contract.methods.createMultiSig(walletName, threshold, owners, networkId).send({ from: accounts[0] });
+            await instance.methods.createMultiSig(walletName, threshold, owners, networkId).send({ from: accounts[0] });
             // アラートを出す。
             alert('Successfully created MultiSigWallet');
         } catch (error) {
