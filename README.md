@@ -138,3 +138,9 @@ buildしたい場合は、次のコマンドを打つこと！
 <a href="https://www.myetherwallet.com/">myEthWallet</a>
 
 <a href="https://docs.openzeppelin.com/contracts/4.x/api/token/erc721">OpenZeppelin Docs</a>
+
+<a href="https://gnosis-safe.io/">safe contractsの公式ページ</a>
+
+<a href="https://docs.gnosis.io/safe/docs/contracts_deployment/">safe contractsについての紹介ページ</a>
+
+<a href="https://github.com/gnosis/safe-contracts/tree/main/contracts">safe contractsのGitHub</a>
