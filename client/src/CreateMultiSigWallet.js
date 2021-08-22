@@ -117,10 +117,10 @@ const CreateMultiSigWallet = () => {
             <label>Wallet Name</label>
             <TextField id="outlined-bare" className={classes.textField} placeholder="Wallet Name" margin="normal" onChange={ (e) => setWalletName(e.target.value) } variant="outlined" inputProps={{ 'aria-label': 'bare' }} />
             <label>Threshold</label>
-            <TextField id="outlined-bare" className={classes.textField} placeholder="Threshold" margin="normal" onChange={ (e) => setThreshold(e.target.value) } variant="outlined" inputProps={{ 'aria-label': 'bare' }} />
-            <Button onClick={addAddress} variant="contained" color="info" className={classes.button}> + </Button>
+            <TextField id="outlined-bare2" className={classes.textField} placeholder="Threshold" margin="normal" onChange={ (e) => setThreshold(e.target.value) } variant="outlined" inputProps={{ 'aria-label': 'bare' }} />
+            <Button onClick={addAddress} variant="contained" color="inherit" className={classes.button}> + </Button>
             <label>Owners's addresses</label>
-            <TextField id="outlined-bare" className={classes.textField} placeholder="Owners's addresses" margin="normal" onChange={ (e) => setOwner(e.target.value) } variant="outlined" inputProps={{ 'aria-label': 'bare' }} />
+            <TextField id="outlined-bare3" className={classes.textField} placeholder="Owners's addresses" margin="normal" onChange={ (e) => setOwner(e.target.value) } variant="outlined" inputProps={{ 'aria-label': 'bare' }} />
             {(
                 () => { if(owners.length >= 1) {
                     return (

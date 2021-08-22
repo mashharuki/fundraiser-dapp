@@ -173,14 +173,14 @@ const Nft = () => {
         <div className="main-container">
             <p>NFT用トップページ</p>
             <TextField id="outlined-bare" className={classes.textField} placeholder="NFT Name" margin="normal" onChange={ (e) => setName(e.target.value) } variant="outlined" inputProps={{ 'aria-label': 'bare' }} />
-            <TextField id="outlined-bare" className={classes.textField} placeholder="NFT Symbol" margin="normal" onChange={ (e) => setSymbol(e.target.value) } variant="outlined" inputProps={{ 'aria-label': 'bare' }} />
-            <TextField id="outlined-bare" className={classes.textField} placeholder="NFT URL" margin="normal" onChange={ (e) => setUrl(e.target.value) } variant="outlined" inputProps={{ 'aria-label': 'bare' }} />
+            <TextField id="outlined-bare2" className={classes.textField} placeholder="NFT Symbol" margin="normal" onChange={ (e) => setSymbol(e.target.value) } variant="outlined" inputProps={{ 'aria-label': 'bare' }} />
+            <TextField id="outlined-bare3" className={classes.textField} placeholder="NFT URL" margin="normal" onChange={ (e) => setUrl(e.target.value) } variant="outlined" inputProps={{ 'aria-label': 'bare' }} />
             <Button onClick={buttonDeploy} variant="contained" color="primary" className={classes.button}>NFTデプロイ</Button><br/>
             <Button onClick={buttonGetName} variant="contained" color="primary" className={classes.button}>NFT名取得</Button><br/>
             <Button onClick={buttonMint} variant="contained" color="primary" className={classes.button}>NFT発行</Button><br/>
             <Button onClick={buttonBalanceOf} variant="contained" color="primary" className={classes.button}>NFT数取得</Button><br/>
             <Button onClick={buttonSupply} variant="contained" color="primary" className={classes.button}>NFT総供給量取得</Button>
-            <TextField id="outlined-bare" className={classes.textField} placeholder="TokenId" margin="normal" onChange={ (e) => setTokenId(e.target.value) } variant="outlined" inputProps={{ 'aria-label': 'bare' }} />
+            <TextField id="outlined-bare4" className={classes.textField} placeholder="TokenId" margin="normal" onChange={ (e) => setTokenId(e.target.value) } variant="outlined" inputProps={{ 'aria-label': 'bare' }} />
             <Button onClick={buttonOwnerOf} variant="contained" color="primary" className={classes.button}>所有者確認</Button>
         </div>
     );
