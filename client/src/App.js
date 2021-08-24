@@ -10,7 +10,7 @@ import Receipts from './Receipts';
 import Sign from "./Sign";
 import Ecrecover from "./Ecrecover";
 import Nft from "./Nft";
-import CreateMultiSigWallet from "./CreateMultiSigWallet";
+import CreateSafeContractWallet from "./CreateSafeContractWallet";
 // material-ui関連をインポートする。
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -71,7 +71,7 @@ const App = () => {
             <Typography variant="h6" color="inherit">
               <NavLink className={classes.navLink} to="/">Home</NavLink>
               <NavLink className={classes.navLink} to="/new">New</NavLink>
-              <NavLink className={classes.navLink} to="/createMultiSigWallet">CreateMultiSigWallet</NavLink>
+              <NavLink className={classes.navLink} to="/createSafeWallet">CreateSafeWallet</NavLink>
               <NavLink className={classes.navLink} to="/sign">Sign</NavLink>
               <NavLink className={classes.navLink} to="/ecrecover">Ecrecover</NavLink>
               <NavLink className={classes.navLink} to="/nft">Nft</NavLink>
@@ -80,7 +80,7 @@ const App = () => {
         </AppBar>
         <Route path="/" exact component={Home} />
         <Route path="/new/" component={NewFundraiser} />
-        <Route path="/createMultiSigWallet" component={CreateMultiSigWallet} />
+        <Route path="/createSafeWallet" component={CreateSafeContractWallet} />
         <Route path="/receipts" component={Receipts} />
         <Route path="/sign/" component={Sign} />
         <Route path="/ecrecover/" component={Ecrecover} />

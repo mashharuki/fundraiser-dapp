@@ -9,7 +9,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import detectEthereumProvider from '@metamask/detect-provider';
 import getWeb3 from './getWeb3';
-import MultiSigFactoryContract from './contracts/MultiSigFactory.json';
+import SafeContractFactoryContract from './contracts/SafeContractFactory.json';
 import Web3 from 'web3'
 
 // useStyles関数
@@ -30,7 +30,7 @@ const useStyles = makeStyles (theme => ({
 /**
  * コンポーネントを定義する。
  */
-const CreateMultiSigWallet = () => {
+const CreateSafeContractWallet = () => {
     // 各種ステート変数を定義する。
     const [labelWidth, setLabelWidth] = React.useState(0);
     const labelRef = React.useRef(null);
@@ -59,9 +59,9 @@ const CreateMultiSigWallet = () => {
             const provider = await detectEthereumProvider();
             const web3 = new Web3(provider);
             const networkId = await web3.eth.net.getId();
-            const deployedNetwork = MultiSigFactoryContract.networks[networkId];
+            const deployedNetwork = SafeContractFactoryContract.networks[networkId];
             const accounts = await web3.eth.getAccounts();
-            const instance = new web3.eth.Contract(MultiSigFactoryContract.abi, deployedNetwork && deployedNetwork.address,);
+            const instance = new web3.eth.Contract(SafeContractFactoryContract.abi, deployedNetwork && deployedNetwork.address,);
             // Web3を設定する。
             setWeb3(web3);
             // コントラクトをセットする。
@@ -82,16 +82,16 @@ const CreateMultiSigWallet = () => {
     const handleSubmit = async () => {
         // コントラクト
         const networkId = await web3.eth.net.getId();
-        const deployedNetwork = MultiSigFactoryContract.networks[networkId];
-        const instance = new web3.eth.Contract(MultiSigFactoryContract.abi, deployedNetwork && deployedNetwork.address,);
+        const deployedNetwork = SafeContractFactoryContract.networks[networkId];
+        const instance = new web3.eth.Contract(SafeContractFactoryContract.abi, deployedNetwork && deployedNetwork.address,);
 
         try {
-            // コントラクトのcreateMultiSig関数を呼び出す。
-            await instance.methods.createMultiSig(walletName, threshold, owners, networkId).send({ from: accounts[0] });
+            // コントラクトのcreateSafeContract関数を呼び出す。
+            await instance.methods.createSafeContract(walletName).send({ from: accounts[0] });
             // アラートを出す。
-            alert('Successfully created MultiSigWallet');
+            alert('Successfully created SafeContractWallet');
         } catch (error) {
-            alert(`Failed to create MultiSigWallet.`,);
+            alert(`Failed to create SafeContractWallet.`,);
             console.error(error);
         }
     };
@@ -140,5 +140,5 @@ const CreateMultiSigWallet = () => {
     );
 }
 
-// CreateMultiSigWalletコンポーネントを外部に公開します。
-export default CreateMultiSigWallet;
+// CreateSafeContractWalletコンポーネントを外部に公開します。
+export default CreateSafeContractWallet;
