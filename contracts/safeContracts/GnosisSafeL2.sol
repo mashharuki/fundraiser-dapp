@@ -12,7 +12,7 @@ import "./GnosisSafe.sol";
  * @author Stefan George - <stefan@gnosis.io>
  * @author Richard Meissner - <richard@gnosis.io>
  */
-contract GnosisSafeL2 is GnosisSafe {
+abstract contract GnosisSafeL2 is GnosisSafe {
 
     // イベントを定義する。
     // We combine nonce, sender and threshold into one to avoid stack too deep
