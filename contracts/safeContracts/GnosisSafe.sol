@@ -366,7 +366,7 @@ contract GnosisSafe is
     /**
      * ウォレットの名前を取得する関数
      */
-    function getWalletName() public view returns (string) {
+    function getWalletName() public view returns (string memory) {
         return walletName;
     }
 
