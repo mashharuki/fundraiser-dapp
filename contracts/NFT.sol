@@ -14,40 +14,40 @@ import "@openzeppelin/contracts/token/ERC721/presets/ERC721PresetMinterPauserAut
 contract NFT is ERC721PresetMinterPauserAutoId {
 
     // NFT名
-    string name;
+    string nftName;
     // シンボル名
-    string symbol;
+    string nftSymbol;
     // URL
-    string url;
+    string nftUrl;
 
     /**
      * コンストラクター 
      */
     constructor(string memory name_, string memory symbol_, string memory url_) ERC721PresetMinterPauserAutoId(name_, symbol_, url_) {
         // それぞれ値をセットする。
-        name = name_;
-        symbol = symbol_;
-        url = url_;
+        nftName = name_;
+        nftSymbol = symbol_;
+        nftUrl = url_;
     }
 
     /**
      * NFT名を取得する関数
      */
-    function getName() view public returns (string memory) {
-        return name;
+    function getNftName() view public returns (string memory) {
+        return nftName;
     }
 
     /**
      * シンボル名を取得する関数
      */
-    function getSymbol() view public returns (string memory) {
-        return symbol;
+    function getNftSymbol() view public returns (string memory) {
+        return nftSymbol;
     }
 
     /**
      * NFTに紐づけられているURLを取得する。
      */
-    function getURL() view public returns (string memory) { 
-        return url;
+    function getNftURL() view public returns (string memory) { 
+        return nftUrl;
     }
 }

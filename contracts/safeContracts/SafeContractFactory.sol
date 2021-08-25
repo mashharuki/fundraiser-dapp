@@ -41,7 +41,7 @@ contract SafeContractFactory {
     /**
      * GnosisSafeのインスタンス生成関数
      */
-    function createSafeContract (string memory walletName_) {
+    function createSafeContract (string memory walletName_) public {
         // インスタンスを生成
         GnosisSafe safecontract = new GnosisSafe (walletName_);
         // 配列に格納する。
@@ -68,7 +68,7 @@ contract SafeContractFactory {
         coll = new GnosisSafe[](size);
 
         for (uint256 i = 0; i < size; i++) {
-            coll[i] = __safecontracts[offset + i];
+            coll[i] = _safecontracts[offset + i];
         }
 
         return coll;    
