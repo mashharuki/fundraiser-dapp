@@ -49,7 +49,7 @@ const useStyles = makeStyles (theme => ({
     paper: {
         position: 'absolute',
         width: 400,
-        backgroundColor: theme.palette.background.paper,
+        backgroundColor: theme.palette.primary.light,
         boxShadow: 'none',
         padding: 4,
     },
