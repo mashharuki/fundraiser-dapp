@@ -5,7 +5,6 @@
 pragma solidity >0.4.23;
 // 必要なものをインポートする。
 import "./GnosisSafe.sol";
-import "./GnosisSafeL2.sol";
 
 /**
  * SafeContractFactoryコントラクト
