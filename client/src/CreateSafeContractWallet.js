@@ -32,8 +32,6 @@ const useStyles = makeStyles (theme => ({
  */
 const CreateSafeContractWallet = () => {
     // 各種ステート変数を定義する。
-    const [labelWidth, setLabelWidth] = React.useState(0);
-    const labelRef = React.useRef(null);
     const [ web3, setWeb3 ] = useState(null);
     const [ networkId, setNetworkId ] = useState(null);
     const [ threshold, setThreshold ] = useState(null);
@@ -80,14 +78,9 @@ const CreateSafeContractWallet = () => {
      *  handleSubmit関数
      */
     const handleSubmit = async () => {
-        // コントラクト
-        const networkId = await web3.eth.net.getId();
-        const deployedNetwork = SafeContractFactoryContract.networks[networkId];
-        const instance = new web3.eth.Contract(SafeContractFactoryContract.abi, deployedNetwork && deployedNetwork.address,);
-
         try {
             // コントラクトのcreateSafeContract関数を呼び出す。
-            await instance.methods.createSafeContract(walletName).send({ from: accounts[0] });
+            await contract.methods.createSafeContract(walletName).send({ from: accounts[0] });
             // アラートを出す。
             alert('Successfully created SafeContractWallet');
         } catch (error) {
