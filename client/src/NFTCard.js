@@ -53,11 +53,11 @@ const useStyles = makeStyles (theme => ({
  * NFTCardコンポーネント本体
  */
  const NFTCard = (props) => {
-     // 変数を定義する。
-     const { nft } = props; 
-     // スタイル用のクラス
-     const classes = useStyles();
-     // ステート変数を用意する。
+    // 変数を定義する。
+    const { nft } = props; 
+    // スタイル用のクラス
+    const classes = useStyles();
+    // ステート変数を用意する。
     const [ web3, setWeb3 ] = useState(null);
     const [ nftName, setNftName ] = useState(null);
     const [ nftSymbol, setNftSymbol ] = useState(null);

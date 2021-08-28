@@ -26,9 +26,10 @@ const Home = () => {
             const web3 = new Web3(provider);
             const networkId = await web3.eth.net.getId();
             const deployedNetwork = FundraiserFactoryContract.networks[networkId];
+            const deployedNetwork2 = NFTFactoryContract.networks[networkId];
             const accounts = await web3.eth.getAccounts();
             const instance = new web3.eth.Contract(FundraiserFactoryContract.abi, deployedNetwork && deployedNetwork.address,);
-            const instance2 = new web3.eth.Contract(NFTFactoryContract.abi, deployedNetwork && deployedNetwork.address,);
+            const instance2 = new web3.eth.Contract(NFTFactoryContract.abi, deployedNetwork2 && deployedNetwork2.address,);
             // コントラクトをセットする。
             setContract (instance);
             // アカウントをセットする。
