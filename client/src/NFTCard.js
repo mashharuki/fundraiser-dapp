@@ -16,6 +16,13 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+// Cardコンポーネントを読み込む
+import Card  from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import Typography from '@material-ui/core/Typography';
 
 // スタイルを使うための定数
 const useStyles = makeStyles (theme => ({
@@ -231,6 +238,25 @@ const useStyles = makeStyles (theme => ({
                     </Button>
                 </DialogActions>
             </Dialog>
+            <Card className={classes.card} onClick={handleOpen}>
+                <CardActionArea>
+                    <CardContent>
+                        <Typography gutterBottom variant="h5" component="h2">
+                            {nftName}
+                        </Typography>
+                        <Typography variant="body2" color="textSecondary" component="div">
+                            <p>
+                                {nftURL}
+                            </p>
+                        </Typography>
+                    </CardContent>
+                </CardActionArea>
+                <CardActions>
+                    <Button onClick={handleOpen} variant="contained" className={classes.button}>
+                        View More
+                    </Button>
+                </CardActions>
+            </Card>
         </div>
     );
 }
