@@ -9,6 +9,7 @@ import Web3 from 'web3';
 import NFTContract from './contracts/NFT.json';
 import detectEthereumProvider from '@metamask/detect-provider';
 import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 // ダイアログ関連おモジュールを読み込む
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -147,7 +148,7 @@ const useStyles = makeStyles (theme => ({
         // NFTコントラクトのmint関数を実行する。
         const { hash } = await instance.methods.mint(signer).send({ from: signer });
         // ネットワーク情報を取得する。
-        const net = NFTContract.networks[netID];
+        const net = NFTContract.networks[networkId];
         // rinkebyだった場合出力する。
         if( net.chainId == 4) {
             alert("https://rinkeby.etherscan.io/tx/" + hash);
