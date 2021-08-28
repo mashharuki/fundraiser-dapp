@@ -10,7 +10,7 @@ import NFTContract from './contracts/NFT.json';
 import detectEthereumProvider from '@metamask/detect-provider';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-// ダイアログ関連おモジュールを読み込む
+// ダイアログ関連なモジュールを読み込む
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -21,7 +21,6 @@ import Card  from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 
 // スタイルを使うための定数
@@ -59,7 +58,7 @@ const useStyles = makeStyles (theme => ({
 /**
  * NFTCardコンポーネント本体
  */
- const NFTCard = (props) => {
+const NFTCard = (props) => {
     // 変数を定義する。
     const { nft } = props; 
     // スタイル用のクラス
@@ -148,12 +147,14 @@ const useStyles = makeStyles (theme => ({
      const buttonMint = async() => {
         // プロバイダーから署名者の情報を取得する。
         const signer = accounts[0];
-        // コントラクト
-        const networkId = await web3.eth.net.getId();
-        const deployedNetwork = NFTContract.networks[networkId];
-        const instance = new web3.eth.Contract(NFTContract.abi, deployedNetwork && deployedNetwork.address,);
+        // コントラクトが使えるような設定
+        //const provider = await detectEthereumProvider();
+        //const web3 = new Web3(provider);
+        //const networkId = await web3.eth.net.getId();
+        //const deployedNetwork = NFTContract.networks[networkId];
+        //const instance = new web3.eth.Contract(NFTContract.abi, deployedNetwork && deployedNetwork.address,);
         // NFTコントラクトのmint関数を実行する。
-        const { hash } = await instance.methods.mint(signer).send({ from: signer });
+        const { hash } = await contract.methods.mint(signer).send({ from: signer });
         // ネットワーク情報を取得する。
         const net = NFTContract.networks[networkId];
         // rinkebyだった場合出力する。
@@ -166,7 +167,9 @@ const useStyles = makeStyles (theme => ({
      * 「NFT総供給量取得」ボタンを押した時の処理
      */
     const buttonSupply = async() => {
-        // コントラクト
+        // コントラクトが使えるような設定
+        const provider = await detectEthereumProvider();
+        const web3 = new Web3(provider);
         const networkId = await web3.eth.net.getId();
         const deployedNetwork = NFTContract.networks[networkId];
         const instance = new web3.eth.Contract(NFTContract.abi, deployedNetwork && deployedNetwork.address,);
@@ -180,7 +183,9 @@ const useStyles = makeStyles (theme => ({
      * 「NFT数取得」ボタンを押した時の処理
      */
     const buttonBalanceOf = async() => {
-        // コントラクト
+        // コントラクトが使えるような設定
+        const provider = await detectEthereumProvider();
+        const web3 = new Web3(provider);
         const networkId = await web3.eth.net.getId();
         const deployedNetwork = NFTContract.networks[networkId];
         const instance = new web3.eth.Contract(NFTContract.abi, deployedNetwork && deployedNetwork.address,);
@@ -194,7 +199,9 @@ const useStyles = makeStyles (theme => ({
      *  「所有者確認」ボタンを押した時の処理
      */
     const buttonOwnerOf = async() => {
-        // コントラクト
+        // コントラクトが使えるような設定
+        const provider = await detectEthereumProvider();
+        const web3 = new Web3(provider);
         const networkId = await web3.eth.net.getId();
         const deployedNetwork = NFTContract.networks[networkId];
         const instance = new web3.eth.Contract(NFTContract.abi, deployedNetwork && deployedNetwork.address,);
@@ -208,7 +215,7 @@ const useStyles = makeStyles (theme => ({
         <div className="nft-card-content">
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
                 <DialogTitle id="form-dialog-title">
-                    {nftName}
+                    NAME : {nftName}
                 </DialogTitle>
                 <DialogContent>
                     <DialogContentText>
@@ -216,25 +223,26 @@ const useStyles = makeStyles (theme => ({
                             SYMBOL : {nftSymbol}
                         </p>
                         <p>
-                            NFTURL : {nftURL}
+                            URL : {nftURL}
                         </p>
+                        <Button onClick={buttonBalanceOf} variant="contained" color="primary" className={classes.button}>
+                            発行数取得
+                        </Button>
+                        <br/>
+                        <Button onClick={buttonSupply} variant="contained" color="primary" className={classes.button}>
+                            総供給量取得
+                        </Button>
+                        <br/>
+                        <TextField id="outlined-bare4" className={classes.textField} placeholder="TokenId" margin="normal" onChange={ (e) => setTokenId(e.target.value) } variant="outlined" inputProps={{ 'aria-label': 'bare' }} />
+                        <br/>
+                        <Button onClick={buttonOwnerOf} variant="contained" color="primary" className={classes.button}>
+                            所有者確認
+                        </Button>
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={buttonMint} variant="contained" color="primary" className={classes.button}>
                         発行
-                    </Button>
-                    <br/>
-                    <Button onClick={buttonBalanceOf} variant="contained" color="primary" className={classes.button}>
-                        発行数取得
-                    </Button>
-                    <br/>
-                    <Button onClick={buttonSupply} variant="contained" color="primary" className={classes.button}>
-                        総供給量取得
-                    </Button>
-                    <TextField id="outlined-bare4" className={classes.textField} placeholder="TokenId" margin="normal" onChange={ (e) => setTokenId(e.target.value) } variant="outlined" inputProps={{ 'aria-label': 'bare' }} />
-                    <Button onClick={buttonOwnerOf} variant="contained" color="primary" className={classes.button}>
-                        所有者確認
                     </Button>
                 </DialogActions>
             </Dialog>
