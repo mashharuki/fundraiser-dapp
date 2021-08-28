@@ -144,9 +144,7 @@ const NFTCard = (props) => {
     /**
      * 「NFT発行」ボタンを押した時の処理
      */
-     const buttonMint = async() => {
-        // プロバイダーから署名者の情報を取得する。
-        const signer = accounts[0];
+    const buttonMint = async() => {
         // コントラクトが使えるような設定
         const provider = await detectEthereumProvider();
         const web3 = new Web3(provider);
@@ -154,7 +152,7 @@ const NFTCard = (props) => {
         const deployedNetwork = NFTContract.networks[networkId];
         const instance = new web3.eth.Contract(NFTContract.abi, nft);
         // NFTコントラクトのmint関数を実行する。
-        const { hash } = await instance.methods.mint(signer).send({ from: signer });
+        const { hash } = await instance.methods.mint(accounts[0]).send({ from: accounts[0] });
         // ネットワーク情報を取得する。
         const net = NFTContract.networks[networkId];
         // rinkebyだった場合出力する。
@@ -234,7 +232,6 @@ const NFTCard = (props) => {
                         </Button>
                         <br/>
                         <TextField id="outlined-bare4" className={classes.textField} placeholder="TokenId" margin="normal" onChange={ (e) => setTokenId(e.target.value) } variant="outlined" inputProps={{ 'aria-label': 'bare' }} />
-                        <br/>
                         <Button onClick={buttonOwnerOf} variant="contained" color="primary" className={classes.button}>
                             所有者確認
                         </Button>
