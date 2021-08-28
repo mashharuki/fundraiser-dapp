@@ -84,7 +84,6 @@ const Nft = () => {
         const instance = new web3.eth.Contract(NFTFactoryContract.abi, deployedNetwork && deployedNetwork.address,);
         // コントラクトをデプロイする。
         await instance.methods.createNFT(name, symbol, url).send({ from: accounts[0] });
-        alert("コントラクトアドレス：");
         // ネットワーク情報を取得する。
         const net = NFTFactoryContract.networks[netID];
         // rinkebyだった場合出力する。
@@ -173,7 +172,9 @@ const Nft = () => {
     // 戻り値を設定する。
     return (
         <div className="main-container">
-            <p>NFT用トップページ</p>
+            <h2>
+                NFT用トップページ
+            </h2>
             <TextField id="outlined-bare" className={classes.textField} placeholder="NFT Name" margin="normal" onChange={ (e) => setName(e.target.value) } variant="outlined" inputProps={{ 'aria-label': 'bare' }} />
             <TextField id="outlined-bare2" className={classes.textField} placeholder="NFT Symbol" margin="normal" onChange={ (e) => setSymbol(e.target.value) } variant="outlined" inputProps={{ 'aria-label': 'bare' }} />
             <TextField id="outlined-bare3" className={classes.textField} placeholder="NFT URL" margin="normal" onChange={ (e) => setUrl(e.target.value) } variant="outlined" inputProps={{ 'aria-label': 'bare' }} />
