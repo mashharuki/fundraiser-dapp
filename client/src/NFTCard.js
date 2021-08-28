@@ -152,7 +152,10 @@ const NFTCard = (props) => {
         const deployedNetwork = NFTContract.networks[networkId];
         const instance = new web3.eth.Contract(NFTContract.abi, nft);
         // NFTコントラクトのmint関数を実行する。
-        const { hash } = await instance.methods.mint(accounts[0]).send({ from: accounts[0] });
+        const { hash } = await instance.methods.mint(accounts[0]).send({ 
+            from: accounts[0],
+            gas: 650000
+        });
         // ネットワーク情報を取得する。
         const net = NFTContract.networks[networkId];
         // rinkebyだった場合出力する。
