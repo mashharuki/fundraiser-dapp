@@ -28,7 +28,7 @@ import Typography from '@material-ui/core/Typography';
 const useStyles = makeStyles (theme => ({
     card: {
         maxWidth: 450,
-        height: 400
+        height: 200
     },
     media: {
         height: 140,
@@ -205,7 +205,7 @@ const useStyles = makeStyles (theme => ({
 
     // 戻り値
     return (
-        <div className="fundraiser-card-content">
+        <div className="nft-card-content">
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
                 <DialogTitle id="form-dialog-title">
                     {nftName}
@@ -222,15 +222,15 @@ const useStyles = makeStyles (theme => ({
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={buttonMint} variant="contained" color="primary" className={classes.button}>
-                        NFT発行
+                        発行
                     </Button>
                     <br/>
                     <Button onClick={buttonBalanceOf} variant="contained" color="primary" className={classes.button}>
-                        NFT数取得
+                        発行数取得
                     </Button>
                     <br/>
                     <Button onClick={buttonSupply} variant="contained" color="primary" className={classes.button}>
-                        NFT総供給量取得
+                        総供給量取得
                     </Button>
                     <TextField id="outlined-bare4" className={classes.textField} placeholder="TokenId" margin="normal" onChange={ (e) => setTokenId(e.target.value) } variant="outlined" inputProps={{ 'aria-label': 'bare' }} />
                     <Button onClick={buttonOwnerOf} variant="contained" color="primary" className={classes.button}>
