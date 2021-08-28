@@ -142,12 +142,12 @@ const useStyles = makeStyles (theme => ({
         const signer = accounts[0];
         // コントラクト
         const networkId = await web3.eth.net.getId();
-        const deployedNetwork = NFTFactoryContract.networks[networkId];
-        const instance = new web3.eth.Contract(NFTFactoryContract.abi, deployedNetwork && deployedNetwork.address,);
+        const deployedNetwork = NFTContract.networks[networkId];
+        const instance = new web3.eth.Contract(NFTContract.abi, deployedNetwork && deployedNetwork.address,);
         // NFTコントラクトのmint関数を実行する。
         const { hash } = await instance.methods.mint(signer).send({ from: signer });
         // ネットワーク情報を取得する。
-        const net = NFTFactoryContract.networks[netID];
+        const net = NFTContract.networks[netID];
         // rinkebyだった場合出力する。
         if( net.chainId == 4) {
             alert("https://rinkeby.etherscan.io/tx/" + hash);
@@ -160,8 +160,8 @@ const useStyles = makeStyles (theme => ({
     const buttonSupply = async() => {
         // コントラクト
         const networkId = await web3.eth.net.getId();
-        const deployedNetwork = NFTFactoryContract.networks[networkId];
-        const instance = new web3.eth.Contract(NFTFactoryContract.abi, deployedNetwork && deployedNetwork.address,);
+        const deployedNetwork = NFTContract.networks[networkId];
+        const instance = new web3.eth.Contract(NFTContract.abi, deployedNetwork && deployedNetwork.address,);
         // 総供給量を取得する。
         const totalSupply = await instance.methods.totalSupply().call();
         // totalSupply関数を呼び出す。
@@ -174,8 +174,8 @@ const useStyles = makeStyles (theme => ({
     const buttonBalanceOf = async() => {
         // コントラクト
         const networkId = await web3.eth.net.getId();
-        const deployedNetwork = NFTFactoryContract.networks[networkId];
-        const instance = new web3.eth.Contract(NFTFactoryContract.abi, deployedNetwork && deployedNetwork.address,);
+        const deployedNetwork = NFTContract.networks[networkId];
+        const instance = new web3.eth.Contract(NFTContract.abi, deployedNetwork && deployedNetwork.address,);
         // 接続中のアカウントに紐づくNFT数を取得する
         const balanceOf = await instance.methods.balanceOf(accounts[0]).call();
         // totalSupply関数を呼び出す。
@@ -188,8 +188,8 @@ const useStyles = makeStyles (theme => ({
     const buttonOwnerOf = async() => {
         // コントラクト
         const networkId = await web3.eth.net.getId();
-        const deployedNetwork = NFTFactoryContract.networks[networkId];
-        const instance = new web3.eth.Contract(NFTFactoryContract.abi, deployedNetwork && deployedNetwork.address,);
+        const deployedNetwork = NFTContract.networks[networkId];
+        const instance = new web3.eth.Contract(NFTContract.abi, deployedNetwork && deployedNetwork.address,);
         // 所有者アドレスを取得する。
         const ownerAddress = await instance.methods.ownerOf(tokenId).call();
         alert("所有者アドレス：", ownerAddress);
