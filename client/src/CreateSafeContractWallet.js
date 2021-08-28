@@ -78,9 +78,15 @@ const CreateSafeContractWallet = () => {
      *  handleSubmit関数
      */
     const handleSubmit = async () => {
+        const provider = await detectEthereumProvider();
+        const web3 = new Web3(provider);
+        const networkId = await web3.eth.net.getId()
+        const deployedNetwork = SafeContractFactoryContract.networks[networkId];
+        const instance = new web3.eth.Contract(SafeContractFactoryContract.abi, deployedNetwork && deployedNetwork.address,);
+
         try {
             // コントラクトのcreateSafeContract関数を呼び出す。
-            await contract.methods.createSafeContract(walletName).send({ from: accounts[0] });
+            await instance.methods.createSafeContract(walletName).send({ from: accounts[0] });
             // アラートを出す。
             alert('Successfully created SafeContractWallet');
         } catch (error) {

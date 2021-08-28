@@ -65,8 +65,15 @@ const NewFundraiser = () => {
 
     // handleSubmit関数
     const handleSubmit = async () => {
+        // Web3が使えるように設定する。
+        const provider = await detectEthereumProvider();
+        const web3 = new Web3(provider);
+        const networkId = await web3.eth.net.getId();
+        const deployedNetwork = FundraiserFactoryContract.networks[networkId];
+        const accounts = await web3.eth.getAccounts();
+        const instance = new web3.eth.Contract(FundraiserFactoryContract.abi, deployedNetwork && deployedNetwork.address,);
         // コントラクトのcreateFundraiserを呼び出す。
-        await contract.methods.createFundraiser(name, url, imageURL, description, beneficiary).send({ from: accounts[0] });
+        await instance.methods.createFundraiser(name, url, imageURL, description, beneficiary).send({ from: accounts[0] });
         // アラートを出す。
         alert('Successfully created fundraiser')
     };

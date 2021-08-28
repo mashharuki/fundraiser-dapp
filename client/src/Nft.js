@@ -77,6 +77,8 @@ const Nft = () => {
      */
     const buttonDeploy = async() => {
         // NFTコントラクトの情報を読み取る
+        const provider = await detectEthereumProvider();
+        const web3 = new Web3(provider);
         const networkId = await web3.eth.net.getId();
         const deployedNetwork = NFTFactoryContract.networks[networkId];
         const instance = new web3.eth.Contract(NFTFactoryContract.abi, deployedNetwork && deployedNetwork.address,);
