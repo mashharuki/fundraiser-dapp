@@ -17,6 +17,10 @@ solcのバージョン情報等については、truffle-config.jsを参照く�
    1. ERC020規格のトークン発行関連機能  
    2. ゲーム関連機能  
 
+## GitHub PagesのURL
+   
+   https://mashharuki.github.io/fundraiser-dapp/
+
 ## 主なディレクトリ構成
    root/  
    　┣ client/　: フロントエンド側のディレクトリ  
@@ -36,10 +40,10 @@ solcのバージョン情報等については、truffle-config.jsを参照く�
    　┣ node_modules/　: npmによってインストールするモジュール群を格納するディレクトリ  
    　┣ test/　: スマートコントラクトのテストコードを格納するディレクトリ  
    　┣ img/　: 画像データを格納するディレクトリ   
-  　 ┣ truffle-config.js: truffle用の設定ファイル  
-  　 ┣ README.md: リポジトリの各種説明を記載   
-  　 ┣ LICENSE: ライセンス情報を記載  
-  　 ┣ package-lock.json: npm installによってインストールされたモジュールの情報を記載したファイル
+   　┣ truffle-config.js: truffle用の設定ファイル  
+   　┣ README.md: リポジトリの各種説明を記載   
+   　┣ LICENSE: ライセンス情報を記載  
+   　┣ package-lock.json: npm installによってインストールされたモジュールの情報を記載したファイル
 
 ## 画面例
 ### 1. NFT作成画面
