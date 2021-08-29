@@ -102,6 +102,7 @@ const WalletCard = (props) => {
             setContract (instance);
             // アカウントをセットする。
             setAccounts (accounts);
+            alert(walletAddress);
             // コントラクトの情報を格納する。
             setAddress(walletAddress);
             // ウォレット名を取得する。
