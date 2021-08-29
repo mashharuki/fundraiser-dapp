@@ -48,6 +48,7 @@ const Home = () => {
             // ステート変数に設定
             setFunds (funds);
             setNfts (nfts);
+            setWallets (wallets);
         } catch (error) {
             alert(`Failed to load web3, accounts, or contract. Check console for details.`,);
             console.error(error);
