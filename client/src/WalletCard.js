@@ -95,6 +95,7 @@ const WalletCard = (props) => {
             const deployedNetwork = GnosisSafeContract.networks[networkId];
             const accounts = await web3.eth.getAccounts();
             const instance = new web3.eth.Contract(GnosisSafeContract.abi, gonosisSafe);
+            const walletAddress = GnosisSafeContract.address;
             // Web3をセットする。
             setWeb3 (web3);
             // コントラクトをセットする。
@@ -102,7 +103,7 @@ const WalletCard = (props) => {
             // アカウントをセットする。
             setAccounts (accounts);
             // コントラクトの情報を格納する。
-            setAddress(GnosisSafeContract.address);
+            setAddress(walletAddress);
             // ウォレット名を取得する。
             const walletName = await instance.methods.getWalletName().call();
             // ステート変数にセットする。
@@ -145,9 +146,7 @@ const WalletCard = (props) => {
                 </DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        <p>
-                            Wallet Address : {address}
-                        </p>
+                        Wallet Address : {address}
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
