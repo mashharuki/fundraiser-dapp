@@ -66,7 +66,7 @@ const WalletCard = (props) => {
     // ステート変数を用意する。
     const [ web3, setWeb3 ] = useState(null);
     const [ walletName, setWalletName ] = useState(null);
-    const [ deployedNetwork, setDeployedNetwork ] = useState(null);
+    const [ address, setAddress ] = useState(null);
     const [ contract, setContract] = useState(null);
     const [ accounts, setAccounts ] = useState(null);
     const [ open, setOpen ] = useState(false);
@@ -102,7 +102,7 @@ const WalletCard = (props) => {
             // アカウントをセットする。
             setAccounts (accounts);
             // コントラクトの情報を格納する。
-            setDeployedNetwork(deployedNetwork);
+            setAddress(deployedNetwork.address);
             // ウォレット名を取得する。
             const walletName = await instance.methods.getWalletName().call();
             // ステート変数にセットする。
@@ -146,7 +146,7 @@ const WalletCard = (props) => {
                 <DialogContent>
                     <DialogContentText>
                         <p>
-                            Wallet Address : {deployedNetwork.address}
+                            Wallet Address : {address}
                         </p>
                     </DialogContentText>
                 </DialogContent>
