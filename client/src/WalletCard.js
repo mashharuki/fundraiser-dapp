@@ -102,9 +102,8 @@ const WalletCard = (props) => {
             setContract (instance);
             // アカウントをセットする。
             setAccounts (accounts);
-            alert(instance.address);
             // コントラクトの情報を格納する。
-            setAddress(instance.address);
+            setAddress(instance.options.address);
             // ウォレット名を取得する。
             const walletName = await instance.methods.getWalletName().call();
             // ステート変数にセットする。
