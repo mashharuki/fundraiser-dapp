@@ -71,6 +71,7 @@ const NFTCard = (props) => {
     const [ contract, setContract] = useState(null);
     const [ accounts, setAccounts ] = useState(null);
     const [ tokenId , setTokenId] = useState(null);
+    const [ address, setAddress ] = useState(null);
     const [ to, setTo ] = useState(null);
     const [ open, setOpen ] = useState(false);
 
@@ -104,6 +105,8 @@ const NFTCard = (props) => {
             setContract (instance);
             // アカウントをセットする。
             setAccounts (accounts);
+            // コントラクトの情報を格納する。
+            setAddress(instance.options.address);
             // NFTの名前、シンボル、URLを取得する。
             const name = await instance.methods.getNftName().call();
             const symbol = await instance.methods.getNftSymbol().call();
@@ -253,10 +256,13 @@ const NFTCard = (props) => {
                 <DialogContent>
                     <DialogContentText>
                         <p>
-                            SYMBOL : {nftSymbol}
+                            Symbol : {nftSymbol}
                         </p>
                         <p>
                             URL : {nftURL}
+                        </p>
+                        <p>
+                            Address : {address} 
                         </p>
                         <Button onClick={buttonBalanceOf} variant="contained" color="primary" className={classes.button}>
                             発行数取得
@@ -274,6 +280,7 @@ const NFTCard = (props) => {
                         <Button onClick={buttonTransferFrom} variant="contained" color="primary" className={classes.button}>
                             NFT移転
                         </Button>
+                        <br/>
                         <Button onClick={buttonBurn} variant="contained" color="primary" className={classes.button}>
                             NFT償却
                         </Button>
