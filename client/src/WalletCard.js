@@ -102,9 +102,9 @@ const WalletCard = (props) => {
             setContract (instance);
             // アカウントをセットする。
             setAccounts (accounts);
-            alert(gonosisSafe);
+            alert(instance.address);
             // コントラクトの情報を格納する。
-            setAddress(gonosisSafe);
+            setAddress(instance.address);
             // ウォレット名を取得する。
             const walletName = await instance.methods.getWalletName().call();
             // ステート変数にセットする。
