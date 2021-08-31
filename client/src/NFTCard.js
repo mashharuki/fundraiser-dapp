@@ -71,6 +71,7 @@ const NFTCard = (props) => {
     const [ contract, setContract] = useState(null);
     const [ accounts, setAccounts ] = useState(null);
     const [ tokenId , setTokenId] = useState(null);
+    const [ to, setTo ] = useState(null);
     const [ open, setOpen ] = useState(false);
 
     /**
@@ -211,6 +212,37 @@ const NFTCard = (props) => {
         alert("所有者アドレス：", ownerAddress);
     }
 
+    /**
+     * 「NFT移転」ボタンを押した時の処理
+     */
+    const buttonTransferFrom = async() => {
+        // コントラクトが使えるような設定
+        const provider = await detectEthereumProvider();
+        const web3 = new Web3(provider);
+        const networkId = await web3.eth.net.getId();
+        const deployedNetwork = NFTContract.networks[networkId];
+        const instance = new web3.eth.Contract(NFTContract.abi, nft);
+        // 移転実行
+        instance.methods.transferFrom(accounts[0], to, tokenId).send({ 
+            from: accounts[0],
+            gas: 650000
+        });
+    }
+
+    /**
+     * 「NFT償却」
+     */
+    const buttonBurn = async() => {
+        // コントラクトが使えるような設定
+        const provider = await detectEthereumProvider();
+        const web3 = new Web3(provider);
+        const networkId = await web3.eth.net.getId();
+        const deployedNetwork = NFTContract.networks[networkId];
+        const instance = new web3.eth.Contract(NFTContract.abi, nft);
+        // 償却実行
+        instance.methods.burn(tokenId).call();
+    }
+
     // 戻り値
     return (
         <div className="nft-card-content">
@@ -237,6 +269,13 @@ const NFTCard = (props) => {
                         <TextField id="outlined-bare4" className={classes.textField} placeholder="TokenId" margin="normal" onChange={ (e) => setTokenId(e.target.value) } variant="outlined" inputProps={{ 'aria-label': 'bare' }} />
                         <Button onClick={buttonOwnerOf} variant="contained" color="primary" className={classes.button}>
                             所有者確認
+                        </Button>
+                        <TextField id="outlined-bare5" className={classes.textField} placeholder="To" margin="normal" onChange={ (e) => setTo(e.target.value) } variant="outlined" inputProps={{ 'aria-label': 'bare' }} />
+                        <Button onClick={buttonTransferFrom} variant="contained" color="primary" className={classes.button}>
+                            NFT移転
+                        </Button>
+                        <Button onClick={buttonBurn} variant="contained" color="primary" className={classes.button}>
+                            NFT償却
                         </Button>
                     </DialogContentText>
                 </DialogContent>
