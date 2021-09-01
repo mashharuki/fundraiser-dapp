@@ -26,8 +26,8 @@ import Typography from '@material-ui/core/Typography';
 // スタイルを使うための定数
 const useStyles = makeStyles (theme => ({
     card: {
-        maxWidth: 450,
-        height: 200
+        maxWidth: 600,
+        height: 300
     },
     media: {
         height: 140,
@@ -283,11 +283,12 @@ const NFTCard = (props) => {
                         <Button onClick={buttonOwnerOf} variant="contained" color="primary" className={classes.button}>
                             所有者確認
                         </Button>
-                        <TextField id="outlined-bare5" className={classes.textField} placeholder="To" margin="normal" onChange={ (e) => setTo(e.target.value) } variant="outlined" inputProps={{ 'aria-label': 'bare' }} />
-                        <Button onClick={buttonTransferFrom} variant="contained" color="primary" className={classes.button}>
-                            NFT移転
+                        <br/>
+                        <Button onClick={buttonBurn} variant="contained" color="primary" className={classes.button}>
+                            NFT償却
                         </Button>
                         <br/>
+                        <TextField id="outlined-bare5" className={classes.textField} placeholder="To" margin="normal" onChange={ (e) => setTo(e.target.value) } variant="outlined" inputProps={{ 'aria-label': 'bare' }} />
                         <Button onClick={buttonBurn} variant="contained" color="primary" className={classes.button}>
                             NFT償却
                         </Button>

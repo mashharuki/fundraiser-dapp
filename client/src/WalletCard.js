@@ -26,8 +26,8 @@ import Typography from '@material-ui/core/Typography';
 // スタイルを使うための定数
 const useStyles = makeStyles (theme => ({
     card: {
-        maxWidth: 450,
-        height: 200
+        maxWidth: 600,
+        height: 300
     },
     media: {
         height: 140,
@@ -48,7 +48,7 @@ const useStyles = makeStyles (theme => ({
     },
     paper: {
         position: 'absolute',
-        width: 400,
+        width: 600,
         backgroundColor: theme.palette.secondary.light,
         boxShadow: 'none',
         padding: 4,
@@ -207,7 +207,7 @@ const WalletCard = (props) => {
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={buttonSetUp} variant="contained" color="primary" className={classes.button}>
-                        設定
+                        初期設定
                     </Button>
                     <br/>
                     <Button onClick={buttonOwners} variant="contained" color="primary" className={classes.button}>
