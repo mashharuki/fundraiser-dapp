@@ -223,7 +223,6 @@ const WalletCard = (props) => {
                     </Button>
                 </DialogActions>
             </Dialog>
-            
             <Card className={classes.card} onClick={handleOpen}>
                 <CardActionArea>
                     <CardContent>
