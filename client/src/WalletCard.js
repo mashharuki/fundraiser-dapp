@@ -66,6 +66,10 @@ const WalletCard = (props) => {
     // ステート変数を用意する。
     const [ web3, setWeb3 ] = useState(null);
     const [ walletName, setWalletName ] = useState(null);
+    const [ version, setVersion ] = useState(null);
+    const [ chainId, setChainId ] = useState(null);
+    const [ nonce, setNonce ] = useState(null);
+    const [ threshold, setThreshold ] = useState(null);
     const [ address, setAddress ] = useState(null);
     const [ contract, setContract] = useState(null);
     const [ accounts, setAccounts ] = useState(null);
@@ -106,8 +110,17 @@ const WalletCard = (props) => {
             setAddress(instance.options.address);
             // ウォレット名を取得する。
             const walletName = await instance.methods.getWalletName().call();
+            // 必要な情報をコントラクトから取得する。
+            const version = await instance.methods.VERSION().call();
+            const threshold = await instance.methods.getThreshold().call();
+            const nonce = await instance.methods.nonce().call();
+            const chainId = await instance.methods.getChainId().call();
             // ステート変数にセットする。
             setWalletName(walletName);
+            setVersion(version);
+            setThreshold(threshold);
+            setNonce(nonce);
+            setChainId(chainId);
         } catch (error) {
             alert(`Failed to load web3, accounts, or contract. Check console for details.`,);
             console.error(error);
@@ -167,7 +180,15 @@ const WalletCard = (props) => {
                 </DialogTitle>
                 <DialogContent>
                     <DialogContentText>
+                        version : {version}
+                        <br/>
                         Wallet Address : {address}
+                        <br/>
+                        Current Nonce : {nonce}
+                        <br/>
+                        Currnet Threshold : {threshold}
+                        <br/>
+                        ChainId : {chainId}
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
