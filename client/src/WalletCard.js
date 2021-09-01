@@ -71,6 +71,13 @@ const WalletCard = (props) => {
     const [ nonce, setNonce ] = useState(null);
     const [ threshold, setThreshold ] = useState(null);
     const [ address, setAddress ] = useState(null);
+    const [ data, setData ] = useState(null);
+    const [ fallbackHandler, setFallbackHandler ] = useState(null);
+    const [ paymentToken, setpaymentToken ] = useState(null);
+    const [ payment, setPayment ] = useState(null);
+    const [ paymentReceiver, PaymentReceiver ] = useState(null);
+    const [ to, setTo ] = useState(null);
+    const [ owner, setOwner ] = useState(null);
     const [ owners, setOwners ] = useState([]);
     const [ contract, setContract] = useState(null);
     const [ accounts, setAccounts ] = useState(null);
@@ -100,7 +107,6 @@ const WalletCard = (props) => {
             const deployedNetwork = GnosisSafeContract.networks[networkId];
             const accounts = await web3.eth.getAccounts();
             const instance = new web3.eth.Contract(GnosisSafeContract.abi, gonosisSafe);
-            const walletAddress = GnosisSafeContract.address;
             // Web3をセットする。
             setWeb3 (web3);
             // コントラクトをセットする。
@@ -167,8 +173,8 @@ const WalletCard = (props) => {
         const web3 = new Web3(provider);
         const instance = new web3.eth.Contract(GnosisSafeContract.abi, wallet);
         // 所有者リストを取得する。
-        owners = instance.methods.getOwners().call();
-        alert("Owners Addresses : ", owners);
+        const walletOwners = instance.methods.getOwners().call();
+        alert("Owners Addresses : ", walletOwners);
     }
 
     /**
@@ -204,24 +210,23 @@ const WalletCard = (props) => {
                         <br/>
                         ChainId : {chainId}
                     </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={buttonSetUp} variant="contained" color="primary" className={classes.button}>
-                        初期設定
-                    </Button>
-                    <br/>
-                    <Button onClick={buttonOwners} variant="contained" color="primary" className={classes.button}>
-                        ウォレット所有者確認
-                    </Button>
-                    <br/>
-                    <Button onClick={buttonExecTransaction} variant="contained" color="primary" className={classes.button}>
-                        送金
-                    </Button>
-                    <br/>
-                    <Button onClick={buttonTransactionHash} variant="contained" color="primary" className={classes.button}>
-                        Txハッシュ取得
-                    </Button>
-                </DialogActions>
+                        <Button onClick={buttonSetUp} variant="contained" color="primary" className={classes.button}>
+                            初期設定
+                        </Button>
+                        <br/>
+                        <Button onClick={buttonOwners} variant="contained" color="primary" className={classes.button}>
+                            ウォレット所有者確認
+                        </Button>
+                        <br/>
+                        <Button onClick={buttonExecTransaction} variant="contained" color="primary" className={classes.button}>
+                            送金
+                        </Button>
+                        <br/>
+                        <Button onClick={buttonTransactionHash} variant="contained" color="primary" className={classes.button}>
+                            Txハッシュ取得
+                        </Button>
+                    </DialogContent>
+                <DialogActions></DialogActions>
             </Dialog>
             <Card className={classes.card} onClick={handleOpen}>
                 <CardActionArea>
