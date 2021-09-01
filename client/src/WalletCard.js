@@ -137,6 +137,27 @@ const WalletCard = (props) => {
         setOpen(false);
     };
 
+    /**
+     * 「設定」ボタンを押した時の処理
+     */
+    const buttonSetUp = async() => {
+
+    }
+
+    /**
+     * 「送金」ボタンを押した時の処理
+     */
+    const buttonExecTransaction = async() => {
+
+    }
+
+    /**
+     * 「Txハッシュ取得」ボタンを押した時の処理
+     */
+    const buttonTransactionHash = async() => {
+
+    }
+
     // 戻り値
     return (
         <div className="wallet-card-content">
@@ -150,8 +171,16 @@ const WalletCard = (props) => {
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button variant="contained" color="primary" className={classes.button}>
-                        署名
+                    <Button onClick={buttonSetUp} variant="contained" color="primary" className={classes.button}>
+                        設定
+                    </Button>
+                    <br/>
+                    <Button onClick={buttonExecTransaction} variant="contained" color="primary" className={classes.button}>
+                        送金
+                    </Button>
+                    <br/>
+                    <Button onClick={buttonTransactionHash} variant="contained" color="primary" className={classes.button}>
+                        Txハッシュ取得
                     </Button>
                 </DialogActions>
             </Dialog>
