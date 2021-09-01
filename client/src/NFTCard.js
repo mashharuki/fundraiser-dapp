@@ -152,8 +152,6 @@ const NFTCard = (props) => {
         // コントラクトが使えるような設定
         const provider = await detectEthereumProvider();
         const web3 = new Web3(provider);
-        const networkId = await web3.eth.net.getId();
-        const deployedNetwork = NFTContract.networks[networkId];
         const instance = new web3.eth.Contract(NFTContract.abi, nft);
         // minter権限を持つアカウントアドレスを取得する。
         const minterRole = instance.methods.MINTER_ROLE().call();
@@ -190,8 +188,6 @@ const NFTCard = (props) => {
         // コントラクトが使えるような設定
         const provider = await detectEthereumProvider();
         const web3 = new Web3(provider);
-        const networkId = await web3.eth.net.getId();
-        const deployedNetwork = NFTContract.networks[networkId];
         const instance = new web3.eth.Contract(NFTContract.abi, nft);
         // 総供給量を取得する。
         const totalSupply = await instance.methods.totalSupply().call();
@@ -206,8 +202,6 @@ const NFTCard = (props) => {
         // コントラクトが使えるような設定
         const provider = await detectEthereumProvider();
         const web3 = new Web3(provider);
-        const networkId = await web3.eth.net.getId();
-        const deployedNetwork = NFTContract.networks[networkId];
         const instance = new web3.eth.Contract(NFTContract.abi, nft);
         // 接続中のアカウントに紐づくNFT数を取得する
         const balanceOf = await instance.methods.balanceOf(accounts[0]).call();
@@ -222,8 +216,6 @@ const NFTCard = (props) => {
         // コントラクトが使えるような設定
         const provider = await detectEthereumProvider();
         const web3 = new Web3(provider);
-        const networkId = await web3.eth.net.getId();
-        const deployedNetwork = NFTContract.networks[networkId];
         const instance = new web3.eth.Contract(NFTContract.abi, nft);
         // 所有者アドレスを取得する。
         const ownerAddress = await instance.methods.ownerOf(tokenId).call();
@@ -237,8 +229,6 @@ const NFTCard = (props) => {
         // コントラクトが使えるような設定
         const provider = await detectEthereumProvider();
         const web3 = new Web3(provider);
-        const networkId = await web3.eth.net.getId();
-        const deployedNetwork = NFTContract.networks[networkId];
         const instance = new web3.eth.Contract(NFTContract.abi, nft);
         // 移転実行
         instance.methods.transferFrom(accounts[0], to, tokenId).send({ 
@@ -254,8 +244,6 @@ const NFTCard = (props) => {
         // コントラクトが使えるような設定
         const provider = await detectEthereumProvider();
         const web3 = new Web3(provider);
-        const networkId = await web3.eth.net.getId();
-        const deployedNetwork = NFTContract.networks[networkId];
         const instance = new web3.eth.Contract(NFTContract.abi, nft);
         // 償却実行
         instance.methods.burn(tokenId).call();

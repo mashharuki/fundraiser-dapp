@@ -71,6 +71,7 @@ const WalletCard = (props) => {
     const [ nonce, setNonce ] = useState(null);
     const [ threshold, setThreshold ] = useState(null);
     const [ address, setAddress ] = useState(null);
+    const [ owners, setOwners ] = useState([]);
     const [ contract, setContract] = useState(null);
     const [ accounts, setAccounts ] = useState(null);
     const [ open, setOpen ] = useState(false);
@@ -158,6 +159,19 @@ const WalletCard = (props) => {
     }
 
     /**
+     * 「ウォレット所有者確認」ボタンを押した時の処理
+     */
+    const buttonOwners = async() => {
+        // コントラクトが使えるような設定
+        const provider = await detectEthereumProvider();
+        const web3 = new Web3(provider);
+        const instance = new web3.eth.Contract(GnosisSafeContract.abi, wallet);
+        // 所有者リストを取得する。
+        owners = instance.methods.getOwners().call();
+        alert("Owners Addresses : ", owners);
+    }
+
+    /**
      * 「送金」ボタンを押した時の処理
      */
     const buttonExecTransaction = async() => {
@@ -196,6 +210,10 @@ const WalletCard = (props) => {
                         設定
                     </Button>
                     <br/>
+                    <Button onClick={buttonOwners} variant="contained" color="primary" className={classes.button}>
+                        ウォレット所有者確認
+                    </Button>
+                    <br/>
                     <Button onClick={buttonExecTransaction} variant="contained" color="primary" className={classes.button}>
                         送金
                     </Button>
@@ -205,6 +223,7 @@ const WalletCard = (props) => {
                     </Button>
                 </DialogActions>
             </Dialog>
+            
             <Card className={classes.card} onClick={handleOpen}>
                 <CardActionArea>
                     <CardContent>
