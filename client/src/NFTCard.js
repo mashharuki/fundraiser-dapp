@@ -146,6 +146,21 @@ const NFTCard = (props) => {
     };
 
     /**
+     * 「Minter権限確認」ボタンを押した時の処理
+     */
+    const buttonMinterRole = async() => {
+        // コントラクトが使えるような設定
+        const provider = await detectEthereumProvider();
+        const web3 = new Web3(provider);
+        const networkId = await web3.eth.net.getId();
+        const deployedNetwork = NFTContract.networks[networkId];
+        const instance = new web3.eth.Contract(NFTContract.abi, nft);
+        // minter権限を持つアカウントアドレスを取得する。
+        const minterRole = instance.methods.MINTER_ROLE().call();
+        alert("MINTER_ROLE : ", minterRole);
+    }
+
+    /**
      * 「NFT発行」ボタンを押した時の処理
      */
     const buttonMint = async() => {
@@ -264,6 +279,10 @@ const NFTCard = (props) => {
                         <p>
                             Address : {address} 
                         </p>
+                        <Button onClick={buttonMinterRole} variant="contained" color="primary" className={classes.button}>
+                            Minter権限確認
+                        </Button>
+                        <br/>
                         <Button onClick={buttonBalanceOf} variant="contained" color="primary" className={classes.button}>
                             発行数取得
                         </Button>
