@@ -6,7 +6,7 @@
 import React, { useState, useEffect } from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import Web3 from 'web3';
-import NFTContract from './contracts/NFT.json';
+import NFTContract from '../contracts/NFT.json';
 import detectEthereumProvider from '@metamask/detect-provider';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
