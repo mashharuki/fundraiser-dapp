@@ -72,13 +72,13 @@ const WalletSetUp = (props) => {
      */
     useEffect(() => {
         // 遷移元のウォレットの情報を取得する。
-        const { gonosisSafe, version, address, nonce, threshold, chainId } = props.location.state;
+        const { wallet, version, address, nonce, threshold, chainId } = props.location.state;
         // アカウント情報の読み込み
         const provider = await detectEthereumProvider();
         const web3 = new Web3(provider);
         const accounts = await web3.eth.getAccounts();
         // ステート変数をセットする。
-        setGonosisSafe(gonosisSafe);
+        setGonosisSafe(wallet);
         setVersion(version);
         setAddress(address);
         setNonce(nonce);
