@@ -4,6 +4,7 @@
 
 // 必要なコンポーネントをインポートする。
 import React, { useState, useEffect } from "react";
+import { makeStyles } from '@material-ui/core/styles';
 import Web3 from 'web3';
 import GnosisSafeContract from '../contracts/GnosisSafe.json';
 import detectEthereumProvider from '@metamask/detect-provider';
