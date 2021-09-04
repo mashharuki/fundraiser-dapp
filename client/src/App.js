@@ -64,6 +64,7 @@ const App = () => {
     const { accounts, contract } = state;
   };
 
+  // レンダリングする内容
   return (
     <Router>
       <div className={classes.root}>
