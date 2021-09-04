@@ -11,6 +11,7 @@ import Sign from "./wallet/Sign";
 import Ecrecover from "./wallet/Ecrecover";
 import Nft from "./nft/Nft";
 import CreateSafeContractWallet from "./wallet/CreateSafeContractWallet";
+import WalletSetUp from "./wallet/walletSetUp";
 // material-ui関連をインポートする。
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -85,6 +86,7 @@ const App = () => {
         <Route path="/sign/" component={Sign} />
         <Route path="/ecrecover/" component={Ecrecover} />
         <Route path="/nft/" component={Nft} />
+        <Route path="/walletSetUp" component={WalletSetUp} />
       </div>
     </Router>
   );

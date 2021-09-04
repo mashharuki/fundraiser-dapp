@@ -318,4 +318,5 @@ const FundraiserCard = (props) => {
     );
 }
 
+// コンポーネントを外部に公開する
 export default FundraiserCard;
