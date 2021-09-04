@@ -3,7 +3,7 @@
  */
 
 // 必要なモジュールをインポートする。
-import './App.css';
+import '../App.css';
 import React, { useState, useEffect } from "react";
 import NFTFactoryContract from '../contracts/NFTFactory.json';
 import { makeStyles } from '@material-ui/core/styles';
