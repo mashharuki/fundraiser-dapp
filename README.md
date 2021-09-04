@@ -22,6 +22,7 @@ solcのバージョン情報等については、truffle-config.jsを参照く�
    https://mashharuki.github.io/fundraiser-dapp/
 
 ## 主なディレクトリ構成
+~~~
    root/  
    　┣ client/　: フロントエンド側のディレクトリ  
    　　　└   src/  ：App.jsなどのアプリを構成するファイルを格納するディレクトリ  
@@ -48,6 +49,7 @@ solcのバージョン情報等については、truffle-config.jsを参照く�
    　┣ README.md: リポジトリの各種説明を記載   
    　┣ LICENSE: ライセンス情報を記載  
    　┣ package-lock.json: npm installによってインストールされたモジュールの情報を記載したファイル
+~~~
 
 ## 画面例
 ### 1. NFT作成画面
@@ -115,6 +117,11 @@ http:localhost:3000/ にアクセスすると最初のページが表示され�
 
 buildしたい場合は、次のコマンドを打つこと！  
 `npm run build` 
+
+### GitHub Actions設定(調整中)
+
+1. CodeQL
+2. Node.js CI
 
 ### 参考書籍&参考ページ
 
