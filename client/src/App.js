@@ -4,13 +4,13 @@ import FundraiserFactoryContract from "./contracts/FundraiserFactory.json";
 import getWeb3 from "./getWeb3";
 import "./App.css";
 // 各ページ用のコンポーネントを読み込む
-import NewFundraiser from './NewFundraiser';
+import NewFundraiser from './fundraiser/NewFundraiser';
 import Home from "./Home";
-import Receipts from './Receipts';
-import Sign from "./Sign";
-import Ecrecover from "./Ecrecover";
-import Nft from "./Nft";
-import CreateSafeContractWallet from "./CreateSafeContractWallet";
+import Receipts from './fundraiser/Receipts';
+import Sign from "./wallet/Sign";
+import Ecrecover from "./wallet/Ecrecover";
+import Nft from "./nft/Nft";
+import CreateSafeContractWallet from "./wallet/CreateSafeContractWallet";
 // material-ui関連をインポートする。
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';

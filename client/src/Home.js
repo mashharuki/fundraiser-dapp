@@ -4,9 +4,9 @@ import FundraiserFactoryContract from './contracts/FundraiserFactory.json';
 import NFTFactoryContract from './contracts/NFTFactory.json';
 import SafeContractFactoryContract from './contracts/SafeContractFactory.json';
 import Web3 from "web3";
-import FundraiserCard from './FundraiserCard';
-import NFTCard from "./NFTCard";
-import WalletCard from "./WalletCard";
+import FundraiserCard from './fundraiser/FundraiserCard';
+import NFTCard from "./nft/NFTCard";
+import WalletCard from "./wallet/WalletCard";
 
 // コンポーネントを用意する。
 const Home = () => {

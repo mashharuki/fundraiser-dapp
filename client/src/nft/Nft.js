@@ -5,13 +5,13 @@
 // 必要なモジュールをインポートする。
 import './App.css';
 import React, { useState, useEffect } from "react";
-import NFTFactoryContract from './contracts/NFTFactory.json';
+import NFTFactoryContract from '../contracts/NFTFactory.json';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Web3 from 'web3';
 import detectEthereumProvider from '@metamask/detect-provider';
-import getWeb3 from './getWeb3';
+import getWeb3 from '../getWeb3';
 
 // useStyles関数
 const useStyles = makeStyles (theme => ({

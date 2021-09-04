@@ -7,7 +7,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import Web3 from 'web3';
-import FundraiserContract from './contracts/Fundraiser.json';
+import FundraiserContract from '../contracts/Fundraiser.json';
 import detectEthereumProvider from '@metamask/detect-provider';
 import Button from '@material-ui/core/Button';
 // ダイアログ関連おモジュールを読み込む

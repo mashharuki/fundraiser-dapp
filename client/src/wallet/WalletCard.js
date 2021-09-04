@@ -6,7 +6,7 @@
 import React, { useState, useEffect } from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import Web3 from 'web3';
-import GnosisSafeContract from './contracts/GnosisSafe.json';
+import GnosisSafeContract from '../contracts/GnosisSafe.json';
 import detectEthereumProvider from '@metamask/detect-provider';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -158,7 +158,7 @@ const WalletCard = (props) => {
     };
 
     /**
-     * 「設定」ボタンを押した時の処理
+     * 「初期設定」ボタンを押した時の処理
      */
     const buttonSetUp = async() => {
 

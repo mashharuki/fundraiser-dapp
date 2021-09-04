@@ -3,8 +3,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import detectEthereumProvider from '@metamask/detect-provider';
-import getWeb3 from './getWeb3';
-import FundraiserFactoryContract from './contracts/FundraiserFactory.json';
+import getWeb3 from '../getWeb3';
+import FundraiserFactoryContract from '../contracts/FundraiserFactory.json';
 import Web3 from 'web3'
 
 // useStyles関数
