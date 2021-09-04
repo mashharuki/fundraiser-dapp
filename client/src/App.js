@@ -11,7 +11,7 @@ import Sign from "./wallet/Sign";
 import Ecrecover from "./wallet/Ecrecover";
 import Nft from "./nft/Nft";
 import CreateSafeContractWallet from "./wallet/CreateSafeContractWallet";
-import WalletSetUp from "./wallet/walletSetUp";
+import WalletSetUp from "./wallet/WalletSetUp";
 // material-ui関連をインポートする。
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
