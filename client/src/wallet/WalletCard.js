@@ -4,6 +4,7 @@
 
 // 必要なモジュールを読み込む
 import React, { useState, useEffect } from "react";
+import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Web3 from 'web3';
 import GnosisSafeContract from '../contracts/GnosisSafe.json';
