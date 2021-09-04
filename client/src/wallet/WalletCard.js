@@ -206,7 +206,7 @@ const WalletCard = (props) => {
                             </Link>
                         </Button>
                         <br/>
-                        <Button onClick={buttonTransactionHash} variant="contained" className={classes.button}>
+                        <Button variant="contained" className={classes.button}>
                             <Link to={{ pathname: '/getTxHash' }}>
                                 Txハッシュ取得
                             </Link>
