@@ -63,7 +63,6 @@ const WalletSetUp = (props) => {
     const [ to, setTo ] = useState(null);
     const [ owner, setOwner ] = useState(null);
     const [ owners, setOwners ] = useState([]);
-    const [ accounts, setAccounts ] = useState(null);
     // スタイル用のクラス
     const classes = useStyles();
 
@@ -73,10 +72,6 @@ const WalletSetUp = (props) => {
     useEffect(() => {
         // 遷移元のウォレットの情報を取得する。
         const { wallet, version, address, nonce, threshold, chainId } = props.location.state;
-        // アカウント情報の読み込み
-        const provider = await detectEthereumProvider();
-        const web3 = new Web3(provider);
-        const accounts = await web3.eth.getAccounts();
         // ステート変数をセットする。
         setGonosisSafe(wallet);
         setVersion(version);
@@ -84,7 +79,6 @@ const WalletSetUp = (props) => {
         setNonce(nonce);
         setThreshold(threshold);
         setChainId(chainId);
-        setAccounts(accounts);
     }, []);
 
     // アカウントが切り替わったら画面を更新する。
