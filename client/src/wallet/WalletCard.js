@@ -159,13 +159,6 @@ const WalletCard = (props) => {
     };
 
     /**
-     * 「初期設定」ボタンを押した時の処理
-     */
-    const buttonSetUp = async() => {
-
-    }
-
-    /**
      * 「ウォレット所有者確認」ボタンを押した時の処理
      */
     const buttonOwners = async() => {
@@ -176,20 +169,6 @@ const WalletCard = (props) => {
         // 所有者リストを取得する。
         const walletOwners = instance.methods.getOwners().call();
         alert("Owners Addresses : ", walletOwners);
-    }
-
-    /**
-     * 「送金」ボタンを押した時の処理
-     */
-    const buttonExecTransaction = async() => {
-
-    }
-
-    /**
-     * 「Txハッシュ取得」ボタンを押した時の処理
-     */
-    const buttonTransactionHash = async() => {
-
     }
 
     // 戻り値
@@ -211,7 +190,7 @@ const WalletCard = (props) => {
                         <br/>
                         ChainId : {chainId}
                     </DialogContentText>
-                        <Button onClick={buttonSetUp} variant="contained" color="primary" className={classes.button}>
+                        <Button variant="contained" className={classes.button}>
                             <Link to={{ pathname: '/walletSetUp'}}>
                                 初期設定
                             </Link>
@@ -221,12 +200,16 @@ const WalletCard = (props) => {
                             ウォレット所有者確認
                         </Button>
                         <br/>
-                        <Button onClick={buttonExecTransaction} variant="contained" color="primary" className={classes.button}>
-                            送金
+                        <Button variant="contained" className={classes.button}>
+                            <Link to={{ pathname: '/execTransaction'}}>
+                                送金
+                            </Link>
                         </Button>
                         <br/>
-                        <Button onClick={buttonTransactionHash} variant="contained" color="primary" className={classes.button}>
-                            Txハッシュ取得
+                        <Button onClick={buttonTransactionHash} variant="contained" className={classes.button}>
+                            <Link to={{ pathname: '/getTxHash' }}>
+                                Txハッシュ取得
+                            </Link>
                         </Button>
                     </DialogContent>
                 <DialogActions></DialogActions>
