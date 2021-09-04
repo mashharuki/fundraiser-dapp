@@ -95,18 +95,6 @@ const CreateSafeContractWallet = () => {
         }
     };
 
-    /**
-     * +ボタンが押された時の処理
-     */
-    const addAddress = async () => {
-        // 配列にアドレスを追加する。
-        owners.push(owner);
-        alert(owners);
-        // ステート変数を更新する。
-        setOwners(owners);
-        setOwner('');
-    };
-
     // 戻り値
     return (
         <div className="main-container">
@@ -115,25 +103,6 @@ const CreateSafeContractWallet = () => {
             </h2>
             <label>Wallet Name</label>
             <TextField id="outlined-bare" className={classes.textField} placeholder="Wallet Name" margin="normal" onChange={ (e) => setWalletName(e.target.value) } variant="outlined" inputProps={{ 'aria-label': 'bare' }} />
-            <label>Threshold</label>
-            <TextField id="outlined-bare2" className={classes.textField} placeholder="Threshold" margin="normal" onChange={ (e) => setThreshold(e.target.value) } variant="outlined" inputProps={{ 'aria-label': 'bare' }} />
-            <Button onClick={addAddress} variant="contained" color="inherit" className={classes.button}> + </Button>
-            <label>Owners's addresses</label>
-            <TextField id="outlined-bare3" className={classes.textField} placeholder="Owners's addresses" margin="normal" onChange={ (e) => setOwner(e.target.value) } variant="outlined" inputProps={{ 'aria-label': 'bare' }} />
-            {(
-                () => { if(owners.length >= 1) {
-                    return (
-                        <p>Current Owners's address</p>
-                    );
-                }}
-            )}
-            {owners.map((ownerAddress, index) => {
-                return (
-                    <div key={index}>
-                        <input type='text' value={ownerAddress} name='owneraddress' disabled="disabled"/>
-                    </div>
-                );
-            })}
             <Button onClick={handleSubmit} variant="contained" className={classes.button}>create!</Button>
         </div>
     );

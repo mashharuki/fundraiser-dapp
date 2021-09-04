@@ -191,7 +191,7 @@ const WalletCard = (props) => {
                         ChainId : {chainId}
                     </DialogContentText>
                         <Button variant="contained" className={classes.button}>
-                            <Link to={{ pathname: '/walletSetUp'}}>
+                            <Link to={{ pathname: '/walletSetUp',  state: {gonosisSafe, version, address, nonce, threshold, chainId}}}>
                                 初期設定
                             </Link>
                         </Button>
