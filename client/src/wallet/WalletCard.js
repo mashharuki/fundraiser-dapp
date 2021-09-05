@@ -71,6 +71,7 @@ const WalletCard = (props) => {
     const [ chainId, setChainId ] = useState(null);
     const [ nonce, setNonce ] = useState(null);
     const [ threshold, setThreshold ] = useState(null);
+    const [ domainSeparator, setDomainSeparator ] = useState(null);
     const [ address, setAddress ] = useState(null);
     const [ data, setData ] = useState(null);
     const [ fallbackHandler, setFallbackHandler ] = useState(null);
@@ -123,12 +124,14 @@ const WalletCard = (props) => {
             const threshold = await instance.methods.getThreshold().call();
             const nonce = await instance.methods.nonce().call();
             const chainId = await instance.methods.getChainId().call();
+            const domainSeparator = await instance.methods.domainSeparator().call();
             // ステート変数にセットする。
             setWalletName(walletName);
             setVersion(version);
             setThreshold(threshold);
             setNonce(nonce);
             setChainId(chainId);
+            setDomainSeparator(domainSeparator);
         } catch (error) {
             alert(`Failed to load web3, accounts, or contract. Check console for details.`,);
             console.error(error);
@@ -189,6 +192,8 @@ const WalletCard = (props) => {
                         Currnet Threshold : {threshold}
                         <br/>
                         ChainId : {chainId}
+                        <br/>
+                        DomainSeparator : {domainSeparator}
                     </DialogContentText>
                         <Button variant="contained" className={classes.button}>
                             <Link to={{ pathname: '/walletSetUp',  state: {wallet, version, address, nonce, threshold, chainId}}}>

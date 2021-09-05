@@ -422,7 +422,7 @@ contract GnosisSafe is
     }
 
     /**
-     * 署名済トランザクションのハッシュ値を取得する関数
+     * トランザクションのハッシュ値を取得する関数
      * @param to Destination address.
      * @param value Ether value.
      * @param data Data payload.
