@@ -196,7 +196,7 @@ const WalletCard = (props) => {
                         DomainSeparator : {domainSeparator}
                     </DialogContentText>
                         <Button variant="contained" className={classes.button}>
-                            <Link to={{ pathname: '/walletSetUp',  state: {wallet, version, address, nonce, threshold, chainId}}}>
+                            <Link to={{ pathname: '/walletSetUp', state: { wallet, version, address, nonce, threshold, chainId }}}>
                                 初期設定
                             </Link>
                         </Button>
@@ -206,13 +206,13 @@ const WalletCard = (props) => {
                         </Button>
                         <br/>
                         <Button variant="contained" className={classes.button}>
-                            <Link to={{ pathname: '/execTransaction'}}>
+                            <Link to={{ pathname: '/execTransaction', state: { wallet, version, address, nonce, threshold, chainId }}}>
                                 送金
                             </Link>
                         </Button>
                         <br/>
                         <Button variant="contained" className={classes.button}>
-                            <Link to={{ pathname: '/getTxHash' }}>
+                            <Link to={{ pathname: '/getTxHash', state: { wallet, version, address, nonce, threshold, chainId }}}>
                                 Txハッシュ取得
                             </Link>
                         </Button>
