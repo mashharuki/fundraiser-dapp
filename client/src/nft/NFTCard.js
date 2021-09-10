@@ -289,8 +289,8 @@ const NFTCard = (props) => {
                         </Button>
                         <br/>
                         <TextField id="outlined-bare5" className={classes.textField} placeholder="To" margin="normal" onChange={ (e) => setTo(e.target.value) } variant="outlined" inputProps={{ 'aria-label': 'bare' }} />
-                        <Button onClick={buttonBurn} variant="contained" color="primary" className={classes.button}>
-                            NFT償却
+                        <Button onClick={buttonTransferFrom} variant="contained" color="primary" className={classes.button}>
+                            NFT移転
                         </Button>
                     </DialogContentText>
                 </DialogContent>

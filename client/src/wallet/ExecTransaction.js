@@ -46,7 +46,7 @@ const useStyles = makeStyles (theme => ({
 /**
  * ExecTransactionコンポーネント
  */
- const ExecTransaction = () => {
+ const ExecTransaction = (props) => {
     // ステート変数を定義する。
     const [ gonosisSafe, setGonosisSafe ] = useState(null);
     const [ web3, setWeb3 ] = useState(null);
