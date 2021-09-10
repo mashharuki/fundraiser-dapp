@@ -100,7 +100,10 @@ const useStyles = makeStyles (theme => ({
             const accounts = await web3.eth.getAccounts();
             const instance = new web3.eth.Contract(GnosisSafeContract.abi, gonosisSafe);
             // execTransaction関数の呼び出し。
-            result = instance.methods.execTransaction(to, value, data, operation, safeTxGas, baseGas, gasPrice, gasToken, refundReceiver, signatures).send({ from: accounts[0] });
+            result = instance.methods.execTransaction(to, value, data, operation, safeTxGas, baseGas, gasPrice, gasToken, refundReceiver, signatures).send({ 
+                from: accounts[0],
+                gas: 650000
+            });
             alert("result：", result);
             alert(`Successfully execute a transaction.`);
         } catch (error) {

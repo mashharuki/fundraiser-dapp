@@ -98,7 +98,10 @@ const WalletSetUp = (props) => {
             const accounts = await web3.eth.getAccounts();
             const instance = new web3.eth.Contract(GnosisSafeContract.abi, gonosisSafe);
             // setup関数の呼び出し。
-            instance.methods.setup(owners, threshold, to, data, fallbackHandler, paymentToken, payment, paymentReceiver).send({ from: accounts[0] });
+            instance.methods.setup(owners, threshold, to, data, fallbackHandler, paymentToken, payment, paymentReceiver).send({ 
+                from: accounts[0],
+                gas: 650000 
+            });
             alert(`Successfully setup a wallet.`);
         } catch (error) {
             alert(`Failed to setup a wallet.`);
@@ -138,6 +141,7 @@ const WalletSetUp = (props) => {
                     <br/>
                     ChainId : {chainId}
                 </div>
+                <br/>
                 <div>
                     <label>Owners Address</label>
                     <TextField 
