@@ -82,7 +82,7 @@ const useStyles = makeStyles (theme => ({
         setNonce(nonce);
         setThreshold(threshold);
         setChainId(chainId);
-    });
+    }, []);
 
     // アカウントが切り替わったら画面を更新する。
     window.ethereum.on('accountsChanged', function (accounts) {

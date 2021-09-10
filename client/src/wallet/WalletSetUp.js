@@ -152,6 +152,7 @@ const WalletSetUp = (props) => {
                     <Button onClick={addAddress} variant="contained" color="inherit" className={classes.button}> 
                         + 
                     </Button>
+                    <br/>
                     {(
                         () => { if(owners.length >= 1) {
                             return (
