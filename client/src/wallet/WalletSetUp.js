@@ -54,6 +54,7 @@ const WalletSetUp = (props) => {
     const [ version, setVersion ] = useState(null);
     const [ chainId, setChainId ] = useState(null);
     const [ nonce, setNonce ] = useState(null);
+    const [ currnetThreshold, setCurrnetThreshold ] = useState(null);
     const [ threshold, setThreshold ] = useState(null);
     const [ address, setAddress ] = useState(null);
     const [ data, setData ] = useState(null);
@@ -78,7 +79,7 @@ const WalletSetUp = (props) => {
         setVersion(version);
         setAddress(address);
         setNonce(nonce);
-        setThreshold(threshold);
+        setCurrnetThreshold(threshold);
         setChainId(chainId);
     }, []);
 
@@ -102,6 +103,8 @@ const WalletSetUp = (props) => {
                 from: accounts[0],
                 gas: 650000 
             });
+            // ステート変数を更新する。
+            setCurrnetThreshold(threshold);
             alert(`Successfully setup a wallet.`);
         } catch (error) {
             alert(`Failed to setup a wallet.`);
@@ -137,7 +140,7 @@ const WalletSetUp = (props) => {
                     <br/>
                     Current Nonce : {nonce}
                     <br/>
-                    Currnet Threshold : {threshold}
+                    Currnet Threshold : {currnetThreshold}
                     <br/>
                     ChainId : {chainId}
                 </div>
