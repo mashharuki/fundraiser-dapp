@@ -118,6 +118,17 @@ http:localhost:3000/ にアクセスすると最初のページが表示され�
 buildしたい場合は、次のコマンドを打つこと！  
 `npm run build` 
 
+## 主なエラーについて
+
+1. `Error: VM Exception while processing transaction: revert`  
+コントラクトファイルなどのrequire()文の条件に反しているなどが考えられるため、入力したアドレスなどを見直す。もしくは、require()文の条件を見直すこと。
+
+2. `Error: VM Exception while processing transaction: invalid opcode`  
+存在しない関数などを呼びだそうとしている時に発生するため、スペルや大文字小文字を確認する。
+
+3. `Error: VM Exception while processing transaction: out of gas`  
+gasが足りない時に発生するため、設定を見直すこと。send()メソッドを呼び出すときに、明示的にgasの量を指定すると治る。
+
 ### GitHub Actions設定(調整中)
 
 1. CodeQL
@@ -164,3 +175,5 @@ buildしたい場合は、次のコマンドを打つこと！
 <a href="https://docs.gnosis.io/safe/docs/contracts_deployment/">safe contractsについての紹介ページ</a>
 
 <a href="https://github.com/gnosis/safe-contracts/tree/main/contracts">safe contractsのGitHub</a>
+
+<a href="https://blog.mktia.com/solve-the-error-vm-exception/">Error対処法</a>
