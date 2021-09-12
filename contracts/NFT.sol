@@ -19,8 +19,6 @@ contract NFT is ERC721PresetMinterPauserAutoId {
     string nftSymbol;
     // URL
     string nftUrl;
-    // MINTER権限を持つアドレス
-    address msgsender;
 
     /**
      * コンストラクター 
@@ -30,7 +28,6 @@ contract NFT is ERC721PresetMinterPauserAutoId {
         nftName = name_;
         nftSymbol = symbol_;
         nftUrl = url_;
-        msgsender = _msgSender();
     }
 
     /**
