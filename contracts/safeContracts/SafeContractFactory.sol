@@ -29,13 +29,25 @@ contract SafeContractFactory {
     /**
      * GnosisSafeのインスタンス生成関数
      */
-    function createSafeContract (string memory walletName_) public {
-        // インスタンスを生成
-        GnosisSafe safecontract = new GnosisSafe (walletName_);
-        // 配列に格納する。
-        _safecontracts.push(safecontract);
-        // イベントの発行
-        emit SafeContractCreated(safecontract, walletName_);
+    function createSafeContract (
+            string memory walletName_,
+            address[] calldata _owners,
+            uint256 _threshold,
+            address to,
+            bytes calldata data,
+            address fallbackHandler,
+            address paymentToken,
+            uint256 payment,
+            address payable paymentReceiver
+        ) public {
+            // インスタンスを生成
+            GnosisSafe safecontract = new GnosisSafe (walletName_);
+            // setup関数の呼び出し
+            safecontract.setup(_owners, _threshold, to, data, fallbackHandler, paymentToken, payment, paymentReceiver);
+            // 配列に格納する。
+            _safecontracts.push(safecontract);
+            // イベントの発行
+            emit SafeContractCreated(safecontract, walletName_);
     }
 
     /**

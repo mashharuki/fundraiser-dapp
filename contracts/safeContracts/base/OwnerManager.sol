@@ -33,6 +33,7 @@ contract OwnerManager is SelfAuthorized {
      */
     function setupOwners(address[] memory _owners, uint256 _threshold) internal {
         // Threshold can only be 0 at initialization.
+        threshold = 0;
         // Check ensures that setup function can only be called once.
         require(threshold == 0, "GS200");
         // Validate that threshold is smaller than number of added owners.

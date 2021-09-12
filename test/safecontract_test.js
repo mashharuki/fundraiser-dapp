@@ -25,7 +25,7 @@ contract ("GnosisSafe test", accounts => {
     // 支払いに使用するトークンのアドレス(ETHを使用する場合は、0x0)
     const paymentToken  = "0x0000000000000000000000000000000000000000";
     // 支払金
-    const payment = 100000;
+    const payment = 10;
     // 受取人のアドレス
     const paymentReceiver = "0x49132B93cA82bA98532114Adc81fb7fC58b2A7a7";
 

@@ -61,10 +61,9 @@ contract GnosisSafe is
     constructor(string memory walletName_) {
         // By setting the threshold it is not possible to call setup anymore,
         // so we create a Safe with 0 owners and threshold 1.
-        // This is an unusable Safe, perfect for the singleton
-        threshold = 1;
         // ウォレットの名前を設定する。
         walletName = walletName_;
+        threshold = 0;
     }
 
     /** 
