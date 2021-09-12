@@ -73,14 +73,6 @@ const WalletCard = (props) => {
     const [ threshold, setThreshold ] = useState(null);
     const [ domainSeparator, setDomainSeparator ] = useState(null);
     const [ address, setAddress ] = useState(null);
-    const [ data, setData ] = useState(null);
-    const [ fallbackHandler, setFallbackHandler ] = useState(null);
-    const [ paymentToken, setpaymentToken ] = useState(null);
-    const [ payment, setPayment ] = useState(null);
-    const [ paymentReceiver, PaymentReceiver ] = useState(null);
-    const [ to, setTo ] = useState(null);
-    const [ owner, setOwner ] = useState(null);
-    const [ owners, setOwners ] = useState([]);
     const [ contract, setContract] = useState(null);
     const [ accounts, setAccounts ] = useState(null);
     const [ open, setOpen ] = useState(false);
@@ -195,12 +187,6 @@ const WalletCard = (props) => {
                         <br/>
                         DomainSeparator : {domainSeparator}
                     </DialogContentText>
-                        <Button variant="contained" className={classes.button}>
-                            <Link to={{ pathname: '/walletSetUp', state: { wallet, version, address, nonce, threshold, chainId }}}>
-                                初期設定
-                            </Link>
-                        </Button>
-                        <br/>
                         <Button onClick={buttonOwners} variant="contained" color="primary" className={classes.button}>
                             ウォレット所有者確認
                         </Button>

@@ -98,10 +98,36 @@ const Nft = () => {
             <h2>
                 NFT用トップページ
             </h2>
-            <TextField id="outlined-bare" className={classes.textField} placeholder="NFT Name" margin="normal" onChange={ (e) => setName(e.target.value) } variant="outlined" inputProps={{ 'aria-label': 'bare' }} />
-            <TextField id="outlined-bare2" className={classes.textField} placeholder="NFT Symbol" margin="normal" onChange={ (e) => setSymbol(e.target.value) } variant="outlined" inputProps={{ 'aria-label': 'bare' }} />
-            <TextField id="outlined-bare3" className={classes.textField} placeholder="NFT URL" margin="normal" onChange={ (e) => setUrl(e.target.value) } variant="outlined" inputProps={{ 'aria-label': 'bare' }} />
-            <Button onClick={buttonDeploy} variant="contained" color="primary" className={classes.button}>NFTデプロイ</Button>
+            <TextField 
+                id="name" 
+                className={classes.textField} 
+                placeholder="NFT Name" 
+                margin="normal" 
+                onChange={ (e) => setName(e.target.value) } 
+                variant="outlined" 
+                inputProps={{ 'aria-label': 'bare' }} 
+            />
+            <TextField 
+                id="symbol" 
+                className={classes.textField} 
+                placeholder="NFT Symbol" 
+                margin="normal" 
+                onChange={ (e) => setSymbol(e.target.value) } 
+                variant="outlined" 
+                inputProps={{ 'aria-label': 'bare' }} 
+            />
+            <TextField 
+                id="url" 
+                lassName={classes.textField} 
+                placeholder="NFT URL" 
+                margin="normal" 
+                onChange={ (e) => setUrl(e.target.value) } 
+                variant="outlined" 
+                inputProps={{ 'aria-label': 'bare' }} 
+            />
+            <Button onClick={buttonDeploy} variant="contained" color="primary" className={classes.button}>
+                NFTデプロイ
+            </Button>
             <br/>
         </div>
     );
