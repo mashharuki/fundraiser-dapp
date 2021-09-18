@@ -80,7 +80,7 @@ const FundraiserCard = (props) => {
     const [ exchangeRate, setExchangeRate ] = useState(null);
     const [ userDonations, setUserDonations ] = useState(null);
     const [ isOwner, setIsOwner ] = useState(false);
-    const [ beneficiary, setNewBeneficiary ] = useState(null);
+    const [ newBeneficiary, setNewBeneficiary ] = useState(null);
     //ETH変換用変数
     const ethAmount =  (donationAmount / exchangeRate || 0).toFixed(4);
 
@@ -122,15 +122,17 @@ const FundraiserCard = (props) => {
             setImageURL(imageURL);
             setURL(url);
             // 現在の為替レートを取得する。
-            const exchangeRate = await cc.price('ETH', ['USD'])
-                                            .then(prices => {
-                                                alert("price:", prices.USD);
+            var exchangeRate = 0;
+            
+            await cc.price('ETH', ['USD']).then(prices => {
+                                                console.log("price:", prices.USD);
+                                                exchangeRate = prices.USD;
                                                 setExchangeRate(prices.USD);
                                             }).catch(console.error);
             // 金額と通貨を渡す。
             const eth = web3.utils.fromWei(totalDonations, 'ether');
-            alert("eth:", eth);
-            alert("exchangeRate:", exchangeRate);
+            console.log("eth:", eth);
+            console.log("exchangeRate:", exchangeRate);
             const dollarDonationAmount = exchangeRate * eth;
             // 合計寄付額のステート変数をセットする。
             setTotalDonations(dollarDonationAmount.toFixed(2));
@@ -196,7 +198,7 @@ const FundraiserCard = (props) => {
     // コントラクトを呼び出して受取人を変更する関数
     const setBeneficiary = async() => {
         // 受取人変更する関数を呼び出す。
-        await contract.methods.setBeneficiary(beneficiary).send({ from: accounts[0] });
+        await contract.methods.setBeneficiary(newBeneficiary).send({ from: accounts[0] });
         // アラートを出す。
         alert(`Fundraiser Beneficiary Changed`);
         setOpen(false);
@@ -268,7 +270,7 @@ const FundraiserCard = (props) => {
                             <div>
                                 <FormControl className={classes.formControl}>
                                     Beneficiary:
-                                    <Input value={beneficiary} onChange={ (e) => setNewBeneficiary(e.target.values) } placeholder="Set Beneficiary" />
+                                    <Input value={newBeneficiary} onChange={ (e) => setNewBeneficiary(e.target.value) } placeholder="Set Beneficiary" />
                                 </FormControl>
                                 <Button variant="contained" style={{ marginTop: 20 }} color="primary" onClick={setBeneficiary} >
                                     Set Beneficiary
