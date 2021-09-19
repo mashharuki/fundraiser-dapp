@@ -82,14 +82,12 @@ const Nft = () => {
         const networkId = await web3.eth.net.getId();
         const deployedNetwork = NFTFactoryContract.networks[networkId];
         const instance = new web3.eth.Contract(NFTFactoryContract.abi, deployedNetwork && deployedNetwork.address,);
+        console.log(accounts[0])
         // コントラクトをデプロイする。
-        await instance.methods.createNFT(name, symbol, url).send({ from: accounts[0] });
-        // ネットワーク情報を取得する。
-        const net = NFTFactoryContract.networks[netID];
-        // rinkebyだった場合出力する。
-        if( net.chainId == 4) {
-            alert("https://rinkeby.etherscan.io/tx/" + instance.deployTransaction.hash);
-        }
+        await instance.methods.createNFT(name, symbol, url).send({ 
+            from: accounts[0],
+            gas: 65000
+        });
     } 
   
     // 戻り値を設定する。

@@ -121,18 +121,15 @@ const FundraiserCard = (props) => {
             setDescription(description);
             setImageURL(imageURL);
             setURL(url);
-            // 現在の為替レートを取得する。
-            var exchangeRate = 0;
             
+            var exchangeRate = 0;
+            // 現在の為替レートを取得する。
             await cc.price('ETH', ['USD']).then(prices => {
-                                                console.log("price:", prices.USD);
                                                 exchangeRate = prices.USD;
                                                 setExchangeRate(prices.USD);
                                             }).catch(console.error);
             // 金額と通貨を渡す。
             const eth = web3.utils.fromWei(totalDonations, 'ether');
-            console.log("eth:", eth);
-            console.log("exchangeRate:", exchangeRate);
             const dollarDonationAmount = exchangeRate * eth;
             // 合計寄付額のステート変数をセットする。
             setTotalDonations(dollarDonationAmount.toFixed(2));

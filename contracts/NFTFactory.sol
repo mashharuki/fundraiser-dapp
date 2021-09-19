@@ -15,6 +15,10 @@ contract NFTFactory {
     NFT[] private _NFTs;
     // nfts関数から返すことのできる最大値
     uint256 constant maxLimit = 20;
+    // MINTER_ROLEのkeccak256の値
+    bytes32 minter_role = 0x9f2df0fed2c77648de5860a4cc508cd0818c85b8b8a1ab4ceeef8d981c8956a6;
+    // PAUSER_ROLEのkecak256の値
+    bytes32 pauser_role = 0x65d7a28e3265b37a6474929f336521b332c1681b933f6cb9f3376673440d862a;
     // NFT作成時に呼び出すイベント
     event NFTCreated (NFT indexed nft,string name, string symbol, string url);
 
@@ -31,6 +35,9 @@ contract NFTFactory {
     function createNFT (string memory name, string memory symbol, string memory url) public {
         // インスタンスを生成
         NFT nft = new NFT (name, symbol, url);
+        // MINTER権限とPAUSER権限を付与する。
+        nft.grantRole(minter_role, msg.sender);
+        nft.grantRole(pauser_role, msg.sender);
         // 配列に格納する。
         _NFTs.push(nft);
         // イベントの発行

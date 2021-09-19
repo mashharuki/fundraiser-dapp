@@ -155,6 +155,7 @@ const NFTCard = (props) => {
         const instance = new web3.eth.Contract(NFTContract.abi, nft);
         // minter権限を持つアカウントアドレスを取得する。
         const minterRole = instance.methods.MINTER_ROLE().call();
+        console.log(minterRole);
         alert("MINTER_ROLE : ", minterRole);
     }
 
@@ -168,17 +169,12 @@ const NFTCard = (props) => {
         const networkId = await web3.eth.net.getId();
         const deployedNetwork = NFTContract.networks[networkId];
         const instance = new web3.eth.Contract(NFTContract.abi, nft);
+        console.log(accounts[0]);
         // NFTコントラクトのmint関数を実行する。
-        const { hash } = await instance.methods.mint(accounts[0]).send({ 
+        const { hash } = await instance.methods.mint(to).send({ 
             from: accounts[0],
             gas: 650000
         });
-        // ネットワーク情報を取得する。
-        const net = NFTContract.networks[networkId];
-        // rinkebyだった場合出力する。
-        if( net.chainId == 4) {
-            alert("https://rinkeby.etherscan.io/tx/" + hash);
-        }
     }
   
     /**
@@ -289,16 +285,15 @@ const NFTCard = (props) => {
                         </Button>
                         <br/>
                         <TextField id="outlined-bare5" className={classes.textField} placeholder="To" margin="normal" onChange={ (e) => setTo(e.target.value) } variant="outlined" inputProps={{ 'aria-label': 'bare' }} />
+                        <Button onClick={buttonMint} variant="contained" color="primary" className={classes.button}>
+                            NFT発行
+                        </Button>
+                        <br/>
                         <Button onClick={buttonTransferFrom} variant="contained" color="primary" className={classes.button}>
                             NFT移転
                         </Button>
                     </DialogContentText>
                 </DialogContent>
-                <DialogActions>
-                    <Button onClick={buttonMint} variant="contained" color="primary" className={classes.button}>
-                        発行
-                    </Button>
-                </DialogActions>
             </Dialog>
             <Card className={classes.card} onClick={handleOpen}>
                 <CardActionArea>
