@@ -129,6 +129,8 @@ buildしたい場合は、次のコマンドを打つこと！
 3. `Error: VM Exception while processing transaction: out of gas`  
 gasが足りない時に発生するため、設定を見直すこと。send()メソッドを呼び出すときに、明示的にgasの量を指定すると治る。
 
+※SafeContractのエラー詳細についてはこちらを<a href="https://github.com/gnosis/safe-contracts/blob/main/docs/error_codes.md">参照</a>。
+
 ### GitHub Actions設定(調整中)
 
 1. CodeQL

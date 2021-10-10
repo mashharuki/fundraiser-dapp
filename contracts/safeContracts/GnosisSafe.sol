@@ -63,7 +63,7 @@ contract GnosisSafe is
         // so we create a Safe with 0 owners and threshold 1.
         // ウォレットの名前を設定する。
         walletName = walletName_;
-        threshold = 0;
+        threshold = 1;
     }
 
     /** 

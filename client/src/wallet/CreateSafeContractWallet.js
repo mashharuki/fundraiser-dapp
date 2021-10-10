@@ -99,7 +99,7 @@ const CreateSafeContractWallet = () => {
             // コントラクトのcreateSafeContract関数を呼び出す。
             await instance.methods.createSafeContract(walletName, owners, threshold, to, data, fallbackHandler, paymentToken, payment, paymentReceiver).send({ 
                 from: accounts[0],
-                gas: 65000
+                gas: 650000
             });
             // アラートを出す。
             alert('Successfully created SafeContractWallet');
