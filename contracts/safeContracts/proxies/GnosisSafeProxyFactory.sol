@@ -11,6 +11,10 @@ import "./IProxyCreationCallback.sol";
  * @author Stefan George - <stefan@gnosis.pm>
  */
 contract GnosisSafeProxyFactory {
+    // GnosisSafeProxy型の配列
+    GnosisSafeProxy[] private _proxys;
+    // proxys関数から返すことのできる最大値
+    uint256 constant maxLimit = 20;
     // イベントの定義
     event ProxyCreation(GnosisSafeProxy proxy, address singleton);
 
@@ -113,5 +117,32 @@ contract GnosisSafeProxyFactory {
     ) external returns (GnosisSafeProxy proxy) {
         proxy = deployProxyWithNonce(_singleton, initializer, saltNonce);
         revert(string(abi.encodePacked(proxy)));
+    }
+
+    /**
+     * インスタンス数を取得する関数
+     */
+    function proxysCount () public view returns (uint256) {
+        return _proxys.length;
+    }
+
+    /**
+     * コレクションを返す関数
+     */
+    function proxys (uint256 limit, uint256 offset) public view returns (GnosisSafeProxy[] memory coll) {
+        
+        require (offset <= proxysCount(), "offset out of bounds");
+        // 最大値を上回っている場合は、limitを格納する。
+        uint256 size = proxysCount() - offset;
+        size = size < limit ? size : limit;
+        // sizeは、maxLimitを超えてはならない。
+        size = size < maxLimit ? size : maxLimit;
+        coll = new GnosisSafeProxy[](size);
+
+        for (uint256 i = 0; i < size; i++) {
+            coll[i] = _proxys[offset + i];
+        }
+
+        return coll;    
     }
 }
