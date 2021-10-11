@@ -35,6 +35,9 @@ contract GnosisSafeProxyFactory {
                     revert(0, 0)
                 }
             }
+        // 配列に格納する
+        _proxys.push(proxy);
+        // イベントを発行する
         emit ProxyCreation(proxy, singleton);
     }
 

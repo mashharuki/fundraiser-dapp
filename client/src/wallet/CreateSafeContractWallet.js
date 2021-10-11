@@ -10,6 +10,7 @@ import Button from '@material-ui/core/Button';
 import detectEthereumProvider from '@metamask/detect-provider';
 import getWeb3 from '../getWeb3';
 import SafeContractFactoryContract from '../contracts/SafeContractFactory.json';
+import GnosisSafeProxyFactoryContract from '../contracts/GnosisSafeProxyFactory.json'
 import Web3 from 'web3'
 
 // useStyles関数
@@ -63,9 +64,9 @@ const CreateSafeContractWallet = () => {
             const provider = await detectEthereumProvider();
             const web3 = new Web3(provider);
             const networkId = await web3.eth.net.getId();
-            const deployedNetwork = SafeContractFactoryContract.networks[networkId];
+            const deployedNetwork = GnosisSafeProxyFactoryContract.networks[networkId];
             const accounts = await web3.eth.getAccounts();
-            const instance = new web3.eth.Contract(SafeContractFactoryContract.abi, deployedNetwork && deployedNetwork.address,);
+            const instance = new web3.eth.Contract(GnosisSafeProxyFactoryContract.abi, deployedNetwork && deployedNetwork.address,);
             // Web3を設定する。
             setWeb3(web3);
             // コントラクトをセットする。
@@ -92,15 +93,24 @@ const CreateSafeContractWallet = () => {
         const provider = await detectEthereumProvider();
         const web3 = new Web3(provider);
         const networkId = await web3.eth.net.getId()
-        const deployedNetwork = SafeContractFactoryContract.networks[networkId];
-        const instance = new web3.eth.Contract(SafeContractFactoryContract.abi, deployedNetwork && deployedNetwork.address,);
+        const deployedNetwork = GnosisSafeProxyFactoryContract.networks[networkId];
+        const deployedNetwork2 = SafeContractFactoryContract.networks[networkId];
+        const instance = new web3.eth.Contract(GnosisSafeProxyFactoryContract.abi, deployedNetwork && deployedNetwork.address,);
+        const instance2 = new web3.eth.Contract(SafeContractFactoryContract.abi, deployedNetwork2 && deployedNetwork2.address,);
 
         try {
-            // コントラクトのcreateSafeContract関数を呼び出す。
-            await instance.methods.createSafeContract(walletName, owners, threshold, to, data, fallbackHandler, paymentToken, payment, paymentReceiver).send({ 
+            // コントラクトのcreateSafeContract関数を呼び出し、まずはロジックコントラクトを作成する。
+            // await instance.methods.createSafeContract(walletName, owners, threshold, to, data, fallbackHandler, paymentToken, payment, paymentReceiver).send({ 
+            const safeContract = await instance2.methods.createSafeContract(walletName).send({
                 from: accounts[0],
                 gas: 650000
             });
+            // proxyコントラクトを作成する。
+            const proxy = await instance.methods.createProxy(safeContract.address, "").send({
+                from: accounts[0],
+                gas: 650000
+            });
+            console.log(proxy.address);
             // アラートを出す。
             alert('Successfully created SafeContractWallet');
         } catch (error) {
