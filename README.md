@@ -213,3 +213,5 @@ gasが足りない時に発生するため、設定を見直すこと。send()�
 <a href="https://github.com/gnosis/safe-contracts/tree/main/contracts">safe contractsのGitHub</a>
 
 <a href="https://blog.mktia.com/solve-the-error-vm-exception/">Error対処法</a>
+
+<a href="https://tech.bitbank.cc/20201222/">Bitbank社のproxypatern解説記事</a>
