@@ -55,6 +55,7 @@ solcのバージョン情報等については、truffle-config.jsを参照く�
 ### 1. fallback()関数
     呼び出したコントラクトに存在しない関数を指定した場合に呼ばれる関数
     proxy patternではこの関数をうまく利用する。
+
 ### 2. solidity assembly (アセンブリ言語での記述方法)
     コード内にアセンブリ言語を使用できるインラインアセンブリがある。
     データサイズを意識することでガスを節約することが可能になります。
@@ -71,6 +72,18 @@ solcのバージョン情報等については、truffle-config.jsを参照く�
     proxyコントラクトとlogicコントラクトに分ける開発方法のこと。
     これにより一度デプロイした後でも呼び出すコントラクトを更新することが
     可能となる。
+
+### 4. Method ID
+    solidityではコントラクトから他のコントラクトの関数を実行する際に、Method IDをFunction Selectorに渡して実行する。
+    関数名と引数の型の文字列をkeccak256でハッシュ化し、頭の4byteを取ったものがMethod IDになります。
+    
+    算出例：
+      bytes4(keccak256("setNum(uint256)") = 0xcd16ecbf
+    
+### 5. calldata
+    callまたはdelegatecallで別のコントラクトを呼び出した時に使用するデータ領域です。
+    calldataは、Method IDと引数(32bytes)を合わせたデータのこと。
+    
 
 ## 画面例
 ### 1. NFT作成画面

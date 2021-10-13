@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Web3 from 'web3';
 import GnosisSafeContract from '../contracts/GnosisSafe.json';
+import GnosisSafeProxy from '../contracts/GnosisSafeProxy.json';
 import detectEthereumProvider from '@metamask/detect-provider';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -92,15 +93,15 @@ const WalletCard = (props) => {
      */
      const init = async (wallet) => {
         try {
-            // GonosisSafeコントラクトの情報を取得する。
-            const gonosisSafe = wallet;
+            // GonosisSafeProxyコントラクトの情報を取得する。
+            const gonosisSafeProxy = wallet;
             // Web3が使えるように設定する。
             const provider = await detectEthereumProvider();
             const web3 = new Web3(provider);
             const networkId = await web3.eth.net.getId();
-            const deployedNetwork = GnosisSafeContract.networks[networkId];
+            const deployedNetwork = GnosisSafeProxy.networks[networkId];
             const accounts = await web3.eth.getAccounts();
-            const instance = new web3.eth.Contract(GnosisSafeContract.abi, gonosisSafe);
+            const instance = new web3.eth.Contract(GnosisSafeProxy.abi, gonosisSafeProxy);
             // Web3をセットする。
             setWeb3 (web3);
             // コントラクトをセットする。
@@ -160,7 +161,7 @@ const WalletCard = (props) => {
         // コントラクトが使えるような設定
         const provider = await detectEthereumProvider();
         const web3 = new Web3(provider);
-        const instance = new web3.eth.Contract(GnosisSafeContract.abi, wallet);
+        const instance = new web3.eth.Contract(GnosisSafeProxy.abi, wallet);
         // 所有者リストを取得する。
         const walletOwners = instance.methods.getOwners().call();
         alert("Owners Addresses : ", walletOwners);

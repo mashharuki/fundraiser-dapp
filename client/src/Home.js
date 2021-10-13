@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import detectEthereumProvider from '@metamask/detect-provider';
 import FundraiserFactoryContract from './contracts/FundraiserFactory.json';
 import NFTFactoryContract from './contracts/NFTFactory.json';
-import SafeContractFactoryContract from './contracts/SafeContractFactory.json';
+import GnosisSafeProxyFactoryContract from '../contracts/GnosisSafeProxyFactory.json';
 import Web3 from "web3";
 import FundraiserCard from './fundraiser/FundraiserCard';
 import NFTCard from "./nft/NFTCard";
@@ -34,7 +34,7 @@ const Home = () => {
             const accounts = await web3.eth.getAccounts();
             const instance = new web3.eth.Contract(FundraiserFactoryContract.abi, deployedNetwork && deployedNetwork.address,);
             const instance2 = new web3.eth.Contract(NFTFactoryContract.abi, deployedNetwork2 && deployedNetwork2.address,);
-            const instance3 = new web3.eth.Contract(SafeContractFactoryContract.abi, deployedNetwork3 && deployedNetwork3.address,);
+            const instance3 = new web3.eth.Contract(GnosisSafeProxyFactoryContract.abi, deployedNetwork3 && deployedNetwork3.address,);
             // コントラクトをセットする。
             setContract (instance);
             // アカウントをセットする。
@@ -43,8 +43,8 @@ const Home = () => {
             const funds = await instance.methods.fundraisers(10, 0).call();
             // コントラクトのnfts()関数を呼びだす。
             const nfts = await instance2.methods.nfts(10, 0).call();
-            // コントラクトのsafeContracts()関数を呼び出す。
-            const wallets = await instance3.methods.safeContracts(10, 0).call();
+            // コントラクトのproxys()関数を呼び出す。
+            const wallets = await instance3.methods.proxys(10, 0).call();
             // ステート変数に設定
             setFunds (funds);
             setNfts (nfts);
@@ -84,7 +84,7 @@ const Home = () => {
      * @returns WalletCardコンポーネント
      */
     const displayWallets = () => {
-        return wallets.map( (wallet) => {
+        return proxys.map( (wallet) => {
             return (
                 <WalletCard wallet={wallet} key={wallet} />
             );

@@ -7,6 +7,7 @@ import React, { useState, useEffect } from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import Web3 from 'web3';
 import GnosisSafeContract from '../contracts/GnosisSafe.json';
+import GnosisSafeProxy from '../contracts/GnosisSafeProxy.json';
 import detectEthereumProvider from '@metamask/detect-provider';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -48,7 +49,7 @@ const useStyles = makeStyles (theme => ({
  */
  const GetTxHash = (props) => {
     // ステート変数を定義する。
-    const [ gonosisSafe, setGonosisSafe ] = useState(null);
+    const [ gonosisSafeProxy, setGonosisSafeProxy ] = useState(null);
     const [ web3, setWeb3 ] = useState(null);
     const [ walletName, setWalletName ] = useState(null);
     const [ address, setAddress ] = useState(null);
@@ -76,7 +77,7 @@ const useStyles = makeStyles (theme => ({
         // 遷移元のウォレットの情報を取得する。
         const { wallet, version, address, nonce, threshold, chainId } = props.location.state;
         // ステート変数をセットする。
-        setGonosisSafe(wallet);
+        setGonosisSafeProxy(wallet);
         setVersion(version);
         setAddress(address);
         setNonce(nonce);
@@ -97,7 +98,7 @@ const useStyles = makeStyles (theme => ({
             // コントラクトを使うための設定
             const provider = await detectEthereumProvider();
             const web3 = new Web3(provider);
-            const instance = new web3.eth.Contract(GnosisSafeContract.abi, gonosisSafe);
+            const instance = new web3.eth.Contract(GnosisSafeProxy.abi, gonosisSafeProxy);
             // setup関数の呼び出し。
             const transactionHash = instance.methods.getTransactionHash(to, value, data, operation, safeTxGas, baseGas, gasPrice, gasToken, refundReceiver, nonce).call();
             setTxHash(transactionHash);

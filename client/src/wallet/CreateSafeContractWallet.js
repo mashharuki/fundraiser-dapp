@@ -10,7 +10,7 @@ import Button from '@material-ui/core/Button';
 import detectEthereumProvider from '@metamask/detect-provider';
 import getWeb3 from '../getWeb3';
 import SafeContractFactoryContract from '../contracts/SafeContractFactory.json';
-import GnosisSafeProxyFactoryContract from '../contracts/GnosisSafeProxyFactory.json'
+import GnosisSafeProxyFactoryContract from '../contracts/GnosisSafeProxyFactory.json';
 import Web3 from 'web3'
 
 // useStyles関数
@@ -99,8 +99,7 @@ const CreateSafeContractWallet = () => {
         const instance2 = new web3.eth.Contract(SafeContractFactoryContract.abi, deployedNetwork2 && deployedNetwork2.address,);
 
         try {
-            // コントラクトのcreateSafeContract関数を呼び出し、まずはロジックコントラクトを作成する。
-            // await instance.methods.createSafeContract(walletName, owners, threshold, to, data, fallbackHandler, paymentToken, payment, paymentReceiver).send({ 
+            // コントラクトのcreateSafeContract関数を呼び出し、まずはロジックコントラクトを作成する。 
             const safeContract = await instance2.methods.createSafeContract(walletName).send({
                 from: accounts[0],
                 gas: 650000
