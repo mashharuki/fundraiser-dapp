@@ -11,7 +11,8 @@ import detectEthereumProvider from '@metamask/detect-provider';
 import getWeb3 from '../getWeb3';
 import SafeContractFactoryContract from '../contracts/SafeContractFactory.json';
 import GnosisSafeProxyFactoryContract from '../contracts/GnosisSafeProxyFactory.json';
-import Web3 from 'web3'
+import Web3 from 'web3';
+import { ethers } from "ethers";
 
 // useStyles関数
 const useStyles = makeStyles (theme => ({
@@ -35,18 +36,11 @@ const CreateSafeContractWallet = () => {
     // 各種ステート変数を定義する。
     const [ web3, setWeb3 ] = useState(null);
     const [ networkId, setNetworkId ] = useState(null);
-    const [ threshold, setThreshold ] = useState(null);
-    const [ owner, setOwner ] = useState(null);
-    const [ owners, setOwners ] = useState([]);
     const [ contract, setContract] = useState(null);
     const [ accounts, setAccounts ] = useState(null);
     const [ walletName, setWalletName ] = useState(null);
+    const [ message, setMessage ] = useState(null);
     const [ data, setData ] = useState(null);
-    const [ fallbackHandler, setFallbackHandler ] = useState(null);
-    const [ paymentToken, setPaymentToken ] = useState(null);
-    const [ payment, setPayment ] = useState(null);
-    const [ paymentReceiver, setPaymentReceiver ] = useState(null);
-    const [ to, setTo ] = useState(null);
     // スタイルクラス用の変数を定義する。
     const classes = useStyles();
 
@@ -97,6 +91,8 @@ const CreateSafeContractWallet = () => {
         const deployedNetwork2 = SafeContractFactoryContract.networks[networkId];
         const instance = new web3.eth.Contract(GnosisSafeProxyFactoryContract.abi, deployedNetwork && deployedNetwork.address,);
         const instance2 = new web3.eth.Contract(SafeContractFactoryContract.abi, deployedNetwork2 && deployedNetwork2.address,);
+        // Messageを32バイトデータに変換する。
+        const data = ethers.utils.formatBytes32String(message);
 
         try {
             // コントラクトのcreateSafeContract関数を呼び出し、まずはロジックコントラクトを作成する。 
@@ -105,29 +101,16 @@ const CreateSafeContractWallet = () => {
                 gas: 650000
             });
             // proxyコントラクトを作成する。
-            const proxy = await instance.methods.createProxy(safeContract.options.address, "").send({
+            const proxy = await instance.methods.createProxy(safeContract.to, data).send({
                 from: accounts[0],
                 gas: 650000
             });
-            console.log(proxy.address);
             // アラートを出す。
             alert('Successfully created SafeContractWallet');
         } catch (error) {
             alert(`Failed to create SafeContractWallet.`,);
             console.error(error);
         }
-    };
-
-    /**
-     * +ボタンが押された時の処理
-     */
-     const addAddress = async () => {
-        // 配列にアドレスを追加する。
-        owners.push(owner);
-        alert(owners);
-        // ステート変数を更新する。
-        setOwners(owners);
-        setOwner('');
     };
 
     // 描画する内容
@@ -145,101 +128,13 @@ const CreateSafeContractWallet = () => {
                 onChange={ (e) => setWalletName(e.target.value) } 
                 variant="outlined" 
                 inputProps={{ 'aria-label': 'bare' }} />
-            <label>Owners Address</label>
+            <label>Message</label>
             <TextField 
-                id="address" 
+                id="message" 
                 className={classes.textField} 
                 placeholder="address of Safe owner" 
                 margin="normal" 
-                onChange={ (e) => setOwner(e.target.value) } 
-                variant="outlined" 
-                inputProps={{ 'aria-label': 'bare' }} 
-            />
-            <Button onClick={addAddress} variant="contained" color="inherit" className={classes.button}> 
-                + 
-            </Button>
-            <br/>
-            {(
-                () => { if(owners.length >= 1) {
-                    return (
-                        <p>Current Owners's address</p>
-                    );
-                }}
-            )}
-            {owners.map((ownerAddress, index) => {
-                return (
-                    <div key={index}>
-                        <input type='text' value={ownerAddress} name='owneraddress' disabled="disabled"/>
-                    </div>
-                );
-            })}
-            <label>Threshold</label>
-            <TextField 
-                id="threshold" 
-                className={classes.textField} 
-                placeholder="Threshold" 
-                margin="normal" 
-                onChange={ (e) => setThreshold(e.target.value) } 
-                variant="outlined" 
-                inputProps={{ 'aria-label': 'bare' }} 
-            />
-            <label>To</label>
-            <TextField 
-                id="to" 
-                className={classes.textField} 
-                placeholder="Contract address for optional delegate call" 
-                margin="normal" 
-                onChange={ (e) => setTo(e.target.value) } 
-                variant="outlined" 
-                inputProps={{ 'aria-label': 'bare' }} 
-            />
-            <label>Data</label>
-            <TextField 
-                id="data" 
-                className={classes.textField} 
-                placeholder="Data payload for optional delegate call" 
-                margin="normal" 
-                onChange={ (e) => setData(e.target.value) } 
-                variant="outlined" 
-                inputProps={{ 'aria-label': 'bare' }} 
-            />
-            <label>FallbackHandler</label>
-            <TextField 
-                id="fallbackHandler" 
-                className={classes.textField} 
-                placeholder="Handler for fallback calls to this contract" 
-                margin="normal" 
-                onChange={ (e) => setFallbackHandler(e.target.value) } 
-                variant="outlined" 
-                inputProps={{ 'aria-label': 'bare' }} 
-            />
-            <label>PaymentToken</label>
-            <TextField 
-                id="paymentToken" 
-                className={classes.textField} 
-                placeholder="Token that should be used for the payment (0x0 is ETH)" 
-                margin="normal" 
-                onChange={ (e) => setPaymentToken(e.target.value) } 
-                variant="outlined" 
-                inputProps={{ 'aria-label': 'bare' }} 
-            />
-            <label>Payment</label>
-            <TextField 
-                id="payment" 
-                className={classes.textField} 
-                placeholder="Value that should be paid" 
-                margin="normal" 
-                onChange={ (e) => setPayment(e.target.value) } 
-                variant="outlined" 
-                inputProps={{ 'aria-label': 'bare' }} 
-            />
-            <label>PaymentReceiver</label>
-            <TextField 
-                id="paymentReceiver" 
-                className={classes.textField} 
-                placeholder="Address that should receive the payment (or 0 if tx.origin)" 
-                margin="normal" 
-                onChange={ (e) => setPaymentReceiver(e.target.value) } 
+                onChange={ (e) => setMessage(e.target.value) } 
                 variant="outlined" 
                 inputProps={{ 'aria-label': 'bare' }} 
             />

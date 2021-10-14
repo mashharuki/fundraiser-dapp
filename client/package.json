@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@metamask/detect-provider": "^1.2.0",
+    "ethers": "^5.4.7",
     "react": "16.11.0",
     "react-dom": "16.11.0",
     "react-router-dom": "^5.2.0",
