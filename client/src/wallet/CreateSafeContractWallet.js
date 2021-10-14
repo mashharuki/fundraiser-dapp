@@ -105,7 +105,7 @@ const CreateSafeContractWallet = () => {
                 gas: 650000
             });
             // proxyコントラクトを作成する。
-            const proxy = await instance.methods.createProxy(safeContract.address, "").send({
+            const proxy = await instance.methods.createProxy(safeContract.options.address, "").send({
                 from: accounts[0],
                 gas: 650000
             });
