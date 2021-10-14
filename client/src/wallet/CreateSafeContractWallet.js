@@ -12,7 +12,6 @@ import getWeb3 from '../getWeb3';
 import SafeContractFactoryContract from '../contracts/SafeContractFactory.json';
 import GnosisSafeProxyFactoryContract from '../contracts/GnosisSafeProxyFactory.json';
 import Web3 from 'web3';
-import { ethers } from "ethers";
 
 // useStyles関数
 const useStyles = makeStyles (theme => ({
@@ -92,7 +91,7 @@ const CreateSafeContractWallet = () => {
         const instance = new web3.eth.Contract(GnosisSafeProxyFactoryContract.abi, deployedNetwork && deployedNetwork.address,);
         const instance2 = new web3.eth.Contract(SafeContractFactoryContract.abi, deployedNetwork2 && deployedNetwork2.address,);
         // Messageを32バイトデータに変換する。
-        const data = ethers.utils.formatBytes32String(message);
+        const data = string2hexs(message);
 
         try {
             // コントラクトのcreateSafeContract関数を呼び出し、まずはロジックコントラクトを作成する。 
@@ -112,6 +111,16 @@ const CreateSafeContractWallet = () => {
             console.error(error);
         }
     };
+
+    /**
+     * 文字列を16進数の文字列に変換する関数
+     */
+    function string2hexs (text) {
+        var bytes = text.split('').map(char => char.charCodeAt(0));
+        var hexs = bytes.map(byte => byte.toString(16));
+        console.log(hexs);
+        return hexs;
+    }
 
     // 描画する内容
     return (
