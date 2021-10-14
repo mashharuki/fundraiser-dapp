@@ -1,13 +1,13 @@
 /**
- * SafeContract用のproxy Contractデプロイ用のファイル
+ * SafeContract用のproxyFactoryContractデプロイ用のファイル
  */
 
- const GnosisSafeProxyContract = artifacts.require("GnosisSafeProxy");
+ const GnosisSafeProxyFactoryContract = artifacts.require("GnosisSafeProxyFactory");
 
  /**
   * GnosisSafeProxyContractをデプロイする。
   */
  module.exports = function (deployer) {
      // デプロイする。
-     deployer.deploy(GnosisSafeProxyContract);
+     deployer.deploy(GnosisSafeProxyFactoryContract);
  }
