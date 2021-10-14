@@ -30,7 +30,7 @@ const Home = () => {
             const networkId = await web3.eth.net.getId();
             const deployedNetwork = FundraiserFactoryContract.networks[networkId];
             const deployedNetwork2 = NFTFactoryContract.networks[networkId];
-            const deployedNetwork3 = SafeContractFactoryContract.networks[networkId];
+            const deployedNetwork3 = GnosisSafeProxyFactoryContract.networks[networkId];
             const accounts = await web3.eth.getAccounts();
             const instance = new web3.eth.Contract(FundraiserFactoryContract.abi, deployedNetwork && deployedNetwork.address,);
             const instance2 = new web3.eth.Contract(NFTFactoryContract.abi, deployedNetwork2 && deployedNetwork2.address,);
@@ -84,7 +84,7 @@ const Home = () => {
      * @returns WalletCardコンポーネント
      */
     const displayWallets = () => {
-        return proxys.map( (wallet) => {
+        return wallets.map( (wallet) => {
             return (
                 <WalletCard wallet={wallet} key={wallet} />
             );
