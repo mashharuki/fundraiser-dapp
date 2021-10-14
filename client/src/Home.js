@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import detectEthereumProvider from '@metamask/detect-provider';
 import FundraiserFactoryContract from './contracts/FundraiserFactory.json';
 import NFTFactoryContract from './contracts/NFTFactory.json';
-import GnosisSafeProxyFactoryContract from '../contracts/GnosisSafeProxyFactory.json';
+import GnosisSafeProxyFactoryContract from './contracts/GnosisSafeProxyFactory.json';
 import Web3 from "web3";
 import FundraiserCard from './fundraiser/FundraiserCard';
 import NFTCard from "./nft/NFTCard";
