@@ -118,8 +118,10 @@ const CreateSafeContractWallet = () => {
     function string2hexs (text) {
         var bytes = text.split('').map(char => char.charCodeAt(0));
         var hexs = bytes.map(byte => byte.toString(16));
-        console.log(hexs);
-        return hexs;
+        var hex = hexs.join('');
+        var result = "0x" + hex;
+        console.log(result);
+        return result;
     }
 
     // 描画する内容
