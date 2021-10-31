@@ -5,6 +5,9 @@
    ここから自分が欲しい為替情報を抜き取ること。  
    <a href="https://docs.chain.link/docs/ethereum-addresses/">proxyアドレス一覧</a>  
 
+### インストールコマンド
+  `npm i @chainlink/contracts`
+
 ## ソースコード一例(ChainLinkのチュートリアルより)
 
 <code>
