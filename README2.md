@@ -8,6 +8,12 @@
 ### インストールコマンド
   `npm i @chainlink/contracts`
 
+### LINKトークンのテストネット用のFaucetサイト
+   <a href="https://faucets.chain.link/kovan">Faucet</a>
+
+## Chainlink VRF Contract Addresses一覧
+   <a href="https://docs.chain.link/docs/vrf-contracts/">こちら(自分の環境に合ったものを選ぶこと)</a>
+
 ## ソースコード一例(ChainLinkのチュートリアルより)
 
 <code>
