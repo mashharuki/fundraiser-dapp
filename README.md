@@ -21,26 +21,35 @@ solcのバージョン情報等については、truffle-config.jsを参照く�
    
    https://mashharuki.github.io/fundraiser-dapp/
 
+## 開発に使用しているフレームワークなどの情報について
+
+|名称|内容|
+|-------------|-------------|
+|truffle|スマートコントラクト開発用のフレームワークとして使用している。テストやデプロイを行う。|
+|React|フロントエンド側の開発をするために使用している。|
+|Material-UI|React向けのUIコンポーネントライブラリ|
+
 ## 主なディレクトリ構成
 ~~~
    root/  
    　┣ client/　: フロントエンド側のディレクトリ  
    　　　└ src/  ：App.jsなどのアプリを構成するファイルを格納するディレクトリ  
    　　　　 └ contracts/ : コンパイル済みのコントラクトjsonファイルを格納する   
-   　　　　 └ fundraiser/ : 資金調達機能関連のコンポーネント用ディレクトリ  
-   　　　　 └ nft/ : NFT関連のコンポーネント用ディレクトリ  
+   　　　　 ┣ fundraiser/ : 資金調達機能関連のコンポーネント用ディレクトリ  
+   　　　　 ┣ nft/ : NFT関連のコンポーネント用ディレクトリ  
   　　　　  └ wallet/ : ウォレット関連のコンポーネント用ディレクトリ      
-   　　　└  public/  : CSSファイルなど全体を通して使用するファイルを格納するディレクトリ   
-   　　　└  node_modules/　: npmによってインストールするモジュール群を格納するディレクトリ  
-   　　　└  package.json: 　npm用の設定ファイル  
+   　　　┣  public/  : CSSファイルなど全体を通して使用するファイルを格納するディレクトリ   
+   　　　┣  node_modules/　: npmによってインストールするモジュール群を格納するディレクトリ  
+   　　　┣  package.json: 　npm用の設定ファイル  
    　　　└  package-lock.json:　 npm installによってインストールされたモジュールの情報を記載したファイル  
    　┣ contracts/　: スマートコントラクト(バックエンド側)のディレクトリ  
-　　　   └ safeContracts/: マルチシグウォレット関連のコントラクトを格納したディレクトリ  
-　　　　　　    └ base/ :  ベースとなるコントラクトを格納したディレクトリ  
-　　　　　　    └ common/ : 共通機能コントラクトを格納したディレクトリ  
-　　　　　　    └ external/ : 上限値チェック用のコントラクトを格納したディレクトリ     
-　　　　　　    └ interfaces/ : インターフェース関連のコントラクト格納ディレクトリ  
+　　　   ┣ safeContracts/: マルチシグウォレット関連のコントラクトを格納したディレクトリ  
+　　　　　　    ┣ base/ :  ベースとなるコントラクトを格納したディレクトリ  
+　　　　　　    ┣ common/ : 共通機能コントラクトを格納したディレクトリ  
+　　　　　　    ┣ external/ : 上限値チェック用のコントラクトを格納したディレクトリ     
+　　　　　　    ┣ interfaces/ : インターフェース関連のコントラクト格納ディレクトリ 
 　　　　　　    └ proxies/ : proxyコントラクト関連の格納ディレクトリ
+        └ oracles/ : オラクル処理関連のコントラクト格納ディレクトリ
    　┣ develop/　: 実装途中のファイルを格納するディレクトリ  
    　┣ migrations/　: デプロイ用のJsファイルを格納するディレクトリ  
    　┣ node_modules/　: npmによってインストールするモジュール群を格納するディレクトリ  
@@ -216,3 +225,5 @@ gasが足りない時に発生するため、設定を見直すこと。send()�
 <a href="https://blog.mktia.com/solve-the-error-vm-exception/">Error対処法</a>
 
 <a href="https://tech.bitbank.cc/20201222/">Bitbank社のproxypatern解説記事</a>
+
+<a href="https://docs.chain.link/docs/beginners-tutorial/">ChainLinkの公式サイト</a>
