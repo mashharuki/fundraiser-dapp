@@ -1,4 +1,4 @@
-pragma solidity >= 0.6.7;
+pragma solidity >= 0.8.7;
 
 import "@chainlink/contracts/src/v0.8/VRFConsumerBase.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";

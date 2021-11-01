@@ -33,32 +33,33 @@ solcのバージョン情報等については、truffle-config.jsを参照く�
 ~~~
    root/  
    　┣ client/　: フロントエンド側のディレクトリ  
-   　　　└ src/  ：App.jsなどのアプリを構成するファイルを格納するディレクトリ  
-   　　　　 └ contracts/ : コンパイル済みのコントラクトjsonファイルを格納する   
-   　　　　 ┣ fundraiser/ : 資金調達機能関連のコンポーネント用ディレクトリ  
-   　　　　 ┣ nft/ : NFT関連のコンポーネント用ディレクトリ  
-  　　　　  └ wallet/ : ウォレット関連のコンポーネント用ディレクトリ      
-   　　　┣  public/  : CSSファイルなど全体を通して使用するファイルを格納するディレクトリ   
-   　　　┣  node_modules/　: npmによってインストールするモジュール群を格納するディレクトリ  
-   　　　┣  package.json: 　npm用の設定ファイル  
-   　　　└  package-lock.json:　 npm installによってインストールされたモジュールの情報を記載したファイル  
+   　|　　┣ src/  ：App.jsなどのアプリを構成するファイルを格納するディレクトリ  
+   　|　　|　 ┣ contracts/ : コンパイル済みのコントラクトjsonファイルを格納する   
+   　|　　|　 ┣ fundraiser/ : 資金調達機能関連のコンポーネント用ディレクトリ  
+   　|　　|　 ┣ nft/ : NFT関連のコンポーネント用ディレクトリ  
+  　 |　　|　 └ wallet/ : ウォレット関連のコンポーネント用ディレクトリ      
+   　|　　┣  public/  : CSSファイルなど全体を通して使用するファイルを格納するディレクトリ   
+   　|　　┣  node_modules/　: npmによってインストールするモジュール群を格納するディレクトリ  
+   　|　　┣  package.json: 　npm用の設定ファイル  
+   　|　　└  package-lock.json:　 npm installによってインストールされたモジュールの情報を記載したファイル  
    　┣ contracts/　: スマートコントラクト(バックエンド側)のディレクトリ  
-　　　   ┣ safeContracts/: マルチシグウォレット関連のコントラクトを格納したディレクトリ  
-　　　　　　    ┣ base/ :  ベースとなるコントラクトを格納したディレクトリ  
-　　　　　　    ┣ common/ : 共通機能コントラクトを格納したディレクトリ  
-　　　　　　    ┣ external/ : 上限値チェック用のコントラクトを格納したディレクトリ     
-　　　　　　    ┣ interfaces/ : インターフェース関連のコントラクト格納ディレクトリ 
-　　　　　　    └ proxies/ : proxyコントラクト関連の格納ディレクトリ
-        └ oracles/ : オラクル処理関連のコントラクト格納ディレクトリ
+   　|　　┣ safeContracts/: マルチシグウォレット関連のコントラクトを格納したディレクトリ  
+   　|　　|　    ┣ base/ :  ベースとなるコントラクトを格納したディレクトリ  
+   　|　　|　    ┣ common/ : 共通機能コントラクトを格納したディレクトリ  
+   　|　　|　    ┣ external/ : 上限値チェック用のコントラクトを格納したディレクトリ     
+   　|　　|　    ┣ interfaces/ : インターフェース関連のコントラクト格納ディレクトリ 
+   　|　　|　    └ proxies/ : proxyコントラクト関連の格納ディレクトリ
+   　|　　└ oracles/ : オラクル処理関連のコントラクト格納ディレクトリ
    　┣ develop/　: 実装途中のファイルを格納するディレクトリ  
    　┣ migrations/　: デプロイ用のJsファイルを格納するディレクトリ  
    　┣ node_modules/　: npmによってインストールするモジュール群を格納するディレクトリ  
    　┣ test/　: スマートコントラクトのテストコードを格納するディレクトリ  
    　┣ img/　: 画像データを格納するディレクトリ   
    　┣ truffle-config.js: truffle用の設定ファイル  
-   　┣ README.md: リポジトリの各種説明を記載   
+   　┣ README.md: リポジトリの各種説明を記載  
+   　┣ README2.md: オラクル処理の各種説明を記載 
    　┣ LICENSE: ライセンス情報を記載  
-   　┣ package-lock.json: npm installによってインストールされたモジュールの情報を記載したファイル
+   　└ package-lock.json: npm installによってインストールされたモジュールの情報を記載したファイル
 ~~~
 
 ## 参考になりそうな前提知識
@@ -70,11 +71,14 @@ solcのバージョン情報等については、truffle-config.jsを参照く�
     コード内にアセンブリ言語を使用できるインラインアセンブリがある。
     データサイズを意識することでガスを節約することが可能になります。
     
-    assembly { 
+   <code>
+
+    assembly {   
       let result := add(x, y)
       mstore(0x0, result)
       return(0x0, 32)
     }
+   </code>
      
 ### 3. proxy pattern
     スマートコントラクトは一度デプロイすると変更できないが、
@@ -94,6 +98,13 @@ solcのバージョン情報等については、truffle-config.jsを参照く�
     callまたはdelegatecallで別のコントラクトを呼び出した時に使用するデータ領域です。
     calldataは、Method IDと引数(32bytes)を合わせたデータのこと。
     
+### 6. セキュリティチェックの重要性
+    スマートコントラクトは、基本的には一度デプロイしたら後から内容を変更することはできない。  
+    (proxy patternの用に擬似的に変更することは可能。)  
+    そのため、デプロイ前にテストや専門企業に監査を実施してもらうことがで非常に重要となる。  
+    また、OpenZeppelinが発表しているような安全なライブラリを使って開発することが重要となる。  
+    <a href="https://ecouffes.github.io/smart-contract-best-practices/security_tools/">Ethereum Smart Contract Best Practices</a>などのベストプラクティスなどを  
+    参考にして開発を進めると良いと考えている。
 
 ## 画面例
 ### 1. NFT作成画面
@@ -227,3 +238,5 @@ gasが足りない時に発生するため、設定を見直すこと。send()�
 <a href="https://tech.bitbank.cc/20201222/">Bitbank社のproxypatern解説記事</a>
 
 <a href="https://docs.chain.link/docs/beginners-tutorial/">ChainLinkの公式サイト</a>
+
+<a href="https://ecouffes.github.io/smart-contract-best-practices/security_tools/">Ethereum Smart Contract Best Practices(和訳)</a>
