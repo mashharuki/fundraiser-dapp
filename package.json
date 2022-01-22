@@ -1,0 +1,30 @@
+{
+  "name": "fundraiser-dapp",
+  "version": "1.0.0",
+  "description": "MetaMaskとWeb3.js、スマートコントラクト(solidity)とReact.jsから構築されています。",
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mashharuki/fundraiser-dapp.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mashharuki/fundraiser-dapp/issues"
+  },
+  "homepage": "https://github.com/mashharuki/fundraiser-dapp#readme",
+  "dependencies": {
+    "@babel/core": "^7.16.10",
+    "@chainlink/contracts": "^0.3.1",
+    "@openzeppelin/contracts": "^4.4.2",
+    "bluebird": "^3.7.2",
+    "chainlink": "^0.8.2",
+    "eth-lightwallet": "^4.0.0"
+  }
+}
