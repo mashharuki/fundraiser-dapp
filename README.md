@@ -136,6 +136,7 @@ solcのバージョン情報等については、truffle-config.jsを参照く�
    `npm install -g chai`   
    `npm install @openzeppelin/contracts`  
    `npm install --save react-router-dom`  
+   `npm i @chainlink/contracts`  
 
 ## テストコードを実行するコマンド(fundraiser-dappフォルダ直下で実行する)
 
@@ -143,8 +144,9 @@ solcのバージョン情報等については、truffle-config.jsを参照く�
 
 ## コントラクトのコンパイルとデプロイ用のコマンド(ローカルチェーンの場合)
    `truffle compile`  
-   `truffle migrate`  
+   `truffle migrate --network develop`  
    なお、マイグレーションしたいファイルを指定する場合は下記のように打ち込む  
+   <b>※ M1 チップ搭載のMacBookで実行する場合は、sudoをつけて実行すること</b>
    `truffle migrate --f 2 --to 3`  
    (client/contracts/ 配下に「コントラクト名.json」ができていれば成功。) 
 

@@ -2,7 +2,7 @@
  * オラクル処理用のサンプルコード
  */
 
-pragma solidity >= 0.8.7;
+pragma solidity >= 0.8.0;
 import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
 
 contract PriceConsumerV3 {

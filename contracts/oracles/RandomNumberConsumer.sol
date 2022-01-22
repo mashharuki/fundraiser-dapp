@@ -1,7 +1,9 @@
-pragma solidity >= 0.8.7;
+pragma solidity >= 0.8.0;
 
 import "@chainlink/contracts/src/v0.8/VRFConsumerBase.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
+import {SafeMath} from "@openzeppelin/contracts/utils/math/SafeMath.sol";
+
 
 contract RandomNumberConsumer is VRFConsumerBase {
     // 変数を宣言
@@ -9,12 +11,12 @@ contract RandomNumberConsumer is VRFConsumerBase {
     uint256 public s_fee;
     uint256 public randomResult;
     uint256 private constant ROLL_IN_PROGRESS = 42;
+    using SafeMath for uint256;
     
     mapping(bytes32 => address) private s_rollers;
     mapping(address => uint256) private s_results;
     
-    // イベントのて設定
-    event DiceRolled(bytes32 indexed requestId, address indexed roller);
+    // イベントの設定
     event DiceRolled(bytes32 indexed requestId, address indexed roller);
     event DiceLanded(bytes32 indexed requestId, uint256 indexed result);
 
@@ -26,7 +28,7 @@ contract RandomNumberConsumer is VRFConsumerBase {
         s_fee = fee;
     }
 
-    function rollDice(address roller) public onlyOwner returns (bytes32 requestId) {
+    function rollDice(address roller) public returns (bytes32 requestId) {
         require(LINK.balanceOf(address(this)) >= s_fee, "Not enough LINK to pay fee");
         require(s_results[roller] == 0, "Already rolled");
         requestId = requestRandomness(s_keyHash, s_fee);
@@ -77,13 +79,13 @@ contract RandomNumberConsumer is VRFConsumerBase {
      * ランダムな値を取得する関数
      */
     function getRandomNumber (uint256 userProvidedSeed) public returns (bytes32 requestId) {
-        return requestRandomness(s_keyHash, s_fee, userProvidedSeed);
+        return requestRandomness(s_keyHash, userProvidedSeed);
     }
     
     /**
      *  ランダムに数字を取得する関数2
      */
-    function fulfillRandomness2 (bytes32 requestId, uint256 randomness) internal override {
+    function fulfillRandomness2 (bytes32 requestId, uint256 randomness) internal {
         randomResult = randomness.mod(20).add(1);
     }
 }
