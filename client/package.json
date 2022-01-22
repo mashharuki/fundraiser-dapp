@@ -3,7 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^4.12.3",
     "@metamask/detect-provider": "^1.2.0",
+    "cryptocompare": "^1.0.0",
+    "ethers": "^5.4.7",
+    "material-ui": "^0.20.2",
+    "mui": "^0.0.1",
     "react": "16.11.0",
     "react-dom": "16.11.0",
     "react-router-dom": "^5.2.0",

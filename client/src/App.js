@@ -3,10 +3,17 @@ import { BrowserRouter as Router, Route, NavLink } from "react-router-dom";
 import FundraiserFactoryContract from "./contracts/FundraiserFactory.json";
 import getWeb3 from "./getWeb3";
 import "./App.css";
-// コンポーネントを読み込む
-import NewFundraiser from './NewFundraiser';
+// 各ページ用のコンポーネントを読み込む
+import NewFundraiser from './fundraiser/NewFundraiser';
 import Home from "./Home";
-import Receipts from './Receipts';
+import Receipts from './fundraiser/Receipts';
+import Sign from "./wallet/Sign";
+import Ecrecover from "./wallet/Ecrecover";
+import Nft from "./nft/Nft";
+import CreateSafeContractWallet from "./wallet/CreateSafeContractWallet";
+import WalletSetUp from "./wallet/WalletSetUp";
+import ExecTransaction from "./wallet/ExecTransaction";
+import GetTxHash from "./wallet/GetTxHash";
 // material-ui関連をインポートする。
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -21,7 +28,11 @@ const App = () => {
   const useStyles = makeStyles (theme => ({
     root: {
       flexGrow: 1
-    }
+    },
+    navLink: {
+      marginLeft: theme.spacing(1),
+      marginRight: theme.spacing(1),
+    },
   }));
 
   const classes = useStyles();
@@ -55,20 +66,32 @@ const App = () => {
     const { accounts, contract } = state;
   };
 
+  // レンダリングする内容
   return (
     <Router>
       <div className={classes.root}>
         <AppBar position="static" color="default">
           <Toolbar>
             <Typography variant="h6" color="inherit">
-              <NavLink to="/">Home</NavLink>
-              <NavLink to="/new">New</NavLink>
+              <NavLink className={classes.navLink} to="/">Home</NavLink>
+              <NavLink className={classes.navLink} to="/new">New</NavLink>
+              <NavLink className={classes.navLink} to="/createSafeWallet">CreateSafeWallet</NavLink>
+              <NavLink className={classes.navLink} to="/sign">Sign</NavLink>
+              <NavLink className={classes.navLink} to="/ecrecover">Ecrecover</NavLink>
+              <NavLink className={classes.navLink} to="/nft">Nft</NavLink>
             </Typography>
           </Toolbar>
         </AppBar>
         <Route path="/" exact component={Home} />
-        <Route path="/new/" exact component={NewFundraiser} />
+        <Route path="/new/" component={NewFundraiser} />
+        <Route path="/createSafeWallet" component={CreateSafeContractWallet} />
         <Route path="/receipts" component={Receipts} />
+        <Route path="/sign/" component={Sign} />
+        <Route path="/ecrecover/" component={Ecrecover} />
+        <Route path="/nft/" component={Nft} />
+        <Route path="/walletSetUp" component={WalletSetUp} />
+        <Route path="/execTransaction" component={ExecTransaction} />
+        <Route path="/getTxHash" component={GetTxHash} />
       </div>
     </Router>
   );
