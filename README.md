@@ -241,4 +241,6 @@ gasが足りない時に発生するため、設定を見直すこと。send()�
 
 <a href="https://docs.chain.link/docs/beginners-tutorial/">ChainLinkの公式サイト</a>
 
-<a href="https://ecouffes.github.io/smart-contract-best-practices/security_tools/">Ethereum Smart Contract Best Practices(和訳)</a>
+<a href="https://ecouffes.github.io/smart-contract-best-practices/security_tools/">Ethereum Smart Contract Best Practices(和訳)</a>  
+
+<a href="https://placekitten.com/">画像ファイル保管庫(200/300などをつけて検索すると猫の画像がヒットします。)</a>
