@@ -297,6 +297,10 @@ const NFTCard = (props) => {
             </Dialog>
             <Card className={classes.card} onClick={handleOpen}>
                 <CardActionArea>
+                    {nftURL ? (
+                        <CardMedia className={classes.media} image={nftURL} title="NFT Image"/>
+                        ) : (<></>) 
+                    };
                     <CardContent>
                         <Typography gutterBottom variant="h5" component="h2">
                             {nftName}
