@@ -18,6 +18,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 // Cardコンポーネントを読み込む
 import Card  from '@material-ui/core/Card';
+import CardMedia from '@material-ui/core/CardMedia';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
@@ -27,10 +28,10 @@ import Typography from '@material-ui/core/Typography';
 const useStyles = makeStyles (theme => ({
     card: {
         maxWidth: 600,
-        height: 300
+        height: 600
     },
     media: {
-        height: 140,
+        height: 400,
     },
     button: {
         margin: theme.spacing(1),
@@ -48,7 +49,7 @@ const useStyles = makeStyles (theme => ({
     },
     paper: {
         position: 'absolute',
-        width: 400,
+        width: 600,
         backgroundColor: theme.palette.primary.light,
         boxShadow: 'none',
         padding: 4,
@@ -297,6 +298,10 @@ const NFTCard = (props) => {
             </Dialog>
             <Card className={classes.card} onClick={handleOpen}>
                 <CardActionArea>
+                    {nftURL ? (
+                        <CardMedia className={classes.media} image={nftURL} title="NFT Image"/>
+                        ) : (<></>) 
+                    };
                     <CardContent>
                         <Typography gutterBottom variant="h5" component="h2">
                             {nftName}
