@@ -155,7 +155,7 @@ const NFTCard = (props) => {
         const web3 = new Web3(provider);
         const instance = new web3.eth.Contract(NFTContract.abi, nft);
         // minter権限を持つアカウントアドレスを取得する。
-        const minterRole = instance.methods.MINTER_ROLE().call();
+        const minterRole = await instance.methods.MINTER_ROLE().call();
         console.log(minterRole);
         alert("MINTER_ROLE : ", minterRole);
     }
@@ -228,7 +228,7 @@ const NFTCard = (props) => {
         const web3 = new Web3(provider);
         const instance = new web3.eth.Contract(NFTContract.abi, nft);
         // 移転実行
-        instance.methods.transferFrom(accounts[0], to, tokenId).send({ 
+        await instance.methods.transferFrom(accounts[0], to, tokenId).send({ 
             from: accounts[0],
             gas: 650000
         });
@@ -243,10 +243,10 @@ const NFTCard = (props) => {
         const web3 = new Web3(provider);
         const instance = new web3.eth.Contract(NFTContract.abi, nft);
         // 償却実行
-        instance.methods.burn(tokenId).call();
+        await instance.methods.burn(tokenId).call();
     }
 
-    // 戻り値
+    // レンダリング内容
     return (
         <div className="nft-card-content">
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
