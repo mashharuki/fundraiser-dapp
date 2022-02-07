@@ -18,6 +18,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 // Cardコンポーネントを読み込む
 import Card  from '@material-ui/core/Card';
+import CardMedia from '@material-ui/core/CardMedia';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
@@ -27,10 +28,10 @@ import Typography from '@material-ui/core/Typography';
 const useStyles = makeStyles (theme => ({
     card: {
         maxWidth: 600,
-        height: 300
+        height: 600
     },
     media: {
-        height: 140,
+        height: 400,
     },
     button: {
         margin: theme.spacing(1),
@@ -48,7 +49,7 @@ const useStyles = makeStyles (theme => ({
     },
     paper: {
         position: 'absolute',
-        width: 400,
+        width: 600,
         backgroundColor: theme.palette.primary.light,
         boxShadow: 'none',
         padding: 4,
@@ -154,9 +155,10 @@ const NFTCard = (props) => {
         const web3 = new Web3(provider);
         const instance = new web3.eth.Contract(NFTContract.abi, nft);
         // minter権限を持つアカウントアドレスを取得する。
-        const minterRole = instance.methods.MINTER_ROLE().call();
-        console.log(minterRole);
-        alert("MINTER_ROLE : ", minterRole);
+        const minterRole = await instance.methods.MINTER_ROLE().call().then(
+            alert("MINTER_ROLE : ", minterRole)
+        );
+        console.log("MINTER_ROLE : ",minterRole);
     }
 
     /**
@@ -170,11 +172,19 @@ const NFTCard = (props) => {
         const deployedNetwork = NFTContract.networks[networkId];
         const instance = new web3.eth.Contract(NFTContract.abi, nft);
         console.log(accounts[0]);
-        // NFTコントラクトのmint関数を実行する。
-        const { hash } = await instance.methods.mint(to).send({ 
-            from: accounts[0],
-            gas: 650000
-        });
+
+        try {
+            // NFTコントラクトのmint関数を実行する。
+            const { hash } = await instance.methods.mint(to).send({ 
+                from: accounts[0],
+                gas: 650000
+            });
+            alert("NFT発行成功！");
+        } catch (e) {
+            console.log(e);
+            alert("mint NFT failed");
+        }
+       
     }
   
     /**
@@ -186,9 +196,11 @@ const NFTCard = (props) => {
         const web3 = new Web3(provider);
         const instance = new web3.eth.Contract(NFTContract.abi, nft);
         // 総供給量を取得する。
-        const totalSupply = await instance.methods.totalSupply().call();
+        const totalSupply = await instance.methods.totalSupply().call().then(
+            alert("総供給量：", totalSupply)
+        );
         // totalSupply関数を呼び出す。
-        alert("総供給量：", totalSupply);
+        console.log("総供給量：", totalSupply);
     }
 
     /**
@@ -200,9 +212,11 @@ const NFTCard = (props) => {
         const web3 = new Web3(provider);
         const instance = new web3.eth.Contract(NFTContract.abi, nft);
         // 接続中のアカウントに紐づくNFT数を取得する
-        const balanceOf = await instance.methods.balanceOf(accounts[0]).call();
+        const balanceOf = await instance.methods.balanceOf(accounts[0]).call().then(
+            alert("NFT数：", balanceOf)
+        );
         // totalSupply関数を呼び出す。
-        alert("NFT数：", balanceOf);
+        console.log("NFT数：", balanceOf);
     }
 
     /**
@@ -214,8 +228,10 @@ const NFTCard = (props) => {
         const web3 = new Web3(provider);
         const instance = new web3.eth.Contract(NFTContract.abi, nft);
         // 所有者アドレスを取得する。
-        const ownerAddress = await instance.methods.ownerOf(tokenId).call();
-        alert("所有者アドレス：", ownerAddress);
+        const ownerAddress = await instance.methods.ownerOf(tokenId).call().then(
+            alert("所有者アドレス：", ownerAddress)
+        );
+        console.log("所有者アドレス：", ownerAddress);
     }
 
     /**
@@ -226,11 +242,18 @@ const NFTCard = (props) => {
         const provider = await detectEthereumProvider();
         const web3 = new Web3(provider);
         const instance = new web3.eth.Contract(NFTContract.abi, nft);
-        // 移転実行
-        instance.methods.transferFrom(accounts[0], to, tokenId).send({ 
-            from: accounts[0],
-            gas: 650000
-        });
+
+        try {
+            // 移転実行
+            await instance.methods.transferFrom(accounts[0], to, tokenId).send({ 
+                from: accounts[0],
+                gas: 650000
+            });
+            alert("NFT移転成功！");
+        } catch (e) {
+            alert("NFT移転失敗");
+        }
+        
     }
 
     /**
@@ -242,10 +265,10 @@ const NFTCard = (props) => {
         const web3 = new Web3(provider);
         const instance = new web3.eth.Contract(NFTContract.abi, nft);
         // 償却実行
-        instance.methods.burn(tokenId).call();
+        await instance.methods.burn(tokenId).call();
     }
 
-    // 戻り値
+    // レンダリング内容
     return (
         <div className="nft-card-content">
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
@@ -297,6 +320,10 @@ const NFTCard = (props) => {
             </Dialog>
             <Card className={classes.card} onClick={handleOpen}>
                 <CardActionArea>
+                    {nftURL ? (
+                        <CardMedia className={classes.media} image={nftURL} title="NFT Image"/>
+                        ) : (<></>) 
+                    };
                     <CardContent>
                         <Typography gutterBottom variant="h5" component="h2">
                             {nftName}
