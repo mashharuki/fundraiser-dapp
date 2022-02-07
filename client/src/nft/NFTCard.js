@@ -75,6 +75,9 @@ const NFTCard = (props) => {
     const [ address, setAddress ] = useState(null);
     const [ to, setTo ] = useState(null);
     const [ open, setOpen ] = useState(false);
+    const [ mintRole, setMintRole ] = useState(null);
+    const [ nftTotal, setNftTotal ] = useState(null);
+    const [ nftBalance, setNftBalance ] = useState(null);
 
     /**
      * useEffect関数
@@ -112,15 +115,23 @@ const NFTCard = (props) => {
             const name = await instance.methods.getNftName().call();
             const symbol = await instance.methods.getNftSymbol().call();
             const url = await instance.methods.getNftURL().call();
+            // minterRoleを取得する。
+            const minterRole = await instance.methods.MINTER_ROLE().call();
+            // 総供給量を取得する。
+            const totalSupply = await instance.methods.totalSupply().call();
+            // NFT数を取得する。
+            const balanceOf = await instance.methods.balanceOf(accounts[0]).call()
             // ステート変数にセットする。
             setNftName(name);
             setNftSymbol(symbol);
             setNftURL(url);
+            setMintRole(minterRole);
+            setNftTotal(totalSupply);
+            setNftBalance(balanceOf);
         } catch (error) {
             alert(`Failed to load web3, accounts, or contract. Check console for details.`,);
             console.error(error);
         }
-        
     }
 
     /**
@@ -147,21 +158,6 @@ const NFTCard = (props) => {
     };
 
     /**
-     * 「Minter権限確認」ボタンを押した時の処理
-     */
-    const buttonMinterRole = async() => {
-        // コントラクトが使えるような設定
-        const provider = await detectEthereumProvider();
-        const web3 = new Web3(provider);
-        const instance = new web3.eth.Contract(NFTContract.abi, nft);
-        // minter権限を持つアカウントアドレスを取得する。
-        const minterRole = await instance.methods.MINTER_ROLE().call().then(
-            alert("MINTER_ROLE : ", minterRole)
-        );
-        console.log("MINTER_ROLE : ",minterRole);
-    }
-
-    /**
      * 「NFT発行」ボタンを押した時の処理
      */
     const buttonMint = async() => {
@@ -185,38 +181,6 @@ const NFTCard = (props) => {
             alert("mint NFT failed");
         }
        
-    }
-  
-    /**
-     * 「NFT総供給量取得」ボタンを押した時の処理
-     */
-    const buttonSupply = async() => {
-        // コントラクトが使えるような設定
-        const provider = await detectEthereumProvider();
-        const web3 = new Web3(provider);
-        const instance = new web3.eth.Contract(NFTContract.abi, nft);
-        // 総供給量を取得する。
-        const totalSupply = await instance.methods.totalSupply().call().then(
-            alert("総供給量：", totalSupply)
-        );
-        // totalSupply関数を呼び出す。
-        console.log("総供給量：", totalSupply);
-    }
-
-    /**
-     * 「NFT数取得」ボタンを押した時の処理
-     */
-    const buttonBalanceOf = async() => {
-        // コントラクトが使えるような設定
-        const provider = await detectEthereumProvider();
-        const web3 = new Web3(provider);
-        const instance = new web3.eth.Contract(NFTContract.abi, nft);
-        // 接続中のアカウントに紐づくNFT数を取得する
-        const balanceOf = await instance.methods.balanceOf(accounts[0]).call().then(
-            alert("NFT数：", balanceOf)
-        );
-        // totalSupply関数を呼び出す。
-        console.log("NFT数：", balanceOf);
     }
 
     /**
@@ -253,7 +217,6 @@ const NFTCard = (props) => {
         } catch (e) {
             alert("NFT移転失敗");
         }
-        
     }
 
     /**
@@ -264,8 +227,14 @@ const NFTCard = (props) => {
         const provider = await detectEthereumProvider();
         const web3 = new Web3(provider);
         const instance = new web3.eth.Contract(NFTContract.abi, nft);
-        // 償却実行
-        await instance.methods.burn(tokenId).call();
+
+        try {
+            // 償却実行
+            await instance.methods.burn(tokenId).call();
+            alert("NFT償却成功！");
+        } catch (e) {
+            alert("NFT償却失敗");
+        }
     }
 
     // レンダリング内容
@@ -286,17 +255,15 @@ const NFTCard = (props) => {
                         <p>
                             Address : {address} 
                         </p>
-                        <Button onClick={buttonMinterRole} variant="contained" color="primary" className={classes.button}>
-                            Minter権限確認
-                        </Button>
-                        <br/>
-                        <Button onClick={buttonBalanceOf} variant="contained" color="primary" className={classes.button}>
-                            発行数取得
-                        </Button>
-                        <br/>
-                        <Button onClick={buttonSupply} variant="contained" color="primary" className={classes.button}>
-                            総供給量取得
-                        </Button>
+                        <p>
+                            Minter権限確認 : {mintRole}
+                        </p>
+                        <p>
+                            発行数 : {nftBalance}
+                        </p>
+                        <p>
+                            総供給量取得 : {nftTotal}
+                        </p>
                         <br/>
                         <TextField id="outlined-bare4" className={classes.textField} placeholder="TokenId" margin="normal" onChange={ (e) => setTokenId(e.target.value) } variant="outlined" inputProps={{ 'aria-label': 'bare' }} />
                         <Button onClick={buttonOwnerOf} variant="contained" color="primary" className={classes.button}>
