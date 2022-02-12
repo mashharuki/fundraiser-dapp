@@ -78,10 +78,7 @@ const NFTCard = (props) => {
     const [ mintRole, setMintRole ] = useState(null);
     const [ nftTotal, setNftTotal ] = useState(null);
     const [ nftBalance, setNftBalance ] = useState(null);
-    // ダイアログ用のステート変数
-    const [ key, setKey ] = useState(null);
-    const [ value, setValue ] = useState(null);
-    const [ nftOpen, setNftOpen ] = useState(false);
+    const [ owner, setOwner ] = useState(null);
 
     /**
      * useEffect関数
@@ -159,6 +156,7 @@ const NFTCard = (props) => {
     const handleClose = () => {
         // falseにして閉じる。
         setOpen(false);
+        setOwner(null);
     };
 
     /**
@@ -198,11 +196,7 @@ const NFTCard = (props) => {
         // 所有者アドレスを取得する。
         const ownerAddress = await instance.methods.ownerOf(tokenId).call();
         console.log("所有者アドレス：", ownerAddress);
-        // ダイアログ表示用の値を詰める。
-        setKey("所有者アドレス");
-        setValue(ownerAddress);
-        // ダイアログを開く
-        setNftOpen(true);
+        setOwner(ownerAddress);
     }
 
     /**
@@ -279,6 +273,7 @@ const NFTCard = (props) => {
                             所有者確認
                         </Button>
                         <br/>
+                        { owner ? <p>所有者は、{owner}です！</p> : <></> }
                         <Button onClick={buttonBurn} variant="contained" color="primary" className={classes.button}>
                             NFT償却
                         </Button>
