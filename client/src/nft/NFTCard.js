@@ -12,10 +12,10 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 // ダイアログ関連なモジュールを読み込む
 import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import NftDialog from './../common/NftDialog';
 // Cardコンポーネントを読み込む
 import Card  from '@material-ui/core/Card';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -78,6 +78,10 @@ const NFTCard = (props) => {
     const [ mintRole, setMintRole ] = useState(null);
     const [ nftTotal, setNftTotal ] = useState(null);
     const [ nftBalance, setNftBalance ] = useState(null);
+    // ダイアログ用のステート変数
+    const [ key, setKey ] = useState(null);
+    const [ value, setValue ] = useState(null);
+    const [ nftOpen, setNftOpen ] = useState(false);
 
     /**
      * useEffect関数
@@ -142,7 +146,7 @@ const NFTCard = (props) => {
     })
 
     /**
-     * handleOpen関数
+     * ダイアログを開くための関数
      */
     const handleOpen = () => {
         // trueにして開く。
@@ -150,7 +154,7 @@ const NFTCard = (props) => {
     };
 
     /**
-     * handleClose関数
+     * ダイアログを閉じるための関数
      */
     const handleClose = () => {
         // falseにして閉じる。
@@ -192,10 +196,13 @@ const NFTCard = (props) => {
         const web3 = new Web3(provider);
         const instance = new web3.eth.Contract(NFTContract.abi, nft);
         // 所有者アドレスを取得する。
-        const ownerAddress = await instance.methods.ownerOf(tokenId).call().then(
-            alert("所有者アドレス：", ownerAddress)
-        );
+        const ownerAddress = await instance.methods.ownerOf(tokenId).call();
         console.log("所有者アドレス：", ownerAddress);
+        // ダイアログ表示用の値を詰める。
+        setKey("所有者アドレス");
+        setValue(ownerAddress);
+        // ダイアログを開く
+        setNftOpen(true);
     }
 
     /**
@@ -285,6 +292,7 @@ const NFTCard = (props) => {
                     </DialogContentText>
                 </DialogContent>
             </Dialog>
+            <NftDialog key={key} value={value} open={nftOpen} />
             <Card className={classes.card} onClick={handleOpen}>
                 <CardActionArea>
                     {nftURL ? (

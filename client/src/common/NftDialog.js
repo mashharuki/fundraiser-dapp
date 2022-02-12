@@ -1,5 +1,5 @@
 /**
- * アプリ共通で使用するダイアログコンポーネントファイルになります。
+ * NFTのページで使用するダイアログコンポーネントファイルになります。
  */
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
@@ -7,24 +7,34 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
 /**
+ * NftDialogで使用する引数の定義
+ */
+NftDialog.propTypes = {
+      open: PropTypes.bool.isRequired,
+      key: PropTypes.string.isRequired,
+      value: PropTypes.string.isRequired,
+};
+
+/**
  * Dialogコンポーネント
  * @param {*} props ダイアログに挿入する情報
  */
-const Dialog = (props) => {
+const NftDialog = (props) => {
       // 引数から情報を取得する。
-      const { onClose, key, value, open } = props;
+      const { key, value, open } = props;
 
       /**
        * ダイアログを閉じるボタンを押した時の処理
        */
       const handleClose = () => {
-            onClose(value);
+            // falseにして閉じる。
+            setOpen(false);
       };
       
       return (
             <Dialog onClose={handleClose} open={open}>
                   <DialogTitle id="alert-dialog-title">
-                        Web3.0 Dialog
+                        {key}
                   </DialogTitle>
                   <DialogContent>
                         <DialogContentText id="alert-dialog-description">
@@ -35,4 +45,4 @@ const Dialog = (props) => {
       );
 };
 
-export default Dialog;
+export default NftDialog;
