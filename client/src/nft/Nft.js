@@ -86,7 +86,7 @@ const Nft = () => {
         // コントラクトをデプロイする。
         await instance.methods.createNFT(name, symbol, url).send({ 
             from: accounts[0],
-            gas: 65000
+            gas: 6500000
         });
     } 
   
