@@ -4,13 +4,20 @@
 
 // Webサーバーの起動
 const express = require('express');
+const fs = require('fs');
 const app = express();
 // ポート番号
 const portNo = 3001;
 
+// HTTPS通信に対応するための設定
+const server = require('https').createServer({
+      key: fs.readFileSync('./server/tls/privatekey.pem'),
+      cert: fs.readFileSync('./server/tls/cert.pem'),
+  }, app);
+
 // 起動
-app.listen(portNo, () => {
-      console.log('起動しました', `http://localhost:${portNo}`)
+server.listen(portNo, () => {
+      console.log('起動しました', `https://localhost:${portNo}`)
 });
 
 // 静的ファイルを自動的に返すようルーティングする。

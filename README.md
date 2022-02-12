@@ -138,6 +138,9 @@ solcのバージョン情報等については、truffle-config.jsを参照く�
    `npm install --save react-router-dom`  
    `npm i @chainlink/contracts`  
 
+## npm updateの例(reactをv16⇨v17に上げるコマンド)
+   `npm update react@17.0.2 react-dom@17.0.2 react-router-dom@6.0.1`
+
 ## テストコードを実行するコマンド(fundraiser-dappフォルダ直下で実行する)
 
 `truffle test`
