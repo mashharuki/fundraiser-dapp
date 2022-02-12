@@ -237,7 +237,10 @@ const NFTCard = (props) => {
 
         try {
             // 償却実行
-            await instance.methods.burn(tokenId).call();
+            await instance.methods.burn(tokenId).send({ 
+                from: accounts[0],
+                gas: 650000
+            });
             alert("NFT償却成功！");
         } catch (e) {
             alert("NFT償却失敗");
