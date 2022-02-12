@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Route, NavLink } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, NavLink, RouteProps } from "react-router-dom";
 import FundraiserFactoryContract from "./contracts/FundraiserFactory.json";
 import getWeb3 from "./getWeb3";
 import "./App.css";
@@ -16,9 +16,9 @@ import ExecTransaction from "./wallet/ExecTransaction";
 import GetTxHash from "./wallet/GetTxHash";
 // material-ui関連をインポートする。
 import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
+import AppBar  from '@mui/material/AppBar';
+import Toolbar  from '@mui/material/Toolbar';
+import Typography  from '@mui/material/Typography';
 
 // コンポーネントを用意する。
 const App = () => {
@@ -61,11 +61,6 @@ const App = () => {
     init();
   }, []);
 
-  // runExample関数
-  const runExample = async() => {
-    const { accounts, contract } = state;
-  };
-
   // レンダリングする内容
   return (
     <Router>
@@ -82,16 +77,18 @@ const App = () => {
             </Typography>
           </Toolbar>
         </AppBar>
-        <Route path="/" exact component={Home} />
-        <Route path="/new/" component={NewFundraiser} />
-        <Route path="/createSafeWallet" component={CreateSafeContractWallet} />
-        <Route path="/receipts" component={Receipts} />
-        <Route path="/sign/" component={Sign} />
-        <Route path="/ecrecover/" component={Ecrecover} />
-        <Route path="/nft/" component={Nft} />
-        <Route path="/walletSetUp" component={WalletSetUp} />
-        <Route path="/execTransaction" component={ExecTransaction} />
-        <Route path="/getTxHash" component={GetTxHash} />
+        <Routes>
+          <Route path="/" exact element={ <Home/> } />
+          <Route path="/new" element={ <NewFundraiser/> } />
+          <Route path="/createSafeWallet" element={ <CreateSafeContractWallet/>} />
+          <Route path="/receipts" element={ <Receipts/> } />
+          <Route path="/sign" element={ <Sign/> } />
+          <Route path="/ecrecover" element={ <Ecrecover/> } />
+          <Route path="/nft" element={ <Nft/> } />
+          <Route path="/walletSetUp" element={ <WalletSetUp/> } />
+          <Route path="/execTransaction" element={ <ExecTransaction/> } />
+          <Route path="/getTxHash" element={ <GetTxHash/> } />
+        </Routes>
       </div>
     </Router>
   );

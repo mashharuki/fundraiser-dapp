@@ -13,7 +13,7 @@ const portNo = 3001;
 const server = require('https').createServer({
       key: fs.readFileSync('./server/tls/privatekey.pem'),
       cert: fs.readFileSync('./server/tls/cert.pem'),
-  }, app);
+}, app);
 
 // 起動
 server.listen(portNo, () => {
@@ -22,12 +22,12 @@ server.listen(portNo, () => {
 
 // 静的ファイルを自動的に返すようルーティングする。
 app.use('/', express.static('./../client/build'));
-app.use('/new/', express.static('./../client/build'));
+app.use('/new', express.static('./../client/build'));
 app.use('/createSafeWallet', express.static('./../client/build'));
 app.use('/receipts', express.static('./../client/build'));
-app.use('/sign/', express.static('./../client/build'));
-app.use('/ecrecover/', express.static('./../client/build'));
-app.use('/nft/', express.static('./../client/build'));
+app.use('/sign', express.static('./../client/build'));
+app.use('/ecrecover', express.static('./../client/build'));
+app.use('/nft', express.static('./../client/build'));
 app.use('/walletSetUp', express.static('./../client/build'));
 app.use('/execTransaction', express.static('./../client/build'));
 app.use('/getTxHash', express.static('./../client/build'));

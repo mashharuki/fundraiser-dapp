@@ -274,7 +274,6 @@ const NFTCard = (props) => {
                         <p>
                             総供給量取得 : {nftTotal}
                         </p>
-                        <br/>
                         <TextField id="outlined-bare4" className={classes.textField} placeholder="TokenId" margin="normal" onChange={ (e) => setTokenId(e.target.value) } variant="outlined" inputProps={{ 'aria-label': 'bare' }} />
                         <Button onClick={buttonOwnerOf} variant="contained" color="primary" className={classes.button}>
                             所有者確認
@@ -295,7 +294,6 @@ const NFTCard = (props) => {
                     </DialogContentText>
                 </DialogContent>
             </Dialog>
-            <NftDialog key={key} value={value} open={nftOpen} />
             <Card className={classes.card} onClick={handleOpen}>
                 <CardActionArea>
                     {nftURL ? (
