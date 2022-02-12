@@ -1,1 +1,6 @@
 node_modules/
+
+# ロギングの出力ファイル
+
+# TLS通信のための設定ファイル
+/backend/server/tls/privatekey.pem
