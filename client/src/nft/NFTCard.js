@@ -15,7 +15,6 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import NftDialog from './../common/NftDialog';
 // Cardコンポーネントを読み込む
 import Card  from '@material-ui/core/Card';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -75,7 +74,8 @@ const NFTCard = (props) => {
     const [ address, setAddress ] = useState(null);
     const [ to, setTo ] = useState(null);
     const [ open, setOpen ] = useState(false);
-    const [ mintRole, setMintRole ] = useState(null);
+    const [ mintRole, setMintRole ] = useState("0x9f2df0fed2c77648de5860a4cc508cd0818c85b8b8a1ab4ceeef8d981c8956a6");
+    const [ hasMintRole, setHasMintRole ] = useState(false);
     const [ nftTotal, setNftTotal ] = useState(null);
     const [ nftBalance, setNftBalance ] = useState(null);
     const [ owner, setOwner ] = useState(null);
@@ -116,19 +116,19 @@ const NFTCard = (props) => {
             const name = await instance.methods.getNftName().call();
             const symbol = await instance.methods.getNftSymbol().call();
             const url = await instance.methods.getNftURL().call();
-            // minterRoleを取得する。
-            const minterRole = await instance.methods.MINTER_ROLE().call();
             // 総供給量を取得する。
             const totalSupply = await instance.methods.totalSupply().call();
             // NFT数を取得する。
-            const balanceOf = await instance.methods.balanceOf(accounts[0]).call()
+            const balanceOf = await instance.methods.balanceOf(accounts[0]).call();
+            // NFTをMintする権限があるかどうかをチェックする。
+            const mintFlg = await instance.methods.hasRole(mintRole, accounts[0]).call();
             // ステート変数にセットする。
             setNftName(name);
             setNftSymbol(symbol);
             setNftURL(url);
-            setMintRole(minterRole);
             setNftTotal(totalSupply);
             setNftBalance(balanceOf);
+            setHasMintRole(mintFlg);
         } catch (error) {
             alert(`Failed to load web3, accounts, or contract. Check console for details.`,);
             console.error(error);
@@ -172,12 +172,17 @@ const NFTCard = (props) => {
         console.log(accounts[0]);
 
         try {
-            // NFTコントラクトのmint関数を実行する。
-            const { hash } = await instance.methods.mint(to).send({ 
-                from: accounts[0],
-                gas: 650000
-            });
-            alert("NFT発行成功！");
+            // Mintする権限があるかどうかチェックする。
+            if (hasMintRole){
+                // NFTコントラクトのmint関数を実行する。
+                const { hash } = await instance.methods.mint(to).send({ 
+                    from: accounts[0],
+                    gas: 650000
+                });
+                alert("NFT発行成功！");
+            } else {
+                alert("あなたには、このNFT発行する権限がありません。");
+            }
         } catch (e) {
             console.log(e);
             alert("mint NFT failed");
@@ -207,14 +212,21 @@ const NFTCard = (props) => {
         const provider = await detectEthereumProvider();
         const web3 = new Web3(provider);
         const instance = new web3.eth.Contract(NFTContract.abi, nft);
-
+        
         try {
-            // 移転実行
-            await instance.methods.transferFrom(accounts[0], to, tokenId).send({ 
-                from: accounts[0],
-                gas: 650000
-            });
-            alert("NFT移転成功！");
+            // 所有者アドレスを取得する。
+            const ownerAddress = await instance.methods.ownerOf(tokenId).call();
+            // 所有者アドレスと実行者が一致していることを確認する。
+            if (accounts[0] == ownerAddress) {
+                // 移転実行
+                await instance.methods.transferFrom(accounts[0], to, tokenId).send({ 
+                    from: accounts[0],
+                    gas: 650000
+                });
+                alert("NFT移転成功！");
+            } else {
+                alert("あなたはこのNFTの所有者ではないので移転できません。");
+            }
         } catch (e) {
             alert("NFT移転失敗");
         }
@@ -230,11 +242,18 @@ const NFTCard = (props) => {
         const instance = new web3.eth.Contract(NFTContract.abi, nft);
 
         try {
-            // 償却実行
-            await instance.methods.burn(tokenId).send({ 
-                from: accounts[0],
-                gas: 650000
-            });
+            // 所有者アドレスを取得する。
+            const ownerAddress = await instance.methods.ownerOf(tokenId).call();
+            // 所有者アドレスと実行者が一致していることを確認する。
+            if (accounts[0] == ownerAddress) {
+                // 償却実行
+                await instance.methods.burn(tokenId).send({ 
+                    from: accounts[0],
+                    gas: 650000
+                });
+            } else {
+                alert("あなたはこのNFTの所有者ではないので償却できません。");
+            }
             alert("NFT償却成功！");
         } catch (e) {
             alert("NFT償却失敗");
@@ -260,13 +279,10 @@ const NFTCard = (props) => {
                             Address : {address} 
                         </p>
                         <p>
-                            Minter権限確認 : {mintRole}
-                        </p>
-                        <p>
                             発行数 : {nftBalance}
                         </p>
                         <p>
-                            総供給量取得 : {nftTotal}
+                            総供給量 : {nftTotal}
                         </p>
                         <TextField id="outlined-bare4" className={classes.textField} placeholder="TokenId" margin="normal" onChange={ (e) => setTokenId(e.target.value) } variant="outlined" inputProps={{ 'aria-label': 'bare' }} />
                         <Button onClick={buttonOwnerOf} variant="contained" color="primary" className={classes.button}>
@@ -291,10 +307,7 @@ const NFTCard = (props) => {
             </Dialog>
             <Card className={classes.card} onClick={handleOpen}>
                 <CardActionArea>
-                    {nftURL ? (
-                        <CardMedia className={classes.media} image={nftURL} title="NFT Image"/>
-                        ) : (<></>) 
-                    };
+                    { nftURL ? ( <CardMedia className={classes.media} image={nftURL} title="NFT Image"/> ) : (<></>) }
                     <CardContent>
                         <Typography gutterBottom variant="h5" component="h2">
                             {nftName}
