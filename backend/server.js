@@ -31,3 +31,5 @@ app.use('/nft', express.static('./../client/build'));
 app.use('/walletSetUp', express.static('./../client/build'));
 app.use('/execTransaction', express.static('./../client/build'));
 app.use('/getTxHash', express.static('./../client/build'));
+app.use('/collection', express.static('./../client/build'));
+

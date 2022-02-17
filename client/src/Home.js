@@ -101,7 +101,7 @@ const Home = () => {
             {displayFundraisers()}
             { (nfts.length > 0) &&
                 <h2>
-                    作成済みNFT
+                    作成済みNFTコントラクト
                 </h2>
             }
             {displayNfts()}

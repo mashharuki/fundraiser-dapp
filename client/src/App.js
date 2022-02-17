@@ -14,26 +14,28 @@ import CreateSafeContractWallet from "./wallet/CreateSafeContractWallet";
 import WalletSetUp from "./wallet/WalletSetUp";
 import ExecTransaction from "./wallet/ExecTransaction";
 import GetTxHash from "./wallet/GetTxHash";
+import Collection from "./nft/Collection";
 // material-ui関連をインポートする。
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar  from '@mui/material/AppBar';
 import Toolbar  from '@mui/material/Toolbar';
 import Typography  from '@mui/material/Typography';
 
+// スタイルを使うための定数
+const useStyles = makeStyles (theme => ({
+  root: {
+    flexGrow: 1
+  },
+  navLink: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+  },
+}));
+
 // コンポーネントを用意する。
 const App = () => {
   // ステート変数を用意する。　
   const [state, setState] = useState({ web3: null, accounts: null, contract: null  });
-  // スタイルを使うための定数
-  const useStyles = makeStyles (theme => ({
-    root: {
-      flexGrow: 1
-    },
-    navLink: {
-      marginLeft: theme.spacing(1),
-      marginRight: theme.spacing(1),
-    },
-  }));
 
   const classes = useStyles();
 
@@ -74,6 +76,7 @@ const App = () => {
               <NavLink className={classes.navLink} to="/sign">Sign</NavLink>
               <NavLink className={classes.navLink} to="/ecrecover">Ecrecover</NavLink>
               <NavLink className={classes.navLink} to="/nft">Nft</NavLink>
+              <NavLink className={classes.navLink} to="/collection">Collection</NavLink>
             </Typography>
           </Toolbar>
         </AppBar>
@@ -88,6 +91,7 @@ const App = () => {
           <Route path="/walletSetUp" element={ <WalletSetUp/> } />
           <Route path="/execTransaction" element={ <ExecTransaction/> } />
           <Route path="/getTxHash" element={ <GetTxHash/> } />
+          <Route path="/collection" element={ <Collection/> } />
         </Routes>
       </div>
     </Router>

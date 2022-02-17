@@ -11,7 +11,6 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Web3 from 'web3';
 import detectEthereumProvider from '@metamask/detect-provider';
-import getWeb3 from '../getWeb3';
 
 // useStyles関数
 const useStyles = makeStyles (theme => ({
@@ -82,12 +81,25 @@ const Nft = () => {
         const networkId = await web3.eth.net.getId();
         const deployedNetwork = NFTFactoryContract.networks[networkId];
         const instance = new web3.eth.Contract(NFTFactoryContract.abi, deployedNetwork && deployedNetwork.address,);
-        console.log(accounts[0])
-        // コントラクトをデプロイする。
-        await instance.methods.createNFT(name, symbol, url).send({ 
-            from: accounts[0],
-            gas: 6500000
-        });
+
+        if (name == null && name === "") {
+            alert("Nameを入力してください。");
+        } else if (symbol == null && symbol === "") {
+            alert("Symbolを入力してください。");
+        } else if (url == null && url === "") {
+            alert("URLを入力してください。");
+        } else {
+            try {
+                // コントラクトをデプロイする。
+                await instance.methods.createNFT(name, symbol, url).send({ 
+                    from: accounts[0],
+                    gas: 6500000
+                });
+            } catch (e) {
+                alert("NFTコントラクトデプロイ失敗");
+                console.error(e);
+            }
+        }
     } 
   
     // 戻り値を設定する。
