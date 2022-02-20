@@ -23,6 +23,11 @@ const Home = () => {
         init();
     }, []);
 
+    // アカウントが切り替わったら画面を更新する。
+    window.ethereum.on('accountsChanged', function (accounts) {
+        window.location.reload()
+    });
+
     // init関数
     const init = async() => {
         try {

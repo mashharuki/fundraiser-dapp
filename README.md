@@ -244,6 +244,8 @@ gasが足りない時に発生するため、設定を見直すこと。send()�
 
 <a href="https://docs.openzeppelin.com/contracts/4.x/api/token/erc721">OpenZeppelin Docs</a>
 
+<a href="https://wizard.openzeppelin.com/#erc721">wizard.openzeppelin.com</a>
+
 <a href="https://gnosis-safe.io/">safe contractsの公式ページ</a>
 
 <a href="https://docs.gnosis.io/safe/docs/contracts_deployment/">safe contractsについての紹介ページ</a>
