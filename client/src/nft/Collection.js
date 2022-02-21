@@ -67,6 +67,7 @@ const Collection = () => {
                   setNfts(nftContracts);
                   // 配列情報を取得する。
                   const tokenIdArray = await displayCollection(nftContracts);
+                  displayTest(tokenIdArray);
                   setIdArray(tokenIdArray);
                   console.log("tokenIdArray:", idArray);
             } catch (error) {
@@ -115,6 +116,10 @@ const Collection = () => {
             return tokenIdArray;
       }
 
+      const displayTest = (idArray) => {
+            return <p>配列の中身：{idArray}</p>;
+      }
+
       /**
        * displayCollectionCard関数
        * @param nftURL NFTに紐づくURL
@@ -153,7 +158,7 @@ const Collection = () => {
                   <h2>
                         My Collections
                   </h2>
-                  <p>{idArray}</p>
+                  {displayTest(idArray)}
             </div>
       );
 }
