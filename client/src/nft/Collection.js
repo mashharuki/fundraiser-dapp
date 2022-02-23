@@ -123,7 +123,7 @@ const Collection = () => {
       const displayCollection = (nfts) => {
             console.log("tokenIdArray:", idArray.length);
             return nfts.map((nft, i) => {   
-                        return <CollectionCard key={i} tokenId={i} nft={nft} />
+                  return <CollectionCard key={i} tokenId={i} nft={nft} />
             });
       }
 
