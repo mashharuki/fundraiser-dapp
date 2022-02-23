@@ -7,6 +7,7 @@ import Web3 from "web3";
 import FundraiserCard from './fundraiser/FundraiserCard';
 import NFTCard from "./nft/NFTCard";
 import WalletCard from "./wallet/WalletCard";
+import UseStyles from "./common/useStyles";
 
 // コンポーネントを用意する。
 const Home = () => {
@@ -16,10 +17,16 @@ const Home = () => {
     const [ wallets, setWallets ] = useState ([]);
     const [ contract, setContract ] = useState (null);
     const [ accounts, setAccounts ] = useState (null);
+    const classes = UseStyles();
     
     useEffect (() => {
         init();
     }, []);
+
+    // アカウントが切り替わったら画面を更新する。
+    window.ethereum.on('accountsChanged', function (accounts) {
+        window.location.reload()
+    });
 
     // init関数
     const init = async() => {
@@ -92,7 +99,7 @@ const Home = () => {
     }
 
     return (
-        <div className="main-container">
+        <div className={classes.main_container}>
             { (funds.length > 0) &&
                 <h2>
                     資金調達プロジェクト
@@ -101,7 +108,7 @@ const Home = () => {
             {displayFundraisers()}
             { (nfts.length > 0) &&
                 <h2>
-                    作成済みNFT
+                    作成済みNFTコントラクト
                 </h2>
             }
             {displayNfts()}

@@ -152,11 +152,6 @@ const FundraiserCard = (props) => {
         }
     }
 
-    // アカウントが切り替わったら画面を更新する。
-    window.ethereum.on('accountsChanged', function (accounts) {
-        window.location.reload()
-      })
-
     // handleOpen関数
     const handleOpen = () => {
         // trueにして開く。

@@ -4,7 +4,7 @@
 
 // 必要なモジュールを読み込む
 import React, { useState, useEffect } from "react";
-import { makeStyles } from '@material-ui/core/styles';
+import UseStyles from "./../common/useStyles";
 import Web3 from 'web3';
 import NFTContract from '../contracts/NFT.json';
 import detectEthereumProvider from '@metamask/detect-provider';
@@ -23,38 +23,6 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 
-// スタイルを使うための定数
-const useStyles = makeStyles (theme => ({
-    card: {
-        maxWidth: 600,
-        height: 600
-    },
-    media: {
-        height: 400,
-    },
-    button: {
-        margin: theme.spacing(1),
-    },
-    input: {
-        display: 'none',
-    },
-    container: {
-        display: 'flex',
-        flexWrap: 'wrap',
-    },
-    formControl: {
-        margin: theme.spacing(1),
-        display: 'table-cell'
-    },
-    paper: {
-        position: 'absolute',
-        width: 600,
-        backgroundColor: theme.palette.primary.light,
-        boxShadow: 'none',
-        padding: 4,
-    },
-}));
-
 /**
  * NFTCardコンポーネント本体
  */
@@ -62,7 +30,7 @@ const NFTCard = (props) => {
     // 変数を定義する。
     const { nft } = props; 
     // スタイル用のクラス
-    const classes = useStyles();
+    const classes = UseStyles();
     // ステート変数を用意する。
     const [ web3, setWeb3 ] = useState(null);
     const [ nftName, setNftName ] = useState(null);
@@ -84,7 +52,7 @@ const NFTCard = (props) => {
      * useEffect関数
      */
     useEffect (() => {
-        // fundraiserが存在する時のみinit関数を実行する。
+        // nftが存在する時のみ実行
         if (nft) {
             init (nft);
         }
@@ -92,6 +60,7 @@ const NFTCard = (props) => {
 
     /**
      * init関数
+     * @param nft NFTコントラクト
      */
     const init = async (nft) => {
         try {
@@ -140,7 +109,7 @@ const NFTCard = (props) => {
      */
     window.ethereum.on('accountsChanged', function (accounts) {
         window.location.reload()
-    })
+    });
 
     /**
      * ダイアログを開くための関数
@@ -169,7 +138,6 @@ const NFTCard = (props) => {
         const networkId = await web3.eth.net.getId();
         const deployedNetwork = NFTContract.networks[networkId];
         const instance = new web3.eth.Contract(NFTContract.abi, nft);
-        console.log(accounts[0]);
 
         try {
             // Mintする権限があるかどうかチェックする。
@@ -198,10 +166,16 @@ const NFTCard = (props) => {
         const provider = await detectEthereumProvider();
         const web3 = new Web3(provider);
         const instance = new web3.eth.Contract(NFTContract.abi, nft);
-        // 所有者アドレスを取得する。
-        const ownerAddress = await instance.methods.ownerOf(tokenId).call();
-        console.log("所有者アドレス：", ownerAddress);
-        setOwner(ownerAddress);
+
+        try {
+            // 所有者アドレスを取得する。
+            const ownerAddress = await instance.methods.ownerOf(tokenId).call();
+            console.log("所有者アドレス：", ownerAddress);
+            setOwner(ownerAddress);
+            setTokenId(null);
+        } catch(e) {
+            alert("このトークンIDをもつNFTは、burnされている可能性があります。");
+        }
     }
 
     /**
@@ -217,13 +191,15 @@ const NFTCard = (props) => {
             // 所有者アドレスを取得する。
             const ownerAddress = await instance.methods.ownerOf(tokenId).call();
             // 所有者アドレスと実行者が一致していることを確認する。
-            if (accounts[0] == ownerAddress) {
+            if (accounts[0] === ownerAddress) {
                 // 移転実行
                 await instance.methods.transferFrom(accounts[0], to, tokenId).send({ 
                     from: accounts[0],
                     gas: 650000
                 });
                 alert("NFT移転成功！");
+                setTo(null);
+                setTokenId(null);
             } else {
                 alert("あなたはこのNFTの所有者ではないので移転できません。");
             }
@@ -305,26 +281,28 @@ const NFTCard = (props) => {
                     </DialogContentText>
                 </DialogContent>
             </Dialog>
-            <Card className={classes.card} onClick={handleOpen}>
-                <CardActionArea>
-                    { nftURL ? ( <CardMedia className={classes.media} image={nftURL} title="NFT Image"/> ) : (<></>) }
-                    <CardContent>
-                        <Typography gutterBottom variant="h5" component="h2">
-                            {nftName}
-                        </Typography>
-                        <Typography variant="body2" color="textSecondary" component="div">
-                            <p>
-                                {nftURL}
-                            </p>
-                        </Typography>
-                    </CardContent>
-                </CardActionArea>
-                <CardActions>
-                    <Button onClick={handleOpen} variant="contained" className={classes.button}>
-                        View More
-                    </Button>
-                </CardActions>
-            </Card>
+            { !hasMintRole ?
+                <Card className={classes.card} onClick={handleOpen}>
+                    <CardActionArea>
+                        { nftURL ? ( <CardMedia className={classes.media} image={nftURL} title="NFT Image"/> ) : (<></>) }
+                        <CardContent>
+                            <Typography gutterBottom variant="h5" component="h2">
+                                {nftName}
+                            </Typography>
+                            <Typography variant="body2" color="textSecondary" component="div">
+                                <p>
+                                    {nftURL}
+                                </p>
+                            </Typography>
+                        </CardContent>
+                    </CardActionArea>
+                    <CardActions>
+                        <Button onClick={handleOpen} variant="contained" className={classes.button}>
+                            View More
+                        </Button>
+                    </CardActions>
+                </Card>
+            : <></>}
         </div>
     );
 }

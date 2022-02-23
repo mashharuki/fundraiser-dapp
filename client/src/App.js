@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, NavLink, RouteProps } from "rea
 import FundraiserFactoryContract from "./contracts/FundraiserFactory.json";
 import getWeb3 from "./getWeb3";
 import "./App.css";
+import UseStyles from "./common/useStyles";
 // 各ページ用のコンポーネントを読み込む
 import NewFundraiser from './fundraiser/NewFundraiser';
 import Home from "./Home";
@@ -14,8 +15,8 @@ import CreateSafeContractWallet from "./wallet/CreateSafeContractWallet";
 import WalletSetUp from "./wallet/WalletSetUp";
 import ExecTransaction from "./wallet/ExecTransaction";
 import GetTxHash from "./wallet/GetTxHash";
+import Collection from "./nft/Collection";
 // material-ui関連をインポートする。
-import { makeStyles } from '@material-ui/core/styles';
 import AppBar  from '@mui/material/AppBar';
 import Toolbar  from '@mui/material/Toolbar';
 import Typography  from '@mui/material/Typography';
@@ -23,19 +24,8 @@ import Typography  from '@mui/material/Typography';
 // コンポーネントを用意する。
 const App = () => {
   // ステート変数を用意する。　
-  const [state, setState] = useState({ web3: null, accounts: null, contract: null  });
-  // スタイルを使うための定数
-  const useStyles = makeStyles (theme => ({
-    root: {
-      flexGrow: 1
-    },
-    navLink: {
-      marginLeft: theme.spacing(1),
-      marginRight: theme.spacing(1),
-    },
-  }));
-
-  const classes = useStyles();
+  const [ state, setState ] = useState({ web3: null, accounts: null, contract: null  });
+  const classes = UseStyles();
 
   // useeffect関数
   useEffect (() => {
@@ -66,7 +56,10 @@ const App = () => {
     <Router>
       <div className={classes.root}>
         <AppBar position="static" color="default">
-          <Toolbar>
+          <Toolbar className={classes.toolbar}>
+            <Typography variant="h6" color="inherit" sx={{ flexGrow: 1 }}>
+              <strong>Web3.0 App</strong>
+            </Typography>
             <Typography variant="h6" color="inherit">
               <NavLink className={classes.navLink} to="/">Home</NavLink>
               <NavLink className={classes.navLink} to="/new">New</NavLink>
@@ -74,6 +67,7 @@ const App = () => {
               <NavLink className={classes.navLink} to="/sign">Sign</NavLink>
               <NavLink className={classes.navLink} to="/ecrecover">Ecrecover</NavLink>
               <NavLink className={classes.navLink} to="/nft">Nft</NavLink>
+              <NavLink className={classes.navLink} to="/collection">Collection</NavLink>
             </Typography>
           </Toolbar>
         </AppBar>
@@ -88,6 +82,7 @@ const App = () => {
           <Route path="/walletSetUp" element={ <WalletSetUp/> } />
           <Route path="/execTransaction" element={ <ExecTransaction/> } />
           <Route path="/getTxHash" element={ <GetTxHash/> } />
+          <Route path="/collection" element={ <Collection/> } />
         </Routes>
       </div>
     </Router>
