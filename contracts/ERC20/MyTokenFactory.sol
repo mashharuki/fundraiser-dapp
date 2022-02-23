@@ -41,7 +41,7 @@ contract MyTokenFactory {
      * @param offset 取得数
      * @return coll MyTokenコントラクトの配列 
      */
-    function fundraisers (uint256 limit, uint256 offset) public view returns (MyToken[] memory coll) {
+    function myTokens (uint256 limit, uint256 offset) public view returns (MyToken[] memory coll) {
         // 取得前に確認
         require (offset <= myTokensCount(), "offset out of bounds");
         // 最大値を上回っている場合は、limitを格納する。

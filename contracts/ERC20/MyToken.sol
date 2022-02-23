@@ -16,9 +16,9 @@ import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Votes.sol";
 contract MyToken is ERC20, ERC20Burnable, Pausable, Ownable, ERC20Permit, ERC20Votes {
 
       // トークン名
-      string name;
+      string tokenName;
       // シンボル名
-      string symbol;
+      string tokenSymbol;
 
       /**
        * コンストラクター
@@ -27,8 +27,8 @@ contract MyToken is ERC20, ERC20Burnable, Pausable, Ownable, ERC20Permit, ERC20V
        */
       constructor(string memory _name, string memory _symbol) ERC20(_name, _symbol) ERC20Permit(_name) {
             // トークン名とシンボル名を設定する
-            name = _name;
-            symbol = _symbol;
+            tokenName = _name;
+            tokenSymbol = _symbol;
       }
 
       /**
