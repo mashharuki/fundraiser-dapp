@@ -62,14 +62,11 @@ const Collection = () => {
                   setContract(instance);
                   // アカウントをセットする。
                   setAccounts(web3Accounts);
-                  setEthWeb3(web3);     
-                  // ステート変数に設定
+                  setEthWeb3(web3); 
                   setNfts(nftContracts);
                   // 配列情報を取得する。
-                  const tokenIdArray = await displayCollection(nftContracts);
-                  displayTest(tokenIdArray);
+                  const tokenIdArray = getTokenIDs(nftContracts);
                   setIdArray(tokenIdArray);
-                  console.log("tokenIdArray:", idArray);
             } catch (error) {
                   alert(`Failed to load web3, accounts, or contract. Check console for details.`,);
                   console.log(error);
@@ -77,16 +74,17 @@ const Collection = () => {
       }
 
       /**
-       * displayCollection関数
+       * getTokenIDs関数
        * @param nfts NFTコントラクト
+       * @return トークンIDを格納した配列
        */
-      const displayCollection = async (nfts) => {
+      const getTokenIDs = (nfts) => {
             // tokenIds用の配列
-            const tokenIdArray = [];
-            // トークンID用の配列
-            const tokenIds = [];
+            var tokenIdArray = [];
             // 条件に合致したNFTのみCollectionCardコンポーネントを使って表示する。
-            await nfts.map(async (nft) => {
+            nfts.map(async (nft) => {
+                  // トークンID用の配列
+                  var tokenIds = new Array();
                   const provider = await detectEthereumProvider();
                   const web3 = new Web3(provider);
                   // NFTコントラクトを読み取る。
@@ -109,56 +107,32 @@ const Collection = () => {
                         } 
                   });
                   // console.log("nft:", nft);
-                  // console.log("トークンIDs:", tokenIds);
-                  tokenIdArray.push(tokenIds);
-                  tokenIds.splice(0); 
+                  if(tokenIds.length){
+                        console.log("トークンIDs:", tokenIds);
+                        tokenIdArray.push(tokenIds);
+                  }
             });
             return tokenIdArray;
       }
 
-      const displayTest = (idArray) => {
-            return <p>配列の中身：{idArray}</p>;
-      }
-
       /**
-       * displayCollectionCard関数
-       * @param nftURL NFTに紐づくURL
-       * @param nftName NFT名
-       * @param tokenId トークンID
-       * @return CollectionCardコンポーネント
+       * displayCollection関数
+       * @param {*} nfts NFTコントラクトアドレスの配列
+       * @returns CollectionCardコンポーネント群
        */
-      const displayCollectionCard = (nftURL, nftName, tokenId) => {
-            console.log("CollectionCardを描画する。");
-            return (
-                  <Card className={classes.card} variant="outlined">
-                        <CardActionArea>
-                              { nftURL ? ( <CardMedia className={classes.media} image={nftURL} title="NFT Image"/> ) : (<></>) }
-                              <CardContent>
-                                    <Typography gutterBottom variant="h5" component="h2">
-                                          {nftName}
-                                    </Typography>
-                                    <Typography variant="body2" color="textSecondary" component="div">
-                                          <p>
-                                                ID：{tokenId}
-                                          </p>
-                                    </Typography>
-                                    <Typography variant="body2" color="textSecondary" component="div">
-                                          <p>
-                                                URI：{nftURL}
-                                          </p>
-                                    </Typography>
-                              </CardContent>
-                        </CardActionArea>
-                  </Card>
-            );
-      };
+      const displayCollection = (nfts) => {
+            console.log("tokenIdArray:", idArray.length);
+            return nfts.map((nft, i) => {   
+                        return <CollectionCard key={i} tokenId={i} nft={nft} />
+            });
+      }
 
       return (
             <div className="collection-container">
                   <h2>
                         My Collections
                   </h2>
-                  {displayTest(idArray)}
+                  {displayCollection(nfts)}
             </div>
       );
 }
