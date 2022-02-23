@@ -261,3 +261,11 @@ gasが足りない時に発生するため、設定を見直すこと。send()�
 <a href="https://ecouffes.github.io/smart-contract-best-practices/security_tools/">Ethereum Smart Contract Best Practices(和訳)</a>  
 
 <a href="https://placekitten.com/">画像ファイル保管庫(200/300などをつけて検索すると猫の画像がヒットします。)</a>
+
+<a href="https://www.owl-coin.com/tags/erc20">ERC20規格で開発された暗号資産一覧</a>
+
+<a href="https://baasinfo.net/?p=3683">ERC20トークンについて</a>
+
+<a href="https://cointool.app/createToken/arb">CoinTool</a>
+
+<a href="https://qiita.com/sinsinpurin/items/e95f7e167b3116d29c68">ERC20トークンでマイトークン作成・実行までまるっと解説！</a>
