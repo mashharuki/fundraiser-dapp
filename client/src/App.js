@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route, NavLink, RouteProps } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, NavLink } from "react-router-dom";
 import FundraiserFactoryContract from "./contracts/FundraiserFactory.json";
 import getWeb3 from "./getWeb3";
 import "./App.css";
@@ -17,19 +17,29 @@ import WalletSetUp from "./wallet/WalletSetUp";
 import ExecTransaction from "./wallet/ExecTransaction";
 import GetTxHash from "./wallet/GetTxHash";
 import Collection from "./nft/Collection";
+import Web3Menu from "./common/Web3Menu";
 // material-ui関連をインポートする。
 import AppBar  from '@mui/material/AppBar';
 import Toolbar  from '@mui/material/Toolbar';
 import Typography  from '@mui/material/Typography';
 
-// コンポーネントを用意する。
+/**
+ * Appコンポーネント
+ */
 const App = () => {
   // ステート変数を用意する。　
   const [ state, setState ] = useState({ web3: null, accounts: null, contract: null  });
+  // スタイルシートを適用するためのコンポーネント読み込み
   const classes = UseStyles();
 
-  // useeffect関数
+  /**
+   * 副作用フック
+   */
   useEffect (() => {
+
+    /**
+     * init関数
+     */
     const init = async () => {
       try {
         // 変数を設定
@@ -62,19 +72,13 @@ const App = () => {
               <strong>Web3.0 App</strong>
             </Typography>
             <Typography variant="h6" color="inherit">
-              <NavLink className={classes.navLink} to="/">Home</NavLink>
-              <NavLink className={classes.navLink} to="/new">New</NavLink>
-              <NavLink className={classes.navLink} to="/createSafeWallet">CreateSafeWallet</NavLink>
-              <NavLink className={classes.navLink} to="/sign">Sign</NavLink>
-              <NavLink className={classes.navLink} to="/ecrecover">Ecrecover</NavLink>
-              <NavLink className={classes.navLink} to="/nft">Nft</NavLink>
-              <NavLink className={classes.navLink} to="/collection">Collection</NavLink>
-              <NavLink className={classes.navLink} to="/myToken">MyToken</NavLink>
+              <Web3Menu/>
             </Typography>
           </Toolbar>
         </AppBar>
         <Routes>
           <Route path="/" exact element={ <Home/> } />
+          <Route path="/home" exact element={ <Home/> } />
           <Route path="/new" element={ <NewFundraiser/> } />
           <Route path="/createSafeWallet" element={ <CreateSafeContractWallet/>} />
           <Route path="/receipts" element={ <Receipts/> } />
