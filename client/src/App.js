@@ -11,6 +11,7 @@ import Receipts from './fundraiser/Receipts';
 import Sign from "./wallet/Sign";
 import Ecrecover from "./wallet/Ecrecover";
 import Nft from "./nft/Nft";
+import MyToken from "./mytoken/MyToken";
 import CreateSafeContractWallet from "./wallet/CreateSafeContractWallet";
 import WalletSetUp from "./wallet/WalletSetUp";
 import ExecTransaction from "./wallet/ExecTransaction";
@@ -68,6 +69,7 @@ const App = () => {
               <NavLink className={classes.navLink} to="/ecrecover">Ecrecover</NavLink>
               <NavLink className={classes.navLink} to="/nft">Nft</NavLink>
               <NavLink className={classes.navLink} to="/collection">Collection</NavLink>
+              <NavLink className={classes.navLink} to="/myToken">MyToken</NavLink>
             </Typography>
           </Toolbar>
         </AppBar>
@@ -79,6 +81,7 @@ const App = () => {
           <Route path="/sign" element={ <Sign/> } />
           <Route path="/ecrecover" element={ <Ecrecover/> } />
           <Route path="/nft" element={ <Nft/> } />
+          <Route path="/myToken" element={ <MyToken/> } />
           <Route path="/walletSetUp" element={ <WalletSetUp/> } />
           <Route path="/execTransaction" element={ <ExecTransaction/> } />
           <Route path="/getTxHash" element={ <GetTxHash/> } />

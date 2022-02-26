@@ -36,6 +36,7 @@ solcのバージョン情報等については、truffle-config.jsを参照く�
    　|　　┣ src/  ：App.jsなどのアプリを構成するファイルを格納するディレクトリ  
    　|　　|　 ┣ contracts/ : コンパイル済みのコントラクトjsonファイルを格納する   
    　|　　|　 ┣ fundraiser/ : 資金調達機能関連のコンポーネント用ディレクトリ  
+   　|　　|　 ┣ mytoken/ : ERC20トークン関連のコンポーネント用ディレクトリ
    　|　　|　 ┣ nft/ : NFT関連のコンポーネント用ディレクトリ  
   　 |　　|　 └ wallet/ : ウォレット関連のコンポーネント用ディレクトリ      
    　|　　┣  public/  : CSSファイルなど全体を通して使用するファイルを格納するディレクトリ   
@@ -43,6 +44,7 @@ solcのバージョン情報等については、truffle-config.jsを参照く�
    　|　　┣  package.json: 　npm用の設定ファイル  
    　|　　└  package-lock.json:　 npm installによってインストールされたモジュールの情報を記載したファイル  
    　┣ contracts/　: スマートコントラクト(バックエンド側)のディレクトリ  
+   　|　　┣ ERC20/: ERC20トークン関連のコントラクトを格納したディレクトリ
    　|　　┣ safeContracts/: マルチシグウォレット関連のコントラクトを格納したディレクトリ  
    　|　　|　    ┣ base/ :  ベースとなるコントラクトを格納したディレクトリ  
    　|　　|　    ┣ common/ : 共通機能コントラクトを格納したディレクトリ  
@@ -261,3 +263,11 @@ gasが足りない時に発生するため、設定を見直すこと。send()�
 <a href="https://ecouffes.github.io/smart-contract-best-practices/security_tools/">Ethereum Smart Contract Best Practices(和訳)</a>  
 
 <a href="https://placekitten.com/">画像ファイル保管庫(200/300などをつけて検索すると猫の画像がヒットします。)</a>
+
+<a href="https://www.owl-coin.com/tags/erc20">ERC20規格で開発された暗号資産一覧</a>
+
+<a href="https://baasinfo.net/?p=3683">ERC20トークンについて</a>
+
+<a href="https://cointool.app/createToken/arb">CoinTool</a>
+
+<a href="https://qiita.com/sinsinpurin/items/e95f7e167b3116d29c68">ERC20トークンでマイトークン作成・実行までまるっと解説！</a>
