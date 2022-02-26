@@ -21,6 +21,10 @@ const UseStyles = makeStyles (theme => ({
         maxWidth: 600,
         height: 600,
     },
+    tokenCard: {
+        maxWidth: 600,
+        height: 200,
+    },
     media: {
         height: 400,
     },

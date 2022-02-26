@@ -29,6 +29,8 @@ contract MyTokenFactory {
     function createMyToken (string memory name, string memory symbol) public {
         // インスタンスを生成
         MyToken myToken = new MyToken(name, symbol);
+        // コントラクト呼び出し元アドレスに権限を移譲する。
+        myToken.transferOwnership(msg.sender);
         // 配列に格納する。
         _myTokens.push(myToken);
         // イベントの発行

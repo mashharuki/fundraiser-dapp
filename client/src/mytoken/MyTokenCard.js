@@ -46,6 +46,7 @@ const MyTokenCard = (props) => {
       const [ amount, setAmount ] = useState(0);
       const [ isOwner, setIsOwner ] = useState(false);
       const [ pauseFlg, setPauseFlg ] = useState(false);
+      const [ tokenAddress, setTokenAddress ] = useState(null);
 
       /**
        * useEffect関数
@@ -94,6 +95,7 @@ const MyTokenCard = (props) => {
                   setBalance(balanceOf);
                   setNonce(nonces);
                   setPauseFlg(paused);
+                  setTokenAddress(MyToken);
             } catch (error) {
                   alert(`Failed to load web3, accounts, or contract. Check console for details.`,);
                   console.error(error);
@@ -133,8 +135,9 @@ const MyTokenCard = (props) => {
                         from: accounts[0],
                         gas: 6500000
                     });
+                  alert("発行成功！");
             } catch (error) {
-                  alert(`発行に失敗しました。`,);
+                  alert(`発行に失敗しました。`);
                   console.error(error);
             }
       };
@@ -149,8 +152,9 @@ const MyTokenCard = (props) => {
                         from: accounts[0],
                         gas: 6500000
                     });
+                  alert("送金成功！");
             } catch (error) {
-                  alert(`移転に失敗しました。`,);
+                  alert(`送金に失敗しました。`);
                   console.error(error);
             }
       };
@@ -164,9 +168,10 @@ const MyTokenCard = (props) => {
                   await contract.methods.pause().send({ 
                         from: accounts[0],
                         gas: 6500000
-                    });
+                  });
+                  alert(`Pause成功！`,);
             } catch (error) {
-                  alert(`Pauseに失敗しました。`,);
+                  alert(`Pauseに失敗しました。`);
                   console.error(error);
             }
       };
@@ -180,9 +185,10 @@ const MyTokenCard = (props) => {
                   await contract.methods.unpause().send({ 
                         from: accounts[0],
                         gas: 6500000
-                    });
+                  });
+                  alert(`UnPause成功！`);
             } catch (error) {
-                  alert(`Pauseに失敗しました。`,);
+                  alert(`UnPauseに失敗しました。`);
                   console.error(error);
             }
       };
@@ -197,6 +203,9 @@ const MyTokenCard = (props) => {
                               <DialogContentText>
                                     <p>
                                           Symbol : {tokenSymbol}
+                                    </p>
+                                    <p>
+                                          Address : {tokenAddress}
                                     </p>
                                     <p>
                                           残高 : {balance}
@@ -228,23 +237,24 @@ const MyTokenCard = (props) => {
                                     </Button>
                                     <br/>
                                     <Button onClick={buttonTransfer} variant="contained" color="primary" className={classes.button}>
-                                          移転
+                                          送金
                                     </Button>
                                     <br/>
                                     { isOwner ? 
-                                          <Button onClick={buttonPause} variant="contained" color="primary" className={classes.button}>
+                                          <Button onClick={buttonPause} variant="contained" color="secondary" className={classes.button}>
                                                 Pause
                                           </Button> 
                                     : <></>}
+                                    <br/>
                                     { isOwner ? 
-                                          <Button onClick={buttonUnPause} variant="contained" color="primary" className={classes.button}>
+                                          <Button onClick={buttonUnPause} variant="contained" color="secondary" className={classes.button}>
                                                 UnPause
                                           </Button> 
                                     : <></>}
                               </DialogContentText>
                         </DialogContent>
                   </Dialog>
-                  <Card className={classes.card} onClick={handleOpen}>
+                  <Card className={classes.tokenCard} onClick={handleOpen}>
                         <CardActionArea>
                               <CardContent>
                                     <Typography gutterBottom variant="h5" component="h2">
