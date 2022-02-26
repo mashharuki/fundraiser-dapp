@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route, NavLink, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, NavLink } from "react-router-dom";
 import FundraiserFactoryContract from "./contracts/FundraiserFactory.json";
 import getWeb3 from "./getWeb3";
 import "./App.css";
@@ -17,6 +17,7 @@ import WalletSetUp from "./wallet/WalletSetUp";
 import ExecTransaction from "./wallet/ExecTransaction";
 import GetTxHash from "./wallet/GetTxHash";
 import Collection from "./nft/Collection";
+import Web3Menu from "./common/Web3Menu";
 // material-ui関連をインポートする。
 import AppBar  from '@mui/material/AppBar';
 import Toolbar  from '@mui/material/Toolbar';
@@ -26,27 +27,13 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
-// Menu用の配列
-const options = [
-  'Home',
-  'New',
-  'CreateSafeWallet',
-  'Sign',
-  'Ecrecover',
-  'Nft',
-  'Collection',
-  'MyToken',
-];
-// Menuコンポーネント用の定数
-const ITEM_HEIGHT = 48;
-
 /**
  * Appコンポーネント
  */
 const App = () => {
   // ステート変数を用意する。　
   const [ state, setState ] = useState({ web3: null, accounts: null, contract: null  });
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
   // メニュー用の変数
   const open = Boolean(anchorEl);
   // スタイルシートを適用するためのコンポーネント読み込み
@@ -82,21 +69,6 @@ const App = () => {
     init();
   }, []);
 
-  /**
-   * メニューアイコンをクリックした時の処理
-   * @param {*} event イベントハンドラ
-   */
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  /**
-   * メニューバーを閉じる時の処理
-   */
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
   // レンダリングする内容
   return (
     <Router>
@@ -107,37 +79,7 @@ const App = () => {
               <strong>Web3.0 App</strong>
             </Typography>
             <Typography variant="h6" color="inherit">
-              <IconButton 
-                aria-label="more"
-                id="home-menu-button"
-                aria-controls={open ? 'home-menu-button' : undefined}
-                aria-expanded={open ? 'true' : undefined}
-                aria-haspopup="true"
-                onClick={handleClick}
-              >
-                <MenuIcon />
-              </IconButton>
-              <Menu
-                id="web3.0-menu"
-                MenuListProps={{
-                  'aria-labelledby': 'home-menu-button',
-                }}
-                anchorEl={anchorEl}
-                open={open}
-                onClose={handleClose}
-                PaperProps={{
-                  style: {
-                    maxHeight: ITEM_HEIGHT * 4.5,
-                    width: '20ch',
-                  },
-                }}
-              >
-                {options.map((option) => (
-                  <MenuItem key={option} selected={option === 'Home'} onClick={handleClose}>
-                    <NavLink className={classes.navLink} to={{ pathname: `/${option}` }}>{option}</NavLink>
-                  </MenuItem>
-                ))}
-            </Menu>
+              <Web3Menu/>
             </Typography>
           </Toolbar>
         </AppBar>
