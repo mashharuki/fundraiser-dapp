@@ -22,10 +22,6 @@ import Web3Menu from "./common/Web3Menu";
 import AppBar  from '@mui/material/AppBar';
 import Toolbar  from '@mui/material/Toolbar';
 import Typography  from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
 
 /**
  * Appコンポーネント
@@ -33,9 +29,6 @@ import MenuItem from '@mui/material/MenuItem';
 const App = () => {
   // ステート変数を用意する。　
   const [ state, setState ] = useState({ web3: null, accounts: null, contract: null  });
-  const [anchorEl, setAnchorEl] = useState(null);
-  // メニュー用の変数
-  const open = Boolean(anchorEl);
   // スタイルシートを適用するためのコンポーネント読み込み
   const classes = UseStyles();
 
