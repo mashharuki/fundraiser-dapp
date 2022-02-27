@@ -25,10 +25,11 @@ contract MyTokenFactory {
      * MyTokenコントラクト生成関数
      * @param name トークン名
      * @param symbol シンボル名
+     * @param decimal 小数点桁数
      */
-    function createMyToken (string memory name, string memory symbol) public {
+    function createMyToken (string memory name, string memory symbol, uint8 decimal) public {
         // インスタンスを生成
-        MyToken myToken = new MyToken(name, symbol);
+        MyToken myToken = new MyToken(name, symbol, decimal);
         // コントラクト呼び出し元アドレスに権限を移譲する。
         myToken.transferOwnership(msg.sender);
         // 配列に格納する。

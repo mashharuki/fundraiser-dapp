@@ -25,7 +25,7 @@ contract MyToken is ERC20, ERC20Burnable, Pausable, Ownable, ERC20Permit, ERC20V
        * @param _name トークン名
        * @param _symbol シンボル名
        */
-      constructor(string memory _name, string memory _symbol) ERC20(_name, _symbol) ERC20Permit(_name) {
+      constructor(string memory _name, string memory _symbol, uint8 _decimal) ERC20(_name, _symbol, _decimal) ERC20Permit(_name) {
             // トークン名とシンボル名を設定する
             tokenName = _name;
             tokenSymbol = _symbol;
