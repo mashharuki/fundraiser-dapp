@@ -9,12 +9,12 @@ MetaMaskとWeb3.js、スマートコントラクト(solidity)とReact.jsから�
 solcのバージョン情報等については、truffle-config.jsを参照ください。
 
 ## 実装機能
-   1. 資金調達関連機能： ほぼ実装済み(一部バグあり)  
-   2. NFT関連機能： 発行機能のみ実装ずみ(他はバグがあるので今後修正)  
+   1. 資金調達関連機能： 実装済み
+   2. NFT関連機能： NFTコントラクトは実装ずみ(Collection表示機能はバグがあるので今後修正)  
    3. マルチシグ関連機能： マルチシグウォレット生成＆署名機能実装済み  
+   4. ERC020規格のトークン発行関連機能   
 
 ## 今後実装予定機能
-   1. ERC020規格のトークン発行関連機能  
    2. ゲーム関連機能  
 
 ## GitHub PagesのURL
@@ -27,7 +27,7 @@ solcのバージョン情報等については、truffle-config.jsを参照く�
 |-------------|-------------|
 |truffle|スマートコントラクト開発用のフレームワークとして使用している。テストやデプロイを行う。|
 |React|フロントエンド側の開発をするために使用している。|
-|Material-UI|React向けのUIコンポーネントライブラリ|
+|Material-UI(MUI)|React向けのUIコンポーネントライブラリ|
 
 ## 主なディレクトリ構成
 ~~~
@@ -286,3 +286,5 @@ gasが足りない時に発生するため、設定を見直すこと。send()�
 <a href="https://cointool.app/createToken/arb">CoinTool</a>
 
 <a href="https://qiita.com/sinsinpurin/items/e95f7e167b3116d29c68">ERC20トークンでマイトークン作成・実行までまるっと解説！</a>
+
+<a href="https://www.i-ryo.com/entry/2021/02/08/065133">【React】JSONデータをJSXに読み込んで表示する</a>
