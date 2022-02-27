@@ -26,6 +26,8 @@ contract ("MyTokenFactory: create MyToken", (accounts) => {
     const name = "name";
     // シンボル
     const symbol = "symbol";
+    // 小数点桁数
+    const decimal = 0;
 
     // MyTokenコントラクトを作成するテストコード
     it ("increments the MyTokenCount", async () => {
@@ -34,7 +36,7 @@ contract ("MyTokenFactory: create MyToken", (accounts) => {
         // 現在の数を取得する。
         const currentMyTokenCount = await MyTokenFactory.myTokensCount();
         // MyTokenを作成する。
-        await MyTokenFactory.createMyToken(name, symbol);
+        await MyTokenFactory.createMyToken(name, symbol, decimal);
         // 作成後の数を取得する。
         const newMyTokenCount = await MyTokenFactory.myTokensCount();
         // 1つしかマルチシグウォレットが作成されていないことをチェックする。
@@ -67,7 +69,7 @@ contract ("MyTokenFactory: MyTokens", (accounts) => {
 
         for (let i=0; i < count; i++) {
             // インスタンスを生成
-            await factory.createMyToken (`${name} ${i}`, `${symbol}${i}`);
+            await factory.createMyToken (`${name} ${i}`, `${symbol}${i}`, `${decimal}${i}`);
         }
     }
 

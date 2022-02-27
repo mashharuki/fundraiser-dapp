@@ -7,10 +7,16 @@ import '../App.css';
 import React, { useState, useEffect } from "react";
 import MyTokenFactoryContract from '../contracts/MyTokenFactory.json';
 import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
+import { Button, Select, MenuItem } from '@material-ui/core';
+import FormControl from '@mui/material/FormControl';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputLabel from '@mui/material/InputLabel';
 import TextField from '@material-ui/core/TextField';
 import Web3 from 'web3';
 import detectEthereumProvider from '@metamask/detect-provider';
+
+// Decimal選択肢用の配列
+const Decimals = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18];
 
 // useStyles関数
 const useStyles = makeStyles (theme => ({
@@ -30,12 +36,11 @@ const MyToken = () => {
       // ステート変数を用意
       const [ name, setName ] = useState (null);
       const [ symbol, setSymbol ] = useState (null);
+      const [ decimal, setDecimal ] = useState (null);
       const [ contract, setContract ] = useState (null);
       const [ accounts, setAccounts ] = useState (null);
-      const [ address, setAddress ] = useState (null);
       const [ netID, setNetID ] = useState (null);
       const [ ethWeb3, setEthWeb3 ] = useState(null);
-      const [ tokenId , setTokenId] = useState(null);
       // スタイル用のクラス
       const classes = useStyles();
   
@@ -78,7 +83,7 @@ const MyToken = () => {
       const buttonDeploy = async() => {
             try {
                   // コントラクトをデプロイする。
-                  await contract.methods.createMyToken(name, symbol).send({ 
+                  await contract.methods.createMyToken(name, symbol, decimal).send({ 
                       from: accounts[0],
                       gas: 6500000
                   });
@@ -114,6 +119,22 @@ const MyToken = () => {
                         inputProps={{ 'aria-label': 'bare' }} 
                         required={true}
                         />
+                  <FormControl sx={{ width: 300 }}>
+                        <InputLabel id="token-Decimal">Token Decimal</InputLabel>
+                        <Select
+                            labelId="decimal"
+                            id="decimal"
+                            value={decimal}
+                            label="Token Decimal"
+                            input={<OutlinedInput id="select-decimlal" label="token-Decimal" />}
+                            onChange={(e) => { setDecimal(e.target.value) }}
+                        >
+                            { Decimals.map((item, index) => (
+                                <MenuItem key={index} value={item}>{item}</MenuItem>
+                            ))}
+                        </Select>
+                  </FormControl>
+                  <br/>
                   <Button onClick={buttonDeploy} variant="contained" color="primary" className={classes.button}>
                         MyTokenデプロイ
                   </Button>
