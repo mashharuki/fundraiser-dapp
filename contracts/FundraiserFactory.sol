@@ -2,6 +2,9 @@ pragma solidity >0.4.23;
 
 import "./Fundraiser.sol";
 
+/**
+ * FundraiserFactoryコントラクト
+ */
 contract FundraiserFactory {
     // Fundraiser型の配列
     Fundraiser[] private _fundraisers;

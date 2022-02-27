@@ -3,10 +3,12 @@ import detectEthereumProvider from '@metamask/detect-provider';
 import FundraiserFactoryContract from './contracts/FundraiserFactory.json';
 import NFTFactoryContract from './contracts/NFTFactory.json';
 import GnosisSafeProxyFactoryContract from './contracts/GnosisSafeProxyFactory.json';
+import MyTokenFactoryContract from "./contracts/MyTokenFactory.json";
 import Web3 from "web3";
 import FundraiserCard from './fundraiser/FundraiserCard';
 import NFTCard from "./nft/NFTCard";
 import WalletCard from "./wallet/WalletCard";
+import MyTokenCard from "./mytoken/MyTokenCard";
 import UseStyles from "./common/useStyles";
 
 // コンポーネントを用意する。
@@ -15,6 +17,7 @@ const Home = () => {
     const [ funds, setFunds ] = useState ([]);
     const [ nfts, setNfts ] = useState ([]);
     const [ wallets, setWallets ] = useState ([]);
+    const [ myTokens, setMyTokens ] = useState ([]);
     const [ contract, setContract ] = useState (null);
     const [ accounts, setAccounts ] = useState (null);
     const classes = UseStyles();
@@ -38,10 +41,12 @@ const Home = () => {
             const deployedNetwork = FundraiserFactoryContract.networks[networkId];
             const deployedNetwork2 = NFTFactoryContract.networks[networkId];
             const deployedNetwork3 = GnosisSafeProxyFactoryContract.networks[networkId];
+            const deployedNetwork4 = MyTokenFactoryContract.networks[networkId];
             const accounts = await web3.eth.getAccounts();
             const instance = new web3.eth.Contract(FundraiserFactoryContract.abi, deployedNetwork && deployedNetwork.address,);
             const instance2 = new web3.eth.Contract(NFTFactoryContract.abi, deployedNetwork2 && deployedNetwork2.address,);
             const instance3 = new web3.eth.Contract(GnosisSafeProxyFactoryContract.abi, deployedNetwork3 && deployedNetwork3.address,);
+            const instance4 = new web3.eth.Contract(MyTokenFactoryContract.abi, deployedNetwork4 && deployedNetwork4.address,);
             // コントラクトをセットする。
             setContract (instance);
             // アカウントをセットする。
@@ -52,10 +57,13 @@ const Home = () => {
             const nfts = await instance2.methods.nfts(10, 0).call();
             // コントラクトのproxys()関数を呼び出す。
             const wallets = await instance3.methods.proxys(10, 0).call();
+            // コントラクトのmyTokens()関数を呼び出す。
+            const tokens = await instance4.methods.myTokens(10, 0).call();
             // ステート変数に設定
             setFunds (funds);
             setNfts (nfts);
             setWallets (wallets);
+            setMyTokens(tokens);
         } catch (error) {
             alert(`Failed to load web3, accounts, or contract. Check console for details.`,);
             console.log(error);
@@ -87,6 +95,18 @@ const Home = () => {
     }
 
     /**
+     * displayMyTokens関数
+     * @returns MyTokenCardコンポーネント
+     */
+     const displayMyTokens = () => {
+        return myTokens.map( (token) => {
+            return (
+                <MyTokenCard token={token} key={token} />
+            );
+        });
+    }
+
+    /**
      * displayWallets関数
      * @returns WalletCardコンポーネント
      */
@@ -112,6 +132,12 @@ const Home = () => {
                 </h2>
             }
             {displayNfts()}
+            { (myTokens.length > 0) &&
+                <h2>
+                    作成済みERC20トークン
+                </h2>
+            }
+            {displayMyTokens()}
             { (wallets.length > 0) &&
                 <h2>
                     マルチシグウォレット

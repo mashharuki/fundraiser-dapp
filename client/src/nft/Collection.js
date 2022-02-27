@@ -65,8 +65,8 @@ const Collection = () => {
                   setEthWeb3(web3); 
                   setNfts(nftContracts);
                   // 配列情報を取得する。
-                  const tokenIdArray = getTokenIDs(nftContracts);
-                  setIdArray(tokenIdArray);
+                  // const tokenIdArray = getTokenIDs(nftContracts);
+                  // setIdArray(tokenIdArray);
             } catch (error) {
                   alert(`Failed to load web3, accounts, or contract. Check console for details.`,);
                   console.log(error);
@@ -106,7 +106,6 @@ const Collection = () => {
                               console.error(e);
                         } 
                   });
-                  // console.log("nft:", nft);
                   if(tokenIds.length){
                         console.log("トークンIDs:", tokenIds);
                         tokenIdArray.push(tokenIds);
@@ -121,9 +120,8 @@ const Collection = () => {
        * @returns CollectionCardコンポーネント群
        */
       const displayCollection = (nfts) => {
-            console.log("tokenIdArray:", idArray.length);
-            return nfts.map((nft, i) => {   
-                  return <CollectionCard key={i} tokenId={i} nft={nft} />
+            return nfts.map((nft) => {   
+                  return <CollectionCard key={nft} nft={nft} />
             });
       }
 

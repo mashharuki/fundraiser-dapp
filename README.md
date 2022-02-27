@@ -9,12 +9,12 @@ MetaMaskとWeb3.js、スマートコントラクト(solidity)とReact.jsから�
 solcのバージョン情報等については、truffle-config.jsを参照ください。
 
 ## 実装機能
-   1. 資金調達関連機能： ほぼ実装済み(一部バグあり)  
-   2. NFT関連機能： 発行機能のみ実装ずみ(他はバグがあるので今後修正)  
+   1. 資金調達関連機能： 実装済み
+   2. NFT関連機能： NFTコントラクトは実装ずみ(Collection表示機能はバグがあるので今後修正)  
    3. マルチシグ関連機能： マルチシグウォレット生成＆署名機能実装済み  
+   4. ERC020規格のトークン発行関連機能   
 
 ## 今後実装予定機能
-   1. ERC020規格のトークン発行関連機能  
    2. ゲーム関連機能  
 
 ## GitHub PagesのURL
@@ -27,7 +27,7 @@ solcのバージョン情報等については、truffle-config.jsを参照く�
 |-------------|-------------|
 |truffle|スマートコントラクト開発用のフレームワークとして使用している。テストやデプロイを行う。|
 |React|フロントエンド側の開発をするために使用している。|
-|Material-UI|React向けのUIコンポーネントライブラリ|
+|Material-UI(MUI)|React向けのUIコンポーネントライブラリ|
 
 ## 主なディレクトリ構成
 ~~~
@@ -36,6 +36,7 @@ solcのバージョン情報等については、truffle-config.jsを参照く�
    　|　　┣ src/  ：App.jsなどのアプリを構成するファイルを格納するディレクトリ  
    　|　　|　 ┣ contracts/ : コンパイル済みのコントラクトjsonファイルを格納する   
    　|　　|　 ┣ fundraiser/ : 資金調達機能関連のコンポーネント用ディレクトリ  
+   　|　　|　 ┣ mytoken/ : ERC20トークン関連のコンポーネント用ディレクトリ
    　|　　|　 ┣ nft/ : NFT関連のコンポーネント用ディレクトリ  
   　 |　　|　 └ wallet/ : ウォレット関連のコンポーネント用ディレクトリ      
    　|　　┣  public/  : CSSファイルなど全体を通して使用するファイルを格納するディレクトリ   
@@ -43,6 +44,7 @@ solcのバージョン情報等については、truffle-config.jsを参照く�
    　|　　┣  package.json: 　npm用の設定ファイル  
    　|　　└  package-lock.json:　 npm installによってインストールされたモジュールの情報を記載したファイル  
    　┣ contracts/　: スマートコントラクト(バックエンド側)のディレクトリ  
+   　|　　┣ ERC20/: ERC20トークン関連のコントラクトを格納したディレクトリ
    　|　　┣ safeContracts/: マルチシグウォレット関連のコントラクトを格納したディレクトリ  
    　|　　|　    ┣ base/ :  ベースとなるコントラクトを格納したディレクトリ  
    　|　　|　    ┣ common/ : 共通機能コントラクトを格納したディレクトリ  
@@ -107,26 +109,41 @@ solcのバージョン情報等については、truffle-config.jsを参照く�
     参考にして開発を進めると良いと考えている。
 
 ## 画面例
-### 1. NFT作成画面
-<img src="./img/NFT作成画面.png" />
+### 1. ホーム画面
+<img src="./img/home.png" />
 
 ### 2. マルチシグウォレット作成画面
-<img src="./img/マルチシグウォレット作成画面.png" />
+<img src="./img/createMultiSig.png" />
 
 ### 3. 署名実行画面
-<img src="./img/署名実行画面.png" />
+<img src="./img/sign.png" />
 
 ### 4. 署名時のトランザクション
 <img src="./img/署名時のトランザクション.png" />
 
 ### 5. 資金調達企画作成画面
-<img src="./img/資金調達企画作成画面.png" />
+<img src="./img/newfundraiser.png" />
 
 ### 6. 資金調達確認画面
 <img src="./img/資金調達確認画面.png" />
 
-### 7. ホーム画面
-<img src="./img/ホーム画面.png" />
+### 7. 署名アドレス復元画面
+<img src="./img/ecrecover.png" />
+
+### 8. NFT作成画面
+<img src="./img/nft.png" />
+
+### 9. NFTコントラクトの例 
+<img src="./img/sampleNft.png" />
+
+### 10. NFTコレクション画面(改修中)
+<img src="./img/collection.png" />
+
+### 11. 独自トークン作成画面
+<img src="./img/myToken.png" />
+
+### 12. 独自トークンの例
+<img src="./img/sampleToken.png" />
 
 ***
 
@@ -261,3 +278,15 @@ gasが足りない時に発生するため、設定を見直すこと。send()�
 <a href="https://ecouffes.github.io/smart-contract-best-practices/security_tools/">Ethereum Smart Contract Best Practices(和訳)</a>  
 
 <a href="https://placekitten.com/">画像ファイル保管庫(200/300などをつけて検索すると猫の画像がヒットします。)</a>
+
+<a href="https://www.owl-coin.com/tags/erc20">ERC20規格で開発された暗号資産一覧</a>
+
+<a href="https://baasinfo.net/?p=3683">ERC20トークンについて</a>
+
+<a href="https://cointool.app/createToken/arb">CoinTool</a>
+
+<a href="https://qiita.com/sinsinpurin/items/e95f7e167b3116d29c68">ERC20トークンでマイトークン作成・実行までまるっと解説！</a>
+
+<a href="https://www.i-ryo.com/entry/2021/02/08/065133">【React】JSONデータをJSXに読み込んで表示する</a>
+
+<a href="https://tabinou.com/archives/2867">【React.js】CRUD作成　Jsonファイルにデータを登録する方法</a>

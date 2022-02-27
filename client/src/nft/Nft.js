@@ -23,7 +23,9 @@ const useStyles = makeStyles (theme => ({
     },
 })); 
 
-// Nftコンポーネントを用意する。
+/**
+ * Nftコンポーネント
+ */
 const Nft = () => {
     // ステート変数を用意
     const [ name, setName ] = useState (null);
@@ -102,7 +104,7 @@ const Nft = () => {
         }
     } 
   
-    // 戻り値を設定する。
+    // レンダリング内容
     return (
         <div className="main-container">
             <h2>
