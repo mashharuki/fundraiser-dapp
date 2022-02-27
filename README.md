@@ -109,26 +109,41 @@ solcのバージョン情報等については、truffle-config.jsを参照く�
     参考にして開発を進めると良いと考えている。
 
 ## 画面例
-### 1. NFT作成画面
-<img src="./img/NFT作成画面.png" />
+### 1. ホーム画面
+<img src="./img/home.png" />
 
 ### 2. マルチシグウォレット作成画面
-<img src="./img/マルチシグウォレット作成画面.png" />
+<img src="./img/createMultiSig.png" />
 
 ### 3. 署名実行画面
-<img src="./img/署名実行画面.png" />
+<img src="./img/sign.png" />
 
 ### 4. 署名時のトランザクション
 <img src="./img/署名時のトランザクション.png" />
 
 ### 5. 資金調達企画作成画面
-<img src="./img/資金調達企画作成画面.png" />
+<img src="./img/newfundraiser.png" />
 
 ### 6. 資金調達確認画面
 <img src="./img/資金調達確認画面.png" />
 
-### 7. ホーム画面
-<img src="./img/ホーム画面.png" />
+### 7. 署名アドレス復元画面
+<img src="./img/ecrecover.png" />
+
+### 8. NFT作成画面
+<img src="./img/nft.png" />
+
+### 9. NFTコントラクトの例 
+<img src="./img/sampleNft.png" />
+
+### 10. NFTコレクション画面(改修中)
+<img src="./img/collection.png" />
+
+### 11. 独自トークン作成画面
+<img src="./img/myToken.png" />
+
+### 12. 独自トークンの例
+<img src="./img/sampleToken.png" />
 
 ***
 
