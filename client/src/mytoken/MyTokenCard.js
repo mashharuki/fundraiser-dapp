@@ -52,55 +52,54 @@ const MyTokenCard = (props) => {
        * useEffect関数
        */
       useEffect (() => {
+            /**
+             * init関数
+             * @param token MyTokenコントラクトアドレス
+             */
+            const init = async (token) => {
+                  try {
+                        // MyTokenコントラクトの情報を取得する。
+                        const MyToken = token;
+                        // Web3が使えるように設定する。
+                        const provider = await detectEthereumProvider();
+                        const web3 = new Web3(provider);
+                        const web3Accounts = await web3.eth.getAccounts();
+                        const instance = new web3.eth.Contract(MyTokenContract.abi, MyToken);
+                        // コントラクトより名前、シンボル、所有者、総発行数、残高、pause状態を取得する。
+                        const name = await instance.methods.name().call();
+                        const symbol = await instance.methods.symbol().call();
+                        const owner = await instance.methods.owner().call();
+                        const total = await instance.methods.totalSupply().call();
+                        // const balanceOf = await instance.methods.allowance(owner, web3Accounts[0]).call();
+                        const balanceOf = await instance.methods.balanceOf(web3Accounts[0]).call();
+                        const nonces = await instance.methods.nonces(web3Accounts[0]).call();
+                        const paused = await instance.methods.paused().call();
+                        // Ownerかどうかチェックする。
+                        if (owner === web3Accounts[0]) {
+                              setIsOwner(true);
+                        }
+                        // ステート変数に値を詰める。
+                        setEthWeb3(ethWeb3);
+                        setAccounts(web3Accounts);
+                        setContract(instance);
+                        setTokenName(name);
+                        setTokenSymbol(symbol);
+                        setOwner(owner);
+                        setTotalSupply(total);
+                        setBalance(balanceOf);
+                        setNonce(nonces);
+                        setPauseFlg(paused);
+                        setTokenAddress(MyToken);
+                  } catch (error) {
+                        alert(`Failed to load web3, accounts, or contract. Check console for details.`,);
+                        console.error(error);
+                  }
+            }
             // tokenが存在する時のみ実行
             if (token) {
                   init (token);
             }
       }, [token]);
-
-      /**
-       * init関数
-       * @param token MyTokenコントラクトアドレス
-       */
-      const init = async (token) => {
-            try {
-                  // MyTokenコントラクトの情報を取得する。
-                  const MyToken = token;
-                  // Web3が使えるように設定する。
-                  const provider = await detectEthereumProvider();
-                  const web3 = new Web3(provider);
-                  const web3Accounts = await web3.eth.getAccounts();
-                  const instance = new web3.eth.Contract(MyTokenContract.abi, MyToken);
-                  // コントラクトより名前、シンボル、所有者、総発行数、残高、pause状態を取得する。
-                  const name = await instance.methods.name().call();
-                  const symbol = await instance.methods.symbol().call();
-                  const owner = await instance.methods.owner().call();
-                  const total = await instance.methods.totalSupply().call();
-                  // const balanceOf = await instance.methods.allowance(owner, web3Accounts[0]).call();
-                  const balanceOf = await instance.methods.balanceOf(web3Accounts[0]).call();
-                  const nonces = await instance.methods.nonces(web3Accounts[0]).call();
-                  const paused = await instance.methods.paused().call();
-                  // Ownerかどうかチェックする。
-                  if (owner === web3Accounts[0]) {
-                        setIsOwner(true);
-                  }
-                  // ステート変数に値を詰める。
-                  setEthWeb3(ethWeb3);
-                  setAccounts(web3Accounts);
-                  setContract(instance);
-                  setTokenName(name);
-                  setTokenSymbol(symbol);
-                  setOwner(owner);
-                  setTotalSupply(total);
-                  setBalance(balanceOf);
-                  setNonce(nonces);
-                  setPauseFlg(paused);
-                  setTokenAddress(MyToken);
-            } catch (error) {
-                  alert(`Failed to load web3, accounts, or contract. Check console for details.`,);
-                  console.error(error);
-            }
-      }
 
       /**
        * アカウントが切り替わったら画面を更新する。
@@ -155,6 +154,23 @@ const MyTokenCard = (props) => {
                   alert("送金成功！");
             } catch (error) {
                   alert(`送金に失敗しました。`);
+                  console.error(error);
+            }
+      };
+
+      /**
+       * 「償却」ボタンを押した時の関数
+       */
+       const buttonBurn = async () => {
+            try {
+                  // burn関数の呼び出し。
+                  await contract.methods.burn(amount).send({ 
+                        from: accounts[0],
+                        gas: 6500000
+                  });
+                  alert(`償却成功！`);
+            } catch (error) {
+                  alert(`償却に失敗しました。`);
                   console.error(error);
             }
       };
@@ -234,6 +250,10 @@ const MyTokenCard = (props) => {
                                           inputProps={{ 'aria-label': 'bare' }} />
                                     <Button onClick={buttonMint} variant="contained" color="primary" className={classes.button}>
                                           発行
+                                    </Button>
+                                    <br/>
+                                    <Button onClick={buttonBurn} variant="contained" color="primary" className={classes.button}>
+                                          償却
                                     </Button>
                                     <br/>
                                     <Button onClick={buttonTransfer} variant="contained" color="primary" className={classes.button}>
