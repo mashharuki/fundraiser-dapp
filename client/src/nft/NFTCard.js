@@ -4,6 +4,7 @@
 
 // 必要なモジュールを読み込む
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import UseStyles from "./../common/useStyles";
 import Web3 from 'web3';
 import NFTContract from '../contracts/NFT.json';
@@ -47,6 +48,14 @@ const NFTCard = (props) => {
     const [ nftTotal, setNftTotal ] = useState(null);
     const [ nftBalance, setNftBalance ] = useState(null);
     const [ owner, setOwner ] = useState(null);
+    const [ minter, setMinter ] = useState(null);
+
+    // NFT発行画面に渡す要素
+    const toNftMint = {
+        nft: nft,
+        mintFlg: hasMintRole, 
+        account: minter,
+    };
 
     /**
      * useEffect関数
@@ -97,7 +106,9 @@ const NFTCard = (props) => {
             setNftURL(url);
             setNftTotal(totalSupply);
             setNftBalance(balanceOf);
+            console.log("mintFlg", mintFlg);
             setHasMintRole(mintFlg);
+            setMinter(accounts[0]);
         } catch (error) {
             alert(`Failed to load web3, accounts, or contract. Check console for details.`,);
             console.error(error);
@@ -127,36 +138,6 @@ const NFTCard = (props) => {
         setOpen(false);
         setOwner(null);
     };
-
-    /**
-     * 「NFT発行」ボタンを押した時の処理
-     */
-    const buttonMint = async() => {
-        // コントラクトが使えるような設定
-        const provider = await detectEthereumProvider();
-        const web3 = new Web3(provider);
-        const networkId = await web3.eth.net.getId();
-        const deployedNetwork = NFTContract.networks[networkId];
-        const instance = new web3.eth.Contract(NFTContract.abi, nft);
-
-        try {
-            // Mintする権限があるかどうかチェックする。
-            if (hasMintRole){
-                // NFTコントラクトのmint関数を実行する。
-                const { hash } = await instance.methods.mint(to).send({ 
-                    from: accounts[0],
-                    gas: 650000
-                });
-                alert("NFT発行成功！");
-            } else {
-                alert("あなたには、このNFT発行する権限がありません。");
-            }
-        } catch (e) {
-            console.log(e);
-            alert("mint NFT failed");
-        }
-       
-    }
 
     /**
      *  「所有者確認」ボタンを押した時の処理
@@ -249,7 +230,7 @@ const NFTCard = (props) => {
                             Symbol : {nftSymbol}
                         </p>
                         <p>
-                            URL : {nftURL}
+                            BaseURL : {nftURL}
                         </p>
                         <p>
                             Address : {address} 
@@ -260,7 +241,15 @@ const NFTCard = (props) => {
                         <p>
                             総供給量 : {nftTotal}
                         </p>
-                        <TextField id="outlined-bare4" className={classes.textField} placeholder="TokenId" margin="normal" onChange={ (e) => setTokenId(e.target.value) } variant="outlined" inputProps={{ 'aria-label': 'bare' }} />
+                        <TextField 
+                            id="tokenId" 
+                            className={classes.textField} 
+                            placeholder="TokenId" 
+                            margin="normal" 
+                            onChange={ (e) => setTokenId(e.target.value) } 
+                            variant="outlined" 
+                            inputProps={{ 'aria-label': 'bare' }} 
+                        />
                         <Button onClick={buttonOwnerOf} variant="contained" color="primary" className={classes.button}>
                             所有者確認
                         </Button>
@@ -270,13 +259,23 @@ const NFTCard = (props) => {
                             NFT償却
                         </Button>
                         <br/>
-                        <TextField id="outlined-bare5" className={classes.textField} placeholder="To" margin="normal" onChange={ (e) => setTo(e.target.value) } variant="outlined" inputProps={{ 'aria-label': 'bare' }} />
-                        <Button onClick={buttonMint} variant="contained" color="primary" className={classes.button}>
-                            NFT発行
-                        </Button>
-                        <br/>
+                        <TextField 
+                            id="to" 
+                            className={classes.textField} 
+                            placeholder="To" 
+                            margin="normal" 
+                            onChange={ (e) => setTo(e.target.value) } 
+                            variant="outlined" 
+                            inputProps={{ 'aria-label': 'bare' }} 
+                        />
                         <Button onClick={buttonTransferFrom} variant="contained" color="primary" className={classes.button}>
                             NFT移転
+                        </Button>
+                        <br/>
+                        <Button variant="contained" color="secondary" >
+                            <Link to={"/nftMint"} state={toNftMint}>
+                                NFT発行
+                            </Link>
                         </Button>
                     </DialogContentText>
                 </DialogContent>

@@ -77,7 +77,7 @@ contract NFT is ERC721PresetMinterPauserAutoId {
     /**
      * トークンIDに紐づくメタデータを取得する関数
      * @param tokenId トークンID
-     * @return metaData メタデータを格納したJSONオブジェクト
+     * @return bytesMetadata メタデータを格納したJSONオブジェクト
      */
     function getMetaData(uint256 tokenId) public view returns (string memory) {
         require( _exists( tokenId ), "nonexsitent token" );
