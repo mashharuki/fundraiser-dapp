@@ -64,9 +64,6 @@ const Collection = () => {
                   setAccounts(web3Accounts);
                   setEthWeb3(web3); 
                   setNfts(nftContracts);
-                  // 配列情報を取得する。
-                  // const tokenIdArray = getTokenIDs(nftContracts);
-                  // setIdArray(tokenIdArray);
             } catch (error) {
                   alert(`Failed to load web3, accounts, or contract. Check console for details.`,);
                   console.log(error);

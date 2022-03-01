@@ -106,7 +106,6 @@ const NFTCard = (props) => {
             setNftURL(url);
             setNftTotal(totalSupply);
             setNftBalance(balanceOf);
-            console.log("mintFlg", mintFlg);
             setHasMintRole(mintFlg);
             setMinter(accounts[0]);
         } catch (error) {
@@ -280,7 +279,7 @@ const NFTCard = (props) => {
                     </DialogContentText>
                 </DialogContent>
             </Dialog>
-            { !hasMintRole ?
+            { hasMintRole ?
                 <Card className={classes.card} onClick={handleOpen}>
                     <CardActionArea>
                         { nftURL ? ( <CardMedia className={classes.media} image={nftURL} title="NFT Image"/> ) : (<></>) }

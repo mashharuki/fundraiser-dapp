@@ -31,6 +31,7 @@ const CollectionCard = (props) => {
       const [ contract, setContract] = useState(null);
       const [ owners, setOwners ] = useState([]);
       const [ totalSupply, setTotalSupply ] = useState(null);
+      const [ metaDatas, setMetaDatas ] = useState([]);
 
       /**
        * useEffect関数
@@ -63,12 +64,21 @@ const CollectionCard = (props) => {
                   const symbol = await instance.methods.getNftSymbol().call();
                   const url = await instance.methods.getNftURL().call();
                   const total = await instance.methods.totalSupply().call();
-                  // トークンIDごとのOwnerアドレスを取得する。
-                  const ownerList = [];
+                  
+                  var ownerList = [];
+                  var metaDataList = [];
                   [...Array(total)].map(async (_, id) => {
                         try {
+                              // トークンIDごとのOwnerアドレスとメタデータを取得する。
                               let address = await instance.methods.ownerOf(id).call();
+                              let metaData = await instance.methods.getMetaData(id).call();
+                              // base64でエンコードされているためデコードする。
+                              let jsonData = await base64Decode(metaData);
+                              // JSONをJavaScriptオブジェクトに変換する。
+                              let jObject = JSON.parse(jsonData)
+                              console.log("jObject:", jObject);
                               ownerList.push(address);
+                              metaDataList.push(jObject);
                         } catch (e) {
                               console.error(e);
                         }
@@ -79,6 +89,7 @@ const CollectionCard = (props) => {
                   setNftURL(url);
                   setTotalSupply(total);
                   setOwners(ownerList);
+                  setMetaDatas(metaDataList);
             } catch (error) {
                   alert(`Failed to load web3, accounts, or contract. Check console for details.`,);
                   console.error(error);
@@ -86,11 +97,18 @@ const CollectionCard = (props) => {
       }
 
       /**
+       * Base64をデコードするための関数
+       * @param {*} text base64でエンコードされたデータ
+       * @returns エンコード前の文字列(ここではJDON形式のデータを想定)
+       */
+      function base64Decode(text) {
+            return fetch(text).then(response => response.text());
+      }
+
+      /**
        * displayCard関数
        */
       const displayCard = () => {
-            console.log("owners：", owners);
-            console.log("owners：", totalSupply);
             return [...Array(totalSupply)].map((_, tokenId) => {
                   return (
                         <Card className={classes.card} variant="outlined">
@@ -121,7 +139,7 @@ const CollectionCard = (props) => {
                   );
             });
       };
-      return (<>{displayCard()}</>);
+      return (<>{metaDatas[0]}</>);
 }
 
 export default CollectionCard;
