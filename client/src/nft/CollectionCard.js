@@ -3,7 +3,7 @@
  */
 
 // 必要なモジュールを読み込む
-import React, { useState, useEffect, createContext } from "react";
+import React, { useState, useEffect } from "react";
 import UseStyles from "./../common/useStyles";
 import Web3 from 'web3';
 import NFTContract from './../contracts/NFT.json';
@@ -61,25 +61,34 @@ const CollectionCard = (props) => {
                   setContract(instance);
                   // NFTの発行総数を取得する。
                   const total = await instance.methods.totalSupply().call();
-                  
-                  [...Array(total)].map(async (_, id) => {
-                        try {
-                              // トークンIDごとのOwnerアドレスとメタデータを取得する。
-                              let address = await instance.methods.ownerOf(id).call();
-                              let metaData = await instance.methods.getMetaData(id).call();
-                              // base64でエンコードされているためデコードする。
-                              let jsonData = await base64Decode(metaData);
-                              // JSONをJavaScriptオブジェクトに変換する。
-                              let jObject = JSON.parse(jsonData);
-                              console.log("jObject:", jObject);
-                              setOwners([...owners, address]);
-                              setMetaDatas([...metaDatas, jObject]);
-                        } catch (e) {
-                              console.error(e);
-                        }
-                  });
+                  console.log("total:", total);
                   // ステート変数に値を詰める。
                   setTotalSupply(total);
+
+                  // 発行数が1以上の場合のみ実行
+                  if (total > 0) {
+                        // 繰り返し用の配列を作成する。
+                        const arr = [...Array(total)].map((_, i) => (i));
+                        console.log("arr:", arr)
+                        // 所有者アドレスとメタデータの配列を作成する。
+                        Promise.all(arr.map(async (index, id) => {
+                              try {
+                                    console.log("index:", index);
+                                    // トークンIDごとのOwnerアドレスとメタデータを取得する。
+                                    let address = await instance.methods.ownerOf(index).call();
+                                    let metaData = await instance.methods.getMetaData(index).call();
+                                    // base64でエンコードされているためデコードする。
+                                    let jsonData = await base64Decode(metaData);
+                                    // JSONをJavaScriptオブジェクトに変換する。
+                                    let jObject = JSON.parse(jsonData);
+                                    console.log("jObject:", jObject);
+                                    setOwners([...owners, address]);
+                                    setMetaDatas([...metaDatas, jObject]);
+                              } catch (e) {
+                                    console.error(e);
+                              }
+                        }));
+                  };
             } catch (error) {
                   alert(`Failed to load web3, accounts, or contract. Check console for details.`,);
                   console.error(error);
@@ -106,28 +115,30 @@ const CollectionCard = (props) => {
        * displayCard関数
        */
       const displayCard = () => {
-            return metaDatas.map((metaData, i) => (
-                  <Card className={classes.card} variant="outlined">
-                        <CardActionArea>
-                              { metaData.URL ? ( <CardMedia className={classes.media} image={metaData.URL} title="NFT Image"/> ) : (<></>) }
-                              <CardContent>
-                                    <Typography gutterBottom variant="h5" component="h2">
-                                          {metaData.name}
-                                    </Typography>
-                                    <Typography variant="body2" color="textSecondary" component="div">
-                                          <p>
-                                                owner：{owners[i]}
-                                          </p>
-                                    </Typography>
-                                    <Typography variant="body2" color="textSecondary" component="div">
-                                          <p>
-                                                description：{metaData.description}
-                                          </p>
-                                    </Typography>
-                              </CardContent>
-                        </CardActionArea>
-                  </Card>
-            ));
+            if (totalSupply > 0) {
+                  return metaDatas.map((metaData, i) => (
+                        <Card className={classes.card} variant="outlined" key={i}>
+                              <CardActionArea>
+                                    { metaData.URL ? ( <CardMedia className={classes.media} image={metaData.URL} title="NFT Image"/> ) : (<></>) }
+                                    <CardContent>
+                                          <Typography gutterBottom variant="h5" component="h2">
+                                                {metaData.name}
+                                          </Typography>
+                                          <Typography variant="body2" color="textSecondary" component="div">
+                                                <p>
+                                                      owner：{owners[i]}
+                                                </p>
+                                          </Typography>
+                                          <Typography variant="body2" color="textSecondary" component="div">
+                                                <p>
+                                                      description：{metaData.description}
+                                                </p>
+                                          </Typography>
+                                    </CardContent>
+                              </CardActionArea>
+                        </Card>
+                  ));
+            };
       };    
 
       return (<div>{displayCard()}</div>);
