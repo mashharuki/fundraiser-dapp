@@ -25,9 +25,6 @@ const CollectionCard = (props) => {
       // スタイル用のクラス
       const classes = UseStyles();
       // ステート変数を用意する。
-      const [ nftName, setNftName ] = useState(null);
-      const [ nftSymbol, setNftSymbol ] = useState(null);
-      const [ nftURL, setNftURL ] = useState(null);
       const [ contract, setContract] = useState(null);
       const [ owners, setOwners ] = useState([]);
       const [ totalSupply, setTotalSupply ] = useState(null);
@@ -41,12 +38,11 @@ const CollectionCard = (props) => {
             if (nft) {
                   init(nft);
             }
-      }, []);
+      }, [nft]);
 
       /**
        * コンポーネントを初期化するための関数
        * @param nft NFTコントラクト
-       * @param tokenId トークンID
        */
       const init = async (nft) => {
             try {
@@ -61,14 +57,17 @@ const CollectionCard = (props) => {
                   setContract(instance);
                   // NFTの発行総数を取得する。
                   const total = await instance.methods.totalSupply().call();
-                  console.log("total:", total);
                   // ステート変数に値を詰める。
                   setTotalSupply(total);
 
                   // 発行数が1以上の場合のみ実行
                   if (total > 0) {
                         // 繰り返し用の配列を作成する。
-                        const arr = [...Array(total)].map((_, i) => (i));
+                        let arr = [];
+                        for(let i=0;i<total;i++){
+                              arr.push(i);
+                        }
+
                         console.log("arr:", arr)
                         // 所有者アドレスとメタデータの配列を作成する。
                         Promise.all(arr.map(async (index, id) => {
@@ -110,13 +109,10 @@ const CollectionCard = (props) => {
       function base64Decode(text) {
             return fetch(text).then(response => response.text());
       }
-
-      /**
-       * displayCard関数
-       */
-      const displayCard = () => {
-            if (totalSupply > 0) {
-                  return metaDatas.map((metaData, i) => (
+  
+      return (
+            <div>
+                  {metaDatas.map((metaData, i) => (
                         <Card className={classes.card} variant="outlined" key={i}>
                               <CardActionArea>
                                     { metaData.URL ? ( <CardMedia className={classes.media} image={metaData.URL} title="NFT Image"/> ) : (<></>) }
@@ -137,11 +133,9 @@ const CollectionCard = (props) => {
                                     </CardContent>
                               </CardActionArea>
                         </Card>
-                  ));
-            };
-      };    
-
-      return (<div>{displayCard()}</div>);
+                  ))}
+            </div>
+      );
 }
 
 export default CollectionCard;

@@ -289,4 +289,10 @@ gasが足りない時に発生するため、設定を見直すこと。send()�
 
 <a href="https://www.i-ryo.com/entry/2021/02/08/065133">【React】JSONデータをJSXに読み込んで表示する</a>
 
-<a href="https://tabinou.com/archives/2867">【React.js】CRUD作成　Jsonファイルにデータを登録する方法</a>
+<a href="https://tabinou.com/archives/2867">【React.js】CRUD作成  Jsonファイルにデータを登録する方法</a>
+
+<a href="https://ipfs.io/">IPFS</a>
+
+<a href="http://ykubot.com/2018/04/08/ipfs-setup/">Mac環境でIPFSを構築する方法</a>
+
+<a href="https://js.ipfs.io/">JS IPFS</a>
