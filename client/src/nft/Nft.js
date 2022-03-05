@@ -97,6 +97,7 @@ const Nft = () => {
                     from: accounts[0],
                     gas: 6500000
                 });
+                alert("NFTコントラクトデプロイ成功！");
             } catch (e) {
                 alert("NFTコントラクトデプロイ失敗");
                 console.error(e);

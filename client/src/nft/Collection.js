@@ -64,54 +64,10 @@ const Collection = () => {
                   setAccounts(web3Accounts);
                   setEthWeb3(web3); 
                   setNfts(nftContracts);
-                  // 配列情報を取得する。
-                  // const tokenIdArray = getTokenIDs(nftContracts);
-                  // setIdArray(tokenIdArray);
             } catch (error) {
                   alert(`Failed to load web3, accounts, or contract. Check console for details.`,);
                   console.log(error);
             }
-      }
-
-      /**
-       * getTokenIDs関数
-       * @param nfts NFTコントラクト
-       * @return トークンIDを格納した配列
-       */
-      const getTokenIDs = (nfts) => {
-            // tokenIds用の配列
-            var tokenIdArray = [];
-            // 条件に合致したNFTのみCollectionCardコンポーネントを使って表示する。
-            nfts.map(async (nft) => {
-                  // トークンID用の配列
-                  var tokenIds = new Array();
-                  const provider = await detectEthereumProvider();
-                  const web3 = new Web3(provider);
-                  // NFTコントラクトを読み取る。
-                  const nftInstance = new web3.eth.Contract(NFTContract.abi, nft);
-                  const accounts = await web3.eth.getAccounts(); 
-                  // 総供給量を取得する。
-                  const total = await nftInstance.methods.totalSupply().call();
-
-                  // トークンIDを格納した配列を作成する。
-                  [...Array(total)].map(async (_, i) => {
-                        try {    
-                              // 所有者アドレスとインデックスからトークンIDを取得する。
-                              let tokenId = await nftInstance.methods.tokenOfOwnerByIndex(accounts[0], i).call();
-                              // トークンIDを取得できた場合のみ出力する。
-                              if (tokenId != null) {
-                                    tokenIds.push(tokenId);
-                              }      
-                        } catch (e) {
-                              console.error(e);
-                        } 
-                  });
-                  if(tokenIds.length){
-                        console.log("トークンIDs:", tokenIds);
-                        tokenIdArray.push(tokenIds);
-                  }
-            });
-            return tokenIdArray;
       }
 
       /**

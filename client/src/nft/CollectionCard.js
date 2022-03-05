@@ -31,6 +31,7 @@ const CollectionCard = (props) => {
       const [ contract, setContract] = useState(null);
       const [ owners, setOwners ] = useState([]);
       const [ totalSupply, setTotalSupply ] = useState(null);
+      const [ metaDatas, setMetaDatas ] = useState([]);
 
       /**
        * useEffect関数
@@ -40,7 +41,7 @@ const CollectionCard = (props) => {
             if (nft) {
                   init(nft);
             }
-      }, [nft]);
+      }, []);
 
       /**
        * コンポーネントを初期化するための関数
@@ -58,27 +59,36 @@ const CollectionCard = (props) => {
                   const instance = new web3.eth.Contract(NFTContract.abi, NFT);
                   // コントラクトをセットする。
                   setContract(instance);
-                  // NFTの名前、シンボル、URL、発行総数を取得する。
-                  const name = await instance.methods.getNftName().call();
-                  const symbol = await instance.methods.getNftSymbol().call();
-                  const url = await instance.methods.getNftURL().call();
+                  // NFTの発行総数を取得する。
                   const total = await instance.methods.totalSupply().call();
-                  // トークンIDごとのOwnerアドレスを取得する。
-                  const ownerList = [];
-                  [...Array(total)].map(async (_, id) => {
-                        try {
-                              let address = await instance.methods.ownerOf(id).call();
-                              ownerList.push(address);
-                        } catch (e) {
-                              console.error(e);
-                        }
-                  });
+                  console.log("total:", total);
                   // ステート変数に値を詰める。
-                  setNftName(name);
-                  setNftSymbol(symbol);
-                  setNftURL(url);
                   setTotalSupply(total);
-                  setOwners(ownerList);
+
+                  // 発行数が1以上の場合のみ実行
+                  if (total > 0) {
+                        // 繰り返し用の配列を作成する。
+                        const arr = [...Array(total)].map((_, i) => (i));
+                        console.log("arr:", arr)
+                        // 所有者アドレスとメタデータの配列を作成する。
+                        Promise.all(arr.map(async (index, id) => {
+                              try {
+                                    console.log("index:", index);
+                                    // トークンIDごとのOwnerアドレスとメタデータを取得する。
+                                    let address = await instance.methods.ownerOf(index).call();
+                                    let metaData = await instance.methods.getMetaData(index).call();
+                                    // base64でエンコードされているためデコードする。
+                                    let jsonData = await base64Decode(metaData);
+                                    // JSONをJavaScriptオブジェクトに変換する。
+                                    let jObject = JSON.parse(jsonData);
+                                    console.log("jObject:", jObject);
+                                    setOwners([...owners, address]);
+                                    setMetaDatas([...metaDatas, jObject]);
+                              } catch (e) {
+                                    console.error(e);
+                              }
+                        }));
+                  };
             } catch (error) {
                   alert(`Failed to load web3, accounts, or contract. Check console for details.`,);
                   console.error(error);
@@ -86,42 +96,52 @@ const CollectionCard = (props) => {
       }
 
       /**
+       * アカウントが切り替わったら画面を更新する。
+       */
+      window.ethereum.on('accountsChanged', function (accounts) {
+            window.location.reload()
+      });
+
+      /**
+       * Base64をデコードするための関数
+       * @param {*} text base64でエンコードされたデータ
+       * @returns エンコード前の文字列(ここではJDON形式のデータを想定)
+       */
+      function base64Decode(text) {
+            return fetch(text).then(response => response.text());
+      }
+
+      /**
        * displayCard関数
        */
       const displayCard = () => {
-            console.log("owners：", owners);
-            console.log("owners：", totalSupply);
-            return [...Array(totalSupply)].map((_, tokenId) => {
-                  return (
-                        <Card className={classes.card} variant="outlined">
+            if (totalSupply > 0) {
+                  return metaDatas.map((metaData, i) => (
+                        <Card className={classes.card} variant="outlined" key={i}>
                               <CardActionArea>
-                                    { nftURL ? ( <CardMedia className={classes.media} image={nftURL} title="NFT Image"/> ) : (<></>) }
+                                    { metaData.URL ? ( <CardMedia className={classes.media} image={metaData.URL} title="NFT Image"/> ) : (<></>) }
                                     <CardContent>
                                           <Typography gutterBottom variant="h5" component="h2">
-                                                {nftName}
+                                                {metaData.name}
                                           </Typography>
                                           <Typography variant="body2" color="textSecondary" component="div">
                                                 <p>
-                                                      ID：{tokenId}
+                                                      owner：{owners[i]}
                                                 </p>
                                           </Typography>
                                           <Typography variant="body2" color="textSecondary" component="div">
                                                 <p>
-                                                      owner：{owners[0]}
-                                                </p>
-                                          </Typography>
-                                          <Typography variant="body2" color="textSecondary" component="div">
-                                                <p>
-                                                      URI：{nftURL}
+                                                      description：{metaData.description}
                                                 </p>
                                           </Typography>
                                     </CardContent>
                               </CardActionArea>
                         </Card>
-                  );
-            });
-      };
-      return (<>{displayCard()}</>);
+                  ));
+            };
+      };    
+
+      return (<div>{displayCard()}</div>);
 }
 
 export default CollectionCard;

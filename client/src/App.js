@@ -11,6 +11,7 @@ import Receipts from './fundraiser/Receipts';
 import Sign from "./wallet/Sign";
 import Ecrecover from "./wallet/Ecrecover";
 import Nft from "./nft/Nft";
+import NftMint from "./nft/NftMint";
 import MyToken from "./mytoken/MyToken";
 import CreateSafeContractWallet from "./wallet/CreateSafeContractWallet";
 import WalletSetUp from "./wallet/WalletSetUp";
@@ -36,31 +37,38 @@ const App = () => {
    * 副作用フック
    */
   useEffect (() => {
-
-    /**
-     * init関数
-     */
-    const init = async () => {
-      try {
-        // 変数を設定
-        const web3 = await getWeb3();
-        const accounts = await web3.eth.getAccounts();
-        const networkId = await web3.eth.net.getId();
-        // デプロイ済みネットワークを取得する。
-        const deployedNetwork = FundraiserFactoryContract.networks[networkId];
-        // コントラクトのインスタンスを生成する。
-        const instance = new web3.eth.Contract (FundraiserFactoryContract.abi, deployedNetwork && deployedNetwork.address);
-        // ステート変数を設定する。
-        setState ({ web3, accounts, contract: instance });
-      } catch (error) {
-        // アラートを出す。
-        alert (`App.js: Failed to load web3, accounts, or contract. Check console for details.`,);
-        // アラート内容を出力する。
-        console.error (error);
-      }
-    } 
+    let isMounted = true
     init();
+    return () => {
+      isMounted = false
+    }
   }, []);
+
+  /**
+   * init関数
+   * @param isMounted マウント状態を表すフラグ
+   */
+  const init = async (isMounted) => {
+    try {
+      // 変数を設定
+      const web3 = await getWeb3();
+      const accounts = await web3.eth.getAccounts();
+      const networkId = await web3.eth.net.getId();
+      // デプロイ済みネットワークを取得する。
+      const deployedNetwork = FundraiserFactoryContract.networks[networkId];
+      // コントラクトのインスタンスを生成する。
+      const instance = new web3.eth.Contract (FundraiserFactoryContract.abi, deployedNetwork && deployedNetwork.address);
+      // ステート変数を設定する。
+      if (isMounted) { 
+        setState ({ web3, accounts, contract: instance });
+      }
+    } catch (error) {
+      // アラートを出す。
+      alert (`App.js: Failed to load web3, accounts, or contract. Check console for details.`,);
+      // アラート内容を出力する。
+      console.error (error);
+    }
+  } 
 
   // レンダリングする内容
   return (
@@ -85,6 +93,7 @@ const App = () => {
           <Route path="/sign" element={ <Sign/> } />
           <Route path="/ecrecover" element={ <Ecrecover/> } />
           <Route path="/nft" element={ <Nft/> } />
+          <Route path="/nftMint" element={ <NftMint/> } />
           <Route path="/myToken" element={ <MyToken/> } />
           <Route path="/walletSetUp" element={ <WalletSetUp/> } />
           <Route path="/execTransaction" element={ <ExecTransaction/> } />
