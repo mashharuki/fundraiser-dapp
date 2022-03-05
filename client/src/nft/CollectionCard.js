@@ -3,12 +3,17 @@
  */
 
 // 必要なモジュールを読み込む
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, createContext } from "react";
 import UseStyles from "./../common/useStyles";
 import Web3 from 'web3';
 import NFTContract from './../contracts/NFT.json';
 import detectEthereumProvider from '@metamask/detect-provider';
-import MetaData from "./MetaData";
+// Cardコンポーネントを読み込む
+import Card  from '@material-ui/core/Card';
+import CardMedia from '@material-ui/core/CardMedia';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardContent from '@material-ui/core/CardContent';
+import Typography from '@material-ui/core/Typography';
 
 /**
  * CollectionCardコンポーネント
@@ -57,8 +62,6 @@ const CollectionCard = (props) => {
                   // NFTの発行総数を取得する。
                   const total = await instance.methods.totalSupply().call();
                   
-                  var ownerList = [];
-                  var metaDataList = [];
                   [...Array(total)].map(async (_, id) => {
                         try {
                               // トークンIDごとのOwnerアドレスとメタデータを取得する。
@@ -67,18 +70,16 @@ const CollectionCard = (props) => {
                               // base64でエンコードされているためデコードする。
                               let jsonData = await base64Decode(metaData);
                               // JSONをJavaScriptオブジェクトに変換する。
-                              let jObject = JSON.parse(jsonData)
+                              let jObject = JSON.parse(jsonData);
                               console.log("jObject:", jObject);
-                              ownerList.push(address);
-                              metaDataList.push(jObject);
+                              setOwners([...owners, address]);
+                              setMetaDatas([...metaDatas, jObject]);
                         } catch (e) {
                               console.error(e);
                         }
                   });
                   // ステート変数に値を詰める。
                   setTotalSupply(total);
-                  setOwners(ownerList);
-                  setMetaDatas(metaDataList);
             } catch (error) {
                   alert(`Failed to load web3, accounts, or contract. Check console for details.`,);
                   console.error(error);
@@ -105,9 +106,27 @@ const CollectionCard = (props) => {
        * displayCard関数
        */
       const displayCard = () => {
-            console.log("metaDatasのレンダリング開始")
             return metaDatas.map((metaData, i) => (
-                  <MetaData key={metaData} metaData={metaData} owner={owners[i]} />
+                  <Card className={classes.card} variant="outlined">
+                        <CardActionArea>
+                              { metaData.URL ? ( <CardMedia className={classes.media} image={metaData.URL} title="NFT Image"/> ) : (<></>) }
+                              <CardContent>
+                                    <Typography gutterBottom variant="h5" component="h2">
+                                          {metaData.name}
+                                    </Typography>
+                                    <Typography variant="body2" color="textSecondary" component="div">
+                                          <p>
+                                                owner：{owners[i]}
+                                          </p>
+                                    </Typography>
+                                    <Typography variant="body2" color="textSecondary" component="div">
+                                          <p>
+                                                description：{metaData.description}
+                                          </p>
+                                    </Typography>
+                              </CardContent>
+                        </CardActionArea>
+                  </Card>
             ));
       };    
 
