@@ -8,12 +8,7 @@ import UseStyles from "./../common/useStyles";
 import Web3 from 'web3';
 import NFTContract from './../contracts/NFT.json';
 import detectEthereumProvider from '@metamask/detect-provider';
-// Cardコンポーネントを読み込む
-import Card  from '@material-ui/core/Card';
-import CardMedia from '@material-ui/core/CardMedia';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
+import MetaData from "./MetaData";
 
 /**
  * CollectionCardコンポーネント
@@ -41,7 +36,7 @@ const CollectionCard = (props) => {
             if (nft) {
                   init(nft);
             }
-      }, [nft]);
+      }, []);
 
       /**
        * コンポーネントを初期化するための関数
@@ -59,10 +54,7 @@ const CollectionCard = (props) => {
                   const instance = new web3.eth.Contract(NFTContract.abi, NFT);
                   // コントラクトをセットする。
                   setContract(instance);
-                  // NFTの名前、シンボル、URL、発行総数を取得する。
-                  const name = await instance.methods.getNftName().call();
-                  const symbol = await instance.methods.getNftSymbol().call();
-                  const url = await instance.methods.getNftURL().call();
+                  // NFTの発行総数を取得する。
                   const total = await instance.methods.totalSupply().call();
                   
                   var ownerList = [];
@@ -84,9 +76,6 @@ const CollectionCard = (props) => {
                         }
                   });
                   // ステート変数に値を詰める。
-                  setNftName(name);
-                  setNftSymbol(symbol);
-                  setNftURL(url);
                   setTotalSupply(total);
                   setOwners(ownerList);
                   setMetaDatas(metaDataList);
@@ -95,6 +84,13 @@ const CollectionCard = (props) => {
                   console.error(error);
             }
       }
+
+      /**
+       * アカウントが切り替わったら画面を更新する。
+       */
+      window.ethereum.on('accountsChanged', function (accounts) {
+            window.location.reload()
+      });
 
       /**
        * Base64をデコードするための関数
@@ -109,37 +105,13 @@ const CollectionCard = (props) => {
        * displayCard関数
        */
       const displayCard = () => {
-            return [...Array(totalSupply)].map((_, tokenId) => {
-                  return (
-                        <Card className={classes.card} variant="outlined">
-                              <CardActionArea>
-                                    { nftURL ? ( <CardMedia className={classes.media} image={nftURL} title="NFT Image"/> ) : (<></>) }
-                                    <CardContent>
-                                          <Typography gutterBottom variant="h5" component="h2">
-                                                {nftName}
-                                          </Typography>
-                                          <Typography variant="body2" color="textSecondary" component="div">
-                                                <p>
-                                                      ID：{tokenId}
-                                                </p>
-                                          </Typography>
-                                          <Typography variant="body2" color="textSecondary" component="div">
-                                                <p>
-                                                      owner：{owners[0]}
-                                                </p>
-                                          </Typography>
-                                          <Typography variant="body2" color="textSecondary" component="div">
-                                                <p>
-                                                      URI：{nftURL}
-                                                </p>
-                                          </Typography>
-                                    </CardContent>
-                              </CardActionArea>
-                        </Card>
-                  );
-            });
-      };
-      return (<>{metaDatas[0]}</>);
+            console.log("metaDatasのレンダリング開始")
+            return metaDatas.map((metaData, i) => (
+                  <MetaData key={metaData} metaData={metaData} owner={owners[i]} />
+            ));
+      };    
+
+      return (<div>{displayCard()}</div>);
 }
 
 export default CollectionCard;
