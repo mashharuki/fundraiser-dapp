@@ -4,3 +4,6 @@ node_modules/
 
 # TLS通信のための設定ファイル
 /backend/server/tls/privatekey.pem
+
+# 環境変数用の設定ファイル
+/.env
