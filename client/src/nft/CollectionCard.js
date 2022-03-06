@@ -68,25 +68,12 @@ const CollectionCard = (props) => {
                               arr.push(i);
                         }
 
-                        console.log("arr:", arr)
                         // 所有者アドレスとメタデータの配列を作成する。
-                        Promise.all(arr.map(async (index, id) => {
-                              try {
-                                    console.log("index:", index);
-                                    // トークンIDごとのOwnerアドレスとメタデータを取得する。
-                                    let address = await instance.methods.ownerOf(index).call();
-                                    let metaData = await instance.methods.getMetaData(index).call();
-                                    // base64でエンコードされているためデコードする。
-                                    let jsonData = await base64Decode(metaData);
-                                    // JSONをJavaScriptオブジェクトに変換する。
-                                    let jObject = JSON.parse(jsonData);
-                                    console.log("jObject:", jObject);
-                                    setOwners([...owners, address]);
-                                    setMetaDatas([...metaDatas, jObject]);
-                              } catch (e) {
-                                    console.error(e);
-                              }
-                        }));
+                        arr.map((index, id) => { 
+                              console.log("index:", index);
+                              getAddress(instance, index);
+                              getMetaData(instance, index);
+                        });
                   };
             } catch (error) {
                   alert(`Failed to load web3, accounts, or contract. Check console for details.`,);
@@ -108,6 +95,41 @@ const CollectionCard = (props) => {
        */
       function base64Decode(text) {
             return fetch(text).then(response => response.text());
+      }
+
+      /**
+       * トークンIDに紐づく所有者アドレスを取得して設定する関数
+       * @param instance NFTコントラクト
+       * @param id トークンID
+       */
+      const getAddress = async (instance, id) => {
+            try {
+                  // トークンIDごとのOwnerアドレスを取得する。
+                  let address = await instance.methods.ownerOf(id).call();
+                  setOwners([...owners, address]);
+            } catch (e) {
+                  console.error("このIDに紐づく所有者は見つかりませんでした。", e);
+            }
+      }
+
+      /**
+       * トークンIDに紐づくメタデータを取得して設定する関数
+       * @param instance NFTコントラクト
+       * @param id トークンID
+       */
+       const getMetaData = async (instance, id) => {
+            try {
+                  // トークンIDごとのメタデータを取得する。
+                  let metaData = await instance.methods.getMetaData(id).call();
+                  // base64でエンコードされているためデコードする。
+                  let jsonData = await base64Decode(metaData);
+                  // JSONをJavaScriptオブジェクトに変換する。
+                  var jObject = JSON.parse(jsonData);
+                  console.log("jObject:", jObject);
+                  setMetaDatas([...metaDatas, jObject]);
+            } catch (e) {
+                  console.error("このIDに紐づくメタデータは見つかりませんでした。", e);
+            }
       }
   
       return (
