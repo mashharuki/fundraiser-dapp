@@ -6,4 +6,4 @@ node_modules/
 /backend/server/tls/privatekey.pem
 
 # 環境変数用の設定ファイル
-/.env
+.env
