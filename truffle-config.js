@@ -1,15 +1,44 @@
+/**
+ * Truffle用の設定ファイル
+ */
+
 const path = require("path");
+require('dotenv').config();
+const HDWalletProvider = require('truffle-hdwallet-provider');
+// const HDWalletProvider = require('@truffle/hdwallet-provider');
 
 module.exports = {
-  // See <http://truffleframework.com/docs/advanced/configuration>
-  // to customize your Truffle configuration!
-  contracts_build_directory: path.join(__dirname, "client/src/contracts"),
+  // コンパイルしたJSONファイルの出力先の設定
+  contracts_build_directory: path.join(__dirname, "./client/src/contracts"),
+  // ネットワークの設定
   networks: {
+    // ローカル開発用
     develop: {
       host: "127.0.0.1",
       port: 8545,
       network_id: "*",
-    }
+    },
+    // Rinkeby用
+    rinkeby: {
+      provider: () => {
+        const mnenonic = process.env.MNEMONIC;
+        const project_id = process.env.INFURA_PROJECT_ID;
+        return new HDWalletProvider(
+          mnenonic,
+          `https://rinkeby.infura.io/v3/${project_id}`
+        );
+      },
+      network_id: 4,
+      skipDryRun: true
+    },
+    // Munbai用の設定
+    munbai: {
+      provider: () => new HDWalletProvider(process.env.MNEMONIC, `https://rpc-mumbai.maticvigil.com`),
+      network_id: 80001,
+      confirmations: 2,
+      timeoutBlocks: 200,
+      skipDryRun: true
+    },
   },
   // 最適化の設定
   compilers: {

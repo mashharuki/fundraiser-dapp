@@ -175,6 +175,32 @@ solcのバージョン情報等については、truffle-config.jsを参照く�
    `truffle migrate --network rinkeby`  
    (client/contracts/ 配下に「コントラクト名.json」ができていれば成功。) 
 
+### Rinkebyなどのテストネット上にデプロイする前にやるべきこと
+   1. ニーモニックコード用の環境変数を.envファイルに追記する。  
+      `MNEMONIC="<自分のMetaMaskのニーモニックフレーズ>"`
+   2. INFURAのプロジェクトID用の環境変数を.envファイルに追記する。  
+      `INFURA_PROJECT_ID=<自分のINFURAプロジェクトID>`
+   3. truffle-config.jsにrinkeby用のネットワーク設定を追加する。
+
+   ```js
+      // 必要なモジュールをインポート
+      require('dotenv').config();
+      const HDWalletProvider = require('truffle-hdwallet-provider');
+
+      // Rinkeby用
+      rinkeby: {
+         provider: () => {
+            const mnenonic = process.env.MNEMONIC;
+            const project_id = process.env.INFURA_PROJECT_ID;
+            return new HDWalletProvider(
+               mnenonic,
+               `https://rinkeby.infura.io/v3/${project_id}`
+            );
+         },
+         network_id: "*",
+      },
+   ```
+
 ## 事前にやっておくこと
 
 1. node.jsをインストールしておくこと  
@@ -219,6 +245,47 @@ buildしたい場合は、次のコマンドを打つこと！
 gasが足りない時に発生するため、設定を見直すこと。send()メソッドを呼び出すときに、明示的にgasの量を指定すると治る。
 
 ※SafeContractのエラー詳細についてはこちらを<a href="https://github.com/gnosis/safe-contracts/blob/main/docs/error_codes.md">参照</a>。
+
+4. `Error: Could not find artifacts for Migrations from any sources`
+  コントラクトデプロイ時にコントラクトが見つからないと行っている・・
+
+### Rinkebyへのデプロイの記録
+
+```
+9_deploy_myToken_factory.js
+===========================
+
+   Deploying 'MyTokenFactory'
+   --------------------------
+   > transaction hash:    0x07f51fc1acc33c549076a841e090e5b7f9fa137a7864db028aa09e244e69b651
+   > Blocks: 0            Seconds: 5
+   > contract address:    0x569e692993BfB66304Edb5aCB5B4e18c8A77Bcb4
+   > block number:        10433154
+   > block timestamp:     1648887649
+   > account:             0x51908F598A5e0d8F1A3bAbFa6DF76F9704daD072
+   > balance:             144.757575357593868517
+   > gas used:            2781469 (0x2a711d)
+   > gas price:           20 gwei
+   > value sent:          0 ETH
+   > total cost:          0.05562938 ETH
+
+2_deploy_fundraiser_factory.js
+==============================
+
+  Deploying 'FundraiserFactory'
+   -----------------------------
+   > transaction hash:    0x0416925ce57bff0d948c3f01506602e9e6f46999ae87736bedec65f5e0a618f6
+   > Blocks: 2            Seconds: 21
+   > contract address:    0xA2828D0Ea000B7098a6D1b6Ff31A97a3421464E1
+   > block number:        10433170
+   > block timestamp:     1648887889
+   > account:             0x51908F598A5e0d8F1A3bAbFa6DF76F9704daD072
+   > balance:             144.732332497593868517
+   > gas used:            1262143 (0x13423f)
+   > gas price:           20 gwei
+   > value sent:          0 ETH
+   > total cost:          0.02524286 ETH
+```
 
 ### GitHub Actions設定(調整中)
 

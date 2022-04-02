@@ -23,8 +23,14 @@
     "@babel/core": "^7.16.10",
     "@chainlink/contracts": "^0.3.1",
     "@openzeppelin/contracts": "^4.4.2",
+    "@truffle/hdwallet-provider": "^2.0.4",
+    "@walletconnect/web3-provider": "^1.7.7",
     "bluebird": "^3.7.2",
     "chainlink": "^0.8.2",
-    "eth-lightwallet": "^4.0.0"
+    "dotenv": "^16.0.0",
+    "eth-lightwallet": "^4.0.0",
+    "truffle": "^5.1.31",
+    "truffle-hdwallet-provider": "^1.0.17",
+    "web3": "^1.7.1"
   }
 }
