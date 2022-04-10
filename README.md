@@ -160,7 +160,7 @@ solcのバージョン情報等については、truffle-config.jsを参照く�
 
 ## テストコードを実行するコマンド(fundraiser-dappフォルダ直下で実行する)
 
-`truffle test`
+   `truffle test`
 
 ## コントラクトのコンパイルとデプロイ用のコマンド(ローカルチェーンの場合)
    `truffle compile`  
@@ -200,6 +200,51 @@ solcのバージョン情報等については、truffle-config.jsを参照く�
          network_id: "*",
       },
    ```
+
+### MyTokenをデプロイする場合
+    @openzeppelin/contracts配下の「ERC20.sol」ファイルに少し修正が必要。
+
+   <strong>修正点1</strong>
+   ```
+     // 変数を追加 
+     uint8 private _decimals;
+   ```
+
+   <strong>修正点2</strong>
+   ```
+     // コンストラクターの定義を変更する。
+     constructor(string memory name_, string memory symbol_, uint8 decimals_) {
+        _name = name_;
+        _symbol = symbol_;
+        // 桁数を設定する。
+        _setupDecimal(decimals_);
+      }
+   ```
+   <strong>修正点3</strong>
+   ```
+     // 桁数を変更するためのメソッドを追加する。
+     /**
+      * 小数点桁数を設定するための関数
+      * @param value 設定する桁数
+      */
+      function _setupDecimal(uint8 value) internal {
+         _decimals = value;
+      }
+   ```
+
+### hardhatを使ってビルドとデプロイを行う場合
+   「backend/hardhat」配下で下記コマンドを実行  
+   1. `npx hardhat compile`
+   2. `npx hardhat run scripts/deploy.js --network rinkeby`
+
+   デプロイに成功する下記のようなものがコンソール上に表示される
+   ```bash
+      FundraiserFactory deployed to: 0x174387193854254F0d7bB7808EF36D6FeeffCdbf
+   ```
+
+### Rinkebyにデプロイしたコントラクトのアドレス
+   1. FundraiserFactory: 0x174387193854254F0d7bB7808EF36D6FeeffCdbf
+   2. 
 
 ## 事前にやっておくこと
 
