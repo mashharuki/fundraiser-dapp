@@ -12,21 +12,21 @@ async function main() {
   // await hre.run('compile');
 
   // コントラクト読み取り
-  const FundraiserFactory = await hre.ethers.getContractFactory("FundraiserFactory");
-  // const NFTFactory = await hre.ethers.getContractFactory("NFTFactory");
-  // const MyTokenFactory = await hre.ethers.getContractFactory("MyTokenFactory");
+  // const FundraiserFactory = await hre.ethers.getContractFactory("FundraiserFactory");
+  const NFTFactory = await hre.ethers.getContractFactory("NFTFactory");
+  const MyTokenFactory = await hre.ethers.getContractFactory("MyTokenFactory");
 
   // 引数を指定してデプロイ
   // const fundraiserFactory = await FundraiserFactory.deploy();
-  // const nftFactory = await NFTFactory.deploy();
-  // const myTokenFactory = await MyTokenFactory.deploy();
+   const nftFactory = await NFTFactory.deploy();
+   const myTokenFactory = await MyTokenFactory.deploy();
   // await fundraiserFactory.deployed();
-  // await nftFactory.deployed();
-  // await myTokenFactory.deployed();
+   await nftFactory.deployed();
+   await myTokenFactory.deployed();
   // コンソール表示
   // console.log("FundraiserFactory deployed to:", fundraiserFactory.address);
-  // console.log("NFTFactory deployed to:", nftFactory.address);
-  // console.log("MyTokenFactory deployed to:", myTokenFactory.address);
+   console.log("NFTFactory deployed to:", nftFactory.address);
+   console.log("MyTokenFactory deployed to:", myTokenFactory.address);
 }
 
 // We recommend this pattern to be able to use async/await everywhere

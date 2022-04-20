@@ -10,6 +10,7 @@ const HDWalletProvider = require('truffle-hdwallet-provider');
 module.exports = {
   // コンパイルしたJSONファイルの出力先の設定
   contracts_build_directory: path.join(__dirname, "./client/src/contracts"),
+  // contracts_build_directory: path.join(__dirname, "./build"),
   // ネットワークの設定
   networks: {
     // ローカル開発用
@@ -29,6 +30,32 @@ module.exports = {
         );
       },
       network_id: 4,
+      skipDryRun: true
+    },
+    // Ropsten用
+    ropsten: {
+      provider: () => {
+        const mnenonic = process.env.MNEMONIC;
+        const project_id = process.env.INFURA_PROJECT_ID;
+        return new HDWalletProvider(
+          mnenonic,
+          `https://ropsten.infura.io/v3/${project_id}`
+        );
+      },
+      network_id: 3,
+      skipDryRun: true
+    },
+    // Goerli用
+    goerli: {
+      provider: () => {
+        const mnenonic = process.env.MNEMONIC;
+        const project_id = process.env.INFURA_PROJECT_ID;
+        return new HDWalletProvider(
+          mnenonic,
+          `https://goerli.infura.io/v3/${project_id}`
+        );
+      },
+      network_id: 5,
       skipDryRun: true
     },
     // Munbai用の設定

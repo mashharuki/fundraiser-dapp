@@ -108,6 +108,14 @@ solcのバージョン情報等については、truffle-config.jsを参照く�
     <a href="https://ecouffes.github.io/smart-contract-best-practices/security_tools/">Ethereum Smart Contract Best Practices</a>などのベストプラクティスなどを  
     参考にして開発を進めると良いと考えている。
 
+### 7. ABI(Application Binary Interface)
+    ABIとは、バイナリーファイル(実行形式ファイル)へのアクセスに対して互換性を与えるもの。  
+    スマートコントラクトは、EVM上で実行可能なバイナリーファイルとなっており、コンパイル時に生成されるJSONファイルにはReact.jsなどを利用して構築されたクライアントアプリからWeb3.jsなどのライブラリをTransactionを介してやり取りを行う方法について互換性を与えるための定義が記述されている。この中身は、コントラクトの機能を外部から呼び出すための標準化された方法が記述されており、ether.jsやweb3.jsなどのライブラリがABIに準拠したデータ構造で呼び出しを行うことで。ブロックチェーン上にあるコントラクトの任意の機能にアクセスすることができる。
+
+### 8. EVM (イーサリアム仮想マシン)
+    solidityなどの高級言語で記述されたソースコードをイーサリアム上でも実行できるバイトコードに変換する翻訳機のこと。  
+    コントラクトコードはこのEVMを介して実行される。(逆にEVM互換性があればイーサリアムでなくともsolidityで記述したスマートコントラクトをマイグレーションすることができる。Astar Network等)
+
 ## 画面例
 ### 1. ホーム画面
 <img src="./img/home.png" />
@@ -167,6 +175,7 @@ solcのバージョン情報等については、truffle-config.jsを参照く�
    `truffle migrate --network develop`  
    なお、マイグレーションしたいファイルを指定する場合は下記のように打ち込む  
    <b>※ M1 チップ搭載のMacBookで実行する場合は、sudoをつけて実行すること</b>
+
    `truffle migrate --f 2 --to 3`  
    (client/contracts/ 配下に「コントラクト名.json」ができていれば成功。) 
 
@@ -197,7 +206,7 @@ solcのバージョン情報等については、truffle-config.jsを参照く�
                `https://rinkeby.infura.io/v3/${project_id}`
             );
          },
-         network_id: "*",
+         network_id: 4,
       },
    ```
 
@@ -292,7 +301,9 @@ gasが足りない時に発生するため、設定を見直すこと。send()�
 ※SafeContractのエラー詳細についてはこちらを<a href="https://github.com/gnosis/safe-contracts/blob/main/docs/error_codes.md">参照</a>。
 
 4. `Error: Could not find artifacts for Migrations from any sources`
-  コントラクトデプロイ時にコントラクトが見つからないと行っている・・
+  コントラクトデプロイ時にコントラクトが見つからないと行っている・・  
+  2022年4月19日現在、rinkebyとgoerliにデプロイしようとするとこのエラーが出る。  
+  ローカルのブロックチェーンにデプロイする時には問題なくできるが原因はわからず。。
 
 ### Rinkebyへのデプロイの記録
 
