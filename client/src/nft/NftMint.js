@@ -75,12 +75,13 @@ const NftMint = (props) => {
        */
       const buttonMint = async () => {
             // mint関数とinsert関数を実行する。
-            Promise.all([mint], [insert])
+            Promise.all([mint, insert])
                   .then((result) => {
                        console.log("NFT発行処理が正常に成功！")
                   })
                   .catch((result) => {
                         console.log("NFT発行処理中にエラーが発生")
+                        console.error("error:", result);
                   });
       }
 

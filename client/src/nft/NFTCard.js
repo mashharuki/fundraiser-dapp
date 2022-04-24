@@ -23,6 +23,9 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
+import superAgent from 'superagent';
+// APIサーバーのURL
+const baseUrl = process.env.REACT_APP_API_SERVER_URL;
 
 /**
  * NFTCardコンポーネント本体
@@ -166,6 +169,20 @@ const NFTCard = (props) => {
      * 「NFT移転」ボタンを押した時の処理
      */
     const buttonTransferFrom = async() => {
+        Promise.all([transfer, update])
+            .then((result) => {
+                console.log("NFT発行処理が正常に成功！")
+            })
+            .catch((result) => {
+                    console.log("NFT発行処理中にエラーが発生")
+                    console.error("error:", result);
+            });
+    }
+
+    /**
+     * 移転処理を実行する関数
+     */
+    const transfer = async() => {
         // コントラクトが使えるような設定
         const provider = await detectEthereumProvider();
         const web3 = new Web3(provider);
@@ -190,6 +207,31 @@ const NFTCard = (props) => {
         } catch (e) {
             alert("NFT移転失敗");
         }
+    }
+
+    /**
+       * NFT発行情報をDBに挿入するための関数
+       */
+    const update = async () => {
+        // API用のパラメータ変数
+        const params = { 
+                owner: accounts[0],
+                receipt: to,
+                tokenId: tokenId,
+                chainId: chainId,
+        };
+
+        // 登録用のAPIを呼び出す。
+        superAgent
+              .get(baseUrl + '/api/update')
+              .query(params) 
+              .end((err, res) => {
+              if (err) {
+                    console.log("DB更新API実行中にエラー発生", err)
+                    return err;
+              }
+              console.log("DB更新処理成功！：", res);
+              });
     }
 
     /**
