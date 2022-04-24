@@ -5,9 +5,20 @@
 // Webサーバーの起動
 const express = require('express');
 const fs = require('fs');
+var log4js = require('log4js');
 const app = express();
 // ポート番号
 const portNo = 3001;
+// DB接続用のモジュールを読みこむ
+const pgHelper = require('./server/db/pgHelper');
+// 設定ファイルの読み込み
+const ConfigFile = require('config');
+// データベースを指定
+const database = ConfigFile.config.db_name;
+
+// log4jsの設定
+log4js.configure('./server/log/log4js_setting.json');
+const logger = log4js.getLogger("server");
 
 // HTTPS通信に対応するための設定
 const server = require('https').createServer({
@@ -17,8 +28,85 @@ const server = require('https').createServer({
 
 // 起動
 server.listen(portNo, () => {
-      console.log('起動しました', `https://localhost:${portNo}`)
+      logger.debug('起動しました', `https://localhost:${portNo}`)
 });
+
+/**
+ * NFTの情報をDBから取得するためのAPI
+ * @param リクエストパラメータ1 所有者のアドレス
+ */
+app.get('/api/getTokenIds', (req, res) => {
+      // パラメータから値を取得する。
+      let owner = req.query.owner;
+      // 実行するSQL
+      const query = 'select ni.tokenid from nft.nftinfo ni where ni."owner"  = $1';
+      // パラメータ用の配列を作成する。
+      const values = [ owner ];
+      // DBの実行
+      pgHelper.execute(database1, query, values, (err, docs) => {
+            if (err) {
+                  logger.error(err.toString());
+                  res.status(501).send("DB接続中にエラーが発生しました");
+                  return;
+            }
+            res.json({ tokenIds: docs.rows });
+      });
+});
+
+/**
+ * NFTのowner情報を変更するためのAPI
+ * @param リクエストパラメータ1 更新後の所有者のアドレス
+ * @param リクエストパラメータ1 更新前の所有者のアドレス
+ * @param リクエストパラメータ2 トークンID
+ * @param リクエストパラメータ3 チェーンID
+ */
+app.post('/api/update', (req, res) => {
+      // パラメータから値を取得する。
+      let receipt = req.query.receipt;
+      let owner = req.query.owner;
+      let tokenId = req.query.tokenId;
+      let chainId = req.query.chainId;
+      // 実行するSQL
+      const query = 'update nft.nftinfo set owner = $1 where owner = $2 and tokenid = $3 and chainid = $4';
+      // パラメータ用の配列を作成する。
+      const values = [ receipt, owner, tokenId, chainId ];
+      // DBの実行
+      pgHelper.execute(database1, query, values, (err, docs) => {
+            if (err) {
+                  logger.error(err.toString());
+                  res.status(501).send("DB接続中にエラーが発生しました");
+                  return;
+            }
+            logger.debug('DB情報の更新が完了しました。');
+      });
+});
+
+/**
+ * NFTの情報をDBに格納するためのAPI
+ * @param リクエストパラメータ1 所有者のアドレス
+ * @param リクエストパラメータ2 トークンID
+ * @param リクエストパラメータ3 チェーンID
+ */
+app.post('/api/input', (req, res) => {
+      // パラメータから値を取得する。
+      let owner = req.query.owner;
+      let tokenId = req.query.tokenId;
+      let chainId = req.query.chainId;
+      // 実行するSQL
+      const query = 'insert into nft.nftinfo(owner, tokenid , chainid) VALUES ($1, $2, $3)';
+      // パラメータ用の配列を作成する。
+      const values = [ owner, tokenId, chainId ];
+      // DBの実行
+      pgHelper.execute(database1, query, values, (err, docs) => {
+            if (err) {
+                  logger.error(err.toString());
+                  res.status(501).send("DB接続中にエラーが発生しました");
+                  return;
+            }
+            logger.debug('DB情報の新規登録が完了しました。');
+      });
+});
+
 
 // 静的ファイルを自動的に返すようルーティングする。
 app.use('/', express.static('./../client/build'));

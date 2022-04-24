@@ -222,6 +222,14 @@ gasが足りない時に発生するため、設定を見直すこと。send()�
 
 ※SafeContractのエラー詳細についてはこちらを<a href="https://github.com/gnosis/safe-contracts/blob/main/docs/error_codes.md">参照</a>。
 
+### DBの起動方法(PostgresSQLの場合)
+ #### 1.1. macOS の場合
+ #### 起動
+   `brew services start postgresql`
+
+ #### 停止
+   `brew services stop postgresql`
+
 ### GitHub Actions設定(調整中)
 
 1. CodeQL
