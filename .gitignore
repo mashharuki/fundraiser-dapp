@@ -5,3 +5,6 @@ node_modules/
 
 # TLS通信のための設定ファイル
 /backend/server/tls/privatekey.pem
+
+# REACT用の設定ファイル
+.env

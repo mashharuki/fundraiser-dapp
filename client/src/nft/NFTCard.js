@@ -49,12 +49,15 @@ const NFTCard = (props) => {
     const [ nftBalance, setNftBalance ] = useState(null);
     const [ owner, setOwner ] = useState(null);
     const [ minter, setMinter ] = useState(null);
+    const [ chainId, setChainId ] = useState(null);
 
     // NFT発行画面に渡す要素
     const toNftMint = {
         nft: nft,
         mintFlg: hasMintRole, 
         account: minter,
+        networkId: chainId,
+        newTokenId: nftTotal + 1,
     };
 
     /**
@@ -101,6 +104,7 @@ const NFTCard = (props) => {
             // NFTをMintする権限があるかどうかをチェックする。
             const mintFlg = await instance.methods.hasRole(mintRole, accounts[0]).call();
             // ステート変数にセットする。
+            setChainId(networkId);
             setNftName(name);
             setNftSymbol(symbol);
             setNftURL(url);

@@ -10,6 +10,9 @@ import UseStyles from "./../common/useStyles";
 import Web3 from 'web3';
 import NFTContract from '../contracts/NFT.json';
 import detectEthereumProvider from '@metamask/detect-provider';
+import superAgent from 'superagent';
+// APIサーバーのURL
+const baseUrl = process.env.REACT_APP_API_SERVER_URL;
 
 /**
  * NftMintコンポーネント
@@ -25,12 +28,16 @@ const NftMint = (props) => {
       const [ contract, setContract ] = useState(null);
       const [ account, setAccount ] = useState(null);
       const [ hasMintRole, setHasMintRole ] = useState(false);
+      const [ chainId, setChainId ] = useState(null);
+      const [ tokenId, setTokenId ] = useState(null);
       // スタイルシートを使うための変数
       const classes = UseStyles();
       const location = useLocation();
       let nft  = "";
       let web3Account = "";
       let mintFlg = "";
+      let networkId = "";
+      let newTokenId = "";
  
       /**
        * 副作用フック
@@ -43,9 +50,13 @@ const NftMint = (props) => {
                   nft  = location.state.nft;
                   web3Account = location.state.accounts;
                   mintFlg = location.state.mintFlg;
+                  networkId = location.state.networkId;
+                  newTokenId = location.state.newTokenId;
                   setNftAddress(nft);
                   setAccount(web3Account);
                   setHasMintRole(mintFlg);
+                  setChainId(networkId);
+                  setTokenId(newTokenId);
             }
             return () => {
                   unmounted = false;
@@ -63,6 +74,20 @@ const NftMint = (props) => {
        * 「NFT発行」ボタンを押した時の処理
        */
       const buttonMint = async () => {
+            // mint関数とinsert関数を実行する。
+            Promise.all([mint], [insert])
+                  .then((result) => {
+                       console.log("NFT発行処理が正常に成功！")
+                  })
+                  .catch((result) => {
+                        console.log("NFT発行処理中にエラーが発生")
+                  });
+      }
+
+      /**
+       * NFT発行を実行する関数
+       */
+      const mint = async () => {
             try {
                   // Mintする権限があるかどうかチェックする。
                   if (hasMintRole){
@@ -84,6 +109,30 @@ const NftMint = (props) => {
                   console.log(e);
                   alert("mint NFT failed");
             }
+      }
+
+      /**
+       * NFT発行情報をDBに挿入するための関数
+       */
+      const insert = async () => {
+            // API用のパラメータ変数
+            const params = { 
+                  owner: to,
+                  tokenId: tokenId,
+                  chainId: chainId,
+            };
+
+            // 登録用のAPIを呼び出す。
+            superAgent
+                  .get(baseUrl + '/api/input')
+                  .query(params) 
+                  .end((err, res) => {
+                  if (err) {
+                        console.log("DB登録API実行中にエラー発生", err)
+                        return err;
+                  }
+                  console.log("DB登録処理成功！：", res);
+                  });
       }
 
       return (
