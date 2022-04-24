@@ -71,7 +71,7 @@ app.post('/api/update', (req, res) => {
       // パラメータ用の配列を作成する。
       const values = [ receipt, owner, tokenId, chainId ];
       // DBの実行
-      pgHelper.execute(database1, query, values, (err, docs) => {
+      pgHelper.execute(database, query, values, (err, docs) => {
             if (err) {
                   logger.error(err.toString());
                   res.status(501).send("DB接続中にエラーが発生しました");
@@ -97,7 +97,7 @@ app.post('/api/input', (req, res) => {
       // パラメータ用の配列を作成する。
       const values = [ owner, tokenId, chainId ];
       // DBの実行
-      pgHelper.execute(database1, query, values, (err, docs) => {
+      pgHelper.execute(database, query, values, (err, docs) => {
             if (err) {
                   logger.error(err.toString());
                   res.status(501).send("DB接続中にエラーが発生しました");

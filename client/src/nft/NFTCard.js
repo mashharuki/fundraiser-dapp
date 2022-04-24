@@ -60,7 +60,7 @@ const NFTCard = (props) => {
         mintFlg: hasMintRole, 
         account: minter,
         networkId: chainId,
-        newTokenId: nftTotal + 1,
+        newTokenId: nftTotal,
     };
 
     /**
@@ -223,7 +223,7 @@ const NFTCard = (props) => {
 
         // 登録用のAPIを呼び出す。
         superAgent
-              .get(baseUrl + '/api/update')
+              .post(baseUrl + '/api/update')
               .query(params) 
               .end((err, res) => {
               if (err) {
