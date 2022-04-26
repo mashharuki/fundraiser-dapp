@@ -34,14 +34,18 @@ server.listen(portNo, () => {
 /**
  * NFTの情報をDBから取得するためのAPI
  * @param リクエストパラメータ1 所有者のアドレス
+ * @param リクエストパラメータ2 コントラクトアドレス 
+ * @param リクエストパラメータ3 チェーンID
  */
 app.get('/api/getTokenIds', (req, res) => {
       // パラメータから値を取得する。
       let owner = req.query.owner;
+      let contract = req.query.contract;
+      let chainId = req.query.chainId;
       // 実行するSQL
-      const query = 'select ni.tokenid from nft.nftinfo ni where ni."owner"  = $1';
+      const query = 'select ni.tokenid from nft.nftinfo ni where ni."owner"  = $1 and ni."contract" = $2 and ni."chainId" = $3';
       // パラメータ用の配列を作成する。
-      const values = [ owner ];
+      const values = [ owner, contract, chainId ];
       // DBの実行
       pgHelper.execute(database1, query, values, (err, docs) => {
             if (err) {
@@ -56,9 +60,10 @@ app.get('/api/getTokenIds', (req, res) => {
 /**
  * NFTのowner情報を変更するためのAPI
  * @param リクエストパラメータ1 更新後の所有者のアドレス
- * @param リクエストパラメータ1 更新前の所有者のアドレス
- * @param リクエストパラメータ2 トークンID
- * @param リクエストパラメータ3 チェーンID
+ * @param リクエストパラメータ2 更新前の所有者のアドレス
+ * @param リクエストパラメータ3 トークンID
+ * @param リクエストパラメータ4 チェーンID
+ * @param リクエストパラメータ5 コントラクトのアドレス
  */
 app.post('/api/update', (req, res) => {
       // パラメータから値を取得する。
@@ -66,10 +71,11 @@ app.post('/api/update', (req, res) => {
       let owner = req.query.owner;
       let tokenId = req.query.tokenId;
       let chainId = req.query.chainId;
+      let contract = req.query.contract;
       // 実行するSQL
-      const query = 'update nft.nftinfo set owner = $1 where owner = $2 and tokenid = $3 and chainid = $4';
+      const query = 'update nft.nftinfo set owner = $1 where owner = $2 and tokenid = $3 and chainid = $4 and contract = $5';
       // パラメータ用の配列を作成する。
-      const values = [ receipt, owner, tokenId, chainId ];
+      const values = [ receipt, owner, tokenId, chainId, contract ];
       // DBの実行
       pgHelper.execute(database, query, values, (err, docs) => {
             if (err) {
@@ -86,16 +92,18 @@ app.post('/api/update', (req, res) => {
  * @param リクエストパラメータ1 所有者のアドレス
  * @param リクエストパラメータ2 トークンID
  * @param リクエストパラメータ3 チェーンID
+ * @param リクエストパラメータ4 コントラクトのアドレス
  */
 app.post('/api/input', (req, res) => {
       // パラメータから値を取得する。
       let owner = req.query.owner;
       let tokenId = req.query.tokenId;
       let chainId = req.query.chainId;
+      let contract = req.query.contract;
       // 実行するSQL
-      const query = 'insert into nft.nftinfo(owner, tokenid , chainid) VALUES ($1, $2, $3)';
+      const query = 'insert into nft.nftinfo(owner, tokenid , chainid, contract) VALUES ($1, $2, $3, $4)';
       // パラメータ用の配列を作成する。
-      const values = [ owner, tokenId, chainId ];
+      const values = [ owner, tokenId, chainId, contract ];
       // DBの実行
       pgHelper.execute(database, query, values, (err, docs) => {
             if (err) {
@@ -104,6 +112,34 @@ app.post('/api/input', (req, res) => {
                   return;
             }
             logger.debug('DB情報の新規登録が完了しました。');
+      });
+});
+
+/**
+ * NFTの情報をDBから削除するためのAPI
+ * @param リクエストパラメータ1 所有者のアドレス
+ * @param リクエストパラメータ2 トークンID
+ * @param リクエストパラメータ3 チェーンID
+ * @param リクエストパラメータ4 コントラクトのアドレス
+ */
+ app.post('/api/delete', (req, res) => {
+      // パラメータから値を取得する。
+      let owner = req.query.owner;
+      let tokenId = req.query.tokenId;
+      let chainId = req.query.chainId;
+      let contract = req.query.contract;
+      // 実行するSQL
+      const query = 'delete * from nft.nftinfo ni where ni."owner"  = $1 and ni."contract" = $2 and ni."chainId" = $3 and ni."tokenid" = $4';
+      // パラメータ用の配列を作成する。
+      const values = [ owner, contract, chainId, tokenId];
+      // DBの実行
+      pgHelper.execute(database, query, values, (err, docs) => {
+            if (err) {
+                  logger.error(err.toString());
+                  res.status(501).send("DB接続中にエラーが発生しました");
+                  return;
+            }
+            logger.debug('DB情報の削除が完了しました。');
       });
 });
 

@@ -51,12 +51,12 @@ const NftMint = (props) => {
                   web3Account = location.state.accounts;
                   mintFlg = location.state.mintFlg;
                   networkId = location.state.networkId;
-                  newTokenId = location.state.newTokenId + 1;
+                  newTokenId = location.state.newTokenId;
                   setNftAddress(nft);
                   setAccount(web3Account);
                   setHasMintRole(mintFlg);
                   setChainId(networkId);
-                  setTokenId(newTokenId);
+                  // setTokenId(newTokenId);
             }
             return () => {
                   unmounted = false;
@@ -75,6 +75,8 @@ const NftMint = (props) => {
        */
       const buttonMint = async () => {
             console.log("APIサーバー:", baseUrl);
+            // トークンID用の変数
+            var tokenId = 0;
             try {
                   // Mintする権限があるかどうかチェックする。
                   if (hasMintRole){
@@ -83,6 +85,9 @@ const NftMint = (props) => {
                         const web3 = new Web3(provider);
                         const accounts = await web3.eth.getAccounts();
                         const instance = new web3.eth.Contract(NFTContract.abi, nftAddress);
+                        // 現在のトークンIDを取得する
+                        tokenId = await instance.methods.getCurrentCounter().call();
+                        console.log("トークンID:", tokenId);
                         // NFTコントラクトのmintNft関数を実行する。
                         await instance.methods.mintNft(to, name, description, url).send({ 
                               from: accounts[0],
@@ -102,6 +107,7 @@ const NftMint = (props) => {
                   owner: to,
                   tokenId: tokenId,
                   chainId: chainId,
+                  contract: nftAddress,
             };
 
             // 登録用のAPIを呼び出す。
@@ -114,57 +120,6 @@ const NftMint = (props) => {
                               return err;
                         }
                         console.log("DB登録処理成功！：", res);
-                  });
-      }
-
-      /**
-       * NFT発行を実行する関数
-       */
-      const mint = async () => {
-            try {
-                  // Mintする権限があるかどうかチェックする。
-                  if (hasMintRole){
-                        // Web3が使えるように設定する。
-                        const provider = await detectEthereumProvider();
-                        const web3 = new Web3(provider);
-                        const accounts = await web3.eth.getAccounts();
-                        const instance = new web3.eth.Contract(NFTContract.abi, nftAddress);
-                        // NFTコントラクトのmintNft関数を実行する。
-                        await instance.methods.mintNft(to, name, description, url).send({ 
-                              from: accounts[0],
-                              gas: 650000
-                        });
-                        alert("NFT発行成功！");
-                  } else {
-                        alert("あなたには、このNFT発行する権限がありません。");
-                  }
-            } catch (e) {
-                  console.log(e);
-                  alert("mint NFT failed");
-            }
-      }
-
-      /**
-       * NFT発行情報をDBに挿入するための関数
-       */
-      const insert = async () => {
-            // API用のパラメータ変数
-            const params = { 
-                  owner: to,
-                  tokenId: tokenId,
-                  chainId: chainId,
-            };
-
-            // 登録用のAPIを呼び出す。
-            superAgent
-                  .get(baseUrl + '/api/input')
-                  .query(params) 
-                  .end((err, res) => {
-                  if (err) {
-                        console.log("DB登録API実行中にエラー発生", err)
-                        return err;
-                  }
-                  console.log("DB登録処理成功！：", res);
                   });
       }
 
