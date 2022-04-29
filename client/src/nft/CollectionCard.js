@@ -14,6 +14,9 @@ import CardMedia from '@material-ui/core/CardMedia';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
+import superAgent from 'superagent';
+// APIサーバーのURL
+const baseUrl = process.env.REACT_APP_API_SERVER_URL;
 
 /**
  * CollectionCardコンポーネント
@@ -52,6 +55,7 @@ const CollectionCard = (props) => {
                   const provider = await detectEthereumProvider();
                   const web3 = new Web3(provider);
                   const accounts = await web3.eth.getAccounts(); 
+                  const networkId = await web3.eth.net.getId();
                   const instance = new web3.eth.Contract(NFTContract.abi, NFT);
                   // コントラクトをセットする。
                   setContract(instance);
@@ -60,19 +64,25 @@ const CollectionCard = (props) => {
                   // ステート変数に値を詰める。
                   setTotalSupply(total);
 
+                  // API用のパラメータ変数
+                  const params = { 
+                        owner: accounts[0],
+                        chainId: networkId,
+                        contract: NFT,
+                  };
+
+                  // 登録用のAPIを呼び出す。
+                  let res = await superAgent.get(baseUrl + '/api/getTokenIds').query(params);
+                  let tokenIds = res.body.tokenIds;
+                  console.log("tokenIds:", tokenIds);
+
                   // 発行数が1以上の場合のみ実行
                   if (total > 0) {
-                        // 繰り返し用の配列を作成する。
-                        let arr = [];
-                        for(let i=0;i<total;i++){
-                              arr.push(i);
-                        }
-
                         // 所有者アドレスとメタデータの配列を作成する。
-                        arr.map((index, id) => { 
+                        tokenIds.map((index, id) => { 
                               console.log("index:", index);
-                              getAddress(instance, index);
-                              getMetaData(instance, index);
+                              getAddress(instance, index["tokenid"]);
+                              getMetaData(instance, index["tokenid"]);
                         });
                   };
             } catch (error) {
@@ -117,7 +127,7 @@ const CollectionCard = (props) => {
        * @param instance NFTコントラクト
        * @param id トークンID
        */
-       const getMetaData = async (instance, id) => {
+      const getMetaData = async (instance, id) => {
             try {
                   // トークンIDごとのメタデータを取得する。
                   let metaData = await instance.methods.getMetaData(id).call();
@@ -134,6 +144,7 @@ const CollectionCard = (props) => {
   
       return (
             <div>
+                  {console.log("metaDatas:", metaDatas)}
                   {metaDatas.map((metaData, i) => (
                         <Card className={classes.card} variant="outlined" key={i}>
                               <CardActionArea>

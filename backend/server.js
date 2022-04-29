@@ -34,25 +34,25 @@ server.listen(portNo, () => {
 /**
  * NFTの情報をDBから取得するためのAPI
  * @param リクエストパラメータ1 所有者のアドレス
- * @param リクエストパラメータ2 コントラクトアドレス 
- * @param リクエストパラメータ3 チェーンID
+ * @param リクエストパラメータ2 チェーンID
  */
 app.get('/api/getTokenIds', (req, res) => {
       // パラメータから値を取得する。
       let owner = req.query.owner;
-      let contract = req.query.contract;
       let chainId = req.query.chainId;
+      let contract = req.query.contract;
       // 実行するSQL
-      const query = 'select ni.tokenid from nft.nftinfo ni where ni."owner"  = $1 and ni."contract" = $2 and ni."chainId" = $3';
+      const query = 'select ni.tokenid from nft.nftinfo ni where ni."owner"  = $1 and ni."chainid" = $2 and ni."contract" = $3';
       // パラメータ用の配列を作成する。
-      const values = [ owner, contract, chainId ];
+      const values = [ owner, chainId, contract ];
       // DBの実行
-      pgHelper.execute(database1, query, values, (err, docs) => {
+      pgHelper.execute(database, query, values, (err, docs) => {
             if (err) {
                   logger.error(err.toString());
                   res.status(501).send("DB接続中にエラーが発生しました");
                   return;
             }
+            logger.debug('tokenIds:', docs.rows);
             res.json({ tokenIds: docs.rows });
       });
 });
@@ -129,7 +129,7 @@ app.post('/api/input', (req, res) => {
       let chainId = req.query.chainId;
       let contract = req.query.contract;
       // 実行するSQL
-      const query = 'delete * from nft.nftinfo ni where ni."owner"  = $1 and ni."contract" = $2 and ni."chainId" = $3 and ni."tokenid" = $4';
+      const query = 'delete from nft.nftinfo ni where ni."owner"  = $1 and ni."contract" = $2 and ni."chainid" = $3 and ni."tokenid" = $4';
       // パラメータ用の配列を作成する。
       const values = [ owner, contract, chainId, tokenId];
       // DBの実行
