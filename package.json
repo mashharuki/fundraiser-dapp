@@ -24,6 +24,7 @@
     "@chainlink/contracts": "^0.3.1",
     "@openzeppelin/contracts": "^4.4.2",
     "bluebird": "^3.7.2",
+    "chai-bn": "^0.3.1",
     "chainlink": "^0.8.2",
     "eth-lightwallet": "^4.0.0"
   }

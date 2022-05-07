@@ -1,3 +1,8 @@
+const chai = require("chai");
+const BN = require("bn.js");
+const { expect } = chai;
+chai.use(require("chai-bn")(BN));
+
 // MyToken コントラクトテスト用のコード
 const MyToken = artifacts.require("MyToken");
 
@@ -39,7 +44,7 @@ contract("MyToken Contract test", accounts => {
         });
     });
 
-    describe ("mint tokens!!", () => {
+    describe ("operate tokens!!", () => {
         it("mint", async () => {
             await myToken.mint(owner, 10000);
             const actual = await myToken.totalSupply();
@@ -47,15 +52,29 @@ contract("MyToken Contract test", accounts => {
             assert.equal(actual, 10000, "totalSupply should match");
             assert.equal(balance, 10000, "balance should match");
         });
-    });
-
-    describe ("transfer tokens!!", () => {
         it("transfer", async () => {
-            await myToken.transfer(alice, 6000);
+            await myToken.mint(owner, 10000);
+            const res = await myToken.transfer(alice, 6000, {from: owner});
             const balance = await myToken.balanceOf(owner);
             const balance2 = await myToken.balanceOf(alice);
             assert.equal(balance, 4000, "owner's balance should match");
             assert.equal(balance2, 6000, "alice's balance should match");
+        });
+        it("approve", async () => {
+            await myToken.approve(alice, 6000);
+            const amount = await myToken.allowance(owner, alice);
+            assert.equal(amount, 6000, "approved amount should match");
+        });
+        it("transferFrom&burn", async () => {
+            await myToken.mint(owner, 20000);
+            const res = await myToken.transfer(alice, 6000, {from: owner});
+            const balance = await myToken.balanceOf(alice);
+            assert.equal(balance, 6000, "approved amount should match");
+
+            await myToken.increaseAllowance(alice, 6000, {from: owner});
+            await myToken.transferFrom(owner, bob, 6000, {from: alice});
+            const balance2 = await myToken.balanceOf(bob);
+            assert.equal(balance2, 6000, "transfered amount should match");
         });
     });
 });
