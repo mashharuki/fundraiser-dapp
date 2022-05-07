@@ -82,7 +82,7 @@ contract ("NFTFactory: nfts", (accounts) => {
             // インスタンス生成
             const factory = await createNFTFactory (0);
             // nfts関数を呼び出し
-            const nfts = await factory.nfts (10, 0);
+            const nfts = await factory.nfts(10, 0);
             // コレクションが0個かチェックする。
             assert.equal(nfts.length, 0, "collection should be empty");
         });
@@ -109,9 +109,8 @@ contract ("NFTFactory: nfts", (accounts) => {
             const nfts = await factory.nfts(20, 0);
             assert.equal(nfts.length, 20, "results size should be 20");
         });
-
         xit ("returns 20 results when limit requested is 30", async () => {
-            const nfts = await factory.nfts(20, 0);
+            const nfts = await factory.nfts(30, 0);
             assert.equal(nfts.length, 20, "results size should be 20");
         });
     });
@@ -130,15 +129,15 @@ contract ("NFTFactory: nfts", (accounts) => {
         it ("contains NFT with the appropriate offset", async () => {
             const nfts = await factory.nfts(1, 0);
             const nft = await NFTContract.at(nfts[0]);
-            const name = await nft.name();
+            const name = await nft.getNftName();
             assert.ok(await name.includes(0), `${name} did not include the offset`);
         });
 
         xit ("contains NFT with the appropriate offset", async () => {
             const nfts = await factory.nfts(1, 7);
             const nft = await NFTContract.at(nfts[0]);
-            const name = await nft.name();
-            assert.ok(await name.includes(7), `${name} did not include the offset`);
+            const name = await nft.getNftName();
+            assert.ok(await name.includes(6), `${name} did not include the offset`);
         });
     });
 
