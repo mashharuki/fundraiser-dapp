@@ -38,4 +38,24 @@ contract("MyToken Contract test", accounts => {
             assert.equal(actual, 0, "totalSupply should match");
         });
     });
+
+    describe ("mint tokens!!", () => {
+        it("mint", async () => {
+            await myToken.mint(owner, 10000);
+            const actual = await myToken.totalSupply();
+            const balance = await myToken.balanceOf(owner);
+            assert.equal(actual, 10000, "totalSupply should match");
+            assert.equal(balance, 10000, "balance should match");
+        });
+    });
+
+    describe ("transfer tokens!!", () => {
+        it("transfer", async () => {
+            await myToken.transfer(alice, 6000);
+            const balance = await myToken.balanceOf(owner);
+            const balance2 = await myToken.balanceOf(alice);
+            assert.equal(balance, 4000, "owner's balance should match");
+            assert.equal(balance2, 6000, "alice's balance should match");
+        });
+    });
 });
