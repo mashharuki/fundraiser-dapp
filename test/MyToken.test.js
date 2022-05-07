@@ -13,8 +13,10 @@ contract("MyToken Contract test", accounts => {
     const alice = accounts[1];
     const bob = accounts[2];
 
+    let myToken;
+
     beforeEach (async () => {
-        myMoken = await MyToken.new(tokenName, tokenSymbol, decimal);
+        myToken = await MyToken.new(tokenName, tokenSymbol, decimal);
     });
 
     // 各変数の初期設定用テストコード
