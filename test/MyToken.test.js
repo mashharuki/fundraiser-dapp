@@ -65,7 +65,13 @@ contract("MyToken Contract test", accounts => {
             const amount = await myToken.allowance(owner, alice);
             assert.equal(amount, 6000, "approved amount should match");
         });
-        it("transferFrom&burn", async () => {
+        it("burn", async () => {
+            await myToken.mint(owner, 10000);
+            await myToken.burn(owner, 10000);
+            const balance = await myToken.balanceOf(owner);
+            assert.equal(balance, 0, "burned amount should match");
+        });
+        it("transferFrom", async () => {
             await myToken.mint(owner, 20000);
             const res = await myToken.transfer(alice, 6000, {from: owner});
             const balance = await myToken.balanceOf(alice);
