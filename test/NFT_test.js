@@ -2,6 +2,8 @@
  * テストコード用のファイル
  */
 
+// NFTFactoryコントラクトを読み込んでインスタンス化する。
+const NFTFactoryContract = artifacts.require("NFTFactory");
 const NFTContract = artifacts.require("NFT");
 
 contract ("NFT test", accounts => {
@@ -22,7 +24,9 @@ contract ("NFT test", accounts => {
     
     // テストが実行される前に資金調達を設定する。
     beforeEach (async () => {
-        nft = await NFTContract.new(name, symbol, imageURL);
+        // デプロイ済みのコントラクトをインスタンス化
+        // NFTFactory = await NFTFactoryContract.deployed();
+        nft = await NFTContract.new(name, symbol, imageURL);;
     });
 
     // 各変数の初期設定用テストコード

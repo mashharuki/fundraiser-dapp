@@ -72,18 +72,30 @@ const CollectionCard = (props) => {
                   };
 
                   // 登録用のAPIを呼び出す。
-                  let res = await superAgent.get(baseUrl + '/api/getTokenIds').query(params);
-                  let tokenIds = res.body.tokenIds;
-                  console.log("tokenIds:", tokenIds);
+                  // let res = await superAgent.get(baseUrl + '/api/getTokenIds').query(params);
+                  // let tokenIds = res.body.tokenIds;
+                  // console.log("tokenIds:", tokenIds);
 
                   // 発行数が1以上の場合のみ実行
                   if (total > 0) {
                         // 所有者アドレスとメタデータの配列を作成する。
-                        tokenIds.map((index, id) => { 
-                              console.log("index:", index);
-                              getAddress(instance, index["tokenid"]);
-                              getMetaData(instance, index["tokenid"]);
-                        });
+                        for(let i = 1; i <= totalSupply; i++) {
+                              try {
+                                    // トークンIDごとのOwnerアドレスを取得する。
+                                    let address = await instance.methods.ownerOf(i - 1).call();
+                                    setOwners([...owners, address]);
+                                    // トークンIDごとのメタデータを取得する。
+                                    let metaData = await instance.methods.getMetaData(i - 1).call();
+                                    // base64でエンコードされているためデコードする。
+                                    let jsonData = await base64Decode(metaData);
+                                    // JSONをJavaScriptオブジェクトに変換する。
+                                    var jObject = JSON.parse(jsonData);
+                                    console.log("jObject:", jObject);
+                                    setMetaDatas([...metaDatas, jObject]);
+                              } catch (e) {
+                                    console.error("このIDに紐づく所有者は見つかりませんでした。", e);
+                              }
+                        }
                   };
             } catch (error) {
                   alert(`Failed to load web3, accounts, or contract. Check console for details.`,);
