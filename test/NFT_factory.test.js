@@ -11,7 +11,7 @@ const NFTContract = artifacts.require("NFT");
  */
  contract ("NFTFactory: deployment", () => {
     it ("has been deployde", async () => {
-        const NFTFactory = NFTFactoryContract.deployed();
+        const NFTFactory = await NFTFactoryContract.deployed();
         assert(NFTFactory, "NFT factory was not deployed") 
     });
 });
@@ -70,7 +70,7 @@ contract ("NFTFactory: nfts", (accounts) => {
 
         for (let i=0; i < count; i++) {
             // インスタンスを生成
-            await factory.createNFT (`${name}${i}`, `${symbol}${i}`, `${url}${i}`);
+            await factory.createNFT(`${name}${i}`, `${symbol}${i}`, `${url}${i}`);
         }
     }
 
