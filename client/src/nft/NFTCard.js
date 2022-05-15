@@ -63,6 +63,15 @@ const NFTCard = (props) => {
         newTokenId: nftTotal,
     };
 
+    // NFT発行画面に渡す要素
+    const toCollection = {
+        nft: nft,
+        mintFlg: hasMintRole, 
+        account: minter,
+        nftName: nftName,
+        newTokenId: nftTotal,
+    };
+
     /**
      * useEffect関数
      */
@@ -342,6 +351,11 @@ const NFTCard = (props) => {
                             View More
                         </Button>
                     </CardActions>
+                    <Button color="primary" variant="contained" className={classes.button}>
+                        <Link to={"/collection"} state={toCollection}>
+                            発行済みトークン一覧へ
+                        </Link>
+                    </Button>
                 </Card>
             : <></>}
         </div>

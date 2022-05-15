@@ -54,6 +54,9 @@ const UseStyles = makeStyles (theme => ({
         paddingTop: theme.spacing(1),
         paddingLeft: theme.spacing(1),
         paddingRight: theme.spacing(1),
+    },
+    cardMedia: {
+        height: 300,
     }
 }));
 

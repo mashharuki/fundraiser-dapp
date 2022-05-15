@@ -108,6 +108,9 @@ const NftMint = (props) => {
                   tokenId: tokenId,
                   chainId: chainId,
                   contract: nftAddress,
+                  nftName: name,
+                  description: description,
+                  url: url,
             };
 
             // 登録用のAPIを呼び出す。

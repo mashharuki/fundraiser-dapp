@@ -17,7 +17,6 @@ const options = [
       'Sign',
       'Ecrecover',
       'Nft',
-      'Collection',
       'MyToken',
 ];
     
