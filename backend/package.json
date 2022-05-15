@@ -9,6 +9,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.2"
+    "config": "^3.3.7",
+    "express": "^4.17.2",
+    "log4js": "^6.4.5",
+    "pg": "^8.7.3"
   }
 }

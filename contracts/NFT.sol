@@ -23,9 +23,10 @@ contract NFT is ERC721PresetMinterPauserAutoId {
 
     // NFTトークンIDと紐付けて保存するデータ
     // 名前、説明、URL
-    string[] private _names;
-    string[] private _descriptions;
-    string[] private _urls;
+    string[] public _names;
+    string[] public _descriptions;
+    string[] public _urls;
+    string[] public _metadatas;
 
     /**
      * コンストラクター 
@@ -79,7 +80,7 @@ contract NFT is ERC721PresetMinterPauserAutoId {
      * @param tokenId トークンID
      * @return bytesMetadata メタデータを格納したJSONオブジェクト
      */
-    function getMetaData(uint256 tokenId) public view returns (string memory) {
+    function getMetaData(uint256 tokenId) public payable returns (string memory) {
         require( _exists( tokenId ), "nonexsitent token" );
 
         // トークンIDからデータを取得する。
@@ -99,7 +100,7 @@ contract NFT is ERC721PresetMinterPauserAutoId {
         );
         // jsonオブジェクトをBase64エンコードしてコンテンツタイプをする。
         bytes memory bytesMetadata = abi.encodePacked('data:application/json;base64,', Base64.encode( bytesObject ));
-        // 文字列として返却する。
+        _metadatas.push(string( bytesMetadata ));
         return (string( bytesMetadata ));
     }
 }

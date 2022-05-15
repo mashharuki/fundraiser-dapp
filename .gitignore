@@ -1,6 +1,10 @@
 node_modules/
 
 # ロギングの出力ファイル
+/backend/server/log/server.log
 
 # TLS通信のための設定ファイル
 /backend/server/tls/privatekey.pem
+
+# REACT用の設定ファイル
+.env

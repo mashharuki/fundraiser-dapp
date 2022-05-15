@@ -28,6 +28,7 @@ solcのバージョン情報等については、truffle-config.jsを参照く�
 |truffle|スマートコントラクト開発用のフレームワークとして使用している。テストやデプロイを行う。|
 |React|フロントエンド側の開発をするために使用している。|
 |Material-UI(MUI)|React向けのUIコンポーネントライブラリ|
+|Open Zeppelin|solidity用のフレームワーク|
 
 ## 主なディレクトリ構成
 ~~~
@@ -44,6 +45,7 @@ solcのバージョン情報等については、truffle-config.jsを参照く�
    　|　　┣  package.json: 　npm用の設定ファイル  
    　|　　└  package-lock.json:　 npm installによってインストールされたモジュールの情報を記載したファイル  
    　┣ contracts/　: スマートコントラクト(バックエンド側)のディレクトリ  
+   　|　　┣ common/: 共通で使用するスマートコントラクトを格納したディレクトリ  
    　|　　┣ ERC20/: ERC20トークン関連のコントラクトを格納したディレクトリ
    　|　　┣ safeContracts/: マルチシグウォレット関連のコントラクトを格納したディレクトリ  
    　|　　|　    ┣ base/ :  ベースとなるコントラクトを格納したディレクトリ  
@@ -162,6 +164,124 @@ solcのバージョン情報等については、truffle-config.jsを参照く�
 
 `truffle test`
 
+うまくいけば下記の様に全てのテスト項目がpassされる。(2022年5月7日時点)  
+※ テスト項目については、不足している箇所がある。
+
+```
+ Contract: FundraiserFactory: deployment
+    ✓ has been deployde (64ms)
+
+  Contract: FundraiserFactory: createfundraiser
+    ✓ increments the fundraisersCount (203ms)
+    ✓ emits the FundraiserCreated event (148ms)
+
+  Contract: FundraiserFactory: fundraisers
+    when fundraisers collection is empty
+      ✓ returns an empty collection (63ms)
+    varying limits
+      ✓ returns 10 results when limit requested is 10
+      - returns 20 results when limit requested is 20
+      - returns 20 results when limit requested is 30
+    varying offset
+      ✓ contains the fundraiser with the appropriate offset
+      - contains the fundraiser with the appropriate offset
+    boundary conditions
+      ✓ raises out of bounds error (156ms)
+      ✓ adjusts return size to prevent out of bounds error
+
+  Contract: Fundraiser
+    initialization
+      ✓ gets the beneficiary name
+      ✓ gets the beneficiary url
+      ✓ gets the beneficiary imageURL
+      ✓ gets the beneficiary description
+      ✓ gets the beneficiary description
+      ✓ gets the owner
+    setBeneficiary
+      ✓ updated beneficiary when called by owner account (46ms)
+      ✓ throws an error when called from a non-owner account
+    making donations
+      ✓ increases myDonationsCount (57ms)
+      ✓ include donation in myDonations (43ms)
+      ✓ increase the totalDonations amount (69ms)
+      ✓ increase donationsCount (69ms)
+      ✓ emit the DonationReceived event (48ms)
+    withdrawing funds
+      ✓ transfers balance to beneficiary (46ms)
+      ✓ emit Withdraw event
+      withdrawing funds
+        access controls
+          ✓ throws an error when called from a non-owner account
+          ✓ permits the owner to call the function
+    fallback function
+      ✓ increase the totalDonations amount
+      ✓ increase donationsCount (57ms)
+
+  Contract: MultiSigFactory: deployment
+    ✓ has been deployde (64ms)
+
+  Contract: MultiSigFactory: create MultiSigWallet
+    ✓ increments the mutliSigWalletsCount
+
+  Contract: MyTokenFactory: deployment
+    ✓ has been deployde (63ms)
+
+  Contract: MyTokenFactory: create MyToken
+    ✓ increments the MyTokenCount (225ms)
+
+  Contract: MyTokenFactory: MyTokens
+    when MyTokens collection is empty
+      ✓ returns an empty collection (175ms)
+    varying limits
+      ✓ returns 10 results when limit requested is 10
+      ✓ returns 20 results when limit requested is 20
+      ✓ returns 20 results when limit requested is 30
+    varying offset
+      ✓ contains MyToken with the appropriate offset
+      ✓ contains MyToken with the appropriate offset (40ms)
+    boundary conditions
+      ✓ raises out of bounds error
+      ✓ adjusts return size to prevent out of bounds error
+
+  Contract: NFTFactory: deployment
+    ✓ has been deployde (67ms)
+
+  Contract: NFTFactory: create NFT
+    ✓ increments the NFTCount (325ms)
+
+  Contract: NFTFactory: nfts
+    when NFTs collection is empty
+      ✓ returns an empty collection (620ms)
+    varying limits
+      ✓ returns 10 results when limit requested is 10
+      - returns 20 results when limit requested is 20
+      - returns 20 results when limit requested is 30
+    varying offset
+      ✓ contains NFT with the appropriate offset (268ms)
+      - contains NFT with the appropriate offset
+    boundary conditions
+      ✓ raises out of bounds error
+      - adjusts return size to prevent out of bounds error
+
+  Contract: NFT test
+    initialization
+      ✓ gets the NFT name
+      ✓ gets the NFT symbol (163ms)
+      ✓ gets the NFT imageURL
+    mint test
+      ✓ mint NFT (568ms)
+    indexing
+   NFT lists: [
+      'data:application/json;base64,eyJuYW1lIjoiTWFzaCIsImRlc2NyaXB0aW9uIjoiVGhpcyBORlQgaXMgYSB0ZXN0ISEiLCJVUkwiOiJodHRwczovL3BsYWNla2l0dGVuLmNvbS82MDAvMzUwIn0=',
+      'data:application/json;base64,eyJuYW1lIjoiTWFzaCIsImRlc2NyaXB0aW9uIjoiVGhpcyBORlQgaXMgYSB0ZXN0ISEiLCJVUkwiOiJodHRwczovL3BsYWNla2l0dGVuLmNvbS82MDAvMzUwIn0=',
+      'data:application/json;base64,eyJuYW1lIjoiTWFzaCIsImRlc2NyaXB0aW9uIjoiVGhpcyBORlQgaXMgYSB0ZXN0ISEiLCJVUkwiOiJodHRwczovL3BsYWNla2l0dGVuLmNvbS82MDAvMzUwIn0='
+   ]
+      ✓ lists NFT (1050ms)
+
+  50 passing (44s)
+  7 pending
+``` 
+
 ## コントラクトのコンパイルとデプロイ用のコマンド(ローカルチェーンの場合)
    `truffle compile`  
    `truffle migrate --network develop`  
@@ -219,6 +339,14 @@ buildしたい場合は、次のコマンドを打つこと！
 gasが足りない時に発生するため、設定を見直すこと。send()メソッドを呼び出すときに、明示的にgasの量を指定すると治る。
 
 ※SafeContractのエラー詳細についてはこちらを<a href="https://github.com/gnosis/safe-contracts/blob/main/docs/error_codes.md">参照</a>。
+
+### DBの起動方法(PostgresSQLの場合)
+ #### 1.1. macOS の場合
+ #### 起動
+   `brew services start postgresql`
+
+ #### 停止
+   `brew services stop postgresql`
 
 ### GitHub Actions設定(調整中)
 
@@ -289,4 +417,10 @@ gasが足りない時に発生するため、設定を見直すこと。send()�
 
 <a href="https://www.i-ryo.com/entry/2021/02/08/065133">【React】JSONデータをJSXに読み込んで表示する</a>
 
-<a href="https://tabinou.com/archives/2867">【React.js】CRUD作成　Jsonファイルにデータを登録する方法</a>
+<a href="https://tabinou.com/archives/2867">【React.js】CRUD作成  Jsonファイルにデータを登録する方法</a>
+
+<a href="https://ipfs.io/">IPFS</a>
+
+<a href="http://ykubot.com/2018/04/08/ipfs-setup/">Mac環境でIPFSを構築する方法</a>
+
+<a href="https://js.ipfs.io/">JS IPFS</a>

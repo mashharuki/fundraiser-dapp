@@ -10,6 +10,8 @@ import NFTCard from "./nft/NFTCard";
 import WalletCard from "./wallet/WalletCard";
 import MyTokenCard from "./mytoken/MyTokenCard";
 import UseStyles from "./common/useStyles";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
 
 // コンポーネントを用意する。
 const Home = () => {
@@ -75,11 +77,23 @@ const Home = () => {
      * @returns FundraiserCardコンポーネント
      */
     const displayFundraisers = () => {
-        return funds.map( (fundraiser) => {
-            return (
-                <FundraiserCard fundraiser={fundraiser} key={fundraiser}/>
-            );
-        });
+        return (
+            <Box sx={{ flexGrow: 1 }}>
+                <Grid
+                        container
+                        spacing={{ xs: 2, md: 3 }}
+                        columns={{ xs: 4, sm: 8, md: 12 }}
+                >
+                    {funds.map( (fundraiser) => {
+                        return (
+                            <Grid item xs={1} sm={2} md={4} key={fundraiser}>
+                                <FundraiserCard fundraiser={fundraiser} key={fundraiser}/>
+                            </Grid>
+                        );
+                    })}
+                </Grid>
+            </Box>
+        );
     }
     
     /**
@@ -87,11 +101,23 @@ const Home = () => {
      * @returns NFTCardコンポーネント
      */
     const displayNfts = () => {
-        return nfts.map( (nft) => {
-            return (
-                <NFTCard nft={nft} key={nft} />
-            );
-        });
+        return (
+            <Box sx={{ flexGrow: 1 }}>
+                <Grid
+                        container
+                        spacing={{ xs: 2, md: 3 }}
+                        columns={{ xs: 4, sm: 8, md: 12 }}
+                >
+                    {nfts.map( (nft) => {
+                        return (
+                            <Grid item xs={1} sm={2} md={4} key={nft}>
+                                <NFTCard nft={nft} key={nft} />
+                            </Grid>
+                        );
+                    })}
+                </Grid>
+            </Box>
+        );
     }
 
     /**
@@ -99,11 +125,23 @@ const Home = () => {
      * @returns MyTokenCardコンポーネント
      */
      const displayMyTokens = () => {
-        return myTokens.map( (token) => {
-            return (
-                <MyTokenCard token={token} key={token} />
-            );
-        });
+        return (
+            <Box sx={{ flexGrow: 1 }}>
+                <Grid
+                        container
+                        spacing={{ xs: 2, md: 3 }}
+                        columns={{ xs: 4, sm: 8, md: 12 }}
+                >
+                    {myTokens.map( (token) => {
+                        return (
+                            <Grid item xs={1} sm={2} md={4} key={token}>
+                                <MyTokenCard token={token} key={token} />
+                            </Grid>
+                        );
+                    })}
+                </Grid>
+            </Box>
+        );
     }
 
     /**
@@ -111,11 +149,23 @@ const Home = () => {
      * @returns WalletCardコンポーネント
      */
     const displayWallets = () => {
-        return wallets.map( (wallet) => {
-            return (
-                <WalletCard wallet={wallet} key={wallet} />
-            );
-        });
+        return (
+            <Box sx={{ flexGrow: 1 }}>
+                <Grid
+                        container
+                        spacing={{ xs: 2, md: 3 }}
+                        columns={{ xs: 4, sm: 8, md: 12 }}
+                >
+                    {wallets.map( (wallet) => {
+                        return (
+                            <Grid item xs={1} sm={2} md={4} key={wallet}>
+                                <WalletCard wallet={wallet} key={wallet} />
+                            </Grid>
+                        );
+                    })}
+                </Grid>
+            </Box>
+        );
     }
 
     return (

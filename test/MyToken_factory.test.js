@@ -53,10 +53,10 @@ contract ("MyTokenFactory: MyTokens", (accounts) => {
      */
     async function createMyTokenFactory (MyTokenCount) {
         // インスタンス初期化
-        const myTorken = await MyTokenFactoryContract.new();
+        const myToken = await MyTokenFactoryContract.new();
         // addMyTokens関数を呼び出し
         await addMyTokens (myToken, MyTokenCount);
-        return mytoken;
+        return myToken;
     }
 
     /**
@@ -66,6 +66,7 @@ contract ("MyTokenFactory: MyTokens", (accounts) => {
         // テスト用の変数を初期化
         const name = "test MyToken";
         const symbol = "test";
+        const decimal = "0";
 
         for (let i=0; i < count; i++) {
             // インスタンスを生成
@@ -79,9 +80,9 @@ contract ("MyTokenFactory: MyTokens", (accounts) => {
     describe ("when MyTokens collection is empty", () => {
         it ("returns an empty collection", async () => {
             // インスタンス生成
-            const factory = await createMyTokenFactory (0);
+            const factory = await createMyTokenFactory(0);
             // MyTokens関数を呼び出し
-            const MyTokens = await factory.myTokens (10, 0);
+            const MyTokens = await factory.myTokens(10, 0);
             // コレクションが0個かチェックする。
             assert.equal(MyTokens.length, 0, "collection should be empty");
         });
@@ -127,14 +128,14 @@ contract ("MyTokenFactory: MyTokens", (accounts) => {
   
         it ("contains MyToken with the appropriate offset", async () => {
             const MyTokens = await factory.myTokens(1, 0);
-            const MyToken = MyTokenContract.at(MyTokens[0]);
+            const MyToken = await MyTokenContract.at(MyTokens[0]);
             const name = await MyToken.name();
             assert.ok(await name.includes(0), `${name} did not include the offset`);
         });
 
         it ("contains MyToken with the appropriate offset", async () => {
             const MyTokens = await factory.myTokens(1, 7);
-            const MyToken = MyTokenContract.at(MyTokens[0]);
+            const MyToken = await MyTokenContract.at(MyTokens[0]);
             const name = await MyToken.name();
             assert.ok(await name.includes(7), `${name} did not include the offset`);
         });

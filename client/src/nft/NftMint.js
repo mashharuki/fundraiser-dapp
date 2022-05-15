@@ -10,6 +10,9 @@ import UseStyles from "./../common/useStyles";
 import Web3 from 'web3';
 import NFTContract from '../contracts/NFT.json';
 import detectEthereumProvider from '@metamask/detect-provider';
+import superAgent from 'superagent';
+// APIサーバーのURL
+const baseUrl = process.env.REACT_APP_API_SERVER_URL;
 
 /**
  * NftMintコンポーネント
@@ -25,12 +28,16 @@ const NftMint = (props) => {
       const [ contract, setContract ] = useState(null);
       const [ account, setAccount ] = useState(null);
       const [ hasMintRole, setHasMintRole ] = useState(false);
+      const [ chainId, setChainId ] = useState(null);
+      const [ tokenId, setTokenId ] = useState(null);
       // スタイルシートを使うための変数
       const classes = UseStyles();
       const location = useLocation();
       let nft  = "";
       let web3Account = "";
       let mintFlg = "";
+      let networkId = "";
+      let newTokenId = 0;
  
       /**
        * 副作用フック
@@ -43,9 +50,13 @@ const NftMint = (props) => {
                   nft  = location.state.nft;
                   web3Account = location.state.accounts;
                   mintFlg = location.state.mintFlg;
+                  networkId = location.state.networkId;
+                  newTokenId = location.state.newTokenId;
                   setNftAddress(nft);
                   setAccount(web3Account);
                   setHasMintRole(mintFlg);
+                  setChainId(networkId);
+                  // setTokenId(newTokenId);
             }
             return () => {
                   unmounted = false;
@@ -63,6 +74,9 @@ const NftMint = (props) => {
        * 「NFT発行」ボタンを押した時の処理
        */
       const buttonMint = async () => {
+            console.log("APIサーバー:", baseUrl);
+            // トークンID用の変数
+            var tokenId = 0;
             try {
                   // Mintする権限があるかどうかチェックする。
                   if (hasMintRole){
@@ -71,6 +85,9 @@ const NftMint = (props) => {
                         const web3 = new Web3(provider);
                         const accounts = await web3.eth.getAccounts();
                         const instance = new web3.eth.Contract(NFTContract.abi, nftAddress);
+                        // 現在のトークンIDを取得する
+                        tokenId = await instance.methods.getCurrentCounter().call();
+                        console.log("トークンID:", tokenId);
                         // NFTコントラクトのmintNft関数を実行する。
                         await instance.methods.mintNft(to, name, description, url).send({ 
                               from: accounts[0],
@@ -84,6 +101,31 @@ const NftMint = (props) => {
                   console.log(e);
                   alert("mint NFT failed");
             }
+
+            /*
+            // API用のパラメータ変数
+            const params = { 
+                  owner: to,
+                  tokenId: tokenId,
+                  chainId: chainId,
+                  contract: nftAddress,
+                  nftName: name,
+                  description: description,
+                  url: url,
+            };
+
+            // 登録用のAPIを呼び出す。
+            superAgent
+                  .post(baseUrl + '/api/input')
+                  .query(params) 
+                  .end((err, res) => {
+                        if (err) {
+                              console.log("DB登録API実行中にエラー発生", err)
+                              return err;
+                        }
+                        console.log("DB登録処理成功！：", res);
+                  });
+            */
       }
 
       return (
