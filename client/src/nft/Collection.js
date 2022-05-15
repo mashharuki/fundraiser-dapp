@@ -112,6 +112,7 @@ const Collection = () => {
                   <h2>
                         {nftName}
                   </h2>
+                  <br/>
                   <Box sx={{ flexGrow: 1 }}>
                         <Grid
                               container

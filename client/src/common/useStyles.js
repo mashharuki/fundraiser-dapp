@@ -55,6 +55,24 @@ const UseStyles = makeStyles (theme => ({
         paddingLeft: theme.spacing(1),
         paddingRight: theme.spacing(1),
     },
+    cardContainer: {
+        paddingTop: theme.spacing(1),
+        paddingLeft: theme.spacing(1),
+        paddingRight: theme.spacing(1),
+        backgroundColor: 'linear-gradient(-45deg, #EE7752, #E73C7E, #23A6D5, #23D5AB)',
+        animation: `$gradientBG 15s ease infinite`,
+    },
+    "@keyframes gradientBG": {
+        "0%": {
+            transform: "translateY(-50%)"
+        },
+        "50%": {
+            transform: "translateY(-50%)"
+        },
+        "1000%": {
+            transform: "translateY(-50%)"
+        },
+    },
     cardMedia: {
         height: 300,
     }
