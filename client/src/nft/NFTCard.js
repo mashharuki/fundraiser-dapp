@@ -203,6 +203,7 @@ const NFTCard = (props) => {
             alert("NFT移転失敗");
         }
 
+        /*
         // API用のパラメータ変数
         const params = { 
             owner: accounts[0],
@@ -223,6 +224,7 @@ const NFTCard = (props) => {
                 }
                 console.log("DB更新処理成功！：", res);
             });
+        */
     }
 
     /**
@@ -252,6 +254,7 @@ const NFTCard = (props) => {
             alert("NFT償却失敗");
         }
 
+        /*
         // API用のパラメータ変数
         const params = { 
             owner: accounts[0],
@@ -271,6 +274,7 @@ const NFTCard = (props) => {
                 }
                 console.log("DB更新処理成功！：", res);
             });
+        */
     }
 
     // レンダリング内容

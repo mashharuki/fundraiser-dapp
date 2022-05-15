@@ -102,6 +102,7 @@ const NftMint = (props) => {
                   alert("mint NFT failed");
             }
 
+            /*
             // API用のパラメータ変数
             const params = { 
                   owner: to,
@@ -124,6 +125,7 @@ const NftMint = (props) => {
                         }
                         console.log("DB登録処理成功！：", res);
                   });
+            */
       }
 
       return (
