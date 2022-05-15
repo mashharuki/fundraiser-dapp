@@ -51,6 +51,9 @@ const UseStyles = makeStyles (theme => ({
     },
     main_container: {
         backgroundColor: 'white',
+        paddingTop: theme.spacing(1),
+        paddingLeft: theme.spacing(1),
+        paddingRight: theme.spacing(1),
     }
 }));
 

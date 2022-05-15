@@ -6,7 +6,7 @@
 const NFTFactoryContract = artifacts.require("NFTFactory");
 const NFTContract = artifacts.require("NFT");
 
-contract ("NFT test", accounts => {
+contract ("NFT test", (accounts) => {
     // NFTコントラクト用の変数
     let nft;
     // 受取人の名前
@@ -22,15 +22,13 @@ contract ("NFT test", accounts => {
     // 管理人のアドレス
     const owner = accounts[0];
     
-    // テストが実行される前に資金調達を設定する。
-    beforeEach (async () => {
-        // デプロイ済みのコントラクトをインスタンス化
-        // NFTFactory = await NFTFactoryContract.deployed();
-        nft = await NFTContract.new(name, symbol, imageURL);;
-    });
-
     // 各変数の初期設定用テストコード
-    describe ("initialization", () => {
+    describe ("initialization", async() => {
+        beforeEach (async () => {
+            // デプロイ済みのコントラクトをインスタンス化
+            // NFTFactory = await NFTFactoryContract.deployed();
+            nft = await NFTContract.new(name, symbol, imageURL);;
+        });
         it ("gets the NFT name", async () => {
             const actual = await nft.getNftName();
             assert.equal(actual, name, "names should match");
@@ -46,15 +44,31 @@ contract ("NFT test", accounts => {
     });
 
     // NFTの発行とそれに関連するテストコード
-    describe ("mint test", () => {
+    describe ("mint test", async() => {
+        beforeEach (async () => {
+            // デプロイ済みのコントラクトをインスタンス化
+            // NFTFactory = await NFTFactoryContract.deployed();
+            nft = await NFTContract.new(name, symbol, imageURL);
+        });
         it ("mint NFT", async () => {
             await nft.mintNft(owner, name, description, imageURL);
             const totalSupply = await nft.totalSupply();
             assert.equal(1, totalSupply, "totalSupply should match");
+
+            const balance = await nft.balanceOf(owner);
+            assert.equal(1, balance, "balance should match");
+
+            const ownerAddress = await nft.ownerOf(1);
+            assert.equal(owner, ownerAddress, "address should match");
         });
     });
 
-    describe('indexing', async() => {
+    describe('indexing', async () => {
+        beforeEach (async () => {
+            // デプロイ済みのコントラクトをインスタンス化
+            // NFTFactory = await NFTFactoryContract.deployed();
+            nft = await NFTContract.new(name, symbol, imageURL);
+        });
         it('lists NFT', async() => {
             await nft.mintNft(owner, name, description, imageURL);
             await nft.mintNft(owner, name, description, imageURL);

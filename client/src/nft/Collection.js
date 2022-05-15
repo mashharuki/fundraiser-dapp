@@ -8,14 +8,10 @@ import Web3 from 'web3';
 import NFTContract from './../contracts/NFT.json';
 import NFTFactoryContract from './../contracts/NFTFactory.json';
 import detectEthereumProvider from '@metamask/detect-provider';
-import CollectionCard from './CollectionCard';
-// Cardコンポーネントを読み込む
-import Card  from '@material-ui/core/Card';
-import CardMedia from '@material-ui/core/CardMedia';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
 import UseStyles from "../common/useStyles";
+import CollectionCard from "./CollectionCard";
 
 /**
  * Collectionコンポーネント本体
@@ -28,6 +24,7 @@ const Collection = () => {
       const [ ethWeb3, setEthWeb3 ] = useState(null);
       const [ ids, setIds ] = useState([]);
       const [ idArray, setIdArray ] = useState([]);
+      const [ chain, setChain ] = useState("local");
       // スタイル用のクラス
       const classes = UseStyles();
 
@@ -75,10 +72,24 @@ const Collection = () => {
        * @param {*} nfts NFTコントラクトアドレスの配列
        * @returns CollectionCardコンポーネント群
        */
-      const displayCollection = (nfts) => {
-            return nfts.map((nft) => {   
-                  return <CollectionCard key={nft} nft={nft} />
-            });
+      const displayCollection = async (nfts) => {
+            return (
+                  <Box sx={{ flexGrow: 1 }}>
+                        <Grid
+                              container
+                              spacing={{ xs: 2, md: 3 }}
+                              columns={{ xs: 4, sm: 8, md: 12 }}
+                        >
+                              {nfts.map((_, nft) => {
+                                    return (
+                                          <Grid item xs={1} sm={2} md={4} key={nft}>
+                                                <CollectionCard nft={nft} key={nft} />
+                                          </Grid>
+                                    )
+                              })}
+                        </Grid>
+                  </Box>
+            );
       }
 
       return (

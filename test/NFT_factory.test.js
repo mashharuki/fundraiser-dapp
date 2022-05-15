@@ -9,9 +9,12 @@ const NFTContract = artifacts.require("NFT");
 /**
  * コントラクトのデプロイ用テストコード
  */
- contract ("NFTFactory: deployment", () => {
-    it ("has been deployde", async () => {
-        const NFTFactory = await NFTFactoryContract.deployed();
+contract ("NFTFactory: deployment", () => {
+    // NFTFactoryコントラクト
+    let NFTFactory;
+
+    it ("has been deployed", async () => {
+        NFTFactory = await NFTFactoryContract.deployed();
         assert(NFTFactory, "NFT factory was not deployed") 
     });
 });
@@ -19,7 +22,7 @@ const NFTContract = artifacts.require("NFT");
 /**
  * NFTコントラクト作成用テストコード
  */
-contract ("NFTFactory: create NFT", (accounts) => {
+contract ("NFTFactory: create NFT", () => {
     // NFTFactoryコントラクト
     let NFTFactory;
     // 名前
@@ -27,12 +30,14 @@ contract ("NFTFactory: create NFT", (accounts) => {
     // シンボル
     const symbol = "symbol";
     // URL
-    const url = "http://localhost:3000/"
+    const url = "http://localhost:3000/";
 
-    // NFTコントラクトを作成するテストコード
-    it ("increments the NFTCount", async () => {
+    beforeEach(async () => {
         // デプロイ済みのコントラクトをインスタンス化
         NFTFactory = await NFTFactoryContract.deployed();
+    });
+    // NFTコントラクトを作成するテストコード
+    it ("increments the NFTCount", async () => {
         // 現在の数を取得する。
         const currentNFTCount = await NFTFactory.NFTsCount();
         // NFTを作成する。
@@ -47,7 +52,7 @@ contract ("NFTFactory: create NFT", (accounts) => {
 /**
  * NFTコントラクトインスタンスページング作成用テストコード
  */
-contract ("NFTFactory: nfts", (accounts) => {
+contract ("NFTFactory: nfts", async () => {
     /**
      * テスト用のインスタンス生成関数
      */
@@ -105,11 +110,11 @@ contract ("NFTFactory: nfts", (accounts) => {
             assert.equal(nfts.length, 10, "results size should be 10");
         });
         // xit はテストに「保留中」のマークをつける。
-        xit ("returns 20 results when limit requested is 20", async () => {
+        it ("returns 20 results when limit requested is 20", async () => {
             const nfts = await factory.nfts(20, 0);
             assert.equal(nfts.length, 20, "results size should be 20");
         });
-        xit ("returns 20 results when limit requested is 30", async () => {
+        it ("returns 20 results when limit requested is 30", async () => {
             const nfts = await factory.nfts(30, 0);
             assert.equal(nfts.length, 20, "results size should be 20");
         });
@@ -133,7 +138,7 @@ contract ("NFTFactory: nfts", (accounts) => {
             assert.ok(await name.includes(0), `${name} did not include the offset`);
         });
 
-        xit ("contains NFT with the appropriate offset", async () => {
+        it ("contains NFT with the appropriate offset", async () => {
             const nfts = await factory.nfts(1, 7);
             const nft = await NFTContract.at(nfts[0]);
             const name = await nft.getNftName();
@@ -161,7 +166,7 @@ contract ("NFTFactory: nfts", (accounts) => {
                 assert.ok(err.message.includes(expected), `${err.message}`);
             }
         });
-        xit ("adjusts return size to prevent out of bounds error", async () => {
+        it ("adjusts return size to prevent out of bounds error", async () => {
             try {
                 const nfts = await factory.nfts(10, 5);
                 assert.equal(nfts.length, 5, "collection adjusted");

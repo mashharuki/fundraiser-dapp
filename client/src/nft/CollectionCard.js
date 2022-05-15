@@ -9,11 +9,14 @@ import Web3 from 'web3';
 import NFTContract from './../contracts/NFT.json';
 import detectEthereumProvider from '@metamask/detect-provider';
 // Cardコンポーネントを読み込む
-import Card  from '@material-ui/core/Card';
-import CardMedia from '@material-ui/core/CardMedia';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
 import superAgent from 'superagent';
 // APIサーバーのURL
 const baseUrl = process.env.REACT_APP_API_SERVER_URL;
@@ -77,6 +80,7 @@ const CollectionCard = (props) => {
                   // console.log("tokenIds:", tokenIds);
 
                   // 発行数が1以上の場合のみ実行
+                  /*
                   if (total > 0) {
                         // 所有者アドレスとメタデータの配列を作成する。
                         for(let i = 1; i <= totalSupply; i++) {
@@ -97,6 +101,7 @@ const CollectionCard = (props) => {
                               }
                         }
                   };
+                  */
             } catch (error) {
                   alert(`Failed to load web3, accounts, or contract. Check console for details.`,);
                   console.error(error);
@@ -155,31 +160,25 @@ const CollectionCard = (props) => {
       }
   
       return (
-            <div>
-                  {console.log("metaDatas:", metaDatas)}
-                  {metaDatas.map((metaData, i) => (
-                        <Card className={classes.card} variant="outlined" key={i}>
-                              <CardActionArea>
-                                    { metaData.URL ? ( <CardMedia className={classes.media} image={metaData.URL} title="NFT Image"/> ) : (<></>) }
-                                    <CardContent>
-                                          <Typography gutterBottom variant="h5" component="h2">
-                                                {metaData.name}
-                                          </Typography>
-                                          <Typography variant="body2" color="textSecondary" component="div">
-                                                <p>
-                                                      owner：{owners[i]}
-                                                </p>
-                                          </Typography>
-                                          <Typography variant="body2" color="textSecondary" component="div">
-                                                <p>
-                                                      description：{metaData.description}
-                                                </p>
-                                          </Typography>
-                                    </CardContent>
-                              </CardActionArea>
-                        </Card>
-                  ))}
-            </div>
+            <Card variant="outlined">
+                  <CardContent>
+                        <Typography sx={{ fontSize: 5 }} color="text.secondary" gutterBottom>
+                              NFT # 1
+                        </Typography>
+                        <CardMedia
+                              component="img"
+                              image="https://metaschool.so/storage/nfts/234-3948e34c-dd3d-4271-bd66-1207f42eef5b.png"
+                              title="NFT Image"
+                        />
+                        <Typography variant="body2">
+                              well meaning and kindly.
+                              <br />
+                        </Typography>
+                  </CardContent>
+                  <CardActions>
+                        <Button size="small">Learn More</Button>
+                  </CardActions>
+            </Card>
       );
 }
 

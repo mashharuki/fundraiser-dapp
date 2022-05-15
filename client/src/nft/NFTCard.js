@@ -335,11 +335,6 @@ const NFTCard = (props) => {
                             <Typography gutterBottom variant="h5" component="h2">
                                 {nftName}
                             </Typography>
-                            <Typography variant="body2" color="textSecondary" component="div">
-                                <p>
-                                    {nftURL}
-                                </p>
-                            </Typography>
                         </CardContent>
                     </CardActionArea>
                     <CardActions>
