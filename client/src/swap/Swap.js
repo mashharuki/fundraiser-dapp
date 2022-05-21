@@ -79,13 +79,11 @@ const Swap = () => {
                   const web3Accounts = await ethWeb3.eth.getAccounts();
                   const networkId = await ethWeb3.eth.net.getId();
                   const deployedNetwork = DEXContract.networks[networkId];
-                  const deployedNetwork2 = MyTokenContract.networks[networkId];
                   const instance = new ethWeb3.eth.Contract(DEXContract.abi, deployedNetwork && deployedNetwork.address,);
-                  const instance2 = new ethWeb3.eth.Contract(MyTokenContract.abi, deployedNetwork2 && deployedNetwork2.address,);
-                  setMyTokenContract(instance2);
                   setDexContract(instance);
                   setWeb3(ethWeb3);
                   setAccounts(web3Accounts);
+                  setDexAddress(deployedNetwork.address);
             } catch (error) {
                   alert(`Failed to load web3, accounts, or contract. Check console for details.`,);
                   console.error(error);
@@ -119,16 +117,16 @@ const Swap = () => {
        */
       const swapAction = async () => {
             let tokenAddr;
-            if (tokenB === MSH) {
-                  tokenAddr = MSHAddress;
-            } else if (tokenB === MCH2) {
-                  tokenAddr = MCH2Address;
-            }
-
-            console.log("tokenAddr:", tokenAddr);
             // トークンAがETHの場合：トークンを買う
             // トークンAがETH以外の場合：トークンを売る
             if(tokenA === ETH) {
+                  if (tokenB === MSH) {
+                        tokenAddr = MSHAddress;
+                  } else if (tokenB === MCH2) {
+                        tokenAddr = MCH2Address;
+                  }
+                  console.log("tokenAddr:", tokenAddr);
+
                   try {
                         await dexContract.methods.buyToken(tokenAddr, tokenAAmount, tokenBAmount).send({ 
                               from: accounts[0],
@@ -141,9 +139,19 @@ const Swap = () => {
                         alert("buy token failed");
                   }
             } else {
+                  if (tokenA === MSH) {
+                        tokenAddr = MSHAddress;
+                  } else if (tokenA === MCH2) {
+                        tokenAddr = MCH2Address;
+                  }
+                  console.log("tokenAddr:", tokenAddr);
+                  
                   try {
+                        const provider = await detectEthereumProvider();
+                        const ethWeb3 = new Web3(provider);
+                        const instance = new ethWeb3.eth.Contract(MyTokenContract.abi, tokenAddr);
                         // まず、approveを実行し、その後sellメソッドを呼び出す。
-                        await myTokenContract.methods.approve(dexAddress, tokenAAmount).send({
+                        await instance.methods.approve(dexAddress, tokenAAmount).send({
                               from: accounts[0],
                               gas: 6500000
                         });
@@ -154,7 +162,7 @@ const Swap = () => {
                         });
                         alert("sell token success！");
                   } catch(e) {
-                        console.error("buy token err:", e);
+                        console.error("sell token err:", e);
                         alert("sell token failed");
                   }
             }
