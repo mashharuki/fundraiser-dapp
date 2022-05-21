@@ -12,10 +12,12 @@ contract DEX {
 
     mapping(address => bool) public supportedTokenAddr;
 
+    /*
     modifier supportsToken(address _tokenAddr) {
         require(supportedTokenAddr[_tokenAddr] == true, "This token is not supported!!");
         _;
     }
+    */
 
     constructor(address[] memory _tokenAddr) {
         for(uint i = 0; i < _tokenAddr.length; i++) {
@@ -26,7 +28,7 @@ contract DEX {
     function buyToken(address _tokenAddr, uint256 _cost, uint _amount) external payable {
         MyToken token = MyToken(_tokenAddr);
         
-        require(msg.value == _cost, "Insufficient fund");
+        require(msg.value >= _cost, "Insufficient fund");
         require(token.balanceOf(address(this)) >= _amount, "Token sold out");
         // call transfer method
         token.transfer(msg.sender, _amount);
