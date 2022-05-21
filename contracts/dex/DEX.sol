@@ -39,7 +39,7 @@ contract DEX {
         require(token.balanceOf(msg.sender) >= _cost, "Insufficient token balance");
         require(address(this).balance >= _amount, "DEX does not have enough funds");
         token.transferFrom(msg.sender, address(this), _cost);
-        (bool success, ) = payable(msg.sender).call{ value: _amount }("");
+        (bool success, ) = payable(msg.sender).call{ value: _amount}("");
         require(success, "ETH transfer failed");
         emit sell(msg.sender, _tokenAddr, _cost, _amount);
     }
@@ -48,8 +48,8 @@ contract DEX {
         MyToken tokenA = MyToken(_tokenAddrA);
         MyToken tokenB = MyToken(_tokenAddrB);
 
-        require(tokenA.balanceOf(msg.sender) <= _amountA, "Insufficient token balance");
-        require(tokenB.balanceOf(msg.sender) <= _amountB, "Insufficient token balance");
+        require(tokenA.balanceOf(msg.sender) >= _amountA, "Insufficient tokenA balance");
+        require(tokenB.balanceOf(msg.sender) >= _amountB, "Insufficient tokenB balance");
         tokenA.transferFrom(msg.sender, address(this), _amountA);
         tokenB.transferFrom(msg.sender, address(this), _amountB);        
         emit createPool(_tokenAddrA, _tokenAddrB, _amountA, _amountB);

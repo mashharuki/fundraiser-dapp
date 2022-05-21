@@ -423,4 +423,6 @@ gasが足りない時に発生するため、設定を見直すこと。send()�
 
 <a href="http://ykubot.com/2018/04/08/ipfs-setup/">Mac環境でIPFSを構築する方法</a>
 
-<a href="https://js.ipfs.io/">JS IPFS</a>
+<a href="https://js.ipfs.io/">JS IPFS</a>  
+
+<a href="https://www.bunzz.dev/">Bunzzの公式サイト</a>

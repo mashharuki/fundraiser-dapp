@@ -7,9 +7,6 @@ const truffleAssert = require("truffle-assertions");
 
 const DEX = artifacts.require("DEX");
 const MyToken = artifacts.require("MyToken");
-// トークンのアドレス
-const tokenA = "0x06Dc2032695B30D0166E6f1f21C74Fe804F52553";
-const tokenB = "0x8dde86fCe1FBE467ec067eF49B2b018AA0D6624d";
 
 contract('DEX', accounts => {
       describe('DEX test', () => {
@@ -54,14 +51,36 @@ contract('DEX', accounts => {
                               dex.buyToken(tokenAddr, "100", "10000", { from: owner ,value: "100" })
                         );
 
-                        const ownerDai = await dai.balanceOf(owner);
-                        expect(ownerDai).to.be.equal("10000");
+                        const ownerDai = (await dai.balanceOf(owner)).toNumber();
+                        expect(ownerDai).to.be.equal(10000);
                   });
             });
             
             describe("Sell token test", async () => {
+                  // テスト前の設定
+                  beforeEach (async () => {
+                        let amount = web3.utils.toWei('90', "ether");
+                        // send eth
+                        await web3.eth.sendTransaction({
+                              from: accounts[6],
+                              to: dex.address,
+                              value: amount
+                        }, function(error, hash){
+                             if(error) {
+                                    console.log("err:", error);
+                             }else{
+                                    console.log("send success! hash:", hash);
+                             }
+                        });
+                  });
+
                   it("Should only pass if alice approved token transfer", async () => {
                         const tokenAddr = dai.address;
+                        // mint
+                        await dai.mint(alice, 200000);
+                        await dai.mint(owner, 200000);
+                        await dai.mint(dex.address, 1000000);
+
                         await truffleAssert.reverts(
                               dex.sellToken(tokenAddr, "5000", "50", {from: alice})
                         );
@@ -81,6 +100,9 @@ contract('DEX', accounts => {
                         // mint
                         await dai.mint(alice, 1000000);
                         await link.mint(alice, 1000000);
+                        // approve
+                        await dai.approve(dex.address, "10", {from: alice});
+                        await link.approve(dex.address, "10", {from: alice});
                         // create pool
                         await truffleAssert.passes(
                               dex.createLiquidityPool(tokenA, tokenB, 10, 10, { from: alice })

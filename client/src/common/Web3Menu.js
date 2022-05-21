@@ -18,6 +18,7 @@ const options = [
       'Ecrecover',
       'Nft',
       'MyToken',
+      'Swap',
 ];
     
 // Menuコンポーネント用の定数
