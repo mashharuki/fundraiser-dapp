@@ -17,6 +17,9 @@ const UseStyles = makeStyles (theme => ({
     toolbar: {
         backgroundColor: '#b2ebf2',
     },
+    bodyColor: {
+        backgroundColor: '#5d6b92',
+    },
     card: {
         maxWidth: 600,
         height: 600,
@@ -50,10 +53,11 @@ const UseStyles = makeStyles (theme => ({
         padding: 4,
     },
     main_container: {
-        backgroundColor: 'white',
+        // backgroundColor: 'white',
         paddingTop: theme.spacing(1),
         paddingLeft: theme.spacing(1),
         paddingRight: theme.spacing(1),
+        paddingBottom: theme.spacing(1),
     },
     cardContainer: {
         paddingTop: theme.spacing(1),
@@ -75,7 +79,10 @@ const UseStyles = makeStyles (theme => ({
     },
     cardMedia: {
         height: 300,
-    }
+    },
+    swapContainer: {
+
+    },
 }));
 
 export default UseStyles;
