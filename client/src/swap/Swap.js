@@ -34,6 +34,12 @@ const tokenItems = [
       MCH2
 ];
 
+const tokenAddrs = [
+      "0",
+      MSHAddress,
+      MCH2Address,
+];
+
 const imageItems = [
       eth,
       mash,
@@ -102,13 +108,13 @@ const Swap = () => {
             if(tokenA === value) {
                   // トークンBの値を算出する。
                   setTokenBAmount(tokenAAmount);
-                  console.log("valueB:", tokenAAmount);
+                  console.log("valueBAmount:", tokenAAmount);
             } else {
                   // トークンBの値を算出する。
                   let valueB = tokenAAmount * 0.7;
                   // トークンBの値を算出する。
                   setTokenBAmount(valueB);
-                  console.log("valueB:", valueB);
+                  console.log("valueBAmount:", valueB);
             }
       };
 
@@ -118,13 +124,8 @@ const Swap = () => {
       const swapAction = async () => {
             let tokenAddr;
             // トークンAがETHの場合：トークンを買う
-            // トークンAがETH以外の場合：トークンを売る
-            if(tokenA === ETH) {
-                  if (tokenB === MSH) {
-                        tokenAddr = MSHAddress;
-                  } else if (tokenB === MCH2) {
-                        tokenAddr = MCH2Address;
-                  }
+            if(tokenA === "0") {
+                  tokenAddr = tokenB;
                   console.log("tokenAddr:", tokenAddr);
 
                   try {
@@ -138,12 +139,30 @@ const Swap = () => {
                         console.error("buy token err:", e);
                         alert("buy token failed");
                   }
-            } else {
-                  if (tokenA === MSH) {
-                        tokenAddr = MSHAddress;
-                  } else if (tokenA === MCH2) {
-                        tokenAddr = MCH2Address;
+            } else if (tokenA !== "0" && tokenB !== "0") { // 交換するトークンがどちらもネイティブトークンではなかった場合
+                  let tokenAddrA = tokenA;
+                  let tokenAddrB = tokenB;
+                  // approveメソッドとswapTokenメソッドを呼び出す。
+                  try {
+                        const provider = await detectEthereumProvider();
+                        const ethWeb3 = new Web3(provider);
+                        const instance = new ethWeb3.eth.Contract(MyTokenContract.abi, tokenAddrA);
+                        // まず、approveを実行し、その後sellメソッドを呼び出す。
+                        await instance.methods.approve(dexAddress, tokenAAmount).send({
+                              from: accounts[0],
+                              gas: 6500000
+                        });
+                        await dexContract.methods.swapToken(tokenAddrA, tokenAddrB, tokenAAmount, tokenBAmount).send({ 
+                              from: accounts[0],
+                              gas: 6500000
+                        });
+                        alert("swap token success！");
+                  } catch(e) {
+                        console.error("swap token err:", e);
+                        alert("swap token failed");
                   }
+            } else {    // トークンAがETH以外の場合でトークンBがETHの場合：トークンを売る
+                  tokenAddr = tokenA;
                   console.log("tokenAddr:", tokenAddr);
                   
                   try {
@@ -155,7 +174,6 @@ const Swap = () => {
                               from: accounts[0],
                               gas: 6500000
                         });
-
                         await dexContract.methods.sellToken(tokenAddr, tokenAAmount, tokenBAmount).send({ 
                               from: accounts[0],
                               gas: 6500000
@@ -209,7 +227,7 @@ const Swap = () => {
                                                       onChange={(e) => { setTokenA(e.target.value) }}
                                                 >
                                                       { tokenItems.map((item, index) => (
-                                                            <MenuItem key={index} value={item}>    
+                                                            <MenuItem key={index} value={tokenAddrs[index]}>    
                                                                   <Grid 
                                                                         container 
                                                                         sx={{ 
@@ -254,7 +272,7 @@ const Swap = () => {
                                                       onChange={(e) => { clacSwapAmount(e.target.value) }}
                                                 >
                                                       { tokenItems.map((item, index) => (
-                                                            <MenuItem key={index} value={item}>    
+                                                            <MenuItem key={index} value={tokenAddrs[index]}>    
                                                                   <Grid 
                                                                         container 
                                                                         sx={{ 
