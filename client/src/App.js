@@ -20,6 +20,7 @@ import GetTxHash from "./wallet/GetTxHash";
 import Collection from "./nft/Collection";
 import Web3Menu from "./common/Web3Menu";
 import Swap from "./swap/Swap";
+import CreatePool from "./swap/CreatePool";
 // material-ui関連をインポートする。
 import AppBar  from '@mui/material/AppBar';
 import Toolbar  from '@mui/material/Toolbar';
@@ -104,6 +105,7 @@ const App = () => {
             <Route path="/getTxHash" element={ <GetTxHash/> } />
             <Route path="/collection" element={ <Collection/> } />
             <Route path="/swap" element={ <Swap/> } />
+            <Route path="/createPool" element={ <CreatePool/> } />
           </Routes>
         </div>
       </Router>

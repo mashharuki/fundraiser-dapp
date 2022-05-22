@@ -1,4 +1,3 @@
-
 // 必要なモジュールをインポートする。
 import '../App.css';
 import React, { useState, useEffect } from "react";
@@ -10,18 +9,15 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Button from '@mui/material/Button';
 import { MenuItem, Select } from "@mui/material";
-import SwapVertIcon from '@mui/icons-material/SwapVert';
 import { styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import InputBase from '@mui/material/InputBase';
-import eth from './../common/assets/image/eth.png';
 import mash from './../common/assets/image/mash.png';
 import mash2 from './../common/assets/image/mash2.png';
 import DEXContract from './../contracts/DEX.json';
 import MyTokenContract from './../contracts/MyToken.json';
 
 // トークンのシンボル情報
-const ETH = "ETH";
 const MSH = "MSH";
 const MCH2 = "MCH2";
 // トークンのアドレス情報
@@ -30,19 +26,16 @@ const MCH2Address = "0x8dde86fCe1FBE467ec067eF49B2b018AA0D6624d";
 
 // トークンのシンボル、アドレス、アイコン画像用の配列の定義
 const tokenItems = [
-      ETH,
       MSH,
       MCH2
 ];
 
 const tokenAddrs = [
-      "0",
       MSHAddress,
       MCH2Address,
 ];
 
 const imageItems = [
-      eth,
       mash,
       mash2
 ];
@@ -55,18 +48,17 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
 }));
 
 /**
- * Swapコンポーネント
+ * CreatePoolコンポーネント
  */
-const Swap = () => {
-      const [ myTokenContract, setMyTokenContract ] = useState (null);
+const CreatePool = () => {
       const [ dexContract, setDexContract ] = useState (null);
       const [ accounts, setAccounts ] = useState (null);
       const [ tokenA, setTokenA ] = useState(null);
       const [ tokenAAmount, setTokenAAmount ] = useState(0);
       const [ tokenB, setTokenB ] = useState(null);
       const [ tokenBAmount, setTokenBAmount ] = useState(0);
-      const [ web3, setWeb3 ] = useState(null);
       const [ dexAddress, setDexAddress ] = useState(null);
+      const [ web3, setWeb3 ] = useState(null);
       // スタイル用のクラス
       const classes = useStyles();
 
@@ -98,94 +90,35 @@ const Swap = () => {
       };
 
       /**
-       * Swapする値を算出するメソッド
-       * @param {*} value トークンB情報
+       * 「Create Pool」ボタンを押した時の処理
        */
-      const clacSwapAmount = (value) => {
-            // トークンBの情報をステート関数に設定する。
-            setTokenB(value);
-            // トークンAが同じトークンの場合には、同じ割合でswapする。
-            // それ以外であれば、トークンB = トークンA * 0.7で計算する。
-            if(tokenA === value) {
-                  // トークンBの値を算出する。
-                  setTokenBAmount(tokenAAmount);
-                  console.log("valueBAmount:", tokenAAmount);
-            } else {
-                  // トークンBの値を算出する。
-                  let valueB = tokenAAmount * 0.7;
-                  // トークンBの値を算出する。
-                  setTokenBAmount(valueB);
-                  console.log("valueBAmount:", valueB);
+      const createPoolAction = async () => {
+            // approveメソッドの後にswapTokenメソッドを呼び出す。
+            try {
+                  const provider = await detectEthereumProvider();
+                  const ethWeb3 = new Web3(provider);
+                  const tokenAContract = new ethWeb3.eth.Contract(MyTokenContract.abi, tokenA);
+                  const tokenBContract = new ethWeb3.eth.Contract(MyTokenContract.abi, tokenB);
+                  // まずpoolに提供するトークンそれぞれに対してapproveを実行する。
+                  await tokenAContract.methods.approve(dexAddress, tokenAAmount).send({
+                        from: accounts[0],
+                        gas: 6500000
+                  });
+                  await tokenBContract.methods.approve(dexAddress, tokenAAmount).send({
+                        from: accounts[0],
+                        gas: 6500000
+                  });
+                  // poolの作成
+                  await dexContract.methods.createLiquidityPool(tokenA, tokenB, tokenAAmount, tokenBAmount).send({ 
+                        from: accounts[0],
+                        gas: 6500000
+                  });
+                  alert("create pool success！");
+            } catch(e) {
+                  console.error("create pool err:", e);
+                  alert("create pool failed");
             }
       };
-
-      /**
-       * 「Swap」ボタン実行時の処理
-       */
-      const swapAction = async () => {
-            let tokenAddr;
-            // トークンAがETHの場合：トークンを買う
-            if(tokenA === "0") {
-                  tokenAddr = tokenB;
-                  console.log("tokenAddr:", tokenAddr);
-
-                  try {
-                        await dexContract.methods.buyToken(tokenAddr, tokenAAmount, tokenBAmount).send({ 
-                              from: accounts[0],
-                              value: tokenAAmount * 1000000000000000,
-                              gas: 6500000
-                        });
-                        alert("buy token success！");
-                  } catch(e) {
-                        console.error("buy token err:", e);
-                        alert("buy token failed");
-                  }
-            } else if (tokenA !== "0" && tokenB !== "0") { // 交換するトークンがどちらもネイティブトークンではなかった場合
-                  let tokenAddrA = tokenA;
-                  let tokenAddrB = tokenB;
-                  // approveメソッドとswapTokenメソッドを呼び出す。
-                  try {
-                        const provider = await detectEthereumProvider();
-                        const ethWeb3 = new Web3(provider);
-                        const instance = new ethWeb3.eth.Contract(MyTokenContract.abi, tokenAddrA);
-                        // まず、approveを実行し、その後sellメソッドを呼び出す。
-                        await instance.methods.approve(dexAddress, tokenAAmount).send({
-                              from: accounts[0],
-                              gas: 6500000
-                        });
-                        await dexContract.methods.swapToken(tokenAddrA, tokenAddrB, tokenAAmount, tokenBAmount).send({ 
-                              from: accounts[0],
-                              gas: 6500000
-                        });
-                        alert("swap token success！");
-                  } catch(e) {
-                        console.error("swap token err:", e);
-                        alert("swap token failed");
-                  }
-            } else {    // トークンAがETH以外の場合でトークンBがETHの場合：トークンを売る
-                  tokenAddr = tokenA;
-                  console.log("tokenAddr:", tokenAddr);
-                  
-                  try {
-                        const provider = await detectEthereumProvider();
-                        const ethWeb3 = new Web3(provider);
-                        const instance = new ethWeb3.eth.Contract(MyTokenContract.abi, tokenAddr);
-                        // まず、approveを実行し、その後sellメソッドを呼び出す。
-                        await instance.methods.approve(dexAddress, tokenAAmount).send({
-                              from: accounts[0],
-                              gas: 6500000
-                        });
-                        await dexContract.methods.sellToken(tokenAddr, tokenAAmount, tokenBAmount).send({ 
-                              from: accounts[0],
-                              gas: 6500000
-                        });
-                        alert("sell token success！");
-                  } catch(e) {
-                        console.error("sell token err:", e);
-                        alert("sell token failed");
-                  }
-            }
-      } 
 
       return (
             <div className={classes.main_container}>
@@ -208,7 +141,8 @@ const Swap = () => {
                                                       display: 'flex', 
                                                       alignItems: 'center', 
                                                       width: 450, 
-                                                      marginTop: 4
+                                                      marginTop: 4,
+                                                      marginBottom: 2
                                                 }}
                                           >  
                                                 <InputBase
@@ -218,7 +152,6 @@ const Swap = () => {
                                                       onChange={(e) => { setTokenAAmount(e.target.value) }}
                                                       inputProps={{ 'aria-label': 'enter amount!' }}
                                                 />
-                                                
                                                 <Select
                                                       labelId="tokenA"
                                                       id="tokenA"
@@ -243,9 +176,7 @@ const Swap = () => {
                                                       ))}
                                                 </Select>
                                           </Paper>     
-                                          <Grid container justifyContent="center">
-                                                <SwapVertIcon/>
-                                          </Grid>
+                                          <br/>
                                           <Paper
                                                 component="form"
                                                 sx={{ 
@@ -260,7 +191,7 @@ const Swap = () => {
                                                       sx={{ ml: 2 }}
                                                       placeholder="0.0"
                                                       type='number'
-                                                      value={tokenBAmount}
+                                                      onChange={(e) => { setTokenBAmount(e.target.value) }}
                                                       inputProps={{ 'aria-label': 'enter amount!' }}
                                                 />
                                                 
@@ -270,7 +201,7 @@ const Swap = () => {
                                                       value={tokenB}
                                                       autoWidth
                                                       sx={{ m: 1, maxWidth: 120 }}
-                                                      onChange={(e) => { clacSwapAmount(e.target.value) }}
+                                                      onChange={(e) => { setTokenB(e.target.value) }}
                                                 >
                                                       { tokenItems.map((item, index) => (
                                                             <MenuItem key={index} value={tokenAddrs[index]}>    
@@ -299,29 +230,27 @@ const Swap = () => {
                                           }}
                                     >
                                           <Grid sx={{marginLeft: 'auto', marginRight: 'auto', marginBottom: 3}}>
-                                                <Button variant="outlined" sx={{borderRadius: 4}} onClick={swapAction}>
-                                                      Swap
+                                                <Button 
+                                                      variant="outlined" 
+                                                      component={Link}
+                                                      to="/swap"
+                                                      sx={{borderRadius: 4}} 
+                                                >
+                                                      Return Swap
                                                 </Button>
                                           </Grid>
                                           <Grid sx={{marginLeft: 'auto', marginRight: 'auto', marginBottom: 3}}>
-                                                <Button 
-                                                      variant="outlined" 
-                                                      color="secondary" 
-                                                      sx={{borderRadius: 4}}
-                                                      component={Link}
-                                                      to="/createPool"
-                                                >
-                                                      Let's Create Pool
+                                                <Button variant="outlined" onClick={createPoolAction} color="secondary" sx={{borderRadius: 4}}>
+                                                      Create Pool
                                                 </Button>
                                           </Grid>
                                     </Grid>
                               </StyledPaper>
                         </Box>
                   </Grid>
-                <br/>
+                  <br/>
             </div>
-        );
-}
+      );
+};
 
-// コンポーネントを外部に公開する。
-export default Swap;
+export default CreatePool;

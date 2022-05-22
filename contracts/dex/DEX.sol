@@ -13,7 +13,7 @@ contract DEX {
 
     mapping(address => bool) public supportedTokenAddr;
 
-    address LPTokenAddr = 0xd228A22a2f41273d10Ac871cd675884f72DC85A9;
+    address public LPTokenAddr;
 
     /*
     modifier supportsToken(address _tokenAddr) {
@@ -23,6 +23,11 @@ contract DEX {
     */
 
     constructor(address[] memory _tokenAddr) {
+        // インスタンスを生成
+        MyToken LPToken = new MyToken("LPToken", "LPT", 18);
+        LPToken.transferOwnership(address(this));
+        LPTokenAddr = address(LPToken);
+
         for(uint i = 0; i < _tokenAddr.length; i++) {
             supportedTokenAddr[_tokenAddr[i]] = true; 
         }
