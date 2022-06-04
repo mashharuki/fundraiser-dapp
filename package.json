@@ -29,7 +29,7 @@
     "chainlink": "^0.8.2",
     "dotenv": "^16.0.0",
     "eth-lightwallet": "^4.0.0",
-    "truffle": "^5.1.31",
+    "truffle": "^5.5.17",
     "truffle-hdwallet-provider": "^1.0.17",
     "web3": "^1.7.1"
   }

@@ -6,5 +6,5 @@ const FundraiserFactory = artifacts.require("FundraiserFactory");
 module.exports = function (deployer) {
     // コントラクトをデプロイする。
     //deployer.deploy (SimpleStorageContract,{gas:2000000});
-    deployer.deploy (FundraiserFactory);
+    deployer.deploy (FundraiserFactory, {gas:2000000});
 }
