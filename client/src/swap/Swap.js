@@ -24,9 +24,12 @@ import MyTokenContract from './../contracts/MyToken.json';
 const ETH = "ETH";
 const MSH = "MSH";
 const MCH2 = "MCH2";
-// トークンのアドレス情報
-const MSHAddress = "0x06Dc2032695B30D0166E6f1f21C74Fe804F52553";
-const MCH2Address = "0x8dde86fCe1FBE467ec067eF49B2b018AA0D6624d"; 
+// トークンのアドレス情報(ローカル用)
+// const MSHAddress = "0x06Dc2032695B30D0166E6f1f21C74Fe804F52553";
+// const MCH2Address = "0x8dde86fCe1FBE467ec067eF49B2b018AA0D6624d"; 
+// トークンのアドレス情報(Rinkeby用)
+const MSHAddress = "0xADE5073211A757955208ff790759bb04438aaE17";
+const MCH2Address = "0xE719DA7AeD529cf9d8a373e7CE49e06deFF1a451";
 
 // トークンのシンボル、アドレス、アイコン画像用の配列の定義
 const tokenItems = [

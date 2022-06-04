@@ -1,6 +1,7 @@
 /**
  * スタイルシートをまとめるコンポーネントファイル
  */
+import { blue } from '@material-ui/core/colors';
 import { makeStyles } from '@material-ui/core/styles';
 
 /**
@@ -26,7 +27,8 @@ const UseStyles = makeStyles (theme => ({
     },
     tokenCard: {
         maxWidth: 600,
-        height: 200,
+        height: 300,
+        backgroundColor: '#5d6b92',
     },
     media: {
         height: 400,

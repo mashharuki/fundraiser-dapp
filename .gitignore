@@ -8,3 +8,5 @@ node_modules/
 
 # REACT用の設定ファイル
 .env
+.DS_Store
+.DS_Store
