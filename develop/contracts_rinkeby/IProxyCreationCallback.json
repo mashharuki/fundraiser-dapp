@@ -1,0 +1,471 @@
+{
+  "contractName": "IProxyCreationCallback",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "contract GnosisSafeProxy",
+          "name": "proxy",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_singleton",
+          "type": "address"
+        },
+        {
+          "internalType": "bytes",
+          "name": "initializer",
+          "type": "bytes"
+        },
+        {
+          "internalType": "uint256",
+          "name": "saltNonce",
+          "type": "uint256"
+        }
+      ],
+      "name": "proxyCreated",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.8.0+commit.c7dfd78e\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"contract GnosisSafeProxy\",\"name\":\"proxy\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_singleton\",\"type\":\"address\"},{\"internalType\":\"bytes\",\"name\":\"initializer\",\"type\":\"bytes\"},{\"internalType\":\"uint256\",\"name\":\"saltNonce\",\"type\":\"uint256\"}],\"name\":\"proxyCreated\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"notice\":\"\\u30a4\\u30f3\\u30bf\\u30fc\\u30d5\\u30a7\\u30fc\\u30b9\\u3092\\u5b9a\\u7fa9\\u3059\\u308b\\u3002\",\"version\":1}},\"settings\":{\"compilationTarget\":{\"/Users/harukikondo/git/TruffleRinkeby/MetaCoin/contracts/safeContracts/proxies/IProxyCreationCallback.sol\":\"IProxyCreationCallback\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/harukikondo/git/TruffleRinkeby/MetaCoin/contracts/safeContracts/proxies/GnosisSafeProxy.sol\":{\"keccak256\":\"0xfe897a9c70ec5450691eaee64e896cc05e52deb64b3d1bc6f5f685d5661b4b1e\",\"urls\":[\"bzz-raw://83184eefe555bdab50d5c3cde31e5c44932e76e80bfe4f8ea4d3789b5f5db2f4\",\"dweb:/ipfs/QmeWVENa5Pc3DusKPxE8xhbQryPvY2YdzYyDnLkKZyuVma\"]},\"/Users/harukikondo/git/TruffleRinkeby/MetaCoin/contracts/safeContracts/proxies/IProxyCreationCallback.sol\":{\"keccak256\":\"0xf246bc5e4ef7d7125d4f67537e831b05a7173131f7c02ec151cd2cfd55a05876\",\"urls\":[\"bzz-raw://30c14deb54279b8e6f30eda053d906fb021b237beaae58de749d87e834baae6a\",\"dweb:/ipfs/QmZCruoMdnxFJNw3cztqqeQ2BRjkzVLifj5WuP9ZjvjMnK\"]}},\"version\":1}",
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "immutableReferences": {},
+  "sourceMap": "",
+  "deployedSourceMap": "",
+  "source": "/**\n * コールバック関数用のインターフェースコントラクト\n */\n\npragma solidity >=0.7.0 <0.9.0;\n\nimport \"./GnosisSafeProxy.sol\";\n\n/**\n * インターフェースを定義する。\n */\ninterface IProxyCreationCallback {\n    function proxyCreated(\n        GnosisSafeProxy proxy,\n        address _singleton,\n        bytes calldata initializer,\n        uint256 saltNonce\n    ) external;\n}",
+  "sourcePath": "/Users/harukikondo/git/TruffleRinkeby/MetaCoin/contracts/safeContracts/proxies/IProxyCreationCallback.sol",
+  "ast": {
+    "absolutePath": "/Users/harukikondo/git/TruffleRinkeby/MetaCoin/contracts/safeContracts/proxies/IProxyCreationCallback.sol",
+    "exportedSymbols": {
+      "GnosisSafeProxy": [
+        4629
+      ],
+      "IProxy": [
+        4598
+      ],
+      "IProxyCreationCallback": [
+        4995
+      ]
+    },
+    "id": 4996,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 4980,
+        "literals": [
+          "solidity",
+          ">=",
+          "0.7",
+          ".0",
+          "<",
+          "0.9",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "85:31:31"
+      },
+      {
+        "absolutePath": "/Users/harukikondo/git/TruffleRinkeby/MetaCoin/contracts/safeContracts/proxies/GnosisSafeProxy.sol",
+        "file": "./GnosisSafeProxy.sol",
+        "id": 4981,
+        "nodeType": "ImportDirective",
+        "scope": 4996,
+        "sourceUnit": 4630,
+        "src": "118:31:31",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "abstract": false,
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "documentation": {
+          "id": 4982,
+          "nodeType": "StructuredDocumentation",
+          "src": "151:53:31",
+          "text": " インターフェースを定義する。"
+        },
+        "fullyImplemented": false,
+        "id": 4995,
+        "linearizedBaseContracts": [
+          4995
+        ],
+        "name": "IProxyCreationCallback",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "functionSelector": "1e52b518",
+            "id": 4994,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "proxyCreated",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 4992,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 4985,
+                  "mutability": "mutable",
+                  "name": "proxy",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 4994,
+                  "src": "275:21:31",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_contract$_GnosisSafeProxy_$4629",
+                    "typeString": "contract GnosisSafeProxy"
+                  },
+                  "typeName": {
+                    "id": 4984,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 4983,
+                      "name": "GnosisSafeProxy",
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 4629,
+                      "src": "275:15:31"
+                    },
+                    "referencedDeclaration": 4629,
+                    "src": "275:15:31",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_contract$_GnosisSafeProxy_$4629",
+                      "typeString": "contract GnosisSafeProxy"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 4987,
+                  "mutability": "mutable",
+                  "name": "_singleton",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 4994,
+                  "src": "306:18:31",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 4986,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "306:7:31",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 4989,
+                  "mutability": "mutable",
+                  "name": "initializer",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 4994,
+                  "src": "334:26:31",
+                  "stateVariable": false,
+                  "storageLocation": "calldata",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes_calldata_ptr",
+                    "typeString": "bytes"
+                  },
+                  "typeName": {
+                    "id": 4988,
+                    "name": "bytes",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "334:5:31",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes_storage_ptr",
+                      "typeString": "bytes"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 4991,
+                  "mutability": "mutable",
+                  "name": "saltNonce",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 4994,
+                  "src": "370:17:31",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 4990,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "370:7:31",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "265:128:31"
+            },
+            "returnParameters": {
+              "id": 4993,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "402:0:31"
+            },
+            "scope": 4995,
+            "src": "244:159:31",
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "external"
+          }
+        ],
+        "scope": 4996,
+        "src": "205:200:31"
+      }
+    ],
+    "src": "85:320:31"
+  },
+  "legacyAST": {
+    "absolutePath": "/Users/harukikondo/git/TruffleRinkeby/MetaCoin/contracts/safeContracts/proxies/IProxyCreationCallback.sol",
+    "exportedSymbols": {
+      "GnosisSafeProxy": [
+        4629
+      ],
+      "IProxy": [
+        4598
+      ],
+      "IProxyCreationCallback": [
+        4995
+      ]
+    },
+    "id": 4996,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 4980,
+        "literals": [
+          "solidity",
+          ">=",
+          "0.7",
+          ".0",
+          "<",
+          "0.9",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "85:31:31"
+      },
+      {
+        "absolutePath": "/Users/harukikondo/git/TruffleRinkeby/MetaCoin/contracts/safeContracts/proxies/GnosisSafeProxy.sol",
+        "file": "./GnosisSafeProxy.sol",
+        "id": 4981,
+        "nodeType": "ImportDirective",
+        "scope": 4996,
+        "sourceUnit": 4630,
+        "src": "118:31:31",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "abstract": false,
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "documentation": {
+          "id": 4982,
+          "nodeType": "StructuredDocumentation",
+          "src": "151:53:31",
+          "text": " インターフェースを定義する。"
+        },
+        "fullyImplemented": false,
+        "id": 4995,
+        "linearizedBaseContracts": [
+          4995
+        ],
+        "name": "IProxyCreationCallback",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "functionSelector": "1e52b518",
+            "id": 4994,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "proxyCreated",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 4992,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 4985,
+                  "mutability": "mutable",
+                  "name": "proxy",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 4994,
+                  "src": "275:21:31",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_contract$_GnosisSafeProxy_$4629",
+                    "typeString": "contract GnosisSafeProxy"
+                  },
+                  "typeName": {
+                    "id": 4984,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 4983,
+                      "name": "GnosisSafeProxy",
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 4629,
+                      "src": "275:15:31"
+                    },
+                    "referencedDeclaration": 4629,
+                    "src": "275:15:31",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_contract$_GnosisSafeProxy_$4629",
+                      "typeString": "contract GnosisSafeProxy"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 4987,
+                  "mutability": "mutable",
+                  "name": "_singleton",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 4994,
+                  "src": "306:18:31",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 4986,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "306:7:31",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 4989,
+                  "mutability": "mutable",
+                  "name": "initializer",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 4994,
+                  "src": "334:26:31",
+                  "stateVariable": false,
+                  "storageLocation": "calldata",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes_calldata_ptr",
+                    "typeString": "bytes"
+                  },
+                  "typeName": {
+                    "id": 4988,
+                    "name": "bytes",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "334:5:31",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes_storage_ptr",
+                      "typeString": "bytes"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 4991,
+                  "mutability": "mutable",
+                  "name": "saltNonce",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 4994,
+                  "src": "370:17:31",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 4990,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "370:7:31",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "265:128:31"
+            },
+            "returnParameters": {
+              "id": 4993,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "402:0:31"
+            },
+            "scope": 4995,
+            "src": "244:159:31",
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "external"
+          }
+        ],
+        "scope": 4996,
+        "src": "205:200:31"
+      }
+    ],
+    "src": "85:320:31"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.8.0+commit.c7dfd78e.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.2.0",
+  "updatedAt": "2022-06-04T12:56:34.337Z",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "notice": "インターフェースを定義する。",
+    "version": 1
+  }
+}

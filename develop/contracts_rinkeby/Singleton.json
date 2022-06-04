@@ -1,0 +1,186 @@
+{
+  "contractName": "Singleton",
+  "abi": [],
+  "metadata": "{\"compiler\":{\"version\":\"0.8.0+commit.c7dfd78e\"},\"language\":\"Solidity\",\"output\":{\"abi\":[],\"devdoc\":{\"author\":\"Richard Meissner - <richard@gnosis.io>\",\"kind\":\"dev\",\"methods\":{},\"title\":\"Singleton - Base for singleton contracts (should always be first super contract)         This contract is tightly coupled to our proxy contract (see `proxies/GnosisSafeProxy.sol`)\",\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"notice\":\"Sigleton\\u30b3\\u30f3\\u30c8\\u30e9\\u30af\\u30c8\",\"version\":1}},\"settings\":{\"compilationTarget\":{\"/Users/harukikondo/git/TruffleRinkeby/MetaCoin/contracts/safeContracts/common/Singleton.sol\":\"Singleton\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/harukikondo/git/TruffleRinkeby/MetaCoin/contracts/safeContracts/common/Singleton.sol\":{\"keccak256\":\"0x87bc60aa1143f8577bdb859ebb6d15b367af3cdca3470f42ee2aaaa32160c7d7\",\"urls\":[\"bzz-raw://98414486950fd2e01c07e66eca3a22da3b15891f76a6878a011f35b65334907c\",\"dweb:/ipfs/QmNpxMx4Bqhfkf1wfw48HJgqZZCZN82XvquP9WHLQUz6ud\"]}},\"version\":1}",
+  "bytecode": "0x6080604052348015600f57600080fd5b50603f80601d6000396000f3fe6080604052600080fdfea26469706673582212207ad64cb82b5fceb6dfe88046d9499eb01b70b39a590334ab5ae5911f1fce692c64736f6c63430008000033",
+  "deployedBytecode": "0x6080604052600080fdfea26469706673582212207ad64cb82b5fceb6dfe88046d9499eb01b70b39a590334ab5ae5911f1fce692c64736f6c63430008000033",
+  "immutableReferences": {},
+  "sourceMap": "370:274:24:-:0;;;;;;;;;;;;;;;;;;;",
+  "deployedSourceMap": "370:274:24:-:0;;;;;",
+  "source": "/**\n * シングルトン用のコントラクト\n */\n\npragma solidity >=0.7.0 <0.9.0;\n \n/**\n * Sigletonコントラクト\n * @title Singleton - Base for singleton contracts (should always be first super contract)\n *         This contract is tightly coupled to our proxy contract (see `proxies/GnosisSafeProxy.sol`)\n * @author Richard Meissner - <richard@gnosis.io>\n */\ncontract Singleton {\n    // singleton always needs to be first declared variable, to ensure that it is at the same location as in the Proxy contract.\n    // It should also always be ensured that the address is stored alone (uses a full word)\n    address private singleton;\n}",
+  "sourcePath": "/Users/harukikondo/git/TruffleRinkeby/MetaCoin/contracts/safeContracts/common/Singleton.sol",
+  "ast": {
+    "absolutePath": "/Users/harukikondo/git/TruffleRinkeby/MetaCoin/contracts/safeContracts/common/Singleton.sol",
+    "exportedSymbols": {
+      "Singleton": [
+        4401
+      ]
+    },
+    "id": 4402,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 4397,
+        "literals": [
+          "solidity",
+          ">=",
+          "0.7",
+          ".0",
+          "<",
+          "0.9",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "55:31:24"
+      },
+      {
+        "abstract": false,
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": {
+          "id": 4398,
+          "nodeType": "StructuredDocumentation",
+          "src": "89:280:24",
+          "text": " Sigletonコントラクト\n @title Singleton - Base for singleton contracts (should always be first super contract)\n         This contract is tightly coupled to our proxy contract (see `proxies/GnosisSafeProxy.sol`)\n @author Richard Meissner - <richard@gnosis.io>"
+        },
+        "fullyImplemented": true,
+        "id": 4401,
+        "linearizedBaseContracts": [
+          4401
+        ],
+        "name": "Singleton",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "constant": false,
+            "id": 4400,
+            "mutability": "mutable",
+            "name": "singleton",
+            "nodeType": "VariableDeclaration",
+            "scope": 4401,
+            "src": "616:25:24",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_address",
+              "typeString": "address"
+            },
+            "typeName": {
+              "id": 4399,
+              "name": "address",
+              "nodeType": "ElementaryTypeName",
+              "src": "616:7:24",
+              "stateMutability": "nonpayable",
+              "typeDescriptions": {
+                "typeIdentifier": "t_address",
+                "typeString": "address"
+              }
+            },
+            "visibility": "private"
+          }
+        ],
+        "scope": 4402,
+        "src": "370:274:24"
+      }
+    ],
+    "src": "55:589:24"
+  },
+  "legacyAST": {
+    "absolutePath": "/Users/harukikondo/git/TruffleRinkeby/MetaCoin/contracts/safeContracts/common/Singleton.sol",
+    "exportedSymbols": {
+      "Singleton": [
+        4401
+      ]
+    },
+    "id": 4402,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 4397,
+        "literals": [
+          "solidity",
+          ">=",
+          "0.7",
+          ".0",
+          "<",
+          "0.9",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "55:31:24"
+      },
+      {
+        "abstract": false,
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": {
+          "id": 4398,
+          "nodeType": "StructuredDocumentation",
+          "src": "89:280:24",
+          "text": " Sigletonコントラクト\n @title Singleton - Base for singleton contracts (should always be first super contract)\n         This contract is tightly coupled to our proxy contract (see `proxies/GnosisSafeProxy.sol`)\n @author Richard Meissner - <richard@gnosis.io>"
+        },
+        "fullyImplemented": true,
+        "id": 4401,
+        "linearizedBaseContracts": [
+          4401
+        ],
+        "name": "Singleton",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "constant": false,
+            "id": 4400,
+            "mutability": "mutable",
+            "name": "singleton",
+            "nodeType": "VariableDeclaration",
+            "scope": 4401,
+            "src": "616:25:24",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_address",
+              "typeString": "address"
+            },
+            "typeName": {
+              "id": 4399,
+              "name": "address",
+              "nodeType": "ElementaryTypeName",
+              "src": "616:7:24",
+              "stateMutability": "nonpayable",
+              "typeDescriptions": {
+                "typeIdentifier": "t_address",
+                "typeString": "address"
+              }
+            },
+            "visibility": "private"
+          }
+        ],
+        "scope": 4402,
+        "src": "370:274:24"
+      }
+    ],
+    "src": "55:589:24"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.8.0+commit.c7dfd78e.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.2.0",
+  "updatedAt": "2022-06-04T12:56:34.328Z",
+  "devdoc": {
+    "author": "Richard Meissner - <richard@gnosis.io>",
+    "kind": "dev",
+    "methods": {},
+    "title": "Singleton - Base for singleton contracts (should always be first super contract)         This contract is tightly coupled to our proxy contract (see `proxies/GnosisSafeProxy.sol`)",
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "notice": "Sigletonコントラクト",
+    "version": 1
+  }
+}
