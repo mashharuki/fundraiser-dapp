@@ -1,9 +1,17 @@
 node_modules/
 
 # ロギングの出力ファイル
+/backend/server/log/server.log
 
 # TLS通信のための設定ファイル
 /backend/server/tls/privatekey.pem
 
+<<<<<<< HEAD
 # 環境変数用の設定ファイル
 .env
+=======
+# REACT用の設定ファイル
+.env
+.DS_Store
+.DS_Store
+>>>>>>> 297bde376e62e4596dedb2da56cabac040517761

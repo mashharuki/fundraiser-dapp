@@ -19,10 +19,13 @@ import ExecTransaction from "./wallet/ExecTransaction";
 import GetTxHash from "./wallet/GetTxHash";
 import Collection from "./nft/Collection";
 import Web3Menu from "./common/Web3Menu";
+import Swap from "./swap/Swap";
+import CreatePool from "./swap/CreatePool";
 // material-ui関連をインポートする。
 import AppBar  from '@mui/material/AppBar';
 import Toolbar  from '@mui/material/Toolbar';
 import Typography  from '@mui/material/Typography';
+import GlobalStyles from '@mui/material/GlobalStyles';
 
 /**
  * Appコンポーネント
@@ -72,36 +75,41 @@ const App = () => {
 
   // レンダリングする内容
   return (
-    <Router>
-      <div className={classes.root}>
-        <AppBar position="static" color="default">
-          <Toolbar className={classes.toolbar}>
-            <Typography variant="h6" color="inherit" sx={{ flexGrow: 1 }}>
-              <strong>Web3.0 App</strong>
-            </Typography>
-            <Typography variant="h6" color="inherit">
-              <Web3Menu/>
-            </Typography>
-          </Toolbar>
-        </AppBar>
-        <Routes>
-          <Route path="/" exact element={ <Home/> } />
-          <Route path="/home" exact element={ <Home/> } />
-          <Route path="/new" element={ <NewFundraiser/> } />
-          <Route path="/createSafeWallet" element={ <CreateSafeContractWallet/>} />
-          <Route path="/receipts" element={ <Receipts/> } />
-          <Route path="/sign" element={ <Sign/> } />
-          <Route path="/ecrecover" element={ <Ecrecover/> } />
-          <Route path="/nft" element={ <Nft/> } />
-          <Route path="/nftMint" element={ <NftMint/> } />
-          <Route path="/myToken" element={ <MyToken/> } />
-          <Route path="/walletSetUp" element={ <WalletSetUp/> } />
-          <Route path="/execTransaction" element={ <ExecTransaction/> } />
-          <Route path="/getTxHash" element={ <GetTxHash/> } />
-          <Route path="/collection" element={ <Collection/> } />
-        </Routes>
-      </div>
-    </Router>
+    <>
+      <GlobalStyles styles={{ body: { margin: 0, padding: 0 } }} />
+      <Router>
+        <div className={classes.root}>
+          <AppBar position="static" color="default">
+            <Toolbar className={classes.toolbar}>
+              <Typography variant="h6" color="inherit" sx={{ flexGrow: 1 }}>
+                <strong>Web3.0 App</strong>
+              </Typography>
+              <Typography variant="h6" color="inherit">
+                <Web3Menu/>
+              </Typography>
+            </Toolbar>
+          </AppBar>
+          <Routes>
+            <Route path="/" exact element={ <Home/> } />
+            <Route path="/home" exact element={ <Home/> } />
+            <Route path="/new" element={ <NewFundraiser/> } />
+            <Route path="/createSafeWallet" element={ <CreateSafeContractWallet/>} />
+            <Route path="/receipts" element={ <Receipts/> } />
+            <Route path="/sign" element={ <Sign/> } />
+            <Route path="/ecrecover" element={ <Ecrecover/> } />
+            <Route path="/nft" element={ <Nft/> } />
+            <Route path="/nftMint" element={ <NftMint/> } />
+            <Route path="/myToken" element={ <MyToken/> } />
+            <Route path="/walletSetUp" element={ <WalletSetUp/> } />
+            <Route path="/execTransaction" element={ <ExecTransaction/> } />
+            <Route path="/getTxHash" element={ <GetTxHash/> } />
+            <Route path="/collection" element={ <Collection/> } />
+            <Route path="/swap" element={ <Swap/> } />
+            <Route path="/createPool" element={ <CreatePool/> } />
+          </Routes>
+        </div>
+      </Router>
+    </>
   );
 }
 

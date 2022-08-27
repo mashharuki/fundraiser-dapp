@@ -23,6 +23,9 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
+import superAgent from 'superagent';
+// APIサーバーのURL
+const baseUrl = process.env.REACT_APP_API_SERVER_URL;
 
 /**
  * NFTCardコンポーネント本体
@@ -49,12 +52,24 @@ const NFTCard = (props) => {
     const [ nftBalance, setNftBalance ] = useState(null);
     const [ owner, setOwner ] = useState(null);
     const [ minter, setMinter ] = useState(null);
+    const [ chainId, setChainId ] = useState(null);
 
     // NFT発行画面に渡す要素
     const toNftMint = {
         nft: nft,
         mintFlg: hasMintRole, 
         account: minter,
+        networkId: chainId,
+        newTokenId: nftTotal,
+    };
+
+    // NFT発行画面に渡す要素
+    const toCollection = {
+        nft: nft,
+        mintFlg: hasMintRole, 
+        account: minter,
+        nftName: nftName,
+        newTokenId: nftTotal,
     };
 
     /**
@@ -101,6 +116,7 @@ const NFTCard = (props) => {
             // NFTをMintする権限があるかどうかをチェックする。
             const mintFlg = await instance.methods.hasRole(mintRole, accounts[0]).call();
             // ステート変数にセットする。
+            setChainId(networkId);
             setNftName(name);
             setNftSymbol(symbol);
             setNftURL(url);
@@ -186,6 +202,29 @@ const NFTCard = (props) => {
         } catch (e) {
             alert("NFT移転失敗");
         }
+
+        /*
+        // API用のパラメータ変数
+        const params = { 
+            owner: accounts[0],
+            receipt: to,
+            tokenId: tokenId,
+            chainId: chainId,
+            contract: nft,
+        };
+
+        // 更新用のAPIを呼び出す。
+        superAgent
+            .post(baseUrl + '/api/update')
+            .query(params) 
+            .end((err, res) => {
+                if (err) {
+                    console.log("DB更新API実行中にエラー発生", err)
+                    return err;
+                }
+                console.log("DB更新処理成功！：", res);
+            });
+        */
     }
 
     /**
@@ -214,6 +253,28 @@ const NFTCard = (props) => {
         } catch (e) {
             alert("NFT償却失敗");
         }
+
+        /*
+        // API用のパラメータ変数
+        const params = { 
+            owner: accounts[0],
+            tokenId: tokenId,
+            chainId: chainId,
+            contract: nft,
+        };
+
+        // 更新用のAPIを呼び出す。
+        superAgent
+            .post(baseUrl + '/api/delete')
+            .query(params) 
+            .end((err, res) => {
+                if (err) {
+                    console.log("DB更新API実行中にエラー発生", err)
+                    return err;
+                }
+                console.log("DB更新処理成功！：", res);
+            });
+        */
     }
 
     // レンダリング内容
@@ -287,11 +348,6 @@ const NFTCard = (props) => {
                             <Typography gutterBottom variant="h5" component="h2">
                                 {nftName}
                             </Typography>
-                            <Typography variant="body2" color="textSecondary" component="div">
-                                <p>
-                                    {nftURL}
-                                </p>
-                            </Typography>
                         </CardContent>
                     </CardActionArea>
                     <CardActions>
@@ -299,6 +355,11 @@ const NFTCard = (props) => {
                             View More
                         </Button>
                     </CardActions>
+                    <Button color="primary" variant="contained" className={classes.button}>
+                        <Link to={"/collection"} state={toCollection}>
+                            発行済みトークン一覧へ
+                        </Link>
+                    </Button>
                 </Card>
             : <></>}
         </div>

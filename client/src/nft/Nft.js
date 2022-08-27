@@ -109,7 +109,7 @@ const Nft = () => {
     return (
         <div className="main-container">
             <h2>
-                NFT用トップページ
+                NFT用作成画面
             </h2>
             <TextField 
                 id="name" 

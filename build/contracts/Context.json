@@ -5,8 +5,6 @@
   "bytecode": "0x",
   "deployedBytecode": "0x",
   "immutableReferences": {},
-  "generatedSources": [],
-  "deployedGeneratedSources": [],
   "sourceMap": "",
   "deployedSourceMap": "",
   "source": "// SPDX-License-Identifier: MIT\n// OpenZeppelin Contracts v4.4.1 (utils/Context.sol)\n\npragma solidity ^0.8.0;\n\n/**\n * @dev Provides information about the current execution context, including the\n * sender of the transaction and its data. While these are generally available\n * via msg.sender and msg.data, they should not be accessed in such a direct\n * manner, since when dealing with meta-transactions the account sending and\n * paying for execution may not be the actual sender (as far as an application\n * is concerned).\n *\n * This contract is only required for intermediate, library-like contracts.\n */\nabstract contract Context {\n    function _msgSender() internal view virtual returns (address) {\n        return msg.sender;\n    }\n\n    function _msgData() internal view virtual returns (bytes calldata) {\n        return msg.data;\n    }\n}\n",
@@ -15,15 +13,26 @@
     "absolutePath": "@openzeppelin/contracts/utils/Context.sol",
     "exportedSymbols": {
       "Context": [
+<<<<<<< HEAD:build/contracts/Context.json
         4556
       ]
     },
     "id": 4557,
+=======
+        5783
+      ]
+    },
+    "id": 5784,
+>>>>>>> 297bde376e62e4596dedb2da56cabac040517761:client/src/contracts/Context.json
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
+<<<<<<< HEAD:build/contracts/Context.json
         "id": 4536,
+=======
+        "id": 5763,
+>>>>>>> 297bde376e62e4596dedb2da56cabac040517761:client/src/contracts/Context.json
         "literals": [
           "solidity",
           "^",
@@ -31,7 +40,7 @@
           ".0"
         ],
         "nodeType": "PragmaDirective",
-        "src": "86:23:27"
+        "src": "86:23:31"
       },
       {
         "abstract": true,
@@ -39,83 +48,131 @@
         "contractDependencies": [],
         "contractKind": "contract",
         "documentation": {
+<<<<<<< HEAD:build/contracts/Context.json
           "id": 4537,
+=======
+          "id": 5764,
+>>>>>>> 297bde376e62e4596dedb2da56cabac040517761:client/src/contracts/Context.json
           "nodeType": "StructuredDocumentation",
-          "src": "111:496:27",
+          "src": "111:496:31",
           "text": " @dev Provides information about the current execution context, including the\n sender of the transaction and its data. While these are generally available\n via msg.sender and msg.data, they should not be accessed in such a direct\n manner, since when dealing with meta-transactions the account sending and\n paying for execution may not be the actual sender (as far as an application\n is concerned).\n This contract is only required for intermediate, library-like contracts."
         },
         "fullyImplemented": true,
+<<<<<<< HEAD:build/contracts/Context.json
         "id": 4556,
         "linearizedBaseContracts": [
           4556
+=======
+        "id": 5783,
+        "linearizedBaseContracts": [
+          5783
+>>>>>>> 297bde376e62e4596dedb2da56cabac040517761:client/src/contracts/Context.json
         ],
         "name": "Context",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "body": {
+<<<<<<< HEAD:build/contracts/Context.json
               "id": 4545,
+=======
+              "id": 5772,
+>>>>>>> 297bde376e62e4596dedb2da56cabac040517761:client/src/contracts/Context.json
               "nodeType": "Block",
-              "src": "702:34:27",
+              "src": "702:34:31",
               "statements": [
                 {
                   "expression": {
                     "expression": {
+<<<<<<< HEAD:build/contracts/Context.json
                       "id": 4542,
+=======
+                      "id": 5769,
+>>>>>>> 297bde376e62e4596dedb2da56cabac040517761:client/src/contracts/Context.json
                       "name": "msg",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
                       "referencedDeclaration": 4294967281,
-                      "src": "719:3:27",
+                      "src": "719:3:31",
                       "typeDescriptions": {
                         "typeIdentifier": "t_magic_message",
                         "typeString": "msg"
                       }
                     },
+<<<<<<< HEAD:build/contracts/Context.json
                     "id": 4543,
+=======
+                    "id": 5770,
+>>>>>>> 297bde376e62e4596dedb2da56cabac040517761:client/src/contracts/Context.json
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "memberName": "sender",
                     "nodeType": "MemberAccess",
-                    "src": "719:10:27",
+                    "src": "719:10:31",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
                     }
                   },
+<<<<<<< HEAD:build/contracts/Context.json
                   "functionReturnParameters": 4541,
                   "id": 4544,
+=======
+                  "functionReturnParameters": 5768,
+                  "id": 5771,
+>>>>>>> 297bde376e62e4596dedb2da56cabac040517761:client/src/contracts/Context.json
                   "nodeType": "Return",
-                  "src": "712:17:27"
+                  "src": "712:17:31"
                 }
               ]
             },
+<<<<<<< HEAD:build/contracts/Context.json
             "id": 4546,
+=======
+            "id": 5773,
+>>>>>>> 297bde376e62e4596dedb2da56cabac040517761:client/src/contracts/Context.json
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "_msgSender",
             "nodeType": "FunctionDefinition",
             "parameters": {
+<<<<<<< HEAD:build/contracts/Context.json
               "id": 4538,
+=======
+              "id": 5765,
+>>>>>>> 297bde376e62e4596dedb2da56cabac040517761:client/src/contracts/Context.json
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "659:2:27"
+              "src": "659:2:31"
             },
             "returnParameters": {
+<<<<<<< HEAD:build/contracts/Context.json
               "id": 4541,
+=======
+              "id": 5768,
+>>>>>>> 297bde376e62e4596dedb2da56cabac040517761:client/src/contracts/Context.json
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
+<<<<<<< HEAD:build/contracts/Context.json
                   "id": 4540,
                   "mutability": "mutable",
                   "name": "",
                   "nodeType": "VariableDeclaration",
                   "scope": 4546,
                   "src": "693:7:27",
+=======
+                  "id": 5767,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 5773,
+                  "src": "693:7:31",
+>>>>>>> 297bde376e62e4596dedb2da56cabac040517761:client/src/contracts/Context.json
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -123,10 +180,14 @@
                     "typeString": "address"
                   },
                   "typeName": {
+<<<<<<< HEAD:build/contracts/Context.json
                     "id": 4539,
+=======
+                    "id": 5766,
+>>>>>>> 297bde376e62e4596dedb2da56cabac040517761:client/src/contracts/Context.json
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "693:7:27",
+                    "src": "693:7:31",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -136,78 +197,121 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "692:9:27"
+              "src": "692:9:31"
             },
+<<<<<<< HEAD:build/contracts/Context.json
             "scope": 4556,
             "src": "640:96:27",
+=======
+            "scope": 5783,
+            "src": "640:96:31",
+>>>>>>> 297bde376e62e4596dedb2da56cabac040517761:client/src/contracts/Context.json
             "stateMutability": "view",
             "virtual": true,
             "visibility": "internal"
           },
           {
             "body": {
+<<<<<<< HEAD:build/contracts/Context.json
               "id": 4554,
+=======
+              "id": 5781,
+>>>>>>> 297bde376e62e4596dedb2da56cabac040517761:client/src/contracts/Context.json
               "nodeType": "Block",
-              "src": "809:32:27",
+              "src": "809:32:31",
               "statements": [
                 {
                   "expression": {
                     "expression": {
+<<<<<<< HEAD:build/contracts/Context.json
                       "id": 4551,
+=======
+                      "id": 5778,
+>>>>>>> 297bde376e62e4596dedb2da56cabac040517761:client/src/contracts/Context.json
                       "name": "msg",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
                       "referencedDeclaration": 4294967281,
-                      "src": "826:3:27",
+                      "src": "826:3:31",
                       "typeDescriptions": {
                         "typeIdentifier": "t_magic_message",
                         "typeString": "msg"
                       }
                     },
+<<<<<<< HEAD:build/contracts/Context.json
                     "id": 4552,
+=======
+                    "id": 5779,
+>>>>>>> 297bde376e62e4596dedb2da56cabac040517761:client/src/contracts/Context.json
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "memberName": "data",
                     "nodeType": "MemberAccess",
-                    "src": "826:8:27",
+                    "src": "826:8:31",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes_calldata_ptr",
                       "typeString": "bytes calldata"
                     }
                   },
+<<<<<<< HEAD:build/contracts/Context.json
                   "functionReturnParameters": 4550,
                   "id": 4553,
+=======
+                  "functionReturnParameters": 5777,
+                  "id": 5780,
+>>>>>>> 297bde376e62e4596dedb2da56cabac040517761:client/src/contracts/Context.json
                   "nodeType": "Return",
-                  "src": "819:15:27"
+                  "src": "819:15:31"
                 }
               ]
             },
+<<<<<<< HEAD:build/contracts/Context.json
             "id": 4555,
+=======
+            "id": 5782,
+>>>>>>> 297bde376e62e4596dedb2da56cabac040517761:client/src/contracts/Context.json
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "_msgData",
             "nodeType": "FunctionDefinition",
             "parameters": {
+<<<<<<< HEAD:build/contracts/Context.json
               "id": 4547,
+=======
+              "id": 5774,
+>>>>>>> 297bde376e62e4596dedb2da56cabac040517761:client/src/contracts/Context.json
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "759:2:27"
+              "src": "759:2:31"
             },
             "returnParameters": {
+<<<<<<< HEAD:build/contracts/Context.json
               "id": 4550,
+=======
+              "id": 5777,
+>>>>>>> 297bde376e62e4596dedb2da56cabac040517761:client/src/contracts/Context.json
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
+<<<<<<< HEAD:build/contracts/Context.json
                   "id": 4549,
                   "mutability": "mutable",
                   "name": "",
                   "nodeType": "VariableDeclaration",
                   "scope": 4555,
                   "src": "793:14:27",
+=======
+                  "id": 5776,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 5782,
+                  "src": "793:14:31",
+>>>>>>> 297bde376e62e4596dedb2da56cabac040517761:client/src/contracts/Context.json
                   "stateVariable": false,
                   "storageLocation": "calldata",
                   "typeDescriptions": {
@@ -215,10 +319,14 @@
                     "typeString": "bytes"
                   },
                   "typeName": {
+<<<<<<< HEAD:build/contracts/Context.json
                     "id": 4548,
+=======
+                    "id": 5775,
+>>>>>>> 297bde376e62e4596dedb2da56cabac040517761:client/src/contracts/Context.json
                     "name": "bytes",
                     "nodeType": "ElementaryTypeName",
-                    "src": "793:5:27",
+                    "src": "793:5:31",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes_storage_ptr",
                       "typeString": "bytes"
@@ -227,34 +335,55 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "792:16:27"
+              "src": "792:16:31"
             },
+<<<<<<< HEAD:build/contracts/Context.json
             "scope": 4556,
             "src": "742:99:27",
+=======
+            "scope": 5783,
+            "src": "742:99:31",
+>>>>>>> 297bde376e62e4596dedb2da56cabac040517761:client/src/contracts/Context.json
             "stateMutability": "view",
             "virtual": true,
             "visibility": "internal"
           }
         ],
+<<<<<<< HEAD:build/contracts/Context.json
         "scope": 4557,
         "src": "608:235:27"
+=======
+        "scope": 5784,
+        "src": "608:235:31"
+>>>>>>> 297bde376e62e4596dedb2da56cabac040517761:client/src/contracts/Context.json
       }
     ],
-    "src": "86:758:27"
+    "src": "86:758:31"
   },
   "legacyAST": {
     "absolutePath": "@openzeppelin/contracts/utils/Context.sol",
     "exportedSymbols": {
       "Context": [
+<<<<<<< HEAD:build/contracts/Context.json
         4556
       ]
     },
     "id": 4557,
+=======
+        5783
+      ]
+    },
+    "id": 5784,
+>>>>>>> 297bde376e62e4596dedb2da56cabac040517761:client/src/contracts/Context.json
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
+<<<<<<< HEAD:build/contracts/Context.json
         "id": 4536,
+=======
+        "id": 5763,
+>>>>>>> 297bde376e62e4596dedb2da56cabac040517761:client/src/contracts/Context.json
         "literals": [
           "solidity",
           "^",
@@ -262,7 +391,7 @@
           ".0"
         ],
         "nodeType": "PragmaDirective",
-        "src": "86:23:27"
+        "src": "86:23:31"
       },
       {
         "abstract": true,
@@ -270,83 +399,131 @@
         "contractDependencies": [],
         "contractKind": "contract",
         "documentation": {
+<<<<<<< HEAD:build/contracts/Context.json
           "id": 4537,
+=======
+          "id": 5764,
+>>>>>>> 297bde376e62e4596dedb2da56cabac040517761:client/src/contracts/Context.json
           "nodeType": "StructuredDocumentation",
-          "src": "111:496:27",
+          "src": "111:496:31",
           "text": " @dev Provides information about the current execution context, including the\n sender of the transaction and its data. While these are generally available\n via msg.sender and msg.data, they should not be accessed in such a direct\n manner, since when dealing with meta-transactions the account sending and\n paying for execution may not be the actual sender (as far as an application\n is concerned).\n This contract is only required for intermediate, library-like contracts."
         },
         "fullyImplemented": true,
+<<<<<<< HEAD:build/contracts/Context.json
         "id": 4556,
         "linearizedBaseContracts": [
           4556
+=======
+        "id": 5783,
+        "linearizedBaseContracts": [
+          5783
+>>>>>>> 297bde376e62e4596dedb2da56cabac040517761:client/src/contracts/Context.json
         ],
         "name": "Context",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "body": {
+<<<<<<< HEAD:build/contracts/Context.json
               "id": 4545,
+=======
+              "id": 5772,
+>>>>>>> 297bde376e62e4596dedb2da56cabac040517761:client/src/contracts/Context.json
               "nodeType": "Block",
-              "src": "702:34:27",
+              "src": "702:34:31",
               "statements": [
                 {
                   "expression": {
                     "expression": {
+<<<<<<< HEAD:build/contracts/Context.json
                       "id": 4542,
+=======
+                      "id": 5769,
+>>>>>>> 297bde376e62e4596dedb2da56cabac040517761:client/src/contracts/Context.json
                       "name": "msg",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
                       "referencedDeclaration": 4294967281,
-                      "src": "719:3:27",
+                      "src": "719:3:31",
                       "typeDescriptions": {
                         "typeIdentifier": "t_magic_message",
                         "typeString": "msg"
                       }
                     },
+<<<<<<< HEAD:build/contracts/Context.json
                     "id": 4543,
+=======
+                    "id": 5770,
+>>>>>>> 297bde376e62e4596dedb2da56cabac040517761:client/src/contracts/Context.json
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "memberName": "sender",
                     "nodeType": "MemberAccess",
-                    "src": "719:10:27",
+                    "src": "719:10:31",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
                     }
                   },
+<<<<<<< HEAD:build/contracts/Context.json
                   "functionReturnParameters": 4541,
                   "id": 4544,
+=======
+                  "functionReturnParameters": 5768,
+                  "id": 5771,
+>>>>>>> 297bde376e62e4596dedb2da56cabac040517761:client/src/contracts/Context.json
                   "nodeType": "Return",
-                  "src": "712:17:27"
+                  "src": "712:17:31"
                 }
               ]
             },
+<<<<<<< HEAD:build/contracts/Context.json
             "id": 4546,
+=======
+            "id": 5773,
+>>>>>>> 297bde376e62e4596dedb2da56cabac040517761:client/src/contracts/Context.json
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "_msgSender",
             "nodeType": "FunctionDefinition",
             "parameters": {
+<<<<<<< HEAD:build/contracts/Context.json
               "id": 4538,
+=======
+              "id": 5765,
+>>>>>>> 297bde376e62e4596dedb2da56cabac040517761:client/src/contracts/Context.json
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "659:2:27"
+              "src": "659:2:31"
             },
             "returnParameters": {
+<<<<<<< HEAD:build/contracts/Context.json
               "id": 4541,
+=======
+              "id": 5768,
+>>>>>>> 297bde376e62e4596dedb2da56cabac040517761:client/src/contracts/Context.json
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
+<<<<<<< HEAD:build/contracts/Context.json
                   "id": 4540,
                   "mutability": "mutable",
                   "name": "",
                   "nodeType": "VariableDeclaration",
                   "scope": 4546,
                   "src": "693:7:27",
+=======
+                  "id": 5767,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 5773,
+                  "src": "693:7:31",
+>>>>>>> 297bde376e62e4596dedb2da56cabac040517761:client/src/contracts/Context.json
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -354,10 +531,14 @@
                     "typeString": "address"
                   },
                   "typeName": {
+<<<<<<< HEAD:build/contracts/Context.json
                     "id": 4539,
+=======
+                    "id": 5766,
+>>>>>>> 297bde376e62e4596dedb2da56cabac040517761:client/src/contracts/Context.json
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "693:7:27",
+                    "src": "693:7:31",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -367,78 +548,121 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "692:9:27"
+              "src": "692:9:31"
             },
+<<<<<<< HEAD:build/contracts/Context.json
             "scope": 4556,
             "src": "640:96:27",
+=======
+            "scope": 5783,
+            "src": "640:96:31",
+>>>>>>> 297bde376e62e4596dedb2da56cabac040517761:client/src/contracts/Context.json
             "stateMutability": "view",
             "virtual": true,
             "visibility": "internal"
           },
           {
             "body": {
+<<<<<<< HEAD:build/contracts/Context.json
               "id": 4554,
+=======
+              "id": 5781,
+>>>>>>> 297bde376e62e4596dedb2da56cabac040517761:client/src/contracts/Context.json
               "nodeType": "Block",
-              "src": "809:32:27",
+              "src": "809:32:31",
               "statements": [
                 {
                   "expression": {
                     "expression": {
+<<<<<<< HEAD:build/contracts/Context.json
                       "id": 4551,
+=======
+                      "id": 5778,
+>>>>>>> 297bde376e62e4596dedb2da56cabac040517761:client/src/contracts/Context.json
                       "name": "msg",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
                       "referencedDeclaration": 4294967281,
-                      "src": "826:3:27",
+                      "src": "826:3:31",
                       "typeDescriptions": {
                         "typeIdentifier": "t_magic_message",
                         "typeString": "msg"
                       }
                     },
+<<<<<<< HEAD:build/contracts/Context.json
                     "id": 4552,
+=======
+                    "id": 5779,
+>>>>>>> 297bde376e62e4596dedb2da56cabac040517761:client/src/contracts/Context.json
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "memberName": "data",
                     "nodeType": "MemberAccess",
-                    "src": "826:8:27",
+                    "src": "826:8:31",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes_calldata_ptr",
                       "typeString": "bytes calldata"
                     }
                   },
+<<<<<<< HEAD:build/contracts/Context.json
                   "functionReturnParameters": 4550,
                   "id": 4553,
+=======
+                  "functionReturnParameters": 5777,
+                  "id": 5780,
+>>>>>>> 297bde376e62e4596dedb2da56cabac040517761:client/src/contracts/Context.json
                   "nodeType": "Return",
-                  "src": "819:15:27"
+                  "src": "819:15:31"
                 }
               ]
             },
+<<<<<<< HEAD:build/contracts/Context.json
             "id": 4555,
+=======
+            "id": 5782,
+>>>>>>> 297bde376e62e4596dedb2da56cabac040517761:client/src/contracts/Context.json
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "_msgData",
             "nodeType": "FunctionDefinition",
             "parameters": {
+<<<<<<< HEAD:build/contracts/Context.json
               "id": 4547,
+=======
+              "id": 5774,
+>>>>>>> 297bde376e62e4596dedb2da56cabac040517761:client/src/contracts/Context.json
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "759:2:27"
+              "src": "759:2:31"
             },
             "returnParameters": {
+<<<<<<< HEAD:build/contracts/Context.json
               "id": 4550,
+=======
+              "id": 5777,
+>>>>>>> 297bde376e62e4596dedb2da56cabac040517761:client/src/contracts/Context.json
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
+<<<<<<< HEAD:build/contracts/Context.json
                   "id": 4549,
                   "mutability": "mutable",
                   "name": "",
                   "nodeType": "VariableDeclaration",
                   "scope": 4555,
                   "src": "793:14:27",
+=======
+                  "id": 5776,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 5782,
+                  "src": "793:14:31",
+>>>>>>> 297bde376e62e4596dedb2da56cabac040517761:client/src/contracts/Context.json
                   "stateVariable": false,
                   "storageLocation": "calldata",
                   "typeDescriptions": {
@@ -446,10 +670,14 @@
                     "typeString": "bytes"
                   },
                   "typeName": {
+<<<<<<< HEAD:build/contracts/Context.json
                     "id": 4548,
+=======
+                    "id": 5775,
+>>>>>>> 297bde376e62e4596dedb2da56cabac040517761:client/src/contracts/Context.json
                     "name": "bytes",
                     "nodeType": "ElementaryTypeName",
-                    "src": "793:5:27",
+                    "src": "793:5:31",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes_storage_ptr",
                       "typeString": "bytes"
@@ -458,28 +686,43 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "792:16:27"
+              "src": "792:16:31"
             },
+<<<<<<< HEAD:build/contracts/Context.json
             "scope": 4556,
             "src": "742:99:27",
+=======
+            "scope": 5783,
+            "src": "742:99:31",
+>>>>>>> 297bde376e62e4596dedb2da56cabac040517761:client/src/contracts/Context.json
             "stateMutability": "view",
             "virtual": true,
             "visibility": "internal"
           }
         ],
+<<<<<<< HEAD:build/contracts/Context.json
         "scope": 4557,
         "src": "608:235:27"
+=======
+        "scope": 5784,
+        "src": "608:235:31"
+>>>>>>> 297bde376e62e4596dedb2da56cabac040517761:client/src/contracts/Context.json
       }
     ],
-    "src": "86:758:27"
+    "src": "86:758:31"
   },
   "compiler": {
     "name": "solc",
     "version": "0.8.0+commit.c7dfd78e.Emscripten.clang"
   },
   "networks": {},
+<<<<<<< HEAD:build/contracts/Context.json
   "schemaVersion": "3.4.4",
   "updatedAt": "2022-08-27T03:20:55.731Z",
+=======
+  "schemaVersion": "3.2.0",
+  "updatedAt": "2022-06-04T12:27:58.367Z",
+>>>>>>> 297bde376e62e4596dedb2da56cabac040517761:client/src/contracts/Context.json
   "devdoc": {
     "details": "Provides information about the current execution context, including the sender of the transaction and its data. While these are generally available via msg.sender and msg.data, they should not be accessed in such a direct manner, since when dealing with meta-transactions the account sending and paying for execution may not be the actual sender (as far as an application is concerned). This contract is only required for intermediate, library-like contracts.",
     "kind": "dev",
