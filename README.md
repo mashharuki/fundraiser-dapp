@@ -175,7 +175,7 @@ solcのバージョン情報等については、truffle-config.jsを参照く�
 うまくいけば下記の様に全てのテスト項目がpassされる。(2022年5月7日時点)  
 ※ テスト項目については、不足している箇所がある。
 
-```
+```bash
  Contract: FundraiserFactory: deployment
     ✓ has been deployde (64ms)
 
@@ -427,7 +427,7 @@ gasが足りない時に発生するため、設定を見直すこと。send()�
 
 ### Rinkebyへのデプロイの記録
 
-```
+```bash
 9_deploy_myToken_factory.js
 ===========================
 
@@ -470,7 +470,37 @@ Starting migrations...
 ======================
 > Network name:    'rinkeby'
 > Network id:      4
-> Block gas limit: 30000000 (0x1c9c380)
+> Block gas limit: 29970705 (0x1c95111)
+
+
+1_deploy_DEX.js
+===============
+
+   Deploying 'DEX'
+   ---------------
+   > transaction hash:    0xafc59e3ff5fc0d53f11b5dc4b9e14b3361e3a6b69a7dce66a044896c3307ab1f
+   > Blocks: 0            Seconds: 9
+   > contract address:    0x2A2f5591FaF06EAC30Cf46A78D16Cce2d97B4dD7
+   > block number:        11273645
+   > block timestamp:     1661571867
+   > account:             0x51908F598A5e0d8F1A3bAbFa6DF76F9704daD072
+   > balance:             155.094078864174473726
+   > gas used:            3048419 (0x2e83e3)
+   > gas price:           1.500000012 gwei
+   > value sent:          0 ETH
+   > total cost:          0.004572628536581028 ETH
+
+   Pausing for 2 confirmations...
+   ------------------------------
+   > confirmation number: 1 (block: 11273646)
+   > confirmation number: 2 (block: 11273647)
+tokenList: [
+  '0x06Dc2032695B30D0166E6f1f21C74Fe804F52553',
+  '0x8dde86fCe1FBE467ec067eF49B2b018AA0D6624d'
+]
+   > Saving artifacts
+   -------------------------------------
+   > Total cost:     0.004572628536581028 ETH
 
 
 1_deploy_fundraiser_factory.js
@@ -478,25 +508,25 @@ Starting migrations...
 
    Deploying 'FundraiserFactory'
    -----------------------------
-   > transaction hash:    0xdc61fbdfcc44d8aa5228dba32500d572d4dc5e624d955b58f9601147f8ffb87f
-   > Blocks: 1            Seconds: 13
-   > contract address:    0x72d3965a203fe5fCb70d20de6B71fFcAa2Ef500D
-   > block number:        11273553
-   > block timestamp:     1661570487
+   > transaction hash:    0x6cec4893962cf9383c5d5b11cfcd6050290f0429a780532f185f0d360bcad9f1
+   > Blocks: 0            Seconds: 9
+   > contract address:    0xd201E969068Fc246C6cDD6DaeEacC57018C258c5
+   > block number:        11273648
+   > block timestamp:     1661571912
    > account:             0x51908F598A5e0d8F1A3bAbFa6DF76F9704daD072
-   > balance:             155.115861757834481895
+   > balance:             155.092185631659327866
    > gas used:            1262155 (0x13424b)
-   > gas price:           1.500000011 gwei
+   > gas price:           1.500000012 gwei
    > value sent:          0 ETH
-   > total cost:          0.001893232513883705 ETH
+   > total cost:          0.00189323251514586 ETH
 
    Pausing for 2 confirmations...
    ------------------------------
-   > confirmation number: 1 (block: 11273554)
-   > confirmation number: 2 (block: 11273555)
+   > confirmation number: 1 (block: 11273649)
+   > confirmation number: 2 (block: 11273650)
    > Saving artifacts
    -------------------------------------
-   > Total cost:     0.001893232513883705 ETH
+   > Total cost:     0.00189323251514586 ETH
 
 
 2_deploy_NFT_factory.js
@@ -504,25 +534,25 @@ Starting migrations...
 
    Deploying 'NFTFactory'
    ----------------------
-   > transaction hash:    0xc84e5af0a6b1938ee4d43bd6d378d45592ce451722149fadc9b9cb3937bf3adb
-   > Blocks: 1            Seconds: 9
-   > contract address:    0xC9E2718b4916D957E0d3cc1253cce8ce91066bFC
-   > block number:        11273556
-   > block timestamp:     1661570532
+   > transaction hash:    0xcc8a6e0cdb3875c8dfd7f91d5780973bb07ad54b75c120507e2983fa002cc28d
+   > Blocks: 0            Seconds: 9
+   > contract address:    0x68eBAd847A016bB830B3607e0eEeA516A09EA5e6
+   > block number:        11273651
+   > block timestamp:     1661571957
    > account:             0x51908F598A5e0d8F1A3bAbFa6DF76F9704daD072
-   > balance:             155.110621107296050458
-   > gas used:            3493767 (0x354f87)
+   > balance:             155.086798959119825601
+   > gas used:            3591115 (0x36cbcb)
    > gas price:           1.500000011 gwei
    > value sent:          0 ETH
-   > total cost:          0.005240650538431437 ETH
+   > total cost:          0.005386672539502265 ETH
 
    Pausing for 2 confirmations...
    ------------------------------
-   > confirmation number: 1 (block: 11273557)
-   > confirmation number: 2 (block: 11273558)
+   > confirmation number: 1 (block: 11273652)
+   > confirmation number: 2 (block: 11273653)
    > Saving artifacts
    -------------------------------------
-   > Total cost:     0.005240650538431437 ETH
+   > Total cost:     0.005386672539502265 ETH
 
 
 3_deploy_multiSig_factory.js
@@ -530,13 +560,13 @@ Starting migrations...
 
    Deploying 'MultiSigFactory'
    ---------------------------
-   > transaction hash:    0x155f400c127f45fe15485067a55eb058e503184b6b1fed955278c311fc0a41c3
-   > Blocks: 1            Seconds: 9
-   > contract address:    0xFF287b132eFACB0EED2067fD8E1079041fd3c9Fe
-   > block number:        11273559
-   > block timestamp:     1661570577
+   > transaction hash:    0x1303c171755bbfb51aaff7aaea5d086334ef32b47f5063e971b2282eea175113
+   > Blocks: 1            Seconds: 21
+   > contract address:    0xe6230b8D99491dAd48e1de70156b4fd8b7b66b6f
+   > block number:        11273655
+   > block timestamp:     1661572017
    > account:             0x51908F598A5e0d8F1A3bAbFa6DF76F9704daD072
-   > balance:             155.108955415783835387
+   > balance:             155.08513326760761053
    > gas used:            1110461 (0x10f1bd)
    > gas price:           1.500000011 gwei
    > value sent:          0 ETH
@@ -544,8 +574,8 @@ Starting migrations...
 
    Pausing for 2 confirmations...
    ------------------------------
-   > confirmation number: 1 (block: 11273560)
-   > confirmation number: 2 (block: 11273561)
+   > confirmation number: 1 (block: 11273656)
+   > confirmation number: 2 (block: 11273657)
    > Saving artifacts
    -------------------------------------
    > Total cost:     0.001665691512215071 ETH
@@ -556,13 +586,13 @@ Starting migrations...
 
    Deploying 'SafeContractFactory'
    -------------------------------
-   > transaction hash:    0xef7fd00100a493c65ebffac7f9254d78549ea8b853a11c8cc0ad468aa3b18ac1
-   > Blocks: 2            Seconds: 21
-   > contract address:    0xeBd4B2c48C163cC30CDCaCe3B9b2237c7248a4f2
-   > block number:        11273563
-   > block timestamp:     1661570637
+   > transaction hash:    0x6bd5bd12e5254440ef62025e21b7d7fbc86bf19470acaf81fa3e1126da8f0287
+   > Blocks: 1            Seconds: 13
+   > contract address:    0x58C6d8c3AD7087475664C3b31294Fbc575E360CF
+   > block number:        11273658
+   > block timestamp:     1661572062
    > account:             0x51908F598A5e0d8F1A3bAbFa6DF76F9704daD072
-   > balance:             155.104002172747511605
+   > balance:             155.080180024571286748
    > gas used:            3302162 (0x326312)
    > gas price:           1.500000011 gwei
    > value sent:          0 ETH
@@ -570,8 +600,8 @@ Starting migrations...
 
    Pausing for 2 confirmations...
    ------------------------------
-   > confirmation number: 1 (block: 11273564)
-   > confirmation number: 2 (block: 11273565)
+   > confirmation number: 1 (block: 11273659)
+   > confirmation number: 2 (block: 11273660)
    > Saving artifacts
    -------------------------------------
    > Total cost:     0.004953243036323782 ETH
@@ -582,25 +612,25 @@ Starting migrations...
 
    Deploying 'GnosisSafeProxyFactory'
    ----------------------------------
-   > transaction hash:    0x7b4ea13c7e015319ca01cd33184fc9149b3811693721baaca186ae64216a4328
-   > Blocks: 0            Seconds: 9
-   > contract address:    0x4e3c709CEB954a649D84C2d2f5B59B99254e6fd6
-   > block number:        11273566
-   > block timestamp:     1661570682
+   > transaction hash:    0x87b311dedbb5684172856795a119ae03950f6c71166458d8f067769379b53500
+   > Blocks: 1            Seconds: 13
+   > contract address:    0xeffCBA09787e47e3Ad4B5fEB9886a267c5952e58
+   > block number:        11273661
+   > block timestamp:     1661572107
    > account:             0x51908F598A5e0d8F1A3bAbFa6DF76F9704daD072
-   > balance:             155.102823696238869444
+   > balance:             155.079001548063430238
    > gas used:            785651 (0xbfcf3)
-   > gas price:           1.500000011 gwei
+   > gas price:           1.50000001 gwei
    > value sent:          0 ETH
-   > total cost:          0.001178476508642161 ETH
+   > total cost:          0.00117847650785651 ETH
 
    Pausing for 2 confirmations...
    ------------------------------
-   > confirmation number: 1 (block: 11273567)
-   > confirmation number: 2 (block: 11273568)
+   > confirmation number: 1 (block: 11273662)
+   > confirmation number: 2 (block: 11273663)
    > Saving artifacts
    -------------------------------------
-   > Total cost:     0.001178476508642161 ETH
+   > Total cost:     0.00117847650785651 ETH
 
 
 6_deploy_myToken_factory.js
@@ -608,31 +638,31 @@ Starting migrations...
 
    Deploying 'MyTokenFactory'
    --------------------------
-   > transaction hash:    0x4dbb3e85bf0dcaef34253cf8fc511c85a1672073b2d58cad08829ad8dbca02fb
-   > Blocks: 1            Seconds: 9
-   > contract address:    0x5C0ae4f8d50F5Cf4B21e1dd84fc58DA5160c62B4
-   > block number:        11273569
-   > block timestamp:     1661570727
+   > transaction hash:    0x13a016c2023a1fafcfb317006791aa6bd1359ff8229e9fb6683813047c2d4d50
+   > Blocks: 2            Seconds: 21
+   > contract address:    0x5a61d594351d4754D6496b5B51237b3eCb8d1E34
+   > block number:        11273665
+   > block timestamp:     1661572167
    > account:             0x51908F598A5e0d8F1A3bAbFa6DF76F9704daD072
-   > balance:             155.098651492711054754
+   > balance:             155.074829344532834079
    > gas used:            2781469 (0x2a711d)
-   > gas price:           1.50000001 gwei
+   > gas price:           1.500000011 gwei
    > value sent:          0 ETH
-   > total cost:          0.00417220352781469 ETH
+   > total cost:          0.004172203530596159 ETH
 
    Pausing for 2 confirmations...
    ------------------------------
-   > confirmation number: 1 (block: 11273570)
-   > confirmation number: 2 (block: 11273571)
+   > confirmation number: 1 (block: 11273666)
+   > confirmation number: 2 (block: 11273667)
    > Saving artifacts
    -------------------------------------
-   > Total cost:     0.00417220352781469 ETH
+   > Total cost:     0.004172203530596159 ETH
 
 
 Summary
 =======
-> Total deployments:   6
-> Final cost:          0.019103497637310846 ETH
+> Total deployments:   7
+> Final cost:          0.023822148178220675 ETH
 ```
 =======
 ### DBの起動方法(PostgresSQLの場合)
@@ -712,12 +742,9 @@ Summary
 
 <a href="https://www.i-ryo.com/entry/2021/02/08/065133">【React】JSONデータをJSXに読み込んで表示する</a>
 
-<<<<<<< HEAD
 <a href="https://tabinou.com/archives/2867">【React.js】CRUD作成　Jsonファイルにデータを登録する方法</a>  
 
 <a href="https://github.com/mashharuki/TruffleRinkeby">Rinkebyにコントラクトをデプロイするための専用リポジトリ</a>
-=======
-<a href="https://tabinou.com/archives/2867">【React.js】CRUD作成  Jsonファイルにデータを登録する方法</a>
 
 <a href="https://ipfs.io/">IPFS</a>
 
