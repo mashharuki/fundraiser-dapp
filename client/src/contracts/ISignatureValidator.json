@@ -1,0 +1,561 @@
+{
+  "contractName": "ISignatureValidator",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "bytes",
+          "name": "_data",
+          "type": "bytes"
+        },
+        {
+          "internalType": "bytes",
+          "name": "_signature",
+          "type": "bytes"
+        }
+      ],
+      "name": "isValidSignature",
+      "outputs": [
+        {
+          "internalType": "bytes4",
+          "name": "",
+          "type": "bytes4"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.8.0+commit.c7dfd78e\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"_data\",\"type\":\"bytes\"},{\"internalType\":\"bytes\",\"name\":\"_signature\",\"type\":\"bytes\"}],\"name\":\"isValidSignature\",\"outputs\":[{\"internalType\":\"bytes4\",\"name\":\"\",\"type\":\"bytes4\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{\"isValidSignature(bytes,bytes)\":{\"details\":\"Should return whether the signature provided is valid for the provided data\",\"params\":{\"_data\":\"Arbitrary length data signed on the behalf of address(this)\",\"_signature\":\"Signature byte array associated with _data MUST return the bytes4 magic value 0x20c13b0b when function passes. MUST NOT modify state (using STATICCALL for solc < 0.5, view modifier for solc > 0.5) MUST allow external calls\"}}},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{\"isValidSignature(bytes,bytes)\":{\"notice\":\"\\u7f72\\u540d\\u691c\\u8a3c\\u95a2\\u6570\\u3092\\u547c\\u3073\\u51fa\\u3059\\u3002\"}},\"notice\":\"ISignatureValidator\\u30b3\\u30f3\\u30c8\\u30e9\\u30af\\u30c8\",\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/safeContracts/interfaces/ISignatureValidator.sol\":\"ISignatureValidator\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/safeContracts/interfaces/ISignatureValidator.sol\":{\"keccak256\":\"0xdeda4a77f1b6585257b9bbfad904f41c35fd76925a4fb14226098e61fa1779dc\",\"urls\":[\"bzz-raw://0ebf5bc2860b423be40c1f9c3082fa2df2172eb6b02b3fc55d1d60475124d499\",\"dweb:/ipfs/QmY3NYSubAh8amSYG9bjCssb4GHEXV4pab88nkq3Sgh3XT\"]}},\"version\":1}",
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "immutableReferences": {},
+  "generatedSources": [],
+  "deployedGeneratedSources": [],
+  "sourceMap": "",
+  "deployedSourceMap": "",
+  "source": "/**\n * 署名値を検証するインターフェースをまとめたコントラクト\n */\n\npragma solidity >=0.7.0 <0.9.0;\n\n/**\n * ISignatureValidatorConstantsコントラクト\n */\ncontract ISignatureValidatorConstants {\n    // bytes4(keccak256(\"isValidSignature(bytes,bytes)\")\n    bytes4 internal constant EIP1271_MAGIC_VALUE = 0x20c13b0b;\n}\n\n/**\n * ISignatureValidatorコントラクト\n */\nabstract contract ISignatureValidator is ISignatureValidatorConstants {\n    \n    /**\n     * 署名検証関数を呼び出す。\n     * @dev Should return whether the signature provided is valid for the provided data\n     * @param _data Arbitrary length data signed on the behalf of address(this)\n     * @param _signature Signature byte array associated with _data\n     *\n     * MUST return the bytes4 magic value 0x20c13b0b when function passes.\n     * MUST NOT modify state (using STATICCALL for solc < 0.5, view modifier for solc > 0.5)\n     * MUST allow external calls\n     */\n    function isValidSignature(bytes memory _data, bytes memory _signature) public view virtual returns (bytes4);\n}\n",
+  "sourcePath": "/Users/harukikondo/git/fundraiser-dapp/contracts/safeContracts/interfaces/ISignatureValidator.sol",
+  "ast": {
+    "absolutePath": "project:/contracts/safeContracts/interfaces/ISignatureValidator.sol",
+    "exportedSymbols": {
+      "ISignatureValidator": [
+        11815
+      ],
+      "ISignatureValidatorConstants": [
+        11801
+      ]
+    },
+    "id": 11816,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 11796,
+        "literals": [
+          "solidity",
+          ">=",
+          "0.7",
+          ".0",
+          "<",
+          "0.9",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "94:31:69"
+      },
+      {
+        "abstract": false,
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": {
+          "id": 11797,
+          "nodeType": "StructuredDocumentation",
+          "src": "127:57:69",
+          "text": " ISignatureValidatorConstantsコントラクト"
+        },
+        "fullyImplemented": true,
+        "id": 11801,
+        "linearizedBaseContracts": [
+          11801
+        ],
+        "name": "ISignatureValidatorConstants",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "constant": true,
+            "id": 11800,
+            "mutability": "constant",
+            "name": "EIP1271_MAGIC_VALUE",
+            "nodeType": "VariableDeclaration",
+            "scope": 11801,
+            "src": "286:57:69",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_bytes4",
+              "typeString": "bytes4"
+            },
+            "typeName": {
+              "id": 11798,
+              "name": "bytes4",
+              "nodeType": "ElementaryTypeName",
+              "src": "286:6:69",
+              "typeDescriptions": {
+                "typeIdentifier": "t_bytes4",
+                "typeString": "bytes4"
+              }
+            },
+            "value": {
+              "hexValue": "30783230633133623062",
+              "id": 11799,
+              "isConstant": false,
+              "isLValue": false,
+              "isPure": true,
+              "kind": "number",
+              "lValueRequested": false,
+              "nodeType": "Literal",
+              "src": "333:10:69",
+              "typeDescriptions": {
+                "typeIdentifier": "t_rational_549534475_by_1",
+                "typeString": "int_const 549534475"
+              },
+              "value": "0x20c13b0b"
+            },
+            "visibility": "internal"
+          }
+        ],
+        "scope": 11816,
+        "src": "185:161:69"
+      },
+      {
+        "abstract": true,
+        "baseContracts": [
+          {
+            "baseName": {
+              "id": 11803,
+              "name": "ISignatureValidatorConstants",
+              "nodeType": "IdentifierPath",
+              "referencedDeclaration": 11801,
+              "src": "438:28:69"
+            },
+            "id": 11804,
+            "nodeType": "InheritanceSpecifier",
+            "src": "438:28:69"
+          }
+        ],
+        "contractDependencies": [
+          11801
+        ],
+        "contractKind": "contract",
+        "documentation": {
+          "id": 11802,
+          "nodeType": "StructuredDocumentation",
+          "src": "348:48:69",
+          "text": " ISignatureValidatorコントラクト"
+        },
+        "fullyImplemented": false,
+        "id": 11815,
+        "linearizedBaseContracts": [
+          11815,
+          11801
+        ],
+        "name": "ISignatureValidator",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "documentation": {
+              "id": 11805,
+              "nodeType": "StructuredDocumentation",
+              "src": "478:499:69",
+              "text": " 署名検証関数を呼び出す。\n @dev Should return whether the signature provided is valid for the provided data\n @param _data Arbitrary length data signed on the behalf of address(this)\n @param _signature Signature byte array associated with _data\n MUST return the bytes4 magic value 0x20c13b0b when function passes.\n MUST NOT modify state (using STATICCALL for solc < 0.5, view modifier for solc > 0.5)\n MUST allow external calls"
+            },
+            "functionSelector": "20c13b0b",
+            "id": 11814,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "isValidSignature",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 11810,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 11807,
+                  "mutability": "mutable",
+                  "name": "_data",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 11814,
+                  "src": "1008:18:69",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes_memory_ptr",
+                    "typeString": "bytes"
+                  },
+                  "typeName": {
+                    "id": 11806,
+                    "name": "bytes",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1008:5:69",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes_storage_ptr",
+                      "typeString": "bytes"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 11809,
+                  "mutability": "mutable",
+                  "name": "_signature",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 11814,
+                  "src": "1028:23:69",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes_memory_ptr",
+                    "typeString": "bytes"
+                  },
+                  "typeName": {
+                    "id": 11808,
+                    "name": "bytes",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1028:5:69",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes_storage_ptr",
+                      "typeString": "bytes"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1007:45:69"
+            },
+            "returnParameters": {
+              "id": 11813,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 11812,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 11814,
+                  "src": "1082:6:69",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes4",
+                    "typeString": "bytes4"
+                  },
+                  "typeName": {
+                    "id": 11811,
+                    "name": "bytes4",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1082:6:69",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes4",
+                      "typeString": "bytes4"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1081:8:69"
+            },
+            "scope": 11815,
+            "src": "982:108:69",
+            "stateMutability": "view",
+            "virtual": true,
+            "visibility": "public"
+          }
+        ],
+        "scope": 11816,
+        "src": "397:695:69"
+      }
+    ],
+    "src": "94:999:69"
+  },
+  "legacyAST": {
+    "absolutePath": "project:/contracts/safeContracts/interfaces/ISignatureValidator.sol",
+    "exportedSymbols": {
+      "ISignatureValidator": [
+        11815
+      ],
+      "ISignatureValidatorConstants": [
+        11801
+      ]
+    },
+    "id": 11816,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 11796,
+        "literals": [
+          "solidity",
+          ">=",
+          "0.7",
+          ".0",
+          "<",
+          "0.9",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "94:31:69"
+      },
+      {
+        "abstract": false,
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": {
+          "id": 11797,
+          "nodeType": "StructuredDocumentation",
+          "src": "127:57:69",
+          "text": " ISignatureValidatorConstantsコントラクト"
+        },
+        "fullyImplemented": true,
+        "id": 11801,
+        "linearizedBaseContracts": [
+          11801
+        ],
+        "name": "ISignatureValidatorConstants",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "constant": true,
+            "id": 11800,
+            "mutability": "constant",
+            "name": "EIP1271_MAGIC_VALUE",
+            "nodeType": "VariableDeclaration",
+            "scope": 11801,
+            "src": "286:57:69",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_bytes4",
+              "typeString": "bytes4"
+            },
+            "typeName": {
+              "id": 11798,
+              "name": "bytes4",
+              "nodeType": "ElementaryTypeName",
+              "src": "286:6:69",
+              "typeDescriptions": {
+                "typeIdentifier": "t_bytes4",
+                "typeString": "bytes4"
+              }
+            },
+            "value": {
+              "hexValue": "30783230633133623062",
+              "id": 11799,
+              "isConstant": false,
+              "isLValue": false,
+              "isPure": true,
+              "kind": "number",
+              "lValueRequested": false,
+              "nodeType": "Literal",
+              "src": "333:10:69",
+              "typeDescriptions": {
+                "typeIdentifier": "t_rational_549534475_by_1",
+                "typeString": "int_const 549534475"
+              },
+              "value": "0x20c13b0b"
+            },
+            "visibility": "internal"
+          }
+        ],
+        "scope": 11816,
+        "src": "185:161:69"
+      },
+      {
+        "abstract": true,
+        "baseContracts": [
+          {
+            "baseName": {
+              "id": 11803,
+              "name": "ISignatureValidatorConstants",
+              "nodeType": "IdentifierPath",
+              "referencedDeclaration": 11801,
+              "src": "438:28:69"
+            },
+            "id": 11804,
+            "nodeType": "InheritanceSpecifier",
+            "src": "438:28:69"
+          }
+        ],
+        "contractDependencies": [
+          11801
+        ],
+        "contractKind": "contract",
+        "documentation": {
+          "id": 11802,
+          "nodeType": "StructuredDocumentation",
+          "src": "348:48:69",
+          "text": " ISignatureValidatorコントラクト"
+        },
+        "fullyImplemented": false,
+        "id": 11815,
+        "linearizedBaseContracts": [
+          11815,
+          11801
+        ],
+        "name": "ISignatureValidator",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "documentation": {
+              "id": 11805,
+              "nodeType": "StructuredDocumentation",
+              "src": "478:499:69",
+              "text": " 署名検証関数を呼び出す。\n @dev Should return whether the signature provided is valid for the provided data\n @param _data Arbitrary length data signed on the behalf of address(this)\n @param _signature Signature byte array associated with _data\n MUST return the bytes4 magic value 0x20c13b0b when function passes.\n MUST NOT modify state (using STATICCALL for solc < 0.5, view modifier for solc > 0.5)\n MUST allow external calls"
+            },
+            "functionSelector": "20c13b0b",
+            "id": 11814,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "isValidSignature",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 11810,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 11807,
+                  "mutability": "mutable",
+                  "name": "_data",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 11814,
+                  "src": "1008:18:69",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes_memory_ptr",
+                    "typeString": "bytes"
+                  },
+                  "typeName": {
+                    "id": 11806,
+                    "name": "bytes",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1008:5:69",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes_storage_ptr",
+                      "typeString": "bytes"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 11809,
+                  "mutability": "mutable",
+                  "name": "_signature",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 11814,
+                  "src": "1028:23:69",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes_memory_ptr",
+                    "typeString": "bytes"
+                  },
+                  "typeName": {
+                    "id": 11808,
+                    "name": "bytes",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1028:5:69",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes_storage_ptr",
+                      "typeString": "bytes"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1007:45:69"
+            },
+            "returnParameters": {
+              "id": 11813,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 11812,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 11814,
+                  "src": "1082:6:69",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes4",
+                    "typeString": "bytes4"
+                  },
+                  "typeName": {
+                    "id": 11811,
+                    "name": "bytes4",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1082:6:69",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes4",
+                      "typeString": "bytes4"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1081:8:69"
+            },
+            "scope": 11815,
+            "src": "982:108:69",
+            "stateMutability": "view",
+            "virtual": true,
+            "visibility": "public"
+          }
+        ],
+        "scope": 11816,
+        "src": "397:695:69"
+      }
+    ],
+    "src": "94:999:69"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.8.0+commit.c7dfd78e.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.4.4",
+  "updatedAt": "2022-08-27T03:43:57.127Z",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {
+      "isValidSignature(bytes,bytes)": {
+        "details": "Should return whether the signature provided is valid for the provided data",
+        "params": {
+          "_data": "Arbitrary length data signed on the behalf of address(this)",
+          "_signature": "Signature byte array associated with _data MUST return the bytes4 magic value 0x20c13b0b when function passes. MUST NOT modify state (using STATICCALL for solc < 0.5, view modifier for solc > 0.5) MUST allow external calls"
+        }
+      }
+    },
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {
+      "isValidSignature(bytes,bytes)": {
+        "notice": "署名検証関数を呼び出す。"
+      }
+    },
+    "notice": "ISignatureValidatorコントラクト",
+    "version": 1
+  }
+}

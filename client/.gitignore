@@ -24,7 +24,4 @@ yarn-error.log*
 
 ./package-lock.json
 
-# contracts
-/src/contracts
-
 .env

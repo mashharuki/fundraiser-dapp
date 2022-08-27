@@ -20,7 +20,7 @@ import Collection from "./nft/Collection";
 import Web3Menu from "./common/Web3Menu";
 import Swap from "./swap/Swap";
 import CreatePool from "./swap/CreatePool";
-import FundraiserFactoryContract from "./contracts/FundraiserFactory";
+import FundraiserFactoryContract from "./contracts/FundraiserFactory.json";
 // material-ui関連をインポートする。
 import AppBar  from '@mui/material/AppBar';
 import Toolbar  from '@mui/material/Toolbar';
