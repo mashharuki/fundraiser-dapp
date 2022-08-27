@@ -8491,7 +8491,6 @@
   "integrity" "sha512-uPSF6lAJb3nSePJ43hN3eKj1dTWpN9gMod0ZssbFTIsen+WehTmEadgL+kg78xLJFdRfrrC//SavDzmRVdE+Ig=="
   "resolved" "https://registry.npmjs.org/history/-/history-5.2.0.tgz"
   "version" "5.2.0"
->>>>>>> 297bde376e62e4596dedb2da56cabac040517761
   dependencies:
     "@babel/runtime" "^7.7.6"
 
@@ -13179,7 +13178,6 @@
   "integrity" "sha512-fiE+PzFTrof5q8Z/+RHzuiin9/U/q5KY2adlHClwYexbY0DqJnHcC/0U9yv3Amz9em2/bcK7X8mk7+zxB+qhvg=="
   "resolved" "https://registry.npmjs.org/react-router-dom/-/react-router-dom-6.0.1.tgz"
   "version" "6.0.1"
->>>>>>> 297bde376e62e4596dedb2da56cabac040517761
   dependencies:
     "history" "^5.2.0"
     "react-router" "6.2.1"

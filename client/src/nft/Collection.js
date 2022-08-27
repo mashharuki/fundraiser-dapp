@@ -6,16 +6,13 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom"; 
 import Web3 from 'web3';
-<<<<<<< HEAD
 import NFTFactoryContract from './../contracts/NFTFactory.json';
 import detectEthereumProvider from '@metamask/detect-provider';
 import CollectionCard from './CollectionCard';
-=======
 import NFTContract from './../contracts/NFT.json';
 import detectEthereumProvider from '@metamask/detect-provider';
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
->>>>>>> 297bde376e62e4596dedb2da56cabac040517761
 import UseStyles from "../common/useStyles";
 // Cardコンポーネントを読み込む
 import Card from "@mui/material/Card";

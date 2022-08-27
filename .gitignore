@@ -6,7 +6,6 @@ node_modules/
 # TLS通信のための設定ファイル
 /backend/server/tls/privatekey.pem
 
-<<<<<<< HEAD
 # 環境変数用の設定ファイル
 .env
 =======
@@ -14,4 +13,3 @@ node_modules/
 .env
 .DS_Store
 .DS_Store
->>>>>>> 297bde376e62e4596dedb2da56cabac040517761

@@ -420,7 +420,6 @@ gasが足りない時に発生するため、設定を見直すこと。send()�
 
 ※SafeContractのエラー詳細についてはこちらを<a href="https://github.com/gnosis/safe-contracts/blob/main/docs/error_codes.md">参照</a>。
 
-<<<<<<< HEAD
 4. `Error: Could not find artifacts for Migrations from any sources`
   コントラクトデプロイ時にコントラクトが見つからないと行っている・・  
   2022年4月19日現在、rinkebyとgoerliにデプロイしようとするとこのエラーが出る。  
@@ -643,7 +642,6 @@ Summary
 
  #### 停止
    `brew services stop postgresql`
->>>>>>> 297bde376e62e4596dedb2da56cabac040517761
 
 ### GitHub Actions設定(調整中)
 
@@ -728,4 +726,3 @@ Summary
 <a href="https://js.ipfs.io/">JS IPFS</a>  
 
 <a href="https://www.bunzz.dev/">Bunzzの公式サイト</a>
->>>>>>> 297bde376e62e4596dedb2da56cabac040517761
