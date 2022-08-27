@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route, NavLink } from "react-router-dom";
-import FundraiserFactoryContract from "./contracts/FundraiserFactory.json";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import getWeb3 from "./getWeb3";
 import "./App.css";
 import UseStyles from "./common/useStyles";
@@ -21,6 +20,7 @@ import Collection from "./nft/Collection";
 import Web3Menu from "./common/Web3Menu";
 import Swap from "./swap/Swap";
 import CreatePool from "./swap/CreatePool";
+import FundraiserFactoryContract from "./contracts/FundraiserFactory.json";
 // material-ui関連をインポートする。
 import AppBar  from '@mui/material/AppBar';
 import Toolbar  from '@mui/material/Toolbar';
