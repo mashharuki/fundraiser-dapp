@@ -7,7 +7,10 @@
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "migrate:rinkeby": "truffle migrate --network rinkeby",
+    "start": "cd client && npm run start",
+    "build": "cd client && npm run build"
   },
   "repository": {
     "type": "git",

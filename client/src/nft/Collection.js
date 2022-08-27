@@ -6,9 +6,6 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom"; 
 import Web3 from 'web3';
-import NFTFactoryContract from './../contracts/NFTFactory.json';
-import detectEthereumProvider from '@metamask/detect-provider';
-import CollectionCard from './CollectionCard';
 import NFTContract from './../contracts/NFT.json';
 import detectEthereumProvider from '@metamask/detect-provider';
 import Box from "@mui/material/Box";
