@@ -110,6 +110,14 @@ solcのバージョン情報等については、truffle-config.jsを参照く�
     <a href="https://ecouffes.github.io/smart-contract-best-practices/security_tools/">Ethereum Smart Contract Best Practices</a>などのベストプラクティスなどを  
     参考にして開発を進めると良いと考えている。
 
+### 7. ABI(Application Binary Interface)
+    ABIとは、バイナリーファイル(実行形式ファイル)へのアクセスに対して互換性を与えるもの。  
+    スマートコントラクトは、EVM上で実行可能なバイナリーファイルとなっており、コンパイル時に生成されるJSONファイルにはReact.jsなどを利用して構築されたクライアントアプリからWeb3.jsなどのライブラリをTransactionを介してやり取りを行う方法について互換性を与えるための定義が記述されている。この中身は、コントラクトの機能を外部から呼び出すための標準化された方法が記述されており、ether.jsやweb3.jsなどのライブラリがABIに準拠したデータ構造で呼び出しを行うことで。ブロックチェーン上にあるコントラクトの任意の機能にアクセスすることができる。
+
+### 8. EVM (イーサリアム仮想マシン)
+    solidityなどの高級言語で記述されたソースコードをイーサリアム上でも実行できるバイトコードに変換する翻訳機のこと。  
+    コントラクトコードはこのEVMを介して実行される。(逆にEVM互換性があればイーサリアムでなくともsolidityで記述したスマートコントラクトをマイグレーションすることができる。Astar Network等)
+
 ## 画面例
 ### 1. ホーム画面
 <img src="./img/home.png" />
@@ -162,7 +170,7 @@ solcのバージョン情報等については、truffle-config.jsを参照く�
 
 ## テストコードを実行するコマンド(fundraiser-dappフォルダ直下で実行する)
 
-`truffle test`
+   `truffle test`
 
 うまくいけば下記の様に全てのテスト項目がpassされる。(2022年5月7日時点)  
 ※ テスト項目については、不足している箇所がある。
@@ -287,6 +295,7 @@ solcのバージョン情報等については、truffle-config.jsを参照く�
    `truffle migrate --network develop`  
    なお、マイグレーションしたいファイルを指定する場合は下記のように打ち込む  
    <b>※ M1 チップ搭載のMacBookで実行する場合は、sudoをつけて実行すること</b>
+
    `truffle migrate --f 2 --to 3`  
    (client/contracts/ 配下に「コントラクト名.json」ができていれば成功。) 
 
@@ -294,6 +303,77 @@ solcのバージョン情報等については、truffle-config.jsを参照く�
    `truffle compile --network rinkeby`  
    `truffle migrate --network rinkeby`  
    (client/contracts/ 配下に「コントラクト名.json」ができていれば成功。) 
+
+### Rinkebyなどのテストネット上にデプロイする前にやるべきこと
+   1. ニーモニックコード用の環境変数を.envファイルに追記する。  
+      `MNEMONIC="<自分のMetaMaskのニーモニックフレーズ>"`
+   2. INFURAのプロジェクトID用の環境変数を.envファイルに追記する。  
+      `INFURA_PROJECT_ID=<自分のINFURAプロジェクトID>`
+   3. truffle-config.jsにrinkeby用のネットワーク設定を追加する。
+
+   ```js
+      // 必要なモジュールをインポート
+      require('dotenv').config();
+      const HDWalletProvider = require('truffle-hdwallet-provider');
+
+      // Rinkeby用
+      rinkeby: {
+         provider: () => {
+            const mnenonic = process.env.MNEMONIC;
+            const project_id = process.env.INFURA_PROJECT_ID;
+            return new HDWalletProvider(
+               mnenonic,
+               `https://rinkeby.infura.io/v3/${project_id}`
+            );
+         },
+         network_id: 4,
+      },
+   ```
+
+### MyTokenをデプロイする場合
+    @openzeppelin/contracts配下の「ERC20.sol」ファイルに少し修正が必要。
+
+   <strong>修正点1</strong>
+   ```
+     // 変数を追加 
+     uint8 private _decimals;
+   ```
+
+   <strong>修正点2</strong>
+   ```
+     // コンストラクターの定義を変更する。
+     constructor(string memory name_, string memory symbol_, uint8 decimals_) {
+        _name = name_;
+        _symbol = symbol_;
+        // 桁数を設定する。
+        _setupDecimal(decimals_);
+      }
+   ```
+   <strong>修正点3</strong>
+   ```
+     // 桁数を変更するためのメソッドを追加する。
+     /**
+      * 小数点桁数を設定するための関数
+      * @param value 設定する桁数
+      */
+      function _setupDecimal(uint8 value) internal {
+         _decimals = value;
+      }
+   ```
+
+### hardhatを使ってビルドとデプロイを行う場合
+   「backend/hardhat」配下で下記コマンドを実行  
+   1. `npx hardhat compile`
+   2. `npx hardhat run scripts/deploy.js --network rinkeby`
+
+   デプロイに成功する下記のようなものがコンソール上に表示される
+   ```bash
+      FundraiserFactory deployed to: 0x174387193854254F0d7bB7808EF36D6FeeffCdbf
+   ```
+
+### Rinkebyにデプロイしたコントラクトのアドレス
+   1. FundraiserFactory: 0x174387193854254F0d7bB7808EF36D6FeeffCdbf
+   2. 
 
 ## 事前にやっておくこと
 
@@ -340,6 +420,222 @@ gasが足りない時に発生するため、設定を見直すこと。send()�
 
 ※SafeContractのエラー詳細についてはこちらを<a href="https://github.com/gnosis/safe-contracts/blob/main/docs/error_codes.md">参照</a>。
 
+<<<<<<< HEAD
+4. `Error: Could not find artifacts for Migrations from any sources`
+  コントラクトデプロイ時にコントラクトが見つからないと行っている・・  
+  2022年4月19日現在、rinkebyとgoerliにデプロイしようとするとこのエラーが出る。  
+  ローカルのブロックチェーンにデプロイする時には問題なくできるが原因はわからず。。
+
+### Rinkebyへのデプロイの記録
+
+```
+9_deploy_myToken_factory.js
+===========================
+
+   Deploying 'MyTokenFactory'
+   --------------------------
+   > transaction hash:    0x07f51fc1acc33c549076a841e090e5b7f9fa137a7864db028aa09e244e69b651
+   > Blocks: 0            Seconds: 5
+   > contract address:    0x569e692993BfB66304Edb5aCB5B4e18c8A77Bcb4
+   > block number:        10433154
+   > block timestamp:     1648887649
+   > account:             0x51908F598A5e0d8F1A3bAbFa6DF76F9704daD072
+   > balance:             144.757575357593868517
+   > gas used:            2781469 (0x2a711d)
+   > gas price:           20 gwei
+   > value sent:          0 ETH
+   > total cost:          0.05562938 ETH
+
+2_deploy_fundraiser_factory.js
+==============================
+
+  Deploying 'FundraiserFactory'
+   -----------------------------
+   > transaction hash:    0x0416925ce57bff0d948c3f01506602e9e6f46999ae87736bedec65f5e0a618f6
+   > Blocks: 2            Seconds: 21
+   > contract address:    0xA2828D0Ea000B7098a6D1b6Ff31A97a3421464E1
+   > block number:        10433170
+   > block timestamp:     1648887889
+   > account:             0x51908F598A5e0d8F1A3bAbFa6DF76F9704daD072
+   > balance:             144.732332497593868517
+   > gas used:            1262143 (0x13423f)
+   > gas price:           20 gwei
+   > value sent:          0 ETH
+   > total cost:          0.02524286 ETH
+```
+
+全てのコントラクトのデプロイ記録
+
+```bash
+Starting migrations...
+======================
+> Network name:    'rinkeby'
+> Network id:      4
+> Block gas limit: 30000000 (0x1c9c380)
+
+
+1_deploy_fundraiser_factory.js
+==============================
+
+   Deploying 'FundraiserFactory'
+   -----------------------------
+   > transaction hash:    0xdc61fbdfcc44d8aa5228dba32500d572d4dc5e624d955b58f9601147f8ffb87f
+   > Blocks: 1            Seconds: 13
+   > contract address:    0x72d3965a203fe5fCb70d20de6B71fFcAa2Ef500D
+   > block number:        11273553
+   > block timestamp:     1661570487
+   > account:             0x51908F598A5e0d8F1A3bAbFa6DF76F9704daD072
+   > balance:             155.115861757834481895
+   > gas used:            1262155 (0x13424b)
+   > gas price:           1.500000011 gwei
+   > value sent:          0 ETH
+   > total cost:          0.001893232513883705 ETH
+
+   Pausing for 2 confirmations...
+   ------------------------------
+   > confirmation number: 1 (block: 11273554)
+   > confirmation number: 2 (block: 11273555)
+   > Saving artifacts
+   -------------------------------------
+   > Total cost:     0.001893232513883705 ETH
+
+
+2_deploy_NFT_factory.js
+=======================
+
+   Deploying 'NFTFactory'
+   ----------------------
+   > transaction hash:    0xc84e5af0a6b1938ee4d43bd6d378d45592ce451722149fadc9b9cb3937bf3adb
+   > Blocks: 1            Seconds: 9
+   > contract address:    0xC9E2718b4916D957E0d3cc1253cce8ce91066bFC
+   > block number:        11273556
+   > block timestamp:     1661570532
+   > account:             0x51908F598A5e0d8F1A3bAbFa6DF76F9704daD072
+   > balance:             155.110621107296050458
+   > gas used:            3493767 (0x354f87)
+   > gas price:           1.500000011 gwei
+   > value sent:          0 ETH
+   > total cost:          0.005240650538431437 ETH
+
+   Pausing for 2 confirmations...
+   ------------------------------
+   > confirmation number: 1 (block: 11273557)
+   > confirmation number: 2 (block: 11273558)
+   > Saving artifacts
+   -------------------------------------
+   > Total cost:     0.005240650538431437 ETH
+
+
+3_deploy_multiSig_factory.js
+============================
+
+   Deploying 'MultiSigFactory'
+   ---------------------------
+   > transaction hash:    0x155f400c127f45fe15485067a55eb058e503184b6b1fed955278c311fc0a41c3
+   > Blocks: 1            Seconds: 9
+   > contract address:    0xFF287b132eFACB0EED2067fD8E1079041fd3c9Fe
+   > block number:        11273559
+   > block timestamp:     1661570577
+   > account:             0x51908F598A5e0d8F1A3bAbFa6DF76F9704daD072
+   > balance:             155.108955415783835387
+   > gas used:            1110461 (0x10f1bd)
+   > gas price:           1.500000011 gwei
+   > value sent:          0 ETH
+   > total cost:          0.001665691512215071 ETH
+
+   Pausing for 2 confirmations...
+   ------------------------------
+   > confirmation number: 1 (block: 11273560)
+   > confirmation number: 2 (block: 11273561)
+   > Saving artifacts
+   -------------------------------------
+   > Total cost:     0.001665691512215071 ETH
+
+
+4_deploy_safeContract_factory.js
+================================
+
+   Deploying 'SafeContractFactory'
+   -------------------------------
+   > transaction hash:    0xef7fd00100a493c65ebffac7f9254d78549ea8b853a11c8cc0ad468aa3b18ac1
+   > Blocks: 2            Seconds: 21
+   > contract address:    0xeBd4B2c48C163cC30CDCaCe3B9b2237c7248a4f2
+   > block number:        11273563
+   > block timestamp:     1661570637
+   > account:             0x51908F598A5e0d8F1A3bAbFa6DF76F9704daD072
+   > balance:             155.104002172747511605
+   > gas used:            3302162 (0x326312)
+   > gas price:           1.500000011 gwei
+   > value sent:          0 ETH
+   > total cost:          0.004953243036323782 ETH
+
+   Pausing for 2 confirmations...
+   ------------------------------
+   > confirmation number: 1 (block: 11273564)
+   > confirmation number: 2 (block: 11273565)
+   > Saving artifacts
+   -------------------------------------
+   > Total cost:     0.004953243036323782 ETH
+
+
+5_deploy_safeContractProxy_factory.js
+=====================================
+
+   Deploying 'GnosisSafeProxyFactory'
+   ----------------------------------
+   > transaction hash:    0x7b4ea13c7e015319ca01cd33184fc9149b3811693721baaca186ae64216a4328
+   > Blocks: 0            Seconds: 9
+   > contract address:    0x4e3c709CEB954a649D84C2d2f5B59B99254e6fd6
+   > block number:        11273566
+   > block timestamp:     1661570682
+   > account:             0x51908F598A5e0d8F1A3bAbFa6DF76F9704daD072
+   > balance:             155.102823696238869444
+   > gas used:            785651 (0xbfcf3)
+   > gas price:           1.500000011 gwei
+   > value sent:          0 ETH
+   > total cost:          0.001178476508642161 ETH
+
+   Pausing for 2 confirmations...
+   ------------------------------
+   > confirmation number: 1 (block: 11273567)
+   > confirmation number: 2 (block: 11273568)
+   > Saving artifacts
+   -------------------------------------
+   > Total cost:     0.001178476508642161 ETH
+
+
+6_deploy_myToken_factory.js
+===========================
+
+   Deploying 'MyTokenFactory'
+   --------------------------
+   > transaction hash:    0x4dbb3e85bf0dcaef34253cf8fc511c85a1672073b2d58cad08829ad8dbca02fb
+   > Blocks: 1            Seconds: 9
+   > contract address:    0x5C0ae4f8d50F5Cf4B21e1dd84fc58DA5160c62B4
+   > block number:        11273569
+   > block timestamp:     1661570727
+   > account:             0x51908F598A5e0d8F1A3bAbFa6DF76F9704daD072
+   > balance:             155.098651492711054754
+   > gas used:            2781469 (0x2a711d)
+   > gas price:           1.50000001 gwei
+   > value sent:          0 ETH
+   > total cost:          0.00417220352781469 ETH
+
+   Pausing for 2 confirmations...
+   ------------------------------
+   > confirmation number: 1 (block: 11273570)
+   > confirmation number: 2 (block: 11273571)
+   > Saving artifacts
+   -------------------------------------
+   > Total cost:     0.00417220352781469 ETH
+
+
+Summary
+=======
+> Total deployments:   6
+> Final cost:          0.019103497637310846 ETH
+```
+=======
 ### DBの起動方法(PostgresSQLの場合)
  #### 1.1. macOS の場合
  #### 起動
@@ -347,6 +643,7 @@ gasが足りない時に発生するため、設定を見直すこと。send()�
 
  #### 停止
    `brew services stop postgresql`
+>>>>>>> 297bde376e62e4596dedb2da56cabac040517761
 
 ### GitHub Actions設定(調整中)
 
@@ -417,6 +714,11 @@ gasが足りない時に発生するため、設定を見直すこと。send()�
 
 <a href="https://www.i-ryo.com/entry/2021/02/08/065133">【React】JSONデータをJSXに読み込んで表示する</a>
 
+<<<<<<< HEAD
+<a href="https://tabinou.com/archives/2867">【React.js】CRUD作成　Jsonファイルにデータを登録する方法</a>  
+
+<a href="https://github.com/mashharuki/TruffleRinkeby">Rinkebyにコントラクトをデプロイするための専用リポジトリ</a>
+=======
 <a href="https://tabinou.com/archives/2867">【React.js】CRUD作成  Jsonファイルにデータを登録する方法</a>
 
 <a href="https://ipfs.io/">IPFS</a>
@@ -426,3 +728,4 @@ gasが足りない時に発生するため、設定を見直すこと。send()�
 <a href="https://js.ipfs.io/">JS IPFS</a>  
 
 <a href="https://www.bunzz.dev/">Bunzzの公式サイト</a>
+>>>>>>> 297bde376e62e4596dedb2da56cabac040517761
