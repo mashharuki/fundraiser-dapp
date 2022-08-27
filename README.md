@@ -343,6 +343,178 @@ gasが足りない時に発生するため、設定を見直すこと。send()�
    > total cost:          0.02524286 ETH
 ```
 
+全てのコントラクトのデプロイ記録
+
+```bash
+Starting migrations...
+======================
+> Network name:    'rinkeby'
+> Network id:      4
+> Block gas limit: 30000000 (0x1c9c380)
+
+
+1_deploy_fundraiser_factory.js
+==============================
+
+   Deploying 'FundraiserFactory'
+   -----------------------------
+   > transaction hash:    0xdc61fbdfcc44d8aa5228dba32500d572d4dc5e624d955b58f9601147f8ffb87f
+   > Blocks: 1            Seconds: 13
+   > contract address:    0x72d3965a203fe5fCb70d20de6B71fFcAa2Ef500D
+   > block number:        11273553
+   > block timestamp:     1661570487
+   > account:             0x51908F598A5e0d8F1A3bAbFa6DF76F9704daD072
+   > balance:             155.115861757834481895
+   > gas used:            1262155 (0x13424b)
+   > gas price:           1.500000011 gwei
+   > value sent:          0 ETH
+   > total cost:          0.001893232513883705 ETH
+
+   Pausing for 2 confirmations...
+   ------------------------------
+   > confirmation number: 1 (block: 11273554)
+   > confirmation number: 2 (block: 11273555)
+   > Saving artifacts
+   -------------------------------------
+   > Total cost:     0.001893232513883705 ETH
+
+
+2_deploy_NFT_factory.js
+=======================
+
+   Deploying 'NFTFactory'
+   ----------------------
+   > transaction hash:    0xc84e5af0a6b1938ee4d43bd6d378d45592ce451722149fadc9b9cb3937bf3adb
+   > Blocks: 1            Seconds: 9
+   > contract address:    0xC9E2718b4916D957E0d3cc1253cce8ce91066bFC
+   > block number:        11273556
+   > block timestamp:     1661570532
+   > account:             0x51908F598A5e0d8F1A3bAbFa6DF76F9704daD072
+   > balance:             155.110621107296050458
+   > gas used:            3493767 (0x354f87)
+   > gas price:           1.500000011 gwei
+   > value sent:          0 ETH
+   > total cost:          0.005240650538431437 ETH
+
+   Pausing for 2 confirmations...
+   ------------------------------
+   > confirmation number: 1 (block: 11273557)
+   > confirmation number: 2 (block: 11273558)
+   > Saving artifacts
+   -------------------------------------
+   > Total cost:     0.005240650538431437 ETH
+
+
+3_deploy_multiSig_factory.js
+============================
+
+   Deploying 'MultiSigFactory'
+   ---------------------------
+   > transaction hash:    0x155f400c127f45fe15485067a55eb058e503184b6b1fed955278c311fc0a41c3
+   > Blocks: 1            Seconds: 9
+   > contract address:    0xFF287b132eFACB0EED2067fD8E1079041fd3c9Fe
+   > block number:        11273559
+   > block timestamp:     1661570577
+   > account:             0x51908F598A5e0d8F1A3bAbFa6DF76F9704daD072
+   > balance:             155.108955415783835387
+   > gas used:            1110461 (0x10f1bd)
+   > gas price:           1.500000011 gwei
+   > value sent:          0 ETH
+   > total cost:          0.001665691512215071 ETH
+
+   Pausing for 2 confirmations...
+   ------------------------------
+   > confirmation number: 1 (block: 11273560)
+   > confirmation number: 2 (block: 11273561)
+   > Saving artifacts
+   -------------------------------------
+   > Total cost:     0.001665691512215071 ETH
+
+
+4_deploy_safeContract_factory.js
+================================
+
+   Deploying 'SafeContractFactory'
+   -------------------------------
+   > transaction hash:    0xef7fd00100a493c65ebffac7f9254d78549ea8b853a11c8cc0ad468aa3b18ac1
+   > Blocks: 2            Seconds: 21
+   > contract address:    0xeBd4B2c48C163cC30CDCaCe3B9b2237c7248a4f2
+   > block number:        11273563
+   > block timestamp:     1661570637
+   > account:             0x51908F598A5e0d8F1A3bAbFa6DF76F9704daD072
+   > balance:             155.104002172747511605
+   > gas used:            3302162 (0x326312)
+   > gas price:           1.500000011 gwei
+   > value sent:          0 ETH
+   > total cost:          0.004953243036323782 ETH
+
+   Pausing for 2 confirmations...
+   ------------------------------
+   > confirmation number: 1 (block: 11273564)
+   > confirmation number: 2 (block: 11273565)
+   > Saving artifacts
+   -------------------------------------
+   > Total cost:     0.004953243036323782 ETH
+
+
+5_deploy_safeContractProxy_factory.js
+=====================================
+
+   Deploying 'GnosisSafeProxyFactory'
+   ----------------------------------
+   > transaction hash:    0x7b4ea13c7e015319ca01cd33184fc9149b3811693721baaca186ae64216a4328
+   > Blocks: 0            Seconds: 9
+   > contract address:    0x4e3c709CEB954a649D84C2d2f5B59B99254e6fd6
+   > block number:        11273566
+   > block timestamp:     1661570682
+   > account:             0x51908F598A5e0d8F1A3bAbFa6DF76F9704daD072
+   > balance:             155.102823696238869444
+   > gas used:            785651 (0xbfcf3)
+   > gas price:           1.500000011 gwei
+   > value sent:          0 ETH
+   > total cost:          0.001178476508642161 ETH
+
+   Pausing for 2 confirmations...
+   ------------------------------
+   > confirmation number: 1 (block: 11273567)
+   > confirmation number: 2 (block: 11273568)
+   > Saving artifacts
+   -------------------------------------
+   > Total cost:     0.001178476508642161 ETH
+
+
+6_deploy_myToken_factory.js
+===========================
+
+   Deploying 'MyTokenFactory'
+   --------------------------
+   > transaction hash:    0x4dbb3e85bf0dcaef34253cf8fc511c85a1672073b2d58cad08829ad8dbca02fb
+   > Blocks: 1            Seconds: 9
+   > contract address:    0x5C0ae4f8d50F5Cf4B21e1dd84fc58DA5160c62B4
+   > block number:        11273569
+   > block timestamp:     1661570727
+   > account:             0x51908F598A5e0d8F1A3bAbFa6DF76F9704daD072
+   > balance:             155.098651492711054754
+   > gas used:            2781469 (0x2a711d)
+   > gas price:           1.50000001 gwei
+   > value sent:          0 ETH
+   > total cost:          0.00417220352781469 ETH
+
+   Pausing for 2 confirmations...
+   ------------------------------
+   > confirmation number: 1 (block: 11273570)
+   > confirmation number: 2 (block: 11273571)
+   > Saving artifacts
+   -------------------------------------
+   > Total cost:     0.00417220352781469 ETH
+
+
+Summary
+=======
+> Total deployments:   6
+> Final cost:          0.019103497637310846 ETH
+```
+
 ### GitHub Actions設定(調整中)
 
 1. CodeQL
